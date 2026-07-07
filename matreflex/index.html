@@ -17,10 +17,7 @@
 <style>
   @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/inter-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
   @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/inter-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-  @font-face{font-family:'Fredoka';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-  @font-face{font-family:'Fredoka';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/fraunces-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-  @font-face{font-family:'Fredoka';font-style:normal;font-weight:300 700;font-display:swap;src:url('fonts/fredoka-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-  @font-face{font-family:'Fredoka';font-style:normal;font-weight:300 700;font-display:swap;src:url('fonts/fredoka-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Fredoka';font-style:normal;font-weight:400 800;font-display:swap;src:url('fonts/baloo2.woff2') format('woff2')}
   :root{
     --cream:#F4EFE4; --deep-green:#123F35; --petrol:#1B5C52; --orange:#E8752A; --mustard:#D9A92F;
     --sage:#A8B883; --clay:#D98573; --soft-blue:#DDE8E6;
@@ -177,7 +174,7 @@
   .dots{display:flex; gap:6px; margin-bottom:4px}
   .dot{flex:1; height:5px; border-radius:99px; background:var(--line); transition:.4s}
   .dot.on{background:var(--amber)} .dot.done{background:var(--green)}
-  .center{flex:1; display:flex; flex-direction:column; justify-content:center; gap:20px; transition:opacity .3s var(--ease)}
+  .center{flex:1 0 auto; display:flex; flex-direction:column; justify-content:center; gap:20px; padding-bottom:24px; transition:opacity .3s var(--ease)}
   .eqwrap{display:flex; align-items:center; justify-content:center; padding:24px 16px; min-height:100px; background:var(--surface); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow-sm)}
   .eqline{font-family:'Fredoka',sans-serif; font-weight:500; font-size:clamp(23px,7vw,31px); letter-spacing:-.02em;
     display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; gap:6px; color:var(--ink); white-space:nowrap; max-width:100%}
@@ -286,6 +283,12 @@
   .gfb{text-align:center; font-size:14px; margin-top:16px; min-height:20px; color:var(--ink-soft)}
   .mtans{font-family:'Fredoka'; font-size:40px; text-align:center; color:var(--ink-faint); min-height:50px; letter-spacing:.02em; margin-top:10px}
   .mtans.right{color:var(--green)} .mtans.wrong{color:var(--amber)}
+  .ftfb{min-height:36px; margin-top:10px; display:flex; align-items:center; justify-content:center; gap:11px}
+  .ftmark{display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; font-size:18px; font-weight:700; animation:ftpop .32s var(--spring)}
+  .ftmark.ok{background:color-mix(in srgb,var(--green) 16%,var(--surface)); color:var(--green)}
+  .ftmark.no{background:color-mix(in srgb,var(--amber) 20%,var(--surface)); color:var(--amber)}
+  .ftcorr{font-family:'Fredoka'; font-size:15.5px; color:var(--ink-soft)}
+  @keyframes ftpop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
   .mtpanel{margin-top:14px; opacity:0; transition:opacity .3s}
   .mtpanel.show{opacity:1}
   .pcard{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--green); border-radius:12px; padding:13px 15px; font-size:13.5px; line-height:1.6; color:var(--ink)}
@@ -1226,6 +1229,7 @@
       <div class="center" style="justify-content:flex-start; padding-top:6px">
         <div class="eqwrap" style="min-height:58px"><div class="eqline" id="ftProblem"></div></div>
         <div class="mtans" id="ftAns">?</div>
+        <div class="ftfb" id="ftFb"></div>
         <div class="ftmethod">
           <div class="ftm-label">yöntemin · isteğe bağlı</div>
           <div class="ftchips">
@@ -1409,6 +1413,16 @@
         {t:"156 + 100 = 256", n:"kolay toplama"},
         {t:"256 − <b class='fem'>2</b>", n:"fazladan 2'yi geri al"}
       ], res:"254"},
+      flowByOp:{
+        "+":{ex:"156 + 98", accent:"#E24C5B", steps:[{t:"98 → <b class='fem'>100</b>",n:"yakın yuvarlağa çek"},{t:"156 + 100 = 256",n:"kolay toplama"},{t:"256 − <b class='fem'>2</b>",n:"fazladan eklediğin 2'yi geri al"}], res:"254"},
+        "−":{ex:"340 − 98", accent:"#279B8E", steps:[{t:"98 → <b class='fem'>100</b>",n:"yakın yuvarlağa çek"},{t:"340 − 100 = 240",n:"kolay çıkarma"},{t:"240 + <b class='fem'>2</b>",n:"fazladan çıkardığın 2'yi geri ekle"}], res:"242"},
+        "×":{ex:"7 × 99", accent:"#123F35", steps:[{t:"99 → <b class='fem'>100</b>",n:"yakın yuvarlağa çek"},{t:"7 × 100 = 700",n:"kolay çarpma"},{t:"700 − <b class='fem'>7</b>",n:"bir kez fazla saydığın 7'yi çıkar"}], res:"693"}
+      },
+      leadByOp:{
+        "+":"Zor bir sayı yerine ona yakın yuvarlak bir sayıyla toplarsın; fazladan eklediğini sonra geri alırsın.",
+        "−":"Zor bir sayı yerine ona yakın yuvarlak bir sayıyla çıkarırsın; fazladan çıkardığını sonra geri eklersin.",
+        "×":"Zor bir sayı yerine ona yakın yuvarlak bir sayıyla çarparsın; fazladan saydığın grubu sonra çıkarırsın."
+      },
       lead:"Zor bir sayıyla uğraşmak yerine, ona yakın yuvarlak bir sayıyla işlem yaparsın; aradaki küçük farkı sonra düzeltirsin.",
       why:"Yuvarlak sayılarla (100, 50, 10) toplamak, çıkarmak ve çarpmak çok kolaydır. Sayıyı böyle bir sayıya yaklaştırınca zor kısım kaybolur; geriye yalnızca küçük bir düzeltme kalır.",
       strong:"Sayılardan biri 100, 50, 25 ya da 10'a yakınsa. Örneğin 98, 47, 197.",
@@ -1932,9 +1946,11 @@
     id('againBtn').onclick=function(){ launchSession(key, opFilter); };
     var t=(typeof tools!=='undefined' && tools[key])?tools[key]:{};
     id('mName').textContent=cfg.name;
-    id('mHero').textContent=(t.lead||cfg.intro||'');
+    var _lead=(opFilter && t.leadByOp && t.leadByOp[opFilter]) || t.lead || cfg.intro || '';
+    id('mHero').textContent=_lead;
     var how='';
-    if(t.flow){ var fl=Array.isArray(t.flow)?t.flow:[t.flow]; fl.forEach(function(f){ how+=flowHTML(f); }); }
+    var _flow=(opFilter && t.flowByOp && t.flowByOp[opFilter]) || t.flow;
+    if(_flow){ var fl=Array.isArray(_flow)?_flow:[_flow]; fl.forEach(function(f){ how+=flowHTML(f); }); }
     if(t.tableLink) how+='<button class="tablelink" onclick="show(\''+t.tableLink.screen+'\')"><span>'+t.tableLink.label+'</span><span class="tl-go">›</span></button>';
     how+='<p class="mprose">'+(t.why||cfg.intro||'')+'</p>';
     if(t.strong) how+='<div class="minfo"><span class="mtag good">işine yarar</span>'+t.strong+'</div>';
@@ -2289,18 +2305,46 @@
     var p=ftPool[fti];
     id('ftProblem').textContent=p.a+' '+p.op+' '+p.b;
     var a=id('ftAns'); a.textContent='?'; a.className='mtans';
+    var fb=id('ftFb'); if(fb) fb.innerHTML='';
     document.querySelectorAll('#freeTest .ftchip').forEach(function(c){ c.classList.remove('sel'); });
   }
   function ftPick(key){ if(ftAnswered) return; ftChosen=key;
     document.querySelectorAll('#freeTest .ftchip').forEach(function(c){ c.classList.toggle('sel', c.dataset.m===key); }); }
   function ftTap(d){ if(ftAnswered||ftEntered.length>=5) return; ftEntered+=d; id('ftAns').textContent=ftEntered===''?'?':ftEntered; }
   function ftDel(){ if(ftAnswered) return; ftEntered=ftEntered.slice(0,-1); id('ftAns').textContent=ftEntered===''?'?':ftEntered; }
+  var _actx;
+  function _tone(freqs,dur,vol){
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+      if(!_actx) _actx=new AC();
+      if(_actx.state==='suspended') _actx.resume();
+      var t=_actx.currentTime;
+      freqs.forEach(function(fr,i){
+        var o=_actx.createOscillator(), g=_actx.createGain();
+        o.type='sine'; o.frequency.value=fr;
+        var s=t+i*0.10;
+        g.gain.setValueAtTime(0,s);
+        g.gain.linearRampToValueAtTime(vol,s+0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001,s+dur);
+        o.connect(g); g.connect(_actx.destination);
+        o.start(s); o.stop(s+dur+0.03);
+      });
+    }catch(e){}
+  }
+  function soundCorrect(){ _tone([660,880],0.16,0.10); }
+  function soundWrong(){ _tone([210],0.30,0.09); }
+
   function ftOk(){
     if(ftAnswered||ftEntered==='') return; ftAnswered=true;
     var p=ftPool[fti], ok=(ftEntered===String(p.ans)), an=analyze(p.a,p.op,p.b);
     id('ftAns').className='mtans '+(ok?'right':'wrong');
+    var fb=id('ftFb');
+    if(fb){ fb.innerHTML = ok
+      ? '<span class="ftmark ok">✓</span>'
+      : '<span class="ftmark no">✕</span><span class="ftcorr">doğrusu '+p.ans+'</span>'; }
+    if(ok) soundCorrect(); else soundWrong();
     ftRecords.push({a:p.a,op:p.op,b:p.b,ans:p.ans,correct:ok,chosen:ftChosen,fastest:an.methods[0].key,an:an});
-    setTimeout(function(){ fti++; renderFT(); }, reduce?0:650);
+    setTimeout(function(){ fti++; renderFT(); }, reduce?1200:1750);
   }
   function toggleFtRows(){ var e=id('freeRows'); if(e) e.style.display=(e.style.display==='none'?'block':'none'); }
   function finishFreeTest(){
