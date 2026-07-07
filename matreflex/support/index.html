@@ -16,10 +16,17 @@
   a{color:var(--green)}
   .contact{background:#E6EFEA;border:1px solid #CFE0D7;border-radius:12px;padding:16px 18px;margin:24px 0}
   footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:var(--faint);font-size:13px}
+  .topnav{margin-bottom:26px}
+  .topnav a{color:var(--green);text-decoration:none;font-size:14px;font-weight:600}
+  .topnav a:hover{text-decoration:underline}
+  .footlinks{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 16px}
+  .footlinks a{color:var(--green);text-decoration:none}
+  .footlinks a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <nav class="topnav"><a href="https://zeynepkaya.app/">← Ana sayfa</a></nav>
   <div class="eyebrow">MatReflex</div>
   <h1>Destek ve Sık Sorulanlar</h1>
 
@@ -43,16 +50,21 @@
   <p>İlk açılış internet ister; sonrasında MatReflex çevrimdışı da çalışır. Ana ekrana ekleyip uygulama gibi kullanabilir, alıştırma ve testleri bağlantı olmadan yapabilirsin.</p>
 
   <h2>Verilerim toplanıyor mu?</h2>
-  <p>Hayır. MatReflex hesap açmanı istemez ve ilerlemeni bir sunucuya göndermez. Ayrıntılar için <a href="https://zeynepkaya.app/matreflex/privacy">Gizlilik Politikası</a> sayfasına bakabilirsin.</p>
+  <p>Hayır. MatReflex hesap açmanı istemez ve ilerlemeni bir sunucuya göndermez. Ayrıntılar için <a href="https://zeynepkaya.app/matreflex/privacy/">Gizlilik Politikası</a> sayfasına bakabilirsin.</p>
 
   <h2>Yeni yöntemler eklenecek mi?</h2>
   <p>Evet. MatReflex düzenli olarak yeni kısa yol yöntemleri ve hafıza içerikleriyle güncellenir.</p>
 
- <footer>
-  © 2026 MatReflex ·
-  <a href="https://zeynepkaya.app/matreflex/privacy/">Gizlilik</a> ·
-  <a href="https://zeynepkaya.app/matreflex/terms/">Koşullar</a>
-</footer>
+  <footer>
+    <div class="footlinks">
+      <a href="https://zeynepkaya.app/">zeynepkaya.app</a>
+      <a href="https://zeynepkaya.app/matreflex/">MatReflex</a>
+      <a href="https://zeynepkaya.app/matreflex/privacy/">Gizlilik</a>
+      <a href="https://zeynepkaya.app/matreflex/terms/">Koşullar</a>
+      <a href="https://zeynepkaya.app/matreflex/support/">Destek</a>
+    </div>
+    <div style="margin-top:14px">© 2026 MatReflex</div>
+  </footer>
 </div>
 </body>
 </html>
