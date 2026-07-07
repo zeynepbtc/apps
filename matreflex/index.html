@@ -1815,7 +1815,9 @@
         {a:"200",op:"−",b:"47",fr:"50",comp:"+ 3",ans:"153",near:"47, 50'ye çok yakın.",after:"47'yi <b>50</b> yaptın. Fazladan çıkardığın <span class='amb'>3</span>'ü geri eklersin."},
         {a:"234",op:"+",b:"52",fr:"50",comp:"+ 2",ans:"286",near:"52, 50'ye çok yakın.",after:"52'yi <b>50</b> yaptın. Eksik kalan <span class='amb'>2</span>'yi eklersin."},
         {a:"340",op:"+",b:"198",fr:"200",comp:"− 2",ans:"538",near:"198, 200'e çok yakın.",after:"198'i <b>200</b> yaptın. Fazladan eklediğin <span class='amb'>2</span>'yi geri alırsın."},
-        {a:"3",op:"×",b:"199",fr:"200",comp:"− 3",ans:"597",near:"199, 200'e çok yakın.",after:"199'u <b>200</b> yaptın. 3 × 200 = 600, sonra bir kez <span class='amb'>3</span> çıkarırsın."}
+        {a:"3",op:"×",b:"199",fr:"200",comp:"− 3",ans:"597",near:"199, 200'e çok yakın.",after:"199'u <b>200</b> yaptın. 3 × 200 = 600, sonra bir kez <span class='amb'>3</span> çıkarırsın."},
+        {a:"430",op:"−",b:"52",fr:"50",comp:"− 2",ans:"378",near:"52, 50'ye çok yakın.",after:"52'yi <b>50</b> yaptın. 2 eksik çıkardın, o <span class='amb'>2</span>'yi de çıkarırsın."},
+        {a:"623",op:"−",b:"297",fr:"300",comp:"+ 3",ans:"326",near:"297, 300'e çok yakın.",after:"297'yi <b>300</b> yaptın. Fazladan çıkardığın <span class='amb'>3</span>'ü geri eklersin."}
       ]},
     double:{ name:"İkile-Yarıla", type:"double",
       intro:"Bir çarpanı yarıya inince diğeri iki katına çıkar. Çarpım değişmez, sayılar yuvarlağa döner ve iş kolaylaşır.",
@@ -1921,11 +1923,13 @@
   function renderDots(){ var h=''; for(var k=0;k<sequence.length;k++){h+='<span class="dot'+(k<cur?' done':k===cur?' on':'')+'"></span>';} id('dots').innerHTML=h; }
 
   var ti=0;
-  function launchSession(key){
+  function launchSession(key, opFilter){
     cfg=methods[key]; curMethodKey=key;
-    chosen=shuffle(cfg.pool).slice(0,4); sequence=[0,1,2,3]; cur=0; requeued={}; revisits=0;
+    var pool=cfg.pool;
+    if(opFilter){ var pf=pool.filter(function(it){ return (it.op||'×')===opFilter; }); if(pf.length) pool=pf; }
+    chosen=shuffle(pool).slice(0,4); sequence=chosen.map(function(_,i){return i;}); cur=0; requeued={}; revisits=0;
     id('methodName').textContent=cfg.name; id('teachName').textContent=cfg.name;
-    id('againBtn').onclick=function(){ launchSession(key); };
+    id('againBtn').onclick=function(){ launchSession(key, opFilter); };
     var t=(typeof tools!=='undefined' && tools[key])?tools[key]:{};
     id('mName').textContent=cfg.name;
     id('mHero').textContent=(t.lead||cfg.intro||'');
@@ -2394,10 +2398,10 @@
   function TOPIC_GO(i){ var t=TOPICS[i]; if(!t) return; if(t.kind==='s') openMem(t.key); else launchSession(t.key); }
   /* ---------- öğren: işlem > yöntemler ---------- */
   var OPS={
-    toplama:{t:'Toplama', methods:[{n:'Referans Sayılar',s:'yuvarla, telafi et',c:'var(--coral)',a:function(){launchSession('ref');}}]},
-    cikarma:{t:'Çıkarma', methods:[{n:'Referans Sayılar',s:'yuvarla, telafi et',c:'var(--teal)',a:function(){launchSession('ref');}}]},
+    toplama:{t:'Toplama', methods:[{n:'Referans Sayılar',s:'yuvarla, telafi et',c:'var(--coral)',a:function(){launchSession('ref','+');}}]},
+    cikarma:{t:'Çıkarma', methods:[{n:'Referans Sayılar',s:'yuvarla, telafi et',c:'var(--teal)',a:function(){launchSession('ref','−');}}]},
     carpma:{t:'Çarpma', methods:[
-      {n:'Referans Sayılar',s:'yakın dost sayıya yuvarla',c:'var(--dark)',a:function(){launchSession('ref');}},
+      {n:'Referans Sayılar',s:'yakın dost sayıya yuvarla',c:'var(--dark)',a:function(){launchSession('ref','×');}},
       {n:'İkile-Yarıla',s:'birini ikile, diğerini yarıla',c:'var(--dark)',a:function(){launchSession('double');}},
       {n:'Onluk İkizler',s:'birler 10, onlar eşit',c:'var(--dark)',a:function(){launchSession('twins');}},
       {n:'Onbir Çarpımı',s:'11 ile araya topla',c:'var(--dark)',a:function(){launchSession('eleven');}},
