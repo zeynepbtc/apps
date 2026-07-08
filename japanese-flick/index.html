@@ -665,6 +665,12 @@ body{
 .setcard.c0{background:var(--teal)}.setcard.c1{background:var(--orange)}.setcard.c2{background:var(--brick)}.setcard.c3{background:var(--brown)}.setcard.c4{background:#a9762f}
 .mixchip{padding:9px 13px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);font-weight:800;font-size:16px;cursor:pointer;font-family:var(--jp);color:var(--ink)}
 .mixchip.on{background:var(--teal);color:var(--on);border-color:var(--teal)}
+.dex-lvl{display:flex;justify-content:space-between;align-items:center;margin:16px 4px 8px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.dex-lvlname{font-weight:900;font-size:15px;color:var(--ink)}
+.dex-prog{font-size:12px;font-weight:800;color:var(--teal)}
+.dex-locked{display:flex;flex-wrap:wrap;gap:6px;margin:8px 4px 6px}
+.dex-q{width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:var(--ink);opacity:.4;font-weight:900;font-size:16px}
+.newword{text-align:center;color:var(--teal);font-weight:800;font-size:13px;margin-top:8px}
 </style>
 </head>
 <body>
@@ -1041,9 +1047,10 @@ const TTS = (()=>{
       if(!text) return;
       let src=null;
       const nk=(text||'').replace(/[\s\u3000。、！？・…!?.,]+/g,'');
-      const K=AUDIO_KANA[text]||AUDIO_KANA[nk];
-      const W=AUDIO_WORD[text]||AUDIO_WORD[nk];
-      const P=AUDIO_PHRASE[text]||AUDIO_PHRASE[nk];
+      const kh=nk.replace(/[\u30A1-\u30F6]/g,c=>String.fromCharCode(c.charCodeAt(0)-0x60)); // katakana -> hiragana (aynı ses)
+      const K=AUDIO_KANA[text]||AUDIO_KANA[nk]||AUDIO_KANA[kh];
+      const W=AUDIO_WORD[text]||AUDIO_WORD[nk]||AUDIO_WORD[kh];
+      const P=AUDIO_PHRASE[text]||AUDIO_PHRASE[nk]||AUDIO_PHRASE[kh];
       if(K) src='audio/kana/'+K+'.mp3';
       else if(W) src='audio/word/'+W+'.mp3';
       else if(P) src='audio/phrase/'+P+'.mp3';
@@ -1230,6 +1237,8 @@ const VOCAB = [
  ['ミルク','','miruku','süt',true],
  ['サンドイッチ','','sandoicchi','sandviç',true]
 ];
+const WORDDEX = [{k:"にほんご",r:"nihongo",t:"Japonca (dil)",l:"N5"},{k:"ありがとう",r:"arigatou",t:"teşekkürler",l:"N5"},{k:"すみません",r:"sumimasen",t:"affedersiniz / pardon",l:"N5"},{k:"こんにちは",r:"konnichiwa",t:"merhaba (gündüz)",l:"N5"},{k:"おはよう",r:"ohayou",t:"günaydın",l:"N5"},{k:"おいしい",r:"oishii",t:"lezzetli",l:"N5"},{k:"すき",r:"suki",t:"sevmek / hoşlanmak",l:"N5"},{k:"えき",r:"eki",t:"istasyon",l:"N5"},{k:"みず",r:"mizu",t:"su",l:"N5"},{k:"ねこ",r:"neko",t:"kedi",l:"N5"},{k:"いぬ",r:"inu",t:"köpek",l:"N5"},{k:"やま",r:"yama",t:"dağ",l:"N5"},{k:"かわ",r:"kawa",t:"nehir",l:"N5"},{k:"ひと",r:"hito",t:"insan",l:"N5"},{k:"がくせい",r:"gakusei",t:"öğrenci",l:"N5"},{k:"なまえ",r:"namae",t:"isim",l:"N5"},{k:"カメラ",r:"kamera",t:"kamera",l:"N5"},{k:"ホテル",r:"hoteru",t:"otel",l:"N5"},{k:"コーヒー",r:"koohii",t:"kahve",l:"N5"},{k:"スマホ",r:"sumaho",t:"akıllı telefon",l:"N5"},{k:"レストラン",r:"resutoran",t:"restoran",l:"N5"},{k:"タクシー",r:"takushii",t:"taksi",l:"N5"},{k:"パン",r:"pan",t:"ekmek",l:"N5"},{k:"ジュース",r:"juusu",t:"meyve suyu",l:"N5"},{k:"おちゃ",r:"ocha",t:"çay",l:"N5"},{k:"バナナ",r:"banana",t:"muz",l:"N5"},{k:"りんご",r:"ringo",t:"elma",l:"N5"},{k:"ミルク",r:"miruku",t:"süt",l:"N5"},{k:"サンドイッチ",r:"sandoicchi",t:"sandviç",l:"N5"},{k:"とり",r:"tori",t:"kuş",l:"N5"},{k:"うま",r:"uma",t:"at",l:"N5"},{k:"うし",r:"ushi",t:"inek",l:"N5"},{k:"さかな",r:"sakana",t:"balık",l:"N5"},{k:"くま",r:"kuma",t:"ayı",l:"N5"},{k:"さる",r:"saru",t:"maymun",l:"N5"},{k:"とら",r:"tora",t:"kaplan",l:"N5"},{k:"へび",r:"hebi",t:"yılan",l:"N5"},{k:"かめ",r:"kame",t:"kaplumbağa",l:"N5"},{k:"ねずみ",r:"nezumi",t:"fare",l:"N5"},{k:"きつね",r:"kitsune",t:"tilki",l:"N5"},{k:"あり",r:"ari",t:"karınca",l:"N5"},{k:"はち",r:"hachi",t:"arı",l:"N5"},{k:"たまご",r:"tamago",t:"yumurta",l:"N5"},{k:"いちご",r:"ichigo",t:"çilek",l:"N5"},{k:"にく",r:"niku",t:"et",l:"N5"},{k:"やさい",r:"yasai",t:"sebze",l:"N5"},{k:"くだもの",r:"kudamono",t:"meyve",l:"N5"},{k:"そら",r:"sora",t:"gökyüzü",l:"N5"},{k:"うみ",r:"umi",t:"deniz",l:"N5"},{k:"はな",r:"hana",t:"çiçek",l:"N5"},{k:"つき",r:"tsuki",t:"ay",l:"N5"},{k:"ほし",r:"hoshi",t:"yıldız",l:"N5"},{k:"あめ",r:"ame",t:"yağmur",l:"N5"},{k:"ゆき",r:"yuki",t:"kar",l:"N5"},{k:"かぜ",r:"kaze",t:"rüzgâr",l:"N5"},{k:"いえ",r:"ie",t:"ev",l:"N5"},{k:"みせ",r:"mise",t:"dükkân",l:"N5"},{k:"くるま",r:"kuruma",t:"araba",l:"N5"},{k:"みち",r:"michi",t:"yol",l:"N5"},{k:"まち",r:"machi",t:"şehir",l:"N5"},{k:"へや",r:"heya",t:"oda",l:"N5"},{k:"まど",r:"mado",t:"pencere",l:"N5"},{k:"とけい",r:"tokei",t:"saat",l:"N5"},{k:"くつ",r:"kutsu",t:"ayakkabı",l:"N5"},{k:"かさ",r:"kasa",t:"şemsiye",l:"N5"},{k:"いす",r:"isu",t:"sandalye",l:"N5"},{k:"つくえ",r:"tsukue",t:"masa",l:"N5"},{k:"ともだち",r:"tomodachi",t:"arkadaş",l:"N5"},{k:"せんせい",r:"sensei",t:"öğretmen",l:"N5"},{k:"あさ",r:"asa",t:"sabah",l:"N5"},{k:"よる",r:"yoru",t:"gece",l:"N5"},{k:"あした",r:"ashita",t:"yarın",l:"N5"},{k:"あたま",r:"atama",t:"kafa",l:"N5"},{k:"みみ",r:"mimi",t:"kulak",l:"N5"},{k:"くち",r:"kuchi",t:"ağız",l:"N5"},{k:"あし",r:"ashi",t:"ayak",l:"N5"},{k:"ゆび",r:"yubi",t:"parmak",l:"N5"},{k:"あか",r:"aka",t:"kırmızı",l:"N5"},{k:"あお",r:"ao",t:"mavi",l:"N5"},{k:"しろ",r:"shiro",t:"beyaz",l:"N5"},{k:"くろ",r:"kuro",t:"siyah",l:"N5"},{k:"みどり",r:"midori",t:"yeşil",l:"N5"},{k:"おかね",r:"okane",t:"para",l:"N5"},{k:"こえ",r:"koe",t:"ses",l:"N5"},{k:"うた",r:"uta",t:"şarkı",l:"N5"},{k:"ゆめ",r:"yume",t:"rüya",l:"N5"},{k:"なつ",r:"natsu",t:"yaz",l:"N5"},{k:"ふゆ",r:"fuyu",t:"kış",l:"N5"},{k:"はる",r:"haru",t:"ilkbahar",l:"N5"},{k:"てがみ",r:"tegami",t:"mektup",l:"N5"},{k:"みせや",r:"miseya",t:"dükkâncı",l:"N5"},{k:"さかや",r:"sakaya",t:"içki dükkânı",l:"N5"},{k:"たいこ",r:"taiko",t:"davul",l:"N5"},{k:"こおり",r:"koori",t:"buz",l:"N5"},{k:"りす",r:"risu",t:"sincap",l:"N5"},{k:"すいか",r:"suika",t:"karpuz",l:"N5"},{k:"からす",r:"karasu",t:"karga",l:"N5"},{k:"すし",r:"sushi",t:"suşi",l:"N5"},{k:"しか",r:"shika",t:"geyik",l:"N5"},{k:"かに",r:"kani",t:"yengeç",l:"N5"},{k:"にわ",r:"niwa",t:"bahçe",l:"N5"},{k:"わに",r:"wani",t:"timsah",l:"N5"},{k:"めがね",r:"megane",t:"gözlük",l:"N5"},{k:"むし",r:"mushi",t:"böcek",l:"N5"},{k:"むら",r:"mura",t:"köy",l:"N5"},{k:"ぬの",r:"nuno",t:"kumaş",l:"N5"},{k:"ふね",r:"fune",t:"gemi",l:"N5"},{k:"ふく",r:"fuku",t:"kıyafet",l:"N5"},{k:"ほね",r:"hone",t:"kemik",l:"N5"},{k:"まめ",r:"mame",t:"fasulye",l:"N5"},{k:"のり",r:"nori",t:"yosun",l:"N5"},{k:"ばら",r:"bara",t:"gül",l:"N5"},{k:"ろば",r:"roba",t:"eşek",l:"N5"},{k:"れきし",r:"rekishi",t:"tarih",l:"N5"},{k:"きのこ",r:"kinoko",t:"mantar",l:"N5"},{k:"こども",r:"kodomo",t:"çocuk",l:"N5"},{k:"もり",r:"mori",t:"orman",l:"N5"},{k:"ゆか",r:"yuka",t:"zemin",l:"N5"},{k:"ふろ",r:"furo",t:"banyo",l:"N5"},{k:"まくら",r:"makura",t:"yastık",l:"N5"},{k:"らくだ",r:"rakuda",t:"deve",l:"N5"},{k:"さら",r:"sara",t:"tabak",l:"N5"},{k:"らっぱ",r:"rappa",t:"borazan",l:"N5"},{k:"ぱんだ",r:"panda",t:"panda",l:"N5"},{k:"だいこん",r:"daikon",t:"turp",l:"N5"},{k:"こま",r:"koma",t:"topaç",l:"N5"},{k:"まり",r:"mari",t:"top",l:"N5"},{k:"りぼん",r:"ribon",t:"kurdele",l:"N5"},{k:"あい",r:"ai",t:"aşk, sevgi",l:"N5"},{k:"かお",r:"kao",t:"yüz",l:"N5"},{k:"て",r:"te",t:"el",l:"N5"},{k:"め",r:"me",t:"göz",l:"N5"},{k:"き",r:"ki",t:"ağaç",l:"N5"},{k:"ひ",r:"hi",t:"güneş, gün",l:"N5"},{k:"ほん",r:"hon",t:"kitap",l:"N5"},{k:"がっこう",r:"gakkou",t:"okul",l:"N5"},{k:"でんわ",r:"denwa",t:"telefon",l:"N5"},{k:"はし",r:"hashi",t:"köprü",l:"N5"},{k:"じかん",r:"jikan",t:"zaman, saat",l:"N5"},{k:"しごと",r:"shigoto",t:"iş",l:"N5"},{k:"くも",r:"kumo",t:"bulut",l:"N5"},{k:"は",r:"ha",t:"diş",l:"N5"},{k:"ちち",r:"chichi",t:"baba (kendi)",l:"N5"},{k:"はは",r:"haha",t:"anne (kendi)",l:"N5"}];
+function wdget(kana){ return WORDDEX.find(w=>w.k===kana); }
 function vget(kana){ return VOCAB.find(v=>v[0]===kana || (v[1]&&v[1]===kana)); }
 // IME sözlüğü: kana okuma -> aday listesi (kanji + katakana + kana)
 function imeCandidates(reading){
@@ -1268,10 +1277,11 @@ const State = {
   onboarded:false,
   soundOn:true, hapticOn:true, theme:'light', games:{}, mastery:{}, srs:{},
   done:{},          // lessonId -> true
+  dex:{},           // keşfedilen kelimeler (kana->true)
   chatDone:{},      // scenarioId -> true
   badges:{},        // badgeId -> true
   load(){ try{ const s=JSON.parse(localStorage.getItem(SAVE_KEY)); if(s)Object.assign(this,s);}catch(e){} },
-  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,games:this.games,mastery:this.mastery,srs:this.srs,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes}));}catch(e){} },
+  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,games:this.games,mastery:this.mastery,srs:this.srs,dex:this.dex,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes}));}catch(e){} },
   addXp(n){ this.xp+=n; const nl=1+Math.floor(this.xp/120); if(nl>this.level){this.level=nl;Sound.level();UI.toast('🎉 Seviye '+nl+'!');UI.confetti();} this.save(); UI.syncHome(); },
   finish(id){ if(!this.done[id]){this.done[id]=true;this.save();} },
   giveBadge(id,label){ if(!this.badges[id]){this.badges[id]=true;this.save();UI.toast('🏅 Rozet: '+label);} }
@@ -1933,10 +1943,24 @@ const DictDrawer = {
   close(){ const d=document.getElementById('dictDrawer'), c=document.getElementById('dictScrim');
     if(d) d.classList.remove('on'); if(c) c.classList.remove('on'); },
   render(q){ const wrap=document.getElementById('dictDrawerList'); if(!wrap) return; q=(q||'').toLowerCase().trim();
-    const items=VOCAB.filter(v=> !q || (v[0]&&v[0].includes(q)) || (v[2]&&v[2].toLowerCase().includes(q)) || (v[3]&&v[3].toLowerCase().includes(q)));
-    if(!items.length){ wrap.innerHTML='<div class="dd-empty">Sonuç yok</div>'; return; }
-    wrap.innerHTML=items.map(v=>'<div class="dd-row" data-i="'+VOCAB.indexOf(v)+'"><span><b>'+v[0]+'</b> <span class="m">· '+(v[3]||'')+'</span></span><span class="sp">🔊</span></div>').join('');
-    wrap.querySelectorAll('.dd-row').forEach(r=> r.onclick=()=>{ const v=VOCAB[+r.dataset.i]; if(v) TTS.speak(v[0], .9); });
+    function row(w){ return '<div class="dd-row" data-k="'+w.k+'"><span><b class="jp">'+w.k+'</b> <span class="m">· '+w.r+' · '+(w.t||'')+'</span></span><span class="sp">🔊</span></div>'; }
+    const levels=['N5','N4','N3','N2','N1']; let html='';
+    levels.forEach(lvl=>{
+      const words=WORDDEX.filter(w=>w.l===lvl); const total=words.length;
+      const found=words.filter(w=>State.dex[w.k]);
+      html+='<div class="dex-lvl"><span class="dex-lvlname">'+lvl+'</span><span class="dex-prog">'+(total?(found.length+' / '+total):'yakında')+'</span></div>';
+      if(!total){ html+='<div class="dd-empty" style="padding:4px 4px 12px">Bu seviye ileride açılacak.</div>'; return; }
+      if(q){
+        const hits=found.filter(w=> w.k.indexOf(q)>=0 || w.r.toLowerCase().indexOf(q)>=0 || (w.t&&w.t.toLowerCase().indexOf(q)>=0));
+        html+= hits.length ? hits.map(row).join('') : '<div class="dd-empty" style="padding:4px">Eşleşen keşfedilmiş kelime yok.</div>';
+      } else {
+        html+= found.map(row).join('');
+        const locked=words.filter(w=>!State.dex[w.k]);
+        if(locked.length){ html+='<div class="dex-locked">'+locked.map(()=>'<span class="dex-q">？</span>').join('')+'</div>'; }
+      }
+    });
+    wrap.innerHTML=html;
+    wrap.querySelectorAll('.dd-row[data-k]').forEach(r=> r.onclick=()=>{ const k=r.dataset.k; if(k) TTS.speak(k, .9); });
   }
 };
 
@@ -2760,9 +2784,12 @@ const Sandbox = {
     const kb=Keyboard({ mode:'kana', onInput:(c,comp)=>{ const f=$('#sbField'); f.classList.toggle('empty',!(c||comp));
       f.innerHTML=(c?'<span>'+c+'</span>':'')+(comp?'<span class="compose">'+comp+'</span>':'')+'<span class="caret"></span>'; info(c+comp); } });
     $$('#sbMode button').forEach(b=>b.onclick=()=>{ $$('#sbMode button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); kb.setMode(b.dataset.m); });
-    function info(txt){ const box=$('#sbInfo'); const last=kataToHira(txt.trim()); const v=vget(last)||vget(kataToHira(txt.trim()));
-      if(v){ box.innerHTML='<div class="dword"><div class="jpw jp">'+(v[1]||v[0])+'</div><div class="info"><b>'+v[3]+'</b><span class="jp">'+v[0]+' · '+v[2]+'</span></div><div class="spk" onclick="TTS.speak(\''+v[0]+'\',.85)">🔊</div></div>'; }
-      else if(txt){ box.innerHTML='<div class="muted" style="text-align:center;padding:10px">romaji: '+kanaToRomaji(kataToHira(txt))+'</div>'; }
+    function info(txt){ const box=$('#sbInfo'); const raw=(txt||'').trim(); const hira=kataToHira(raw); const w=wdget(raw)||wdget(hira);
+      if(w){ const isNew=!State.dex[w.k]; if(isNew){ State.dex[w.k]=true; State.save(); }
+        box.innerHTML='<div class="dword"><div class="jpw jp">'+w.k+'</div><div class="info"><b>'+w.t+'</b><span class="jp">'+w.k+' · '+w.r+'</span></div><div class="spk" onclick="TTS.speak(\''+w.k+'\',.85)">🔊</div></div>'
+          + (isNew?'<div class="newword">✨ Yeni kelime! Sözlüğe eklendi.</div>':'');
+        if(isNew){ try{ Sound.correct(); }catch(e){} try{ UI.toast('✨ Sözlüğe eklendi: '+w.t); }catch(e){} } }
+      else if(raw){ box.innerHTML='<div class="muted" style="text-align:center;padding:10px">romaji: '+kanaToRomaji(hira)+'</div>'; }
       else box.innerHTML=''; }
     stage.appendChild(kb.el);
   }
