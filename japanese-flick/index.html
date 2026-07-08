@@ -24,7 +24,7 @@
   --pop:#d3813a;          /* ana vurgu (turuncu) */
   --pop-d:#bf6f2b;
   --cy:#57a99a;           /* ikincil (turkuaz) */
-  --gold:#e8bd76;         /* altın (sıcak) */
+  --gold:#e8bd76;--gold-ink:#e8bd76;--pop-ink:#d3813a;         /* altın (sıcak) */
   --ok:#6bb39d;           /* doğru */
   --bad:#c25a3f;          /* yanlış (kiremit) */
   --txt:#f3ede1;
@@ -41,7 +41,7 @@
   --panel:#f6f2ea;        /* kart */
   --panel2:#efe9dd;
   --line:#d9d1c3;
-  --gold:#c1922f;         /* aydınlıkta okunur altın */
+  --gold:#c1922f;--gold-ink:#8c6414;--pop-ink:#9c5217;         /* aydınlıkta okunur altın */
   --txt:#37302a;          /* koyu metin */
   --mut:#6a6155;          /* ikincil metin */
   --kbtray:#dbd4c6; --kbkey:#f5f0e7; --kbkey2:#ebe4d7; --kbedge:rgba(150,120,85,.4);
@@ -77,7 +77,7 @@ body{
 .top .ttl{font-weight:900;font-size:18px;letter-spacing:.5px;flex:1}
 .pill{display:flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);
   padding:6px 11px;border-radius:999px;font-weight:800;font-size:13px}
-.pill.gold{color:var(--gold)} .pill.cy{color:var(--cy)}
+.pill.gold{color:var(--gold-ink)} .pill.cy{color:var(--cy)}
 
 /* --- XP barı --- */
 .xpwrap{padding:0 16px 6px}
@@ -176,7 +176,7 @@ body{
 .badge{width:64px;text-align:center}
 .badge .b{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-size:26px;background:var(--panel);border:2px solid var(--line);margin:0 auto 5px;filter:grayscale(1);opacity:.45}
-.badge.got .b{filter:none;opacity:1;border-color:var(--gold);box-shadow:0 0 0 4px rgba(232,189,118,.18)}
+.badge.got .b{filter:none;opacity:1;border-color:var(--gold-ink);box-shadow:0 0 0 4px rgba(232,189,118,.18)}
 .badge small{font-size:10px;color:var(--mut);font-weight:700;line-height:1.1;display:block}
 
 /* --- genel buton --- */
@@ -204,7 +204,7 @@ body{
 .prompt .big.kana{font-size:74px}
 .prompt .big.word{font-size:46px}
 .prompt .sub{color:var(--mut);font-weight:700;font-size:15px}
-.prompt .romaji{color:var(--gold);font-weight:900;font-size:20px;letter-spacing:1px;margin-top:4px}
+.prompt .romaji{color:var(--gold-ink);font-weight:900;font-size:20px;letter-spacing:1px;margin-top:4px}
 
 .lessbar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .lessbar .pb{flex:1;height:9px;background:var(--ink2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
@@ -244,7 +244,9 @@ body{
 .key{position:relative;height:54px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);
   display:flex;align-items:center;justify-content:center;font-family:var(--jp);font-weight:900;font-size:24px;
   color:var(--txt);cursor:pointer;box-shadow:0 2px 0 var(--kbedge),0 4px 10px rgba(60,45,30,.08);user-select:none;touch-action:none;transition:transform .06s ease,box-shadow .06s ease}
-.key.fn{font-family:var(--ui);font-size:14px;font-weight:900;background:var(--kbkey2);color:var(--mut)}
+.key.fn{font-family:var(--ui);font-size:14px;font-weight:900;background:var(--kbkey2);color:var(--mut);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.key.fn .fnl{line-height:1}
+.key.fn .fnsub{font-size:8px;font-weight:700;opacity:.72;line-height:1;white-space:nowrap;letter-spacing:0;text-transform:none}
 .key.act{background:var(--cy);color:#04221d;transform:translateY(2px);box-shadow:0 0 0 var(--kbedge);z-index:50}
 .key.tall{grid-row:span 1}
 .key.pop{background:var(--pop);color:#fff}
@@ -268,7 +270,7 @@ body{
 .fc.c{background:var(--cy);color:#12211d}
 .fc.l{transform:translate(-118%,-50%)} .fc.r{transform:translate(18%,-50%)}
 .fc.u{transform:translate(-50%,-118%)} .fc.d{transform:translate(-50%,18%)}
-.fc.hot{background:var(--pop);color:#fff;border-color:var(--pop);transform:translate(-50%,-50%) scale(1.18)}
+.fc.hot{background:var(--pop);color:#fff;border-color:var(--pop-ink);transform:translate(-50%,-50%) scale(1.18)}
 .fc.l.hot{transform:translate(-118%,-50%) scale(1.18)}
 .fc.r.hot{transform:translate(18%,-50%) scale(1.18)}
 .fc.u.hot{transform:translate(-50%,-118%) scale(1.18)}
@@ -286,7 +288,7 @@ body{
 .feed h3{font-size:21px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:8px}
 .feed .fbody{margin-top:8px}
 .feed p,.feed .fbody>p{color:var(--mut);font-weight:700;font-size:14px;margin:6px 0 0}
-.feed .ans{font-family:var(--jp);color:var(--gold);font-weight:900}
+.feed .ans{font-family:var(--jp);color:var(--gold-ink);font-weight:900}
 .feed .btn{margin-top:16px}
 /* yanlış karşılaştırma */
 .diff{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px}
@@ -331,6 +333,8 @@ body{
 .seg button{flex:1;padding:9px;border:none;border-radius:10px;background:transparent;color:var(--mut);
   font-weight:900;font-size:13px;cursor:pointer}
 .seg button.on{background:var(--cy);color:#04221d}
+#sbMode button{flex-direction:column;gap:1px;line-height:1.15}
+#sbMode .rmj{font-size:10px;font-weight:700;opacity:.6;letter-spacing:.4px;text-transform:none}
 
 /* konfeti */
 #confetti{position:absolute;inset:0;pointer-events:none;z-index:80;overflow:hidden}
@@ -434,6 +438,7 @@ body{
 .nf .row.sohbet{transform:rotate(-1.1deg)} .nf .row.sohbet .fill{background:var(--neutral);clip-path:polygon(0 13%,100% 0,100% 87%,0 100%)}
 .nf .row.serbest{transform:rotate(0.9deg)} .nf .row.serbest .fill{background:var(--neutral);clip-path:polygon(0 0,100% 11%,100% 100%,0 89%)}
 .nf .row.oyunlar{transform:rotate(-0.7deg)} .nf .row.oyunlar .fill{background:var(--neutral);clip-path:polygon(0 11%,100% 0,100% 89%,0 100%)}
+.nf .row.tekrar{transform:rotate(-0.6deg)} .nf .row.tekrar .fill{background:var(--neutral);clip-path:polygon(0 0,100% 12%,100% 100%,0 88%)}
 /* AYARLAR / BAŞARILAR */
 .nf .shead{display:flex;align-items:center;gap:12px;padding:24px 2px 14px}
 .nf .shead .back{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:22px;background:var(--neutral);
@@ -488,11 +493,11 @@ body{
 .nf #s-games .row.g60 .s b{color:#fff}
 .nf #s-games .row.g60 .chev{color:rgba(246,240,230,.7)}
 .g60screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:24px 20px}
-.g60big{font-size:64px;font-weight:900;color:var(--pop);font-family:var(--jp);line-height:1}
+.g60big{font-size:64px;font-weight:900;color:var(--pop-ink);font-family:var(--jp);line-height:1}
 .g60h{font-size:20px;font-weight:900}
 .g60best{font-size:14px;color:var(--mut);font-weight:800;margin-top:2px}
-.g60best b{color:var(--gold)}
-.g60new{font-size:18px;font-weight:900;color:var(--gold);margin-top:2px}
+.g60best b{color:var(--gold-ink)}
+.g60new{font-size:18px;font-weight:900;color:var(--gold-ink);margin-top:2px}
 .g60btn{max-width:260px;margin-top:8px}
 .g60acts{display:flex;flex-direction:column;gap:10px;width:100%;max-width:260px;margin-top:6px}
 .g60play{flex:1;display:flex;flex-direction:column;min-height:0}
@@ -571,7 +576,7 @@ body{
   width:74px;height:74px;display:grid;place-items:center;border-radius:20px;background:var(--panel);box-shadow:0 8px 22px rgba(0,0,0,.2);transition:top linear}
 .flow-note.pop{animation:flowpop .3s forwards}
 @keyframes flowpop{to{transform:translateX(-50%) scale(1.55);opacity:0}}
-.flow-combo{position:absolute;left:0;right:0;top:6px;text-align:center;font-size:15px;font-weight:900;color:var(--pop);opacity:0;transition:.2s;z-index:2}
+.flow-combo{position:absolute;left:0;right:0;top:6px;text-align:center;font-size:15px;font-weight:900;color:var(--pop-ink);opacity:0;transition:.2s;z-index:2}
 .flow-combo.on{opacity:1}
 .flow-lane.shake{animation:flowshake .3s}
 @keyframes flowshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
@@ -606,7 +611,7 @@ body{
 .shiri-word span{font-size:12.5px;color:var(--mut)}
 .shiri-word .sp{cursor:pointer;font-size:15px;opacity:.8}
 .shiri-need{text-align:center;font-size:14px;font-weight:800;color:var(--txt);margin:4px 0}
-.shiri-need b{color:var(--pop);font-size:22px;font-family:var(--jp)}
+.shiri-need b{color:var(--pop-ink);font-size:22px;font-family:var(--jp)}
 /* --- mikro-animasyonlar (Faz 2 delight) --- */
 @keyframes cardIn{from{opacity:0}to{opacity:1}}
 .screen.on .board > *{animation:cardIn .4s ease both}
@@ -684,6 +689,7 @@ body{
           <button class="mod kata" onclick="Game.start('p5')"><div class="fill"><div class="itile">カ</div><div class="tx"><span class="t" data-t="home.katakana.title">Katakana</span><span class="s" data-t="home.katakana.desc">Yabancı kökenli kelimeler</span></div></div></button>
         </div>
 
+        <button class="mod row tekrar" onclick="Review.open()"><div class="fill"><div class="itile it-teal">🔁</div><div class="tx"><span class="t">Tekrar</span><span class="s" id="reviewDue">Aralıklı tekrar</span></div><span class="chev">›</span></div></button>
         <button class="mod row reflex" onclick="Reflex.open()"><div class="fill"><div class="itile it-brick">⚡</div><div class="tx"><span class="t" data-t="home.reflex.title">Refleks Dojo</span><span class="s" data-t="home.reflex.desc">Hız ve kas hafızası çalış.</span></div></div></button>
         <button class="mod row sohbet" onclick="Chat.open()"><div class="fill"><div class="itile it-teal">💬</div><div class="tx"><span class="t" data-t="home.chat.title">Sohbet</span><span class="s" data-t="home.chat.desc">Kısa cevapları Japonca yaz.</span></div><span class="chev">›</span></div></button>
         <button class="mod row serbest" onclick="Sandbox.open()"><div class="fill"><div class="itile it-orange">✍️</div><div class="tx"><span class="t" data-t="home.free.title">Serbest Yazma</span><span class="s">İstediğini dene.</span></div><span class="chev">›</span></div></button>
@@ -852,6 +858,15 @@ body{
       <div class="ttl">Serbest yazma</div>
     </div>
     <div class="stage" id="sandboxStage"></div>
+  </section>
+
+  <!-- TEKRAR (SRS) -->
+  <section class="screen" id="s-review">
+    <div class="top">
+      <button class="back" onclick="Game.home()">‹</button>
+      <div class="ttl">Tekrar</div>
+    </div>
+    <div class="stage" id="reviewStage"></div>
   </section>
 
   <!-- ÖLÜ KOD (v1): eski tam-ekran Sözlük — yerini DictDrawer aldı. Reopenable.
@@ -1202,12 +1217,12 @@ const State = {
   daily:{date:'',count:0}, goal:15, lastGoalDate:'', freezes:1,
   profile:null,     // 'zero' | 'some' | 'pro'
   onboarded:false,
-  soundOn:true, hapticOn:true, theme:'light', games:{}, mastery:{},
+  soundOn:true, hapticOn:true, theme:'light', games:{}, mastery:{}, srs:{},
   done:{},          // lessonId -> true
   chatDone:{},      // scenarioId -> true
   badges:{},        // badgeId -> true
   load(){ try{ const s=JSON.parse(localStorage.getItem(SAVE_KEY)); if(s)Object.assign(this,s);}catch(e){} },
-  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,games:this.games,mastery:this.mastery,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes}));}catch(e){} },
+  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,games:this.games,mastery:this.mastery,srs:this.srs,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes}));}catch(e){} },
   addXp(n){ this.xp+=n; const nl=1+Math.floor(this.xp/120); if(nl>this.level){this.level=nl;Sound.level();UI.toast('🎉 Seviye '+nl+'!');UI.confetti();} this.save(); UI.syncHome(); },
   finish(id){ if(!this.done[id]){this.done[id]=true;this.save();} },
   giveBadge(id,label){ if(!this.badges[id]){this.badges[id]=true;this.save();UI.toast('🏅 Rozet: '+label);} }
@@ -1751,6 +1766,7 @@ const Mastery = {
     if(!State.mastery) State.mastery={};
     const m=State.mastery[kana]||(State.mastery[kana]={n:0,c:0});
     m.n++; if(ok) m.c++;
+    if(typeof SRS!=='undefined') SRS.rec(kana,ok);
     if(ok && typeof Daily!=='undefined'){ Daily.bump(1); } else { State.save(); }
   },
   level(kana){
@@ -1779,6 +1795,64 @@ const Mastery = {
     const hp=document.getElementById('mHpct'), kp=document.getElementById('mKpct');
     if(hp) hp.textContent=(hTot?Math.round(hStrong/hTot*100):0)+'%';
     if(kp) kp.textContent=(kTot?Math.round(kStrong/kTot*100):0)+'%';
+  }
+};
+
+
+/* ============================================================
+   KANA SRS (aralıklı tekrar) — Mastery'yi besler, Tekrar ekranını sürer
+   ============================================================ */
+const SRS = {
+  DAYS:[0,1,3,7,16,35,75], DAY:86400000,
+  ensure(){ if(!State.srs) State.srs={}; },
+  rec(kana, ok){
+    this.ensure();
+    const s=State.srs[kana]||(State.srs[kana]={box:0,due:0,reps:0,lapses:0});
+    if(ok){ s.box=Math.min(this.DAYS.length-1,s.box+1); s.reps++; }
+    else { s.box=Math.max(0,s.box-1); s.lapses++; }
+    s.due=Date.now()+this.DAYS[s.box]*this.DAY;
+  },
+  due(){ this.ensure(); const now=Date.now(); return Object.keys(State.srs).filter(k=>State.srs[k] && State.srs[k].due<=now); },
+  dueCount(){ return this.due().length; }
+};
+const Review = {
+  queue:[], idx:0, ok:0, kb:null, target:null, _lock:false,
+  open(){ UI.show('s-review'); const due=SRS.due();
+    if(!due.length){ this.empty(); return; }
+    this.queue=shuffle(due).slice(0,20); this.idx=0; this.ok=0; this._lock=false; this.step();
+  },
+  empty(){ const s=$('#reviewStage'); if(!s)return;
+    s.innerHTML='<div class="g60screen"><div class="g60big">✓</div><div class="muted" style="max-width:270px">Şu an tekrara hazır kana yok — hepsi güncel. Oyun ve derslerde pratik yaptıkça, unutmaya yüz tutanlar burada birikir.</div><div class="g60acts"><button class="btn cy g60btn" onclick="Game.home()">Ana sayfa</button></div></div>';
+  },
+  step(){ if(this.idx>=this.queue.length){ this.end(); return; }
+    this.target=this.queue[this.idx]; this._lock=false;
+    const isKata=/[\u30A1-\u30F6\u30FC]/.test(this.target);
+    const base=isKata?kataToHira(this.target):this.target;
+    const romaji=(ROMA_OF[base]||kanaToRomaji(base));
+    const s=$('#reviewStage'); if(!s)return;
+    s.innerHTML=
+      '<div class="prompt"><div class="tag">Tekrar · '+(this.idx+1)+'/'+this.queue.length+'</div>'
+      +'<div class="big word" style="font-family:var(--ui);color:var(--gold-ink);font-size:44px">'+romaji+'</div>'
+      +'<div class="sub">'+(isKata?'katakana':'hiragana')+' yaz</div></div>'
+      +'<div id="rvFb" style="text-align:center;min-height:34px;font-family:var(--jp);font-size:28px;font-weight:900"></div>'
+      +'<div class="acts" style="justify-content:center"><button class="btn ghost" id="rvShow">Bilmiyorum</button></div>';
+    this.kb=Keyboard({ mode:isKata?'kata':'kana', onInput:(c,comp)=>{ if(this._lock)return; const got=((c||'')+(comp||'')).slice(-1); if(!got)return;
+      if(kEq(got,this.target)) this.answer(true); } });
+    s.appendChild(this.kb.el);
+    const sh=$('#rvShow'); if(sh) sh.onclick=()=>{ if(!this._lock) this.answer(false); };
+  },
+  answer(ok){ if(this._lock)return; this._lock=true;
+    Mastery.rec(this.target, ok); if(ok)this.ok++;
+    const fb=$('#rvFb'); if(fb){ fb.textContent=(ok?'✓ ':'→ ')+this.target; fb.style.color=ok?'var(--ok)':'var(--bad)'; }
+    try{ ok?Sound.correct():Sound.wrong(); }catch(e){}
+    setTimeout(()=>{ this.idx++; this.step(); }, ok?450:1000);
+  },
+  end(){ try{State.save();}catch(e){} const s=$('#reviewStage'); if(!s)return;
+    const total=this.queue.length, pct=total?Math.round(this.ok/total*100):0;
+    s.innerHTML='<div class="g60screen"><div class="g60big">'+this.ok+'/'+total+'</div>'
+      +'<div class="muted">tekrar tamam · %'+pct+' doğru</div>'
+      +'<div class="g60acts"><button class="btn cy g60btn" id="rvAgain">Devam et</button><button class="btn ghost g60btn" onclick="Game.home()">Bitir</button></div></div>';
+    const a=$('#rvAgain'); if(a) a.onclick=()=>this.open();
   }
 };
 
@@ -1823,6 +1897,7 @@ const UI = {
     const as=$('#achvStats'); if(as) as.textContent='Seviye '+State.level+' · 🔥 '+State.streak+' · ⭐ '+State.xp;
     try{ Daily.sync(); }catch(e){}
     try{ Reflex.syncHomeNum(); }catch(e){}
+    try{ const rd=$('#reviewDue'); if(rd){ const n=(typeof SRS!=='undefined')?SRS.dueCount():0; rd.textContent = n>0? (n+' kana hazır') : 'Şimdilik güncel ✓'; } }catch(e){}
     this.renderBadges();
   },
   renderLessons(){
@@ -1860,7 +1935,8 @@ const KB_LAYOUT = [
   ['ma','ya','ra','enter'],
   ['mod','wa','pu','conv']
 ];
-const KB_LABEL = {del:'⌫',space:'空白',enter:'改行',mod:'小゛゜',conv:'変換'};
+const KB_LABEL = {del:'⌫',space:'空白',enter:'改行',mod:'小゛゜',conv:'確定'}
+const KB_SUB = {del:'sil',space:'boşluk',enter:'satır',conv:'kettei · gönder'};
 
 function Keyboard(opts){
   // opts: onInput(committedText, composingText), mode:'kana'|'kata', getState, setState
@@ -1900,6 +1976,7 @@ function Keyboard(opts){
     } else { buf.committed+=' '; emit(); } }
   function enter(){ if(buf.composing){ buf.committed+=buf.composing; buf.composing=''; emit(); }
     opts.onEnter && opts.onEnter(buf.committed); }
+  function newline(){ if(buf.composing){ buf.committed+=buf.composing; buf.composing=''; } buf.committed+='\n'; Sound.tap(); emit(); }
 
   // tuşları çiz
   const keyEls={}; const kanaKeys=[];
@@ -1921,9 +1998,10 @@ function Keyboard(opts){
         kanaKeys.push({arr,lbl,fcs,gd});
         attachFlick(k,arr,fl);
       } else {
-        k.className='key fn'+(code==='conv'?' ':''); k.textContent=KB_LABEL[code];
+        k.className='key fn';
+        k.innerHTML='<span class="fnl">'+KB_LABEL[code]+'</span>'+(KB_SUB[code]?'<span class="fnsub">'+KB_SUB[code]+'</span>':'');
         if(code==='conv'||code==='space') k.classList.add('pop');
-        const handler={del,space,enter,mod:applyMod,conv:space}[code];
+        const handler={del,space,enter:newline,conv:enter,mod:applyMod}[code];
         let pressTimer;
         k.addEventListener('pointerdown',e=>{ e.preventDefault(); k.classList.add('act'); handler&&handler();
           if(code==='del'){ pressTimer=setInterval(del,120); } });
@@ -2176,7 +2254,7 @@ function typingLesson(L,opts){
 }
 const R2K = { build(L){ Game.mode=this; const pool=VOCAB.filter(v=>!v[4]); // hiragana kelimeler
   typingLesson(L,{ pool, count:8, mode:'kana', ph:'Hiragana yaz',
-    prompt:it=>'<div class="prompt"><div class="tag">Romaji → Hiragana</div><div class="big word" style="font-family:var(--ui);color:var(--gold);font-size:40px">'+it[2]+'</div><div class="sub">'+it[3]+'</div></div>',
+    prompt:it=>'<div class="prompt"><div class="tag">Romaji → Hiragana</div><div class="big word" style="font-family:var(--ui);color:var(--gold-ink);font-size:40px">'+it[2]+'</div><div class="sub">'+it[3]+'</div></div>',
     target:it=>it[0],
     detail:it=>{ const k=it[0]; let parts=''; for(const ch of k){ parts+= ch+'→'+(ROMA_OF[ch]||'') + '  '; } return it[2]+' = '+it[0]; }
   }); }, render(){} };
@@ -2214,7 +2292,7 @@ const K2R = {
    ============================================================ */
 const Kata = { build(L){ Game.mode=this; const pool=VOCAB.filter(v=>v[4]);
   typingLesson(L,{ pool, count:7, mode:'kata', ph:'Katakana yaz', say:true,
-    prompt:it=>'<div class="prompt"><div class="tag">Katakana · dinle ve yaz</div><div class="big word" style="font-family:var(--ui);color:var(--gold);font-size:38px">'+it[2]+'</div><div class="sub">'+it[3]+' · 🔊</div></div>',
+    prompt:it=>'<div class="prompt"><div class="tag">Katakana · dinle ve yaz</div><div class="big word" style="font-family:var(--ui);color:var(--gold-ink);font-size:38px">'+it[2]+'</div><div class="sub">'+it[3]+' · 🔊</div></div>',
     target:it=>it[0],
     detail:it=>it[0]+' = '+it[3]
   }); }, render(){} };
@@ -2422,7 +2500,7 @@ const Reflex = (()=>{
     const c=cur.queue[cur.pos]; cur.t0=performance.now();
     $('#reflexStage').innerHTML=
       '<div class="prompt"><div class="tag">Bu sesi yaz</div>'
-      +'<div class="big" style="font-family:var(--ui);color:var(--gold);font-size:60px;font-weight:900;letter-spacing:1px">'+c.romaji+'</div>'
+      +'<div class="big" style="font-family:var(--ui);color:var(--gold-ink);font-size:60px;font-weight:900;letter-spacing:1px">'+c.romaji+'</div>'
       +'<div class="sub"><span id="rxSpk" style="cursor:pointer">🔊 dinle</span> · '+(cur.pos+1)+'/'+cur.queue.length+' · <span id="rxGuide" style="cursor:pointer;color:var(--cy)">👁 rehber: '+(cur.guide?'açık':'kapalı')+'</span></div></div>'
       +'<div id="rxFlash" style="height:24px;text-align:center;font-weight:800;font-size:14.5px;margin-top:2px"></div>';
     if(Game.kb) Game.kb.el.remove();
@@ -2503,7 +2581,7 @@ const Reflex = (()=>{
 const Sandbox = {
   open(){ UI.show('s-sandbox'); const stage=$('#sandboxStage');
     stage.innerHTML=
-      '<div class="seg" id="sbMode" style="margin:6px 0"><button class="on" data-m="kana">ひらがな</button><button data-m="kata">カタカナ</button></div>'
+      '<div class="seg" id="sbMode" style="margin:6px 0"><button class="on" data-m="kana">ひらがな<span class="rmj">hiragana</span></button><button data-m="kata">カタカナ<span class="rmj">katakana</span></button></div>'
       +'<div class="field empty" id="sbField" data-ph="Yazmaya başla..."><span class="caret"></span></div>'
       +'<div id="sbInfo" style="margin-top:8px"></div>';
     const kb=Keyboard({ mode:'kana', onInput:(c,comp)=>{ const f=$('#sbField'); f.classList.toggle('empty',!(c||comp));
@@ -2532,59 +2610,59 @@ const Sandbox = {
 //   }
 // };
 // 
-// /* ============================================================
-//    SOHBET — senaryolu mesajlaşma (niyet-engel-karar, cömert ipucu)
-//    ============================================================ */
-// const SCENARIOS = [
-//   { id:'cafe', tier:'Başlangıç', emoji:'☕', who:'Yuki', avatar:'🐱', need:null, title:'Kafede buluşma',
-//     turns:[
-//       { jp:'こんにちは！', tr:'Selam!', choices:[ {tr:'merhaba',kana:'こんにちは',romaji:'konnichiwa'}, {tr:'hey',kana:'やあ',romaji:'yaa'} ], ack:{jp:'やった、来たね！', tr:'Yaşasın, geldin!'} },
-//       { jp:'なに のむ？', tr:'Ne içersin?', choices:[ {tr:'su',kana:'みず',romaji:'mizu'}, {tr:'çay',kana:'おちゃ',romaji:'ocha'} ], ack:{jp:'いいね！', tr:'Güzel!'} },
-//       { jp:'ケーキ も たべる？', tr:'Pasta da yer misin?', choices:[ {tr:'evet',kana:'はい',romaji:'hai'}, {tr:'hayır',kana:'いいえ',romaji:'iie'} ], ack:{jp:'りょうかい！', tr:'Anlaşıldı!'} },
-//       { jp:'いぬ と ねこ、すき なの は？', tr:'Köpek mi kedi mi seversin?', choices:[ {tr:'köpek',kana:'いぬ',romaji:'inu'}, {tr:'kedi',kana:'ねこ',romaji:'neko'} ], ack:{jp:'わたし も！', tr:'Ben de!'} }
-//     ],
-//     outro:{jp:'また ね！', tr:'Görüşürüz!'}
-//   },
-//   { id:'shop', tier:'Biraz ileri', emoji:'🛍️', who:'Haru', avatar:'🦊', need:'cafe', title:'Alışveriş',
-//     turns:[
-//       { jp:'おはよう！', tr:'Günaydın!', choices:[ {tr:'günaydın',kana:'おはよう',romaji:'ohayou'}, {tr:'hey',kana:'やあ',romaji:'yaa'} ], ack:{jp:'げんき そう！', tr:'İyi görünüyorsun!'} },
-//       { jp:'きょう かいもの いく？', tr:'Bugün alışverişe gidelim mi?', choices:[ {tr:'olur',kana:'いいね',romaji:'iine'}, {tr:'kusura bakma',kana:'ごめん',romaji:'gomen'} ], ack:{jp:'りょうかい！', tr:'Tamamdır!'} },
-//       { jp:'めがね かう。あか と あお、どっち？', tr:'Gözlük alıyorum. Kırmızı mı mavi mi?', choices:[ {tr:'kırmızı',kana:'あか',romaji:'aka'}, {tr:'mavi',kana:'あお',romaji:'ao'} ], ack:{jp:'にあう よ！', tr:'Yakışır!'} },
-//       { jp:'なんじ に あう？さん？ご？', tr:'Saat kaçta buluşalım? 3 mü 5 mi?', choices:[ {tr:'saat 3',kana:'さんじ',romaji:'sanji'}, {tr:'saat 5',kana:'ごじ',romaji:'goji'} ], ack:{jp:'わかった！', tr:'Anladım!'} }
-//     ],
-//     outro:{jp:'じゃあ また！', tr:'Hadi görüşürüz!'}
-//   },
-//   { id:'sand', tier:'Tezgahta', emoji:'🥪', who:'Tezgahtar', avatar:'🧑‍🍳', need:'shop', title:'Sandviç dükkanı',
-//     turns:[
-//       { jp:'いらっしゃいませ！パン、おおきい？ちいさい？', tr:'Hoş geldiniz! Ekmek, büyük mü küçük mü?', choices:[ {tr:'büyük',kana:'おおきい',romaji:'ookii'}, {tr:'küçük',kana:'ちいさい',romaji:'chiisai'} ], ack:{jp:'はい！', tr:'Tamam!'} },
-//       { jp:'あつい？つめたい？', tr:'Sıcak mı soğuk mu?', choices:[ {tr:'sıcak',kana:'あつい',romaji:'atsui'}, {tr:'soğuk',kana:'つめたい',romaji:'tsumetai'} ], ack:{jp:'りょうかい！', tr:'Anlaşıldı!'} },
-//       { jp:'やさい、たくさん？すこし？', tr:'Sebze, çok mu az mı?', choices:[ {tr:'çok',kana:'たくさん',romaji:'takusan'}, {tr:'az',kana:'すこし',romaji:'sukoshi'} ], ack:{jp:'いいよ！', tr:'Olur!'} },
-//       { jp:'のみもの、ある？ない？', tr:'İçecek var mı yok mu?', choices:[ {tr:'var',kana:'ある',romaji:'aru'}, {tr:'yok',kana:'ない',romaji:'nai'} ], ack:{jp:'はい！', tr:'Tamam!'} },
-//       { jp:'さいごに… おおきい？ちいさい？（また！）', tr:'Son olarak... büyük mü küçük mü? (yine!)', choices:[ {tr:'büyük',kana:'おおきい',romaji:'ookii'}, {tr:'küçük',kana:'ちいさい',romaji:'chiisai'} ], ack:{jp:'わかりました！', tr:'Anlaşıldı!'} }
-//     ],
-//     outro:{jp:'ありがとう！また どうぞ！', tr:'Teşekkürler, yine bekleriz!'}
-//   },
-//   { id:'survey', tier:'Komik', emoji:'📋', who:'Mei', avatar:'🧑‍🎓', need:'sand', title:'Yemek anketi',
-//     turns:[
-//       { jp:'すみません！がくせい です。たべもの の アンケート、いい？', tr:'Pardon! Öğrenciyim. Yemek anketi yapabilir miyim?', choices:[ {tr:'olur',kana:'いいよ',romaji:'iiyo'}, {tr:'olmaz',kana:'だめ',romaji:'dame'} ], ack:{jp:'えへへ、はじめます！', tr:'Hehe, başlıyorum!'} },
-//       { jp:'あさ ごはん、たまご？ごはん？', tr:'Kahvaltı: yumurta mı pilav mı?', choices:[ {tr:'yumurta',kana:'たまご',romaji:'tamago'}, {tr:'pilav',kana:'ごはん',romaji:'gohan'} ], ack:{jp:'なるほど！', tr:'Anladım!'} },
-//       { jp:'せかい に くだもの ふたつ だけ！いちご？すいか？', tr:'Dünyada iki meyve kaldı! Çilek mi karpuz mu?', choices:[ {tr:'çilek',kana:'いちご',romaji:'ichigo'}, {tr:'karpuz',kana:'すいか',romaji:'suika'} ], ack:{jp:'むずかしい しつもん だね！', tr:'Zor soruymuş!'} },
-//       { jp:'ピザ？すし？どっち！', tr:'Pizza mı suşi mi? Hangisi?!', choices:[ {tr:'pizza',kana:'ピザ',romaji:'piza'}, {tr:'suşi',kana:'すし',romaji:'sushi'} ], ack:{jp:'わかる！', tr:'Anlıyorum!'} },
-//       { jp:'おにぎり！さけ？まぐろ？', tr:'Onigiri! Somon mu ton mu?', choices:[ {tr:'somon',kana:'さけ',romaji:'sake'}, {tr:'ton balığı',kana:'まぐろ',romaji:'maguro'} ], ack:{jp:'おいしそう…', tr:'Nefis görünüyor...'} },
-//       { jp:'さいご！デザート、アイス？もち？', tr:'Son! Tatlı: dondurma mı mochi mi?', choices:[ {tr:'dondurma',kana:'アイス',romaji:'aisu'}, {tr:'mochi',kana:'もち',romaji:'mochi'} ], ack:{jp:'メモ かんりょう！', tr:'Not tamam!'} }
-//     ],
-//     outro:{jp:'ありがとう！…おなか すいた。', tr:'Teşekkürler! ...Acıktım.'}
-//   },
-//   { id:'news', tier:'Tepkiler', emoji:'💥', who:'Aoi', avatar:'🦝', need:'survey', title:'Arkadaştan haber',
-//     turns:[
-//       { jp:'ねえ、しんじられない ニュース！', tr:'Hey, inanılmaz bir haber!', choices:[ {tr:'ne?',kana:'なに',romaji:'nani'}, {tr:'yok artık!',kana:'うそ',romaji:'uso'} ], ack:{jp:'あのね…', tr:'Şey...'} },
-//       { jp:'あした、やすみ！', tr:'Yarın tatil!', choices:[ {tr:'yaşasın!',kana:'やった',romaji:'yatta'}, {tr:'gerçekten?',kana:'ほんと',romaji:'honto'} ], ack:{jp:'ほんとだよ！', tr:'Gerçekten!'} },
-//       { jp:'いっしょに うみ、いく？', tr:'Birlikte denize gidelim mi?', choices:[ {tr:'harika!',kana:'いいね',romaji:'iine'}, {tr:'gidelim!',kana:'いこう',romaji:'ikou'} ], ack:{jp:'さいこう！', tr:'Süper!'} },
-//       { jp:'ケーキ も もってくる！', tr:'Pasta da getireceğim!', choices:[ {tr:'harikasın!',kana:'すごい',romaji:'sugoi'}, {tr:'nefis!',kana:'おいしそう',romaji:'oishisou'} ], ack:{jp:'でしょ？', tr:'Değil mi?'} }
-//     ],
-//     outro:{jp:'たのしみ！', tr:'Sabırsızlanıyorum!'}
-//   }
-// ];
+/* ============================================================
+   SOHBET — senaryolu mesajlaşma (niyet-engel-karar, cömert ipucu)
+   ============================================================ */
+const SCENARIOS = [
+  { id:'cafe', tier:'Başlangıç', emoji:'☕', who:'Yuki', avatar:'🐱', need:null, title:'Kafede buluşma',
+    turns:[
+      { jp:'こんにちは！', tr:'Selam!', choices:[ {tr:'merhaba',kana:'こんにちは',romaji:'konnichiwa'}, {tr:'hey',kana:'やあ',romaji:'yaa'} ], ack:{jp:'やった、来たね！', tr:'Yaşasın, geldin!'} },
+      { jp:'なに のむ？', tr:'Ne içersin?', choices:[ {tr:'su',kana:'みず',romaji:'mizu'}, {tr:'çay',kana:'おちゃ',romaji:'ocha'} ], ack:{jp:'いいね！', tr:'Güzel!'} },
+      { jp:'ケーキ も たべる？', tr:'Pasta da yer misin?', choices:[ {tr:'evet',kana:'はい',romaji:'hai'}, {tr:'hayır',kana:'いいえ',romaji:'iie'} ], ack:{jp:'りょうかい！', tr:'Anlaşıldı!'} },
+      { jp:'いぬ と ねこ、すき なの は？', tr:'Köpek mi kedi mi seversin?', choices:[ {tr:'köpek',kana:'いぬ',romaji:'inu'}, {tr:'kedi',kana:'ねこ',romaji:'neko'} ], ack:{jp:'わたし も！', tr:'Ben de!'} }
+    ],
+    outro:{jp:'また ね！', tr:'Görüşürüz!'}
+  },
+  { id:'shop', tier:'Biraz ileri', emoji:'🛍️', who:'Haru', avatar:'🦊', need:'cafe', title:'Alışveriş',
+    turns:[
+      { jp:'おはよう！', tr:'Günaydın!', choices:[ {tr:'günaydın',kana:'おはよう',romaji:'ohayou'}, {tr:'hey',kana:'やあ',romaji:'yaa'} ], ack:{jp:'げんき そう！', tr:'İyi görünüyorsun!'} },
+      { jp:'きょう かいもの いく？', tr:'Bugün alışverişe gidelim mi?', choices:[ {tr:'olur',kana:'いいね',romaji:'iine'}, {tr:'kusura bakma',kana:'ごめん',romaji:'gomen'} ], ack:{jp:'りょうかい！', tr:'Tamamdır!'} },
+      { jp:'めがね かう。あか と あお、どっち？', tr:'Gözlük alıyorum. Kırmızı mı mavi mi?', choices:[ {tr:'kırmızı',kana:'あか',romaji:'aka'}, {tr:'mavi',kana:'あお',romaji:'ao'} ], ack:{jp:'にあう よ！', tr:'Yakışır!'} },
+      { jp:'なんじ に あう？さん？ご？', tr:'Saat kaçta buluşalım? 3 mü 5 mi?', choices:[ {tr:'saat 3',kana:'さんじ',romaji:'sanji'}, {tr:'saat 5',kana:'ごじ',romaji:'goji'} ], ack:{jp:'わかった！', tr:'Anladım!'} }
+    ],
+    outro:{jp:'じゃあ また！', tr:'Hadi görüşürüz!'}
+  },
+  { id:'sand', tier:'Tezgahta', emoji:'🥪', who:'Tezgahtar', avatar:'🧑‍🍳', need:'shop', title:'Sandviç dükkanı',
+    turns:[
+      { jp:'いらっしゃいませ！パン、おおきい？ちいさい？', tr:'Hoş geldiniz! Ekmek, büyük mü küçük mü?', choices:[ {tr:'büyük',kana:'おおきい',romaji:'ookii'}, {tr:'küçük',kana:'ちいさい',romaji:'chiisai'} ], ack:{jp:'はい！', tr:'Tamam!'} },
+      { jp:'あつい？つめたい？', tr:'Sıcak mı soğuk mu?', choices:[ {tr:'sıcak',kana:'あつい',romaji:'atsui'}, {tr:'soğuk',kana:'つめたい',romaji:'tsumetai'} ], ack:{jp:'りょうかい！', tr:'Anlaşıldı!'} },
+      { jp:'やさい、たくさん？すこし？', tr:'Sebze, çok mu az mı?', choices:[ {tr:'çok',kana:'たくさん',romaji:'takusan'}, {tr:'az',kana:'すこし',romaji:'sukoshi'} ], ack:{jp:'いいよ！', tr:'Olur!'} },
+      { jp:'のみもの、ある？ない？', tr:'İçecek var mı yok mu?', choices:[ {tr:'var',kana:'ある',romaji:'aru'}, {tr:'yok',kana:'ない',romaji:'nai'} ], ack:{jp:'はい！', tr:'Tamam!'} },
+      { jp:'さいごに… おおきい？ちいさい？（また！）', tr:'Son olarak... büyük mü küçük mü? (yine!)', choices:[ {tr:'büyük',kana:'おおきい',romaji:'ookii'}, {tr:'küçük',kana:'ちいさい',romaji:'chiisai'} ], ack:{jp:'わかりました！', tr:'Anlaşıldı!'} }
+    ],
+    outro:{jp:'ありがとう！また どうぞ！', tr:'Teşekkürler, yine bekleriz!'}
+  },
+  { id:'survey', tier:'Komik', emoji:'📋', who:'Mei', avatar:'🧑‍🎓', need:'sand', title:'Yemek anketi',
+    turns:[
+      { jp:'すみません！がくせい です。たべもの の アンケート、いい？', tr:'Pardon! Öğrenciyim. Yemek anketi yapabilir miyim?', choices:[ {tr:'olur',kana:'いいよ',romaji:'iiyo'}, {tr:'olmaz',kana:'だめ',romaji:'dame'} ], ack:{jp:'えへへ、はじめます！', tr:'Hehe, başlıyorum!'} },
+      { jp:'あさ ごはん、たまご？ごはん？', tr:'Kahvaltı: yumurta mı pilav mı?', choices:[ {tr:'yumurta',kana:'たまご',romaji:'tamago'}, {tr:'pilav',kana:'ごはん',romaji:'gohan'} ], ack:{jp:'なるほど！', tr:'Anladım!'} },
+      { jp:'せかい に くだもの ふたつ だけ！いちご？すいか？', tr:'Dünyada iki meyve kaldı! Çilek mi karpuz mu?', choices:[ {tr:'çilek',kana:'いちご',romaji:'ichigo'}, {tr:'karpuz',kana:'すいか',romaji:'suika'} ], ack:{jp:'むずかしい しつもん だね！', tr:'Zor soruymuş!'} },
+      { jp:'ピザ？すし？どっち！', tr:'Pizza mı suşi mi? Hangisi?!', choices:[ {tr:'pizza',kana:'ピザ',romaji:'piza'}, {tr:'suşi',kana:'すし',romaji:'sushi'} ], ack:{jp:'わかる！', tr:'Anlıyorum!'} },
+      { jp:'おにぎり！さけ？まぐろ？', tr:'Onigiri! Somon mu ton mu?', choices:[ {tr:'somon',kana:'さけ',romaji:'sake'}, {tr:'ton balığı',kana:'まぐろ',romaji:'maguro'} ], ack:{jp:'おいしそう…', tr:'Nefis görünüyor...'} },
+      { jp:'さいご！デザート、アイス？もち？', tr:'Son! Tatlı: dondurma mı mochi mi?', choices:[ {tr:'dondurma',kana:'アイス',romaji:'aisu'}, {tr:'mochi',kana:'もち',romaji:'mochi'} ], ack:{jp:'メモ かんりょう！', tr:'Not tamam!'} }
+    ],
+    outro:{jp:'ありがとう！…おなか すいた。', tr:'Teşekkürler! ...Acıktım.'}
+  },
+  { id:'news', tier:'Tepkiler', emoji:'💥', who:'Aoi', avatar:'🦝', need:'survey', title:'Arkadaştan haber',
+    turns:[
+      { jp:'ねえ、しんじられない ニュース！', tr:'Hey, inanılmaz bir haber!', choices:[ {tr:'ne?',kana:'なに',romaji:'nani'}, {tr:'yok artık!',kana:'うそ',romaji:'uso'} ], ack:{jp:'あのね…', tr:'Şey...'} },
+      { jp:'あした、やすみ！', tr:'Yarın tatil!', choices:[ {tr:'yaşasın!',kana:'やった',romaji:'yatta'}, {tr:'gerçekten?',kana:'ほんと',romaji:'honto'} ], ack:{jp:'ほんとだよ！', tr:'Gerçekten!'} },
+      { jp:'いっしょに うみ、いく？', tr:'Birlikte denize gidelim mi?', choices:[ {tr:'harika!',kana:'いいね',romaji:'iine'}, {tr:'gidelim!',kana:'いこう',romaji:'ikou'} ], ack:{jp:'さいこう！', tr:'Süper!'} },
+      { jp:'ケーキ も もってくる！', tr:'Pasta da getireceğim!', choices:[ {tr:'harikasın!',kana:'すごい',romaji:'sugoi'}, {tr:'nefis!',kana:'おいしそう',romaji:'oishisou'} ], ack:{jp:'でしょ？', tr:'Değil mi?'} }
+    ],
+    outro:{jp:'たのしみ！', tr:'Sabırsızlanıyorum!'}
+  }
+];
 // 
 const Chat = (()=>{
   let cur=null;
