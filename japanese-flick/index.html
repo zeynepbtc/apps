@@ -991,7 +991,7 @@ const TTS = (()=>{
     if(!voice) pickVoice(); if(voice) u.voice=voice; u.lang='ja-JP'; u.rate=rate||.9; u.pitch=1; return u; }
   // kaydedilmiş kana sesleri (varsa dosyadan, yoksa TTS)
   const AUDIO_KANA={'あ':'a','い':'i','う':'u','え':'e','お':'o','か':'ka','き':'ki','く':'ku','け':'ke','こ':'ko','さ':'sa','し':'shi','す':'su','せ':'se','そ':'so','た':'ta','ち':'chi','つ':'tsu','て':'te','と':'to','な':'na','に':'ni','ぬ':'nu','ね':'ne','の':'no','は':'ha','ひ':'hi','ふ':'fu','へ':'he','ほ':'ho','ま':'ma','み':'mi','む':'mu','め':'me','も':'mo','や':'ya','ゆ':'yu','よ':'yo','ら':'ra','り':'ri','る':'ru','れ':'re','ろ':'ro','わ':'wa','を':'wo','ん':'n','が':'ga','ぎ':'gi','ぐ':'gu','げ':'ge','ご':'go','ざ':'za','じ':'ji','ず':'zu','ぜ':'ze','ぞ':'zo','だ':'da','ぢ':'di','づ':'du','で':'de','ど':'do','ば':'ba','び':'bi','ぶ':'bu','べ':'be','ぼ':'bo','ぱ':'pa','ぴ':'pi','ぷ':'pu','ぺ':'pe','ぽ':'po','きゃ':'kya','きゅ':'kyu','きょ':'kyo','ぎゃ':'gya','ぎゅ':'gyu','ぎょ':'gyo','しゃ':'sha','しゅ':'shu','しょ':'sho','じゃ':'ja','じゅ':'ju','じょ':'jo','ちゃ':'cha','ちゅ':'chu','ちょ':'cho','にゃ':'nya','にゅ':'nyu','にょ':'nyo','ひゃ':'hya','ひゅ':'hyu','ひょ':'hyo','びゃ':'bya','びゅ':'byu','びょ':'byo','ぴゃ':'pya','ぴゅ':'pyu','ぴょ':'pyo','みゃ':'mya','みゅ':'myu','みょ':'myo','りゃ':'rya','りゅ':'ryu','りょ':'ryo'};
-  const AUDIO_WORD={'にほんご':'nihongo','ありがとう':'arigatou','すみません':'sumimasen','こんにちは':'konnichiwa','おはよう':'ohayou','おいしい':'oishii','すき':'suki','えき':'eki','みず':'mizu','ねこ':'neko','いぬ':'inu','やま':'yama','かわ':'kawa','ひと':'hito','がくせい':'gakusei','なまえ':'namae','カメラ':'kamera','ホテル':'hoteru','コーヒー':'koohii','スマホ':'sumaho','レストラン':'resutoran','タクシー':'takushii','パン':'pan','ビール':'biiru','やあ':'yaa','おちゃ':'ocha','はい':'hai','いいえ':'iie','いいね':'iine','ごめん':'gomen','あか':'aka','あお':'ao','さんじ':'sanji','ごじ':'goji','おおきい':'ookii','ちいさい':'chiisai','あつい':'atsui','つめたい':'tsumetai','たくさん':'takusan','すこし':'sukoshi','ある':'aru','ない':'nai','いいよ':'iiyo','だめ':'dame','たまご':'tamago','ごはん':'gohan','いちご':'ichigo','すいか':'suika','ピザ':'piza','すし':'sushi','さけ':'sake','まぐろ':'maguro','アイス':'aisu','もち':'mochi','なに':'nani','うそ':'uso','やった':'yatta','ほんと':'honto','いこう':'ikou','すごい':'sugoi','おいしそう':'oishisou','そうですね':'sou_desu_ne','わかった':'wakatta','だいじょうぶ':'daijoubu','ちがう':'chigau','たぶん':'tabun','どうぞ':'douzo','なるほど':'naruhodo','おめでとう':'omedetou','がんばって':'ganbatte','じゃあね':'jaane','うん':'un','ううん':'uun'};
+  const AUDIO_WORD={'にほんご':'nihongo','ありがとう':'arigatou','すみません':'sumimasen','こんにちは':'konnichiwa','おはよう':'ohayou','おいしい':'oishii','すき':'suki','えき':'eki','みず':'mizu','ねこ':'neko','いぬ':'inu','やま':'yama','かわ':'kawa','ひと':'hito','がくせい':'gakusei','なまえ':'namae','カメラ':'kamera','ホテル':'hoteru','コーヒー':'koohii','スマホ':'sumaho','レストラン':'resutoran','タクシー':'takushii','パン':'pan','やあ':'yaa','おちゃ':'ocha','はい':'hai','いいえ':'iie','いいね':'iine','ごめん':'gomen','あか':'aka','あお':'ao','さんじ':'sanji','ごじ':'goji','おおきい':'ookii','ちいさい':'chiisai','あつい':'atsui','つめたい':'tsumetai','たくさん':'takusan','すこし':'sukoshi','ある':'aru','ない':'nai','いいよ':'iiyo','だめ':'dame','たまご':'tamago','ごはん':'gohan','いちご':'ichigo','すいか':'suika','ピザ':'piza','すし':'sushi','まぐろ':'maguro','アイス':'aisu','もち':'mochi','なに':'nani','うそ':'uso','やった':'yatta','ほんと':'honto','いこう':'ikou','すごい':'sugoi','おいしそう':'oishisou','そうですね':'sou_desu_ne','わかった':'wakatta','だいじょうぶ':'daijoubu','ちがう':'chigau','たぶん':'tabun','どうぞ':'douzo','なるほど':'naruhodo','おめでとう':'omedetou','がんばって':'ganbatte','じゃあね':'jaane','うん':'un','ううん':'uun'};
   const AUDIO_PHRASE={'にほんごがすきです':'nihongo_ga_suki_desu','コーヒーをください':'koohii_o_kudasai','えきまでおねがいします':'eki_made_onegai_shimasu','はじめまして':'hajimemashite','これはおいしいです':'kore_wa_oishii_desu','ありがとうございます':'arigatou_gozaimasu','いくらですか':'ikura_desu_ka','えいごをはなせますか':'eigo_o_hanasemasu_ka','おなまえは':'onamae_wa','トイレはどこですか':'toire_wa_doko_desu_ka'};
   let curAudio=null;
   function ttsSpeak(text,rate){ if(!SS) return; try{ SS.cancel(); const u=mkU(text,rate); setTimeout(()=>{ try{ SS.speak(u); if(SS.paused) SS.resume(); }catch(e){} },55); }catch(e){} }
@@ -1000,9 +1000,13 @@ const TTS = (()=>{
       if(typeof State!=="undefined" && State.soundOn===false) return;
       if(!text) return;
       let src=null;
-      if(AUDIO_KANA[text]) src='audio/kana/'+AUDIO_KANA[text]+'.mp3';
-      else if(AUDIO_WORD[text]) src='audio/word/'+AUDIO_WORD[text]+'.mp3';
-      else if(AUDIO_PHRASE[text]) src='audio/phrase/'+AUDIO_PHRASE[text]+'.mp3';
+      const nk=(text||'').replace(/[\s\u3000。、！？・…!?.,]+/g,'');
+      const K=AUDIO_KANA[text]||AUDIO_KANA[nk];
+      const W=AUDIO_WORD[text]||AUDIO_WORD[nk];
+      const P=AUDIO_PHRASE[text]||AUDIO_PHRASE[nk];
+      if(K) src='audio/kana/'+K+'.mp3';
+      else if(W) src='audio/word/'+W+'.mp3';
+      else if(P) src='audio/phrase/'+P+'.mp3';
       if(src){
         try{
           if(curAudio){ try{curAudio.pause();}catch(e){} }
@@ -1179,7 +1183,12 @@ const VOCAB = [
  ['レストラン','','resutoran','restoran',true],
  ['タクシー','','takushii','taksi',true],
  ['パン','','pan','ekmek',true],
- ['ビール','','biiru','bira',true]
+ ['ジュース','','juusu','meyve suyu',true],
+ ['おちゃ','お茶','ocha','çay'],
+ ['バナナ','','banana','muz',true],
+ ['りんご','','ringo','elma'],
+ ['ミルク','','miruku','süt',true],
+ ['サンドイッチ','','sandoicchi','sandviç',true]
 ];
 function vget(kana){ return VOCAB.find(v=>v[0]===kana || (v[1]&&v[1]===kana)); }
 // IME sözlüğü: kana okuma -> aday listesi (kanji + katakana + kana)
@@ -1788,8 +1797,8 @@ const Mastery = {
       for(let i=0;i<5;i++){ const k=arr[i];
         if(!k||k==='ー'){ hc+='<div class="mcell e"></div>'; kc+='<div class="mcell e"></div>'; continue; }
         const mn=(i===0)?' main':'';
-        const lh=this.level(k); hc+='<button class="mcell l'+lh+mn+'" onclick="KanaCard.open(\''+k+'\',false)">'+k+'</button>'; hTot++; if(lh>=3)hStrong++;
-        const kk=toKata(k); const lk=this.level(kk); kc+='<button class="mcell l'+lk+mn+'" onclick="KanaCard.open(\''+kk+'\',true)">'+kk+'</button>'; kTot++; if(lk>=3)kStrong++;
+        const lh=this.level(k); hc+='<button class="mcell l'+lh+mn+'" aria-label="'+k+', '+['yeni','tanıyor','öğreniyor','iyi','usta'][lh]+'" onclick="KanaCard.open(\''+k+'\',false)">'+k+'</button>'; hTot++; if(lh>=3)hStrong++;
+        const kk=toKata(k); const lk=this.level(kk); kc+='<button class="mcell l'+lk+mn+'" aria-label="'+kk+', '+['yeni','tanıyor','öğreniyor','iyi','usta'][lk]+'" onclick="KanaCard.open(\''+kk+'\',true)">'+kk+'</button>'; kTot++; if(lk>=3)kStrong++;
       }});
     H.innerHTML=hc; K.innerHTML=kc;
     const hp=document.getElementById('mHpct'), kp=document.getElementById('mKpct');
@@ -1986,6 +1995,7 @@ function Keyboard(opts){
       if(ROWS_H[code]){
         const arr=ROWS_H[code]; k.className='key'; k.dataset.row=code;
         const lbl=document.createElement('span'); lbl.className='klabel'; lbl.textContent=arr[0]; k.appendChild(lbl);
+        k.setAttribute('role','button'); k.setAttribute('tabindex','0'); k.setAttribute('aria-label', arr[0]+', '+(ROMA_OF[arr[0]]||''));
         // açık rehber: yönleri tuşun üstünde göster (öğretici mod)
         const gmap=[['u',2],['l',1],['r',3],['d',4]]; const gd={};
         gmap.forEach(([cls,idx])=>{ if(arr[idx]){ const g=document.createElement('span'); g.className='gd '+cls; g.textContent=arr[idx]; k.appendChild(g); gd[idx]=g; } });
@@ -2095,7 +2105,7 @@ const Game = {
   },
   feedback(win,title,detail,onNext){
     const f=$('#feed'); f.className='feed '+(win?'win':'lose');
-    f.innerHTML='<div class="card"><h3>'+(win?'⭐ ':'🤔 ')+title+'</h3>'+(detail?'<div class="fbody">'+detail+'</div>':'')
+    f.innerHTML='<div class="card"><h3>'+(win?'✓ ':'✗ ')+title+'</h3>'+(detail?'<div class="fbody">'+detail+'</div>':'')
       +'<button class="btn '+(win?'cy':'')+'">Devam</button></div>';
     f.querySelector('.btn').onclick=()=>{ f.classList.remove('on'); (onNext||(()=>Game.next()))(); };
     requestAnimationFrame(()=>f.classList.add('on'));
@@ -2306,11 +2316,13 @@ const Listen = {
     const it=Game.queue[Game.idx], stage=$('#lessonStage'); const target=it[0];
     stage.innerHTML=
       '<div class="prompt"><div class="tag">Duy ve yaz</div><div style="font-size:60px;margin:6px 0">🔊</div>'
-      +'<button class="btn cy sm" id="bPlay" style="margin:0 auto">▶︎ Tekrar çal</button></div>'
+      +'<div id="lisReveal" style="color:var(--gold-ink);font-weight:900;font-size:32px;font-family:var(--ui);text-align:center;min-height:0"></div>'
+      +'<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn cy sm" id="bPlay">▶︎ Tekrar çal</button><button class="btn ghost sm" id="bReveal" aria-label="Okunuşu göster">👁 Göster</button></div></div>'
       +'<div class="seg" id="spd" style="margin:6px 0"><button data-r=".6">yavaş</button><button data-r=".85" class="on">normal</button><button data-r="1.05">hızlı</button><button data-r="1.3">native</button></div>'
       +'<div class="field empty" id="typeField" data-ph="Duyduğunu yaz..."><span class="caret"></span></div>';
     $$('#spd button').forEach(b=>b.onclick=()=>{ $$('#spd button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); this.rate=parseFloat(b.dataset.r); play(); });
     const play=()=>TTS.speak(target,this.rate); $('#bPlay').onclick=play;
+    const rv=$('#bReveal'); if(rv) rv.onclick=()=>{ const r=$('#lisReveal'); if(r) r.textContent=it[2]; };
     if(Game.kb) Game.kb.el.remove();
     Game.kb=Keyboard({ mode: it[4]?'kata':'kana', onInput:(c,comp)=>{ const f=$('#typeField'); f.classList.toggle('empty',!(c||comp));
       f.innerHTML=(c?'<span>'+c+'</span>':'')+(comp?'<span class="compose">'+comp+'</span>':'')+'<span class="caret"></span>'; } });
@@ -2648,7 +2660,7 @@ const SCENARIOS = [
       { jp:'あさ ごはん、たまご？ごはん？', tr:'Kahvaltı: yumurta mı pilav mı?', choices:[ {tr:'yumurta',kana:'たまご',romaji:'tamago'}, {tr:'pilav',kana:'ごはん',romaji:'gohan'} ], ack:{jp:'なるほど！', tr:'Anladım!'} },
       { jp:'せかい に くだもの ふたつ だけ！いちご？すいか？', tr:'Dünyada iki meyve kaldı! Çilek mi karpuz mu?', choices:[ {tr:'çilek',kana:'いちご',romaji:'ichigo'}, {tr:'karpuz',kana:'すいか',romaji:'suika'} ], ack:{jp:'むずかしい しつもん だね！', tr:'Zor soruymuş!'} },
       { jp:'ピザ？すし？どっち！', tr:'Pizza mı suşi mi? Hangisi?!', choices:[ {tr:'pizza',kana:'ピザ',romaji:'piza'}, {tr:'suşi',kana:'すし',romaji:'sushi'} ], ack:{jp:'わかる！', tr:'Anlıyorum!'} },
-      { jp:'おにぎり！さけ？まぐろ？', tr:'Onigiri! Somon mu ton mu?', choices:[ {tr:'somon',kana:'さけ',romaji:'sake'}, {tr:'ton balığı',kana:'まぐろ',romaji:'maguro'} ], ack:{jp:'おいしそう…', tr:'Nefis görünüyor...'} },
+      { jp:'おやつ！バナナ？りんご？', tr:'Atıştırmalık! Muz mu elma mı?', choices:[ {tr:'muz',kana:'バナナ',romaji:'banana'}, {tr:'elma',kana:'りんご',romaji:'ringo'} ], ack:{jp:'おいしそう…', tr:'Nefis görünüyor...'} },
       { jp:'さいご！デザート、アイス？もち？', tr:'Son! Tatlı: dondurma mı mochi mi?', choices:[ {tr:'dondurma',kana:'アイス',romaji:'aisu'}, {tr:'mochi',kana:'もち',romaji:'mochi'} ], ack:{jp:'メモ かんりょう！', tr:'Not tamam!'} }
     ],
     outro:{jp:'ありがとう！…おなか すいた。', tr:'Teşekkürler! ...Acıktım.'}
