@@ -721,6 +721,23 @@ body{
 .sr-m{font-size:13px;color:var(--txt);opacity:.7;margin-top:2px}
 .sr-bar{height:5px;background:var(--line);border-radius:3px;margin-top:10px;overflow:hidden}
 .sr-bar i{display:block;height:100%;background:var(--gold)}
+.dxtable{margin:6px 0 6px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.dxr{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--line);cursor:pointer}
+.dxr:last-child{border-bottom:none}
+.dxr:active{background:var(--panel2)}
+.dxr .jp{font-family:var(--jp);font-size:16px;font-weight:800;color:var(--txt);min-width:58px}
+.dxr-r{font-size:12px;color:var(--gold-ink);font-weight:700;min-width:54px}
+.dxr-t{font-size:13px;color:var(--txt);opacity:.8;flex:1}
+.dxr-s{opacity:.55;font-size:14px}
+.dxlocked{display:flex;flex-wrap:wrap;gap:6px;margin:8px 4px 6px}
+.dxq{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--txt);opacity:.4;font-weight:900;font-size:13px}
+.acc-head{width:100%;display:flex;justify-content:space-between;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-weight:800;font-size:15px;color:var(--txt);cursor:pointer}
+.acc-head:active{transform:scale(.99)}
+.acc-arw{transition:transform .32s ease;opacity:.55;font-size:14px}
+.acc-head[aria-expanded="true"] .acc-arw{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;opacity:.4;transition:max-height .4s cubic-bezier(.3,.8,.3,1),opacity .3s ease}
+.acc-body.open{max-height:1000px;opacity:1}
+.acc-body .badgegrid{padding:14px 4px 2px}
 </style>
 </head>
 <body>
@@ -781,7 +798,10 @@ body{
         <button class="back" onclick="UI.show('s-home')">‹</button>
         <h2 data-t="settings.title">Ayarlar</h2>
       </div>
-      <div class="sgroup"><div class="gt">Başarımlar</div><div class="badgegrid" id="badgeGrid"></div></div>
+      <div class="sgroup">
+        <button class="acc-head" id="badgeAccBtn" aria-expanded="false" onclick="toggleBadgeAcc()"><span>🏅 Başarımlar</span><span class="acc-arw">▾</span></button>
+        <div class="acc-body" id="badgeAcc"><div class="badgegrid" id="badgeGrid"></div></div>
+      </div>
       <div class="sgroup">
         <div class="gt" data-t="settings.groups.general">Genel</div>
         <div class="slist">
@@ -2046,21 +2066,17 @@ const KanaDex = {
   render(){
     const body=document.getElementById('dexBody'); if(!body) return;
     const levels=['N5','N4','N3','N2','N1']; let html='';
-    levels.forEach(lvl=>{
-      let words=WORDDEX.filter(w=>w.l===lvl).slice().sort((a,b)=>a.k.localeCompare(b.k,'ja'));
-      const total=words.length, found=words.filter(w=>State.dex[w.k]).length;
-      html+='<div class="dex-lvl"><span class="dex-lvlname">'+lvl+'</span><span class="dex-prog">'+(total?(found+' / '+total+' keşfedildi'):'yakında')+'</span></div>';
-      if(!total){ html+='<div class="dd-empty" style="padding:4px 2px 14px">Bu seviye ileride açılacak.</div>'; return; }
-      html+='<div class="dexgrid">';
-      words.forEach(w=>{
-        html+= State.dex[w.k]
-          ? '<button class="dcell got" data-k="'+w.k+'"><span class="dk jp">'+w.k+'</span></button>'
-          : '<div class="dcell locked"><span class="dq">？</span></div>';
-      });
-      html+='</div>';
+    levels.forEach(function(lvl){
+      var words=WORDDEX.filter(function(w){return w.l===lvl;}).slice().sort(function(a,b){return a.k.localeCompare(b.k,'ja');});
+      var total=words.length, foundArr=words.filter(function(w){return State.dex[w.k];});
+      html+='<div class="dex-lvl"><span class="dex-lvlname">'+lvl+'</span><span class="dex-prog">'+(total?(foundArr.length+' / '+total+' ke\u015ffedildi'):'yak\u0131nda')+'</span></div>';
+      if(!total){ html+='<div class="dd-empty" style="padding:4px 2px 14px">Bu seviye ileride a\u00e7\u0131lacak.</div>'; return; }
+      if(foundArr.length){ html+='<div class="dxtable">'+foundArr.map(function(w){ return '<div class="dxr" data-k="'+w.k+'"><b class="jp">'+w.k+'</b><span class="dxr-r">'+w.r+'</span><span class="dxr-t">'+(w.t||'')+'</span><span class="dxr-s">\ud83d\udd0a</span></div>'; }).join('')+'</div>'; }
+      var locked=words.filter(function(w){ return !State.dex[w.k]; });
+      if(locked.length){ html+='<div class="dxlocked">'+locked.map(function(){ return '<span class="dxq">\uff1f</span>'; }).join('')+'</div>'; }
     });
     body.innerHTML=html;
-    body.querySelectorAll('.dcell.got').forEach(c=> c.onclick=()=>KanaDex.card(c.dataset.k));
+    body.querySelectorAll('.dxr[data-k]').forEach(function(r){ r.onclick=function(){ var k=r.dataset.k; if(k) TTS.speak(k,.9); }; });
   },
   card(k){
     const w=WORDDEX.find(x=>x.k===k); if(!w) return;
@@ -2094,6 +2110,7 @@ const DEXACH = [
 ];
 function checkDexAch(){ DEXACH.forEach(function(a){ if(!State.badges[a.id] && a.chk()){ State.badges[a.id]=true; State.save(); try{ UI.toast('🏅 Başarım: '+a.t); }catch(e){} } }); }
 function discoverWord(k){ if(!k || typeof wdget!=='function') return; const w=wdget(k); if(w && !State.dex[w.k]){ State.dex[w.k]=true; State.save(); try{ KanaDex.celebrate(w); }catch(e){} try{ checkDexAch(); }catch(e){} } }
+function toggleBadgeAcc(){ var b=document.getElementById('badgeAccBtn'), body=document.getElementById('badgeAcc'); if(!b||!body) return; var open=body.classList.toggle('open'); b.setAttribute('aria-expanded', open?'true':'false'); }
 function renderBadgeGrid(){ const g=document.getElementById('badgeGrid'); if(!g) return;
   const all=BADGES.concat(DEXACH);
   g.innerHTML=all.map(function(b){ var got=!!State.badges[b.id];
