@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.zeynepkaya.japonflick",
+        "sha256_cert_fingerprints": ["84:70:DC:92:DC:BB:63:53:AE:72:FB:1E:47:A3:20:61:3E:C6:86:7B:CC:30:40:EB:16:A1:31:17:F9:CC:A3:2B"]
+      }
+    }]
