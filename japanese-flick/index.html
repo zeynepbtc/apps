@@ -823,7 +823,7 @@ body{
         <div class="gt" data-t="settings.groups.general">Genel</div>
         <div class="slist">
           <button class="sitem" onclick="Theme.toggle()"><span class="si">🌓</span><span class="sl">Tema</span><span class="sv">Gündüz / Gece</span><span class="chev">›</span></button>
-          <div class="sitem" style="cursor:default"><span class="si">🌐</span><span class="sl" data-t="settings.language">Dil</span><span class="sv" data-t="settings.languageValue">Türkçe</span></div>
+          <button class="sitem" onclick="cycleLang()"><span class="si">🌐</span><span class="sl" data-t="settings.language">Dil</span><span class="sv" data-t="settings.languageValue">Türkçe</span><span class="chev">⇄</span></button>
           <div class="sitem"><span class="si">🔊</span><span class="sl" data-t="settings.sound">Ses</span><span class="tgl on" id="tglSound" onclick="Settings.toggleSound()"></span></div>
           <div class="sitem"><span class="si">📳</span><span class="sl" data-t="settings.haptics">Titreşim &amp; efekt</span><span class="tgl on" id="tglHaptic" onclick="Settings.toggleHaptic()"></span></div>
         </div>
@@ -1389,13 +1389,13 @@ const State = {
   daily:{date:'',count:0}, goal:15, lastGoalDate:'', freezes:1,
   profile:null,     // 'zero' | 'some' | 'pro'
   onboarded:false,
-  soundOn:true, hapticOn:true, theme:'light', games:{}, mastery:{}, srs:{},
+  soundOn:true, hapticOn:true, theme:'light', lang:'tr', games:{}, mastery:{}, srs:{},
   done:{},          // lessonId -> true
   dex:{},           // keşfedilen kelimeler (kana->true)
   chatDone:{},      // scenarioId -> true
   badges:{},        // badgeId -> true
   load(){ try{ const s=JSON.parse(localStorage.getItem(SAVE_KEY)); if(s)Object.assign(this,s);}catch(e){} },
-  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,games:this.games,mastery:this.mastery,srs:this.srs,dex:this.dex,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes}));}catch(e){} },
+  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,lang:this.lang,games:this.games,mastery:this.mastery,srs:this.srs,dex:this.dex,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes}));}catch(e){} },
   addXp(n){ this.xp+=n; const nl=1+Math.floor(this.xp/120); if(nl>this.level){this.level=nl;Sound.level();UI.toast('🎉 Seviye '+nl+'!');UI.confetti();} this.save(); UI.syncHome(); },
   finish(id){ if(!this.done[id]){this.done[id]=true;this.save();} },
   giveBadge(id,label){ if(!this.badges[id]){this.badges[id]=true;this.save();UI.toast('🏅 Rozet: '+label);} }
@@ -1449,8 +1449,28 @@ const STRINGS={ tr:{
     language:"Dil", languageValue:"Türkçe", sound:"Ses", haptics:"Titreşim & efekt", accessibility:"Erişilebilirlik",
     exportData:"Veriyi dışa aktar", importData:"Veriyi içe aktar", reset:"İlerlemeyi sıfırla",
     privacy:"Gizlilik Politikası", terms:"Kullanım Şartları", support:"Destek / İletişim", about:"Hakkında", version:"sürüm" }
+}, en:{
+  app:{ name:"Japanese Flick", tagline:"Finger practice for the Japanese phone keyboard" },
+  home:{
+    keyboard:{ title:"Keyboard Practice", desc:"Learn kana directions with your finger." },
+    hiragana:{ title:"Hiragana", desc:"Japanese words and grammar" },
+    katakana:{ title:"Katakana", desc:"Words of foreign origin" },
+    reflex:{ title:"Reflex Dojo", desc:"Train speed and muscle memory." },
+    chat:{ title:"Chat", desc:"Type short replies in Japanese." },
+    free:{ title:"Free Writing" }, games:{ title:"Games", soon:"Play · beat your record" },
+    dict:{ title:"Dictionary", search:"Search a word…" }
+  },
+  settings:{ title:"Settings", groups:{ general:"General", progress:"Progress", legal:"Legal & Support" },
+    language:"Language", languageValue:"English", sound:"Sound", haptics:"Vibration & effects", accessibility:"Accessibility",
+    exportData:"Export data", importData:"Import data", reset:"Reset progress",
+    privacy:"Privacy Policy", terms:"Terms of Use", support:"Support / Contact", about:"About", version:"version" }
 }};
 const I18N={ lang:'tr' };
+const LANGS=['tr','en'];
+function setLang(l){ if(!STRINGS[l]) return; I18N.lang=l; State.lang=l; try{ State.save(); }catch(e){}
+  try{ applyI18n(); }catch(e){}
+  try{ var f=document.getElementById('s-faq'); if(f && f.classList.contains('on')) setFaqLang(l); }catch(e){} }
+function cycleLang(){ var i=LANGS.indexOf(I18N.lang); if(i<0)i=0; setLang(LANGS[(i+1)%LANGS.length]); }
 function t(k){ const d=STRINGS[I18N.lang]||STRINGS.tr; const v=k.split('.').reduce((o,x)=>(o&&o[x]!=null)?o[x]:null,d); return v==null?k:v; }
 function applyI18n(root){ (root||document).querySelectorAll('[data-t]').forEach(e=>{ e.textContent=t(e.dataset.t); });
   (root||document).querySelectorAll('[data-tph]').forEach(e=>{ e.setAttribute('placeholder',t(e.dataset.tph)); }); }
@@ -2159,7 +2179,7 @@ const UI = {
   show(id){ $$('.screen').forEach(e=>e.classList.remove('on')); $('#'+id).classList.add('on');
     const focus=['s-lesson','s-game60','s-flow','s-shiri','s-reflex','s-drill','s-chat'].indexOf(id)>=0;
     const nc=document.getElementById('navctrls'); if(nc) nc.style.display=focus?'none':'flex';
-    if(id==='s-achv'){ try{ renderBadgeGrid(); }catch(e){} } if(id==='s-faq'){ try{ renderFaq(); }catch(e){} } },/* Batch3-Faz1b + Faz2 */
+    if(id==='s-achv'){ try{ renderBadgeGrid(); }catch(e){} } if(id==='s-faq'){ try{ setFaqLang(I18N.lang); }catch(e){} } },/* Batch3-Faz1b + Faz2 */
   toast(t){ const e=$('#toast'); e.textContent=t; e.classList.add('on'); clearTimeout(this._t); this._t=setTimeout(()=>e.classList.remove('on'),1900); },
   confetti(){ const wrap=$('#confetti'); const cols=['#d3813a','#57a99a','#e8bd76','#6bb39d','#a68fc4'];
     for(let i=0;i<70;i++){ const c=document.createElement('i'); c.className='cf';
@@ -3271,6 +3291,7 @@ const Onboard = {
    BAŞLAT
    ============================================================ */
 State.load();
+I18N.lang=State.lang||'tr';
 Theme.apply();
 applyI18n();
 /* ===== Faz 1: erişilebilirlik JS — ikon buton adları + Japonca lang ===== */
