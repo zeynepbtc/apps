@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kullanım Şartları · Japonca Flick Klavye</title>
-<meta name="description" content="Kullanım Şartları — Japonca Flick Klavye uygulaması.">
+<title>Kullanım Şartları · Japanese Flick</title>
+<meta name="description" content="Kullanım Şartları — Japonca Flick Klavye uygulaması. Terms of Use — Japanese Flick.">
 <style>*{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#F4EEE3;--panel:#FBF7EF;--ink:#2E2119;--muted:#6a6155;--line:#E4DACB;--accent:#C0562B;--accent2:#A4392C;--gold:#8c6414}
 html{-webkit-text-size-adjust:100%}
@@ -15,7 +15,10 @@ header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
 .mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:900;flex:none}
 .brand h1{font-family:"Shippori Mincho",Georgia,serif;font-size:22px;font-weight:800;letter-spacing:.3px}
 .brand .sub{font-size:13px;color:var(--muted);margin-top:2px}
-main{padding:32px 0 8px}
+main{padding:22px 0 8px}
+.langbar{display:flex;gap:8px;margin:0 0 22px;position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:5}
+.langbar button{flex:1;max-width:150px;padding:9px;border-radius:11px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-weight:800;font-size:13px;cursor:pointer}
+.langbar button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .doc-title{font-family:"Shippori Mincho",Georgia,serif;font-size:30px;font-weight:800;line-height:1.15;margin-bottom:6px}
 .updated{font-size:13px;color:var(--muted);margin-bottom:26px}
 h2{font-family:"Shippori Mincho",Georgia,serif;font-size:20px;font-weight:800;margin:30px 0 10px;color:var(--ink)}
@@ -41,13 +44,20 @@ footer .fine{font-size:12.5px}
   <header>
     <div class="brand">
       <div class="mark">あ</div>
-      <div><h1>Japonca Flick Klavye</h1><div class="sub">Japonca kana yazmayı öğreten uygulama</div></div>
+      <div>
+        <h1><span class="tr">Japonca Flick Klavye</span><span class="en" hidden>Japanese Flick</span></h1>
+        <div class="sub"><span class="tr">Japonca kana yazmayı öğreten uygulama</span><span class="en" hidden>An app that teaches Japanese kana writing</span></div>
+      </div>
     </div>
   </header>
   <main>
+    <div class="langbar"><button id="btr" class="on" onclick="sl('tr')">Türkçe</button><button id="ben" onclick="sl('en')">English</button></div>
+
+    <!-- ================= TÜRKÇE ================= -->
+    <div class="tr">
     <div class="doc-title">Kullanım Şartları</div>
     <div class="updated">Son güncelleme: 8 Temmuz 2026</div>
-    
+
 <p>Japonca Flick Klavye uygulamasını (“uygulama”) kullanarak aşağıdaki şartları kabul etmiş olursunuz. Lütfen dikkatlice okuyun.</p>
 
 <h2>1. Hizmetin niteliği</h2>
@@ -57,7 +67,7 @@ footer .fine{font-size:12.5px}
 <p>Uygulama “olduğu gibi” sunulur. Eğitim içeriğinin (çeviri, okunuş, örnekler) doğruluğu konusunda azami özen gösterilse de kesintisizlik veya hatasızlık garantisi verilmez. Uygulama; profesyonel dil eğitiminin, sertifikasyonun veya resmî bir yeterlilik belgesinin yerini tutmaz.</p>
 
 <h2>3. Verileriniz</h2>
-<p>Öğrenme ilerlemeniz yalnızca cihazınızda saklanır (ayrıntı için <a href="/privacy/">Gizlilik Politikası</a>). Verilerinizin yedeğini almak ve korumak sizin sorumluluğunuzdadır; cihaz veya tarayıcı verilerinin silinmesi ilerlemenizi kalıcı olarak siler.</p>
+<p>Öğrenme ilerlemeniz yalnızca cihazınızda saklanır (ayrıntı için <a href="../privacy/">Gizlilik Politikası</a>). Verilerinizin yedeğini almak ve korumak sizin sorumluluğunuzdadır; cihaz veya tarayıcı verilerinin silinmesi ilerlemenizi kalıcı olarak siler.</p>
 
 <h2>4. Kabul edilebilir kullanım</h2>
 <p>Uygulamayı yalnızca kişisel ve yasal amaçlarla kullanırsınız. Uygulamayı tersine mühendisliğe tabi tutmak, kötüye kullanmak, değiştirmek veya izinsiz biçimde yeniden dağıtmak yasaktır.</p>
@@ -76,12 +86,59 @@ footer .fine{font-size:12.5px}
 
 <h2>9. İletişim</h2>
 <a class="mail" href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a>
+    </div>
+
+    <!-- ================= ENGLISH ================= -->
+    <div class="en" hidden>
+    <div class="doc-title">Terms of Use</div>
+    <div class="updated">Last updated: 8 July 2026</div>
+
+<p>By using the Japanese Flick app (“the app”) you agree to the terms below. Please read carefully.</p>
+
+<h2>1. Nature of the service</h2>
+<p>The app is an <strong>educational</strong> tool for teaching the flick keyboard that Japanese people use in daily life and kana (hiragana + katakana) writing. It runs entirely on your device, offline; it requires no account or internet connection.</p>
+
+<h2>2. “As is” provision</h2>
+<p>The app is provided “as is”. While we take the utmost care with the accuracy of the educational content (translations, readings, examples), no guarantee of uninterrupted or error-free operation is given. The app is not a substitute for professional language education, certification or any official proficiency document.</p>
+
+<h2>3. Your data</h2>
+<p>Your learning progress is stored only on your device (see the <a href="../privacy/">Privacy Policy</a> for details). Backing up and protecting your data is your responsibility; deleting device or browser data permanently erases your progress.</p>
+
+<h2>4. Acceptable use</h2>
+<p>You use the app only for personal and lawful purposes. Reverse-engineering, misusing, modifying or redistributing the app without permission is prohibited.</p>
+
+<h2>5. Intellectual property</h2>
+<p>The app's design, code, texts and audio assets belong to or are licensed by Zeynep Kaya. Some pronunciation sounds are produced under a commercial license with Narakeet (Video Puppet Ltd.). The content may not be copied or redistributed without permission.</p>
+
+<h2>6. Limitation of liability</h2>
+<p>To the maximum extent permitted by applicable law, no liability is accepted for indirect damages arising from use of the app.</p>
+
+<h2>7. Governing law</h2>
+<p>These terms are governed by the laws of the Republic of Türkiye.</p>
+
+<h2>8. Changes</h2>
+<p>These terms may be updated from time to time. The current version is always published on this page.</p>
+
+<h2>9. Contact</h2>
+<a class="mail" href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a>
+    </div>
 
   </main>
   <footer>
-    <nav><a href="/privacy/">Gizlilik</a><a href="/terms/" aria-current="page">Kullanım Şartları</a><a href="/support/">Destek</a></nav>
-    <div class="fine">© 2026 Zeynep Kaya · Japonca Flick Klavye · İletişim: <a href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a></div>
+    <nav>
+      <a href="../privacy/"><span class="tr">Gizlilik</span><span class="en" hidden>Privacy</span></a>
+      <a href="../terms/" aria-current="page"><span class="tr">Kullanım Şartları</span><span class="en" hidden>Terms</span></a>
+      <a href="../support/"><span class="tr">Destek</span><span class="en" hidden>Support</span></a>
+    </nav>
+    <div class="fine">© 2026 Zeynep Kaya · <span class="tr">Japonca Flick Klavye · İletişim:</span><span class="en" hidden>Japanese Flick · Contact:</span> <a href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a></div>
   </footer>
 </div>
+<script>
+function sl(l){document.documentElement.lang=l;
+ document.querySelectorAll('.tr').forEach(function(e){e.hidden=(l!=='tr');});
+ document.querySelectorAll('.en').forEach(function(e){e.hidden=(l!=='en');});
+ document.getElementById('btr').classList.toggle('on',l==='tr');
+ document.getElementById('ben').classList.toggle('on',l==='en');}
+</script>
 </body>
 </html>
