@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -17,7 +17,9 @@
    bold, koyu, oyun hissi. Persona enerjisi + dostça renkler.
    ============================================================ */
 :root{
-  color-scheme:light dark; /* tarayıcının kendi "force dark" koyulaştırmasını kapatır; tema uygulama içinden yönetilir */
+  color-scheme:light dark;
+  --sat:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px));
+  --sab:max(env(safe-area-inset-bottom,0px),var(--safe-area-inset-bottom,0px)); /* tarayıcının kendi "force dark" koyulaştırmasını kapatır; tema uygulama içinden yönetilir */
   --ink:#201d18;          /* arka plan (sıcak koyu bazalt) */
   --ink2:#29241d;         /* yüzey */
   --panel:#2f2a22;        /* kart */
@@ -74,11 +76,16 @@ body{
 
 /* --- üst bar --- */
 .top{position:relative;z-index:5;display:flex;align-items:center;gap:10px;
-  padding:max(14px,env(safe-area-inset-top)) 16px 12px}
+  padding:max(14px,var(--sat)) 16px 12px}
 .top .back{font-size:22px;font-weight:900;width:42px;height:42px;border-radius:14px;border:none;
   background:var(--panel);color:var(--txt);display:flex;align-items:center;justify-content:center;
   box-shadow:0 3px 0 var(--line);cursor:pointer}
 .top .ttl{font-weight:900;font-size:18px;letter-spacing:.5px;flex:1}
+/* T-06: sağ üstteki sabit navctrls kümesi (3×44px + boşluklar ≈ 148px, right:14px) başlıkla
+   çakışmasın diye .top'ta sağa yer aç; navctrls'in gizlendiği focus ekranlarında (orada ❤️ pill
+   sağda) bu boşluğu geri al. Seçenek 2: navctrls her ekranda kalır, başlık yana çekilir. */
+.top{padding-right:168px}
+#s-lesson .top,#s-game60 .top,#s-flow .top,#s-shiri .top,#s-reflex .top,#s-drill .top,#s-chat .top{padding-right:16px}
 .pill{display:flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);
   padding:6px 11px;border-radius:999px;font-weight:800;font-size:13px}
 .pill.gold{color:var(--gold-ink)} .pill.cy{color:var(--cy)}
@@ -196,7 +203,7 @@ body{
 .stage{flex:1;display:flex;flex-direction:column;padding:6px 16px 0;min-height:0}
 /* alt aksiyon çubuğu: home çubuğu payı + nefes boşluğu + hafif ayraç */
 .acts{margin-top:auto;display:flex;gap:10px;padding-top:14px;
-  padding-bottom:max(22px,calc(env(safe-area-inset-bottom) + 12px));
+  padding-bottom:max(22px,calc(var(--sab) + 12px));
   border-top:1px solid var(--line)}
 .acts.col{flex-direction:column}
 .lcard.lock{opacity:.5;filter:grayscale(.4);pointer-events:none}
@@ -242,7 +249,7 @@ body{
 .cand:active{background:var(--cy);color:#04221d}
 
 /* ========== FLICK KLAVYE ========== */
-.kb{margin-top:auto;padding:8px 6px max(8px,env(safe-area-inset-bottom));background:var(--kbtray);border-radius:20px 20px 0 0;
+.kb{margin-top:auto;padding:8px 6px max(8px,var(--sab));background:var(--kbtray);border-radius:20px 20px 0 0;
   border-top:1px solid var(--line);touch-action:none;overscroll-behavior:contain}
 .kbgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
 .key{position:relative;height:54px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);
@@ -345,7 +352,7 @@ body{
 .cf{position:absolute;width:10px;height:14px;top:-20px;will-change:transform}
 
 /* toast */
-#toast{position:absolute;left:50%;top:14%;transform:translateX(-50%) translateY(-20px);z-index:90;
+#toast{position:fixed;left:50%;top:auto;bottom:calc(var(--sab) + 24px);transform:translateX(-50%) translateY(-20px);z-index:90;
   background:var(--gold);color:#3a2a00;font-weight:900;padding:12px 18px;border-radius:14px;
   box-shadow:0 10px 24px rgba(0,0,0,.4);opacity:0;transition:.3s;font-size:14px;max-width:90%;text-align:center}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -380,7 +387,7 @@ body{
 #s-home.nf:before,#s-settings.nf:before,#s-achv.nf:before{content:"";position:absolute;inset:0;z-index:0;
   background-image:var(--grain);background-size:200px;opacity:var(--grain-op);mix-blend-mode:soft-light;pointer-events:none}
 .nf .nfscroll{position:relative;z-index:1;height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:0 20px calc(24px + env(safe-area-inset-bottom))}
+  padding:var(--sat) 20px calc(24px + var(--sab))}
 .nf .blob{position:absolute;border-radius:50%;z-index:0;pointer-events:none}
 .nf .blob.a{width:150px;height:150px;right:-42px;top:-30px;background:rgba(211,129,58,.14)}
 .nf .blob.b{width:120px;height:120px;right:34px;top:78px;background:rgba(79,154,143,.12)}
@@ -453,7 +460,7 @@ body{
 .nf .sitem{display:flex;align-items:center;gap:12px;padding:15px 16px;min-height:52px;border-bottom:1px solid rgba(120,100,80,.14);
   cursor:pointer;background:0;border-left:0;border-right:0;border-top:0;width:100%;text-align:left;font-family:var(--ui);color:var(--inkx)}
 .nf .sitem:last-child{border-bottom:0}
-.nf .sitem .si{width:30px;text-align:center;font-size:16px;opacity:.85}
+.nf .sitem .si{width:32px;height:32px;display:grid;place-items:center;opacity:1}
 .nf .sitem .sl{flex:1;font-size:14.5px;font-weight:600;color:var(--inkx)}
 .nf .sitem .sv{font-size:13px;color:var(--mutx)} .nf .sitem .chev{color:var(--mutx);opacity:.6;font-size:15px}
 .nf .tgl{width:46px;height:28px;border-radius:16px;background:rgba(120,100,80,.28);position:relative;transition:.2s;flex:0 0 46px}
@@ -467,7 +474,7 @@ body{
 .nf-scrim{position:absolute;inset:0;z-index:60;background:rgba(30,22,16,.34);opacity:0;pointer-events:none;transition:.28s}
 .nf-scrim.on{opacity:1;pointer-events:auto}
 .nf-drawer{position:absolute;top:0;right:0;bottom:0;width:84%;max-width:322px;z-index:61;transform:translateX(103%);
-  transition:transform .3s cubic-bezier(.2,.9,.2,1);padding:24px 20px calc(24px + env(safe-area-inset-bottom));overflow-y:auto;
+  transition:transform .3s cubic-bezier(.2,.9,.2,1);padding:24px 20px calc(24px + var(--sab));overflow-y:auto;
   background:linear-gradient(162deg,var(--bg1),var(--bg2));color:var(--inkx);box-shadow:-22px 0 54px rgba(40,28,20,.42);
   border-radius:26px 0 0 26px;font-family:var(--ui)}
 .nf-drawer.on{transform:none}
@@ -677,9 +684,19 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
 .dex-q{width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--panel2);border:1px solid var(--line);border-radius:9px;color:var(--txt);opacity:.4;font-weight:900;font-size:16px}
 .newword{text-align:center;color:var(--teal);font-weight:800;font-size:13px;margin-top:8px}
 .navbtn{color:var(--txt)}
-#navctrls{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:8px}
-.navbtn{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:19px;cursor:pointer;background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 3px 12px rgba(30,20,10,.14);transition:transform .1s ease}
+#navctrls{position:fixed;top:calc(14px + var(--sat));right:14px;z-index:60;display:flex;gap:8px}
+.navbtn{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;cursor:pointer;background:none;border:0;padding:0;transition:transform .1s ease}
 .navbtn:active{transform:scale(.9)}
+/* === Setler header (A yerleşimi + yeni ikon seti · Yol 2 sayfa 1) === */
+#s-sets .nfscroll,#s-achv .nfscroll{padding-top:0}
+#s-sets .shead,#s-achv .shead{position:sticky;top:0;z-index:8;background:var(--ink);
+  margin:0 -20px 8px;padding:calc(12px + var(--sat)) 14px 12px;align-items:center;gap:8px}
+#s-sets .shead h2{flex:1;min-width:0;font-size:22px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#s-sets .shead .back{width:44px;height:44px;flex:0 0 44px;background:none;box-shadow:none;border-radius:12px}
+#s-sets .sh-actions{display:flex;align-items:center;gap:2px;flex:0 0 auto;margin-left:auto}
+.sh-ic{width:44px;height:44px;flex:0 0 44px;border:0;background:none;cursor:pointer;display:grid;place-items:center;padding:0;border-radius:12px;transition:transform .1s ease}
+.sh-ic:active,#s-sets .shead .back:active{transform:scale(.9)}
+.top .back,.nf .shead .back{background:none;border:0;box-shadow:none;padding:0;width:44px;height:44px}
 .dexgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin:6px 0 6px}
 .dcell{aspect-ratio:1;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);padding:2px}
 .dcell.got{background:var(--teal);border-color:var(--teal);cursor:pointer;box-shadow:0 2px 8px rgba(40,28,16,.14)}
@@ -708,24 +725,95 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
 .kh-btn{position:relative}
 .kh-btn::after{content:"";position:absolute;inset:-8px}
 .dexcard-x{padding:8px 10px}
-#dexBanner{position:fixed;top:0;left:0;right:0;z-index:75;display:flex;justify-content:center;pointer-events:none;transform:translateY(-130%);transition:transform .35s cubic-bezier(.2,.9,.3,1.15)}
-#dexBanner.on{transform:translateY(0)}
-.dexbanner-in{margin-top:14px;background:var(--teal);color:var(--on);border-radius:16px;padding:12px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 26px rgba(40,28,16,.3);max-width:92%}
-.dexbanner-ic{font-size:24px}
-.dexbanner-in b{display:block;font-size:12.5px}
-.dexbanner-in .jp{font-family:var(--jp);font-weight:800;font-size:17px}
-.dexbanner-in .dexb-x{display:block;font-size:11.5px;margin-top:3px;opacity:.95}
-.dexbanner-in.big{transform:scale(1.03)}
+#dexBanner{position:fixed;inset:0;z-index:75;display:flex;align-items:center;justify-content:center;padding:20px;pointer-events:none;opacity:0;transition:opacity .3s;background:rgba(20,14,8,.34)}
+#dexBanner.on{opacity:1;pointer-events:auto}
+.dexbanner-in{background:rgba(70,138,128,.85);color:var(--on);border-radius:24px;padding:24px 22px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 50px rgba(20,14,8,.3),inset 0 1px 0 rgba(255,255,255,.16);max-width:320px;width:86%;transform:scale(.9);transition:transform .3s cubic-bezier(.2,.9,.3,1.15)}
+#dexBanner.on .dexbanner-in{transform:scale(1)}
+#dexBanner.on .dexbanner-in.big{transform:scale(1.02)}
+.dexbanner-ic{font-size:34px;line-height:1}
+.dexbanner-ic.sb{--teal:var(--on);--cy:var(--gold)}
+.alb-seal{width:46px;height:46px;flex:0 0 auto;display:block;filter:drop-shadow(0 5px 6px rgba(42,32,24,.44)) drop-shadow(0 2px 2px rgba(42,32,24,.24))}
+.dexbanner-ic svg{width:60px;height:auto;display:block;margin:2px auto 0}
+.dexc-head{font-weight:900;font-size:13.5px;opacity:.95;margin-top:2px}
+.dexc-head b{font-weight:900}
+.dexc-kana{font-family:var(--jp);font-weight:800;font-size:48px;line-height:1.12;margin:4px 0 2px}
+.dexc-read{font-size:15px;font-weight:700;opacity:.96}
+.dexbanner-in .dexb-x{display:block;font-size:12px;margin-top:6px;opacity:.95}
+.dexc-acts{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:16px}
+.dexc-btn{border:none;border-radius:13px;padding:12px;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit}
+.dexc-btn.primary{background:var(--on);color:var(--teal)}
+.dexc-btn.ghost{background:rgba(255,255,255,.16);color:var(--on)}
+.dexc-btn:active{transform:scale(.97)}
+
+/* İlk Flick Denemesi (onboarding tutorial) — temalı, safe-area'lı */
+#ftutStage{padding:0;display:flex;flex-direction:column}
+.ftut{flex:1;display:flex;flex-direction:column;padding:max(56px,calc(var(--sat) + 44px)) 20px 22px}
+.ftut-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ftut-dots{display:flex;gap:6px}
+.ftut-dot{width:7px;height:7px;border-radius:50%;background:var(--line);transition:.35s}
+.ftut-dot.on{background:var(--teal);transform:scale(1.15)}
+.ftut-skip{font-size:13px;color:var(--mut);font-weight:700;background:none;border:none;padding:6px;cursor:pointer;font-family:inherit}
+.ftut-teach{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px 17px;font-size:13.5px;line-height:1.62;color:var(--txt);margin-bottom:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14);transition:.4s}
+.ftut-teach b{color:var(--teal)}
+.ftut-vw{display:flex;gap:7px;justify-content:center;margin-top:11px}
+.ftut-vw span{background:var(--teal);color:var(--on);font-family:var(--jp);font-weight:800;font-size:15px;width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(20,14,8,.16)}
+.ftut-ins{text-align:center;font-weight:900;font-size:19px;color:var(--txt);margin:6px 0 2px;min-height:26px}
+.ftut-ins .em{color:var(--teal)}
+.ftut-sub{text-align:center;font-size:13px;color:var(--mut);min-height:18px;margin-bottom:2px}
+.ftut-stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+.ftut-kw{position:relative;width:238px;height:238px;display:flex;align-items:center;justify-content:center;touch-action:none;transition:transform .4s cubic-bezier(.2,.9,.3,1.1)}
+.ft-slot{position:absolute;width:66px;height:66px;border-radius:19px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--jp);font-weight:800;font-size:26px;color:var(--teal);background:rgba(70,138,128,.1);border:1px solid rgba(70,138,128,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);opacity:0;transition:all .3s cubic-bezier(.2,.9,.3,1.1);pointer-events:none}
+.ft-slot .r{font-family:var(--ui);font-size:10px;color:var(--mut);margin-top:-3px;font-weight:700}
+.ft-slot.up{top:0;left:50%;transform:translateX(-50%) scale(.85)}
+.ft-slot.down{bottom:0;left:50%;transform:translateX(-50%) scale(.85)}
+.ft-slot.left{left:0;top:50%;transform:translateY(-50%) scale(.85)}
+.ft-slot.right{right:0;top:50%;transform:translateY(-50%) scale(.85)}
+.ftut-kw.show .ft-slot.up,.ftut-kw.show .ft-slot.down{opacity:1;transform:translateX(-50%) scale(1)}
+.ftut-kw.show .ft-slot.left,.ftut-kw.show .ft-slot.right{opacity:1;transform:translateY(-50%) scale(1)}
+.ft-slot.hot{border-color:var(--gold);color:var(--gold);background:rgba(198,138,46,.16);box-shadow:0 6px 16px rgba(198,138,46,.22),inset 0 1px 0 rgba(255,255,255,.2)}
+.ftut-kw.show .ft-slot.hot.up,.ftut-kw.show .ft-slot.hot.down{transform:translateX(-50%) scale(1.1)}
+.ftut-kw.show .ft-slot.hot.left,.ftut-kw.show .ft-slot.hot.right{transform:translateY(-50%) scale(1.1)}
+.ft-slot.filled{border-color:transparent;background:rgba(70,138,128,.92);color:var(--on);box-shadow:0 8px 20px rgba(20,14,8,.22),inset 0 1px 0 rgba(255,255,255,.18)}
+.ft-slot.filled .r{color:rgba(246,240,230,.82)}
+.ft-key{position:absolute;width:106px;height:106px;border-radius:27px;background:var(--panel);border:1px solid var(--line);box-shadow:0 10px 26px rgba(20,14,8,.18),inset 0 1px 0 rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-family:var(--jp);font-weight:800;font-size:53px;color:var(--txt);cursor:pointer;z-index:5;touch-action:none;transition:background .18s,color .18s,box-shadow .18s,transform .12s}
+.ft-key.press{background:rgba(70,138,128,.96);color:transparent;box-shadow:0 14px 34px rgba(20,14,8,.3),inset 0 1px 0 rgba(255,255,255,.2);transform:scale(1.04)}
+.ft-fly{position:absolute;font-family:var(--jp);font-weight:800;font-size:50px;color:var(--on);z-index:6;pointer-events:none;opacity:0}
+.ft-fly.on{opacity:1}
+.ft-ring{position:absolute;width:106px;height:106px;border-radius:27px;border:3px solid var(--teal);opacity:0;z-index:4}
+.ft-ring.go{animation:ftring .6s ease-out}
+@keyframes ftring{0%{opacity:.85;transform:scale(1)}100%{opacity:0;transform:scale(1.65)}}
+.ftut.done .ftut-teach{max-height:0;opacity:0;padding:0;margin:0;border-width:0;overflow:hidden}
+.ftut.done .ftut-stage{flex:0 0 auto}
+.ftut.done .ftut-kw{transform:scale(.58)}
+.ftut-strip{opacity:0;max-height:0;overflow:hidden;transition:.5s;margin-top:2px}
+.ftut-strip.on{opacity:1;max-height:170px;margin-top:6px}
+.ftut-strip-t{font-size:12px;color:var(--mut);text-align:center;line-height:1.45;margin-bottom:9px;padding:0 6px}
+.ftut-strip-row{display:flex;flex-wrap:nowrap;gap:5px;justify-content:center}
+.ft-sk{width:30px;height:40px;border-radius:11px;background:var(--panel);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.16);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--jp);font-weight:800;font-size:17px;color:var(--txt)}
+.ft-sk .r{font-family:var(--ui);font-size:8.5px;color:var(--mut)}
+.ft-sk.first{background:rgba(70,138,128,.92);color:var(--on);border-color:transparent;box-shadow:0 5px 14px rgba(20,14,8,.2)}
+.ft-sk.first .r{color:rgba(246,240,230,.85)}
+.ftut-foot{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.ftut-go{width:100%;border:none;border-radius:15px;padding:15px;font-weight:800;font-size:15px;cursor:pointer;font-family:inherit;transition:.2s;opacity:0;pointer-events:none}
+.ftut-foot.on .ftut-go{opacity:1;pointer-events:auto}
+.ftut-go.primary{background:var(--teal);color:var(--on);box-shadow:0 8px 20px rgba(20,14,8,.2),inset 0 1px 0 rgba(255,255,255,.16)}
+.ftut-go.primary:active{transform:scale(.985)}
+.ftut-go.ghost{background:transparent;color:var(--mut);padding:11px}
 .badgegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
-.bg-item{text-align:center;opacity:.4;filter:grayscale(1);transition:opacity .2s,filter .2s}
+.bg-item{text-align:center;opacity:.52;filter:grayscale(1);transition:opacity .2s,filter .2s}
 .bg-item.got{opacity:1;filter:none}
-.bg-e{width:52px;height:52px;margin:0 auto;border-radius:14px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-size:24px}
-.bg-item.got .bg-e{border-color:var(--gold-ink);box-shadow:0 0 0 3px rgba(232,189,118,.2);background:var(--panel)}
+.bg-e{position:relative;width:58px;height:58px;margin:0 auto}
+.bg-seal{width:100%;height:100%;display:block}
+.bg-item.got .bg-seal{filter:drop-shadow(0 4px 4.5px rgba(42,32,24,.38))}
+.bg-ov{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.bg-kana{font-family:var(--jp);font-size:30px;font-weight:800;color:var(--on);line-height:1}
+.bg-emoji{font-size:26px;line-height:1}
 .bg-t{font-size:11px;color:var(--txt);opacity:.85;margin-top:5px;font-weight:700}
 .flickdiag{margin:14px auto 2px;width:max-content}
 .fd-r{display:flex;gap:8px;justify-content:center;margin:4px 0}
-.fd-cell{width:54px;height:54px;border-radius:12px;display:grid;place-items:center;font-family:var(--jp);font-size:22px;font-weight:800;background:var(--panel2);border:1px solid var(--line);color:var(--txt);opacity:.5}
+.fd-cell{width:54px;height:54px;border-radius:12px;display:grid;place-items:center;line-height:1;font-family:var(--jp);font-size:22px;font-weight:800;background:var(--panel2);border:1px solid var(--line);color:var(--txt);opacity:.5}
 .fd-cell.center{opacity:1;background:var(--panel)}
+.fd-cell .fdk{display:inline-block;transform:translateY(-2px)}
 .fd-cell.hi{opacity:1;background:var(--teal);color:var(--on);border-color:var(--teal);box-shadow:0 3px 10px rgba(40,28,16,.22)}
 .fd-cell.empty{background:transparent!important;border:none!important;opacity:0}
 .fd-hint{text-align:center;font-size:13px;color:var(--txt);opacity:.9;margin-top:10px;font-weight:800}
@@ -816,6 +904,11 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
     <div class="stage" id="onboardStage"></div>
   </section>
 
+  <!-- İLK FLICK DENEMESİ (onboarding tutorial) -->
+  <section class="screen" id="s-flicktut">
+    <div class="stage" id="ftutStage"></div>
+  </section>
+
   <!-- EV -->
   <section class="screen on nf" id="s-home">
     <div class="blob a"></div><div class="blob b"></div>
@@ -829,7 +922,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
       <div class="statusrow">
         <button class="spill" id="nfStatus" onclick="Achv.open()">Seviye <b>1</b></button>
       </div>
-      <div class="dailygoal" id="dailyGoal">🎯 Günlük hedef <b>0/15</b></div>
+      <div class="dailygoal" id="dailyGoal"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--brick);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="1.5" style="fill:var(--brick);stroke:none"/></svg> Günlük hedef <b>0/15</b></div>
 
       <div class="board">
         <button class="mod hero" onclick="Game.start('p2')">
@@ -850,11 +943,11 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
           <button class="mod kata" onclick="KanaSets.open('kata')"><div class="fill"><div class="itile">カ</div><div class="tx"><span class="t" data-t="home.katakana.title">Katakana</span><span class="s" data-t="home.katakana.desc">Yabancı kökenli kelimeler</span></div></div></button>
         </div>
 
-        <button class="mod row tekrar" onclick="Review.open()"><div class="fill"><div class="itile it-teal">🔁</div><div class="tx"><span class="t" data-t="sc.review">Tekrar</span><span class="s" id="reviewDue" data-t="status.spacedReview">Aralıklı tekrar</span></div><span class="chev">›</span></div></button>
-        <button class="mod row reflex" onclick="Reflex.open()"><div class="fill"><div class="itile it-brick">⚡</div><div class="tx"><span class="t" data-t="home.reflex.title">Refleks Dojo</span><span class="s" data-t="home.reflex.desc">Hız ve kas hafızası çalış.</span></div></div></button>
+        <button class="mod row tekrar" onclick="Review.open()"><div class="fill"><div class="itile it-teal"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 11 A6 6 0 0 1 16.5 7.4"/><path d="M16.5 4 L16.5 7.5 L13 7.5"/><path d="M18 13 A6 6 0 0 1 7.5 16.6"/><path d="M7.5 20 L7.5 16.5 L11 16.5"/></svg></div><div class="tx"><span class="t" data-t="sc.review">Tekrar</span><span class="s" id="reviewDue" data-t="status.spacedReview">Aralıklı tekrar</span></div><span class="chev">›</span></div></button>
+        <button class="mod row reflex" onclick="Reflex.open()"><div class="fill"><div class="itile it-brick"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M13 2.5 L6.5 13 H11 L11 21.5 L17.5 11 H13 Z"/></svg></div><div class="tx"><span class="t" data-t="home.reflex.title">Refleks Dojo</span><span class="s" data-t="home.reflex.desc">Hız ve kas hafızası çalış.</span></div></div></button>
         <!-- v1'de gizlendi (Sohbet — sonraki sürümde tam ses kütüphanesiyle geri gelecek, reopenable): <button class="mod row sohbet" onclick="Chat.open()"><div class="fill"><div class="itile it-teal">💬</div><div class="tx"><span class="t" data-t="home.chat.title">Sohbet</span><span class="s" data-t="home.chat.desc">Kısa cevapları Japonca yaz.</span></div><span class="chev">›</span></div></button> -->
-        <button class="mod row serbest" onclick="Sandbox.open()"><div class="fill"><div class="itile it-orange">✍️</div><div class="tx"><span class="t" data-t="home.free.title">Serbest Yazma</span><span class="s" data-t="home.free.desc">İstediğini dene.</span></div><span class="chev">›</span></div></button>
-        <button class="mod row oyunlar" onclick="Games.open()"><div class="fill"><div class="itile it-brown">🎮</div><div class="tx"><span class="t" data-t="home.games.title">Oyunlar</span><span class="s" data-t="home.games.soon">Oyna · rekor kır</span></div><span class="chev">›</span></div></button>
+        <button class="mod row serbest" onclick="Sandbox.open()"><div class="fill"><div class="itile it-orange"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M4 20 L5.6 14.8 L16 4.4 L19.6 8 L9.2 18.4 Z"/><path d="M13.8 6.2 L17.8 10.2"/></svg></div><div class="tx"><span class="t" data-t="home.free.title">Serbest Yazma</span><span class="s" data-t="home.free.desc">İstediğini dene.</span></div><span class="chev">›</span></div></button>
+        <button class="mod row oyunlar" onclick="Games.open()"><div class="fill"><div class="itile it-brown"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="4.7"/><path d="M12 6.6 L14.2 10.1 L9.8 10.1 Z" style="fill:var(--on);stroke:none"/><path d="M12 17.4 L9.8 13.9 L14.2 13.9 Z" style="fill:var(--on);stroke:none"/><path d="M6.6 12 L10.1 9.8 L10.1 14.2 Z" style="fill:var(--on);stroke:none"/><path d="M17.4 12 L13.9 9.8 L13.9 14.2 Z" style="fill:var(--on);stroke:none"/></svg></div><div class="tx"><span class="t" data-t="home.games.title">Oyunlar</span><span class="s" data-t="home.games.soon">Oyna · rekor kır</span></div><span class="chev">›</span></div></button>
       </div>
     </div>
   </section>
@@ -863,7 +956,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <section class="screen nf" id="s-settings">
     <div class="nfscroll">
       <div class="shead">
-        <button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-home')">‹</button>
+        <button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-home')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
         <h2 data-t="settings.title">Ayarlar</h2>
       </div>
       <!-- Batch3-Faz1b: rozet ızgarası Başarılar sayfasına taşındı (asıl yeri orası).
@@ -876,31 +969,31 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
       <div class="sgroup">
         <div class="gt" data-t="settings.groups.general">Genel</div>
         <div class="slist">
-          <button class="sitem" onclick="Theme.toggle()"><span class="si">🌓</span><span class="sl" data-t="settings.theme">Tema</span><span class="sv" data-t="settings.themeValue">Gündüz / Gece</span><span class="chev">›</span></button>
-          <button class="sitem" onclick="cycleLang()"><span class="si">🌐</span><span class="sl" data-t="settings.language">Dil</span><span class="sv" data-t="settings.languageValue">Türkçe</span><span class="chev">⇄</span></button>
-          <div class="sitem"><span class="si">🔊</span><span class="sl" data-t="settings.sound">Ses</span><span class="tgl on" id="tglSound" onclick="Settings.toggleSound()"></span></div>
-          <div class="sitem"><span class="si">📳</span><span class="sl" data-t="settings.haptics">Titreşim &amp; efekt</span><span class="tgl on" id="tglHaptic" onclick="Settings.toggleHaptic()"></span></div>
+          <button class="sitem" onclick="Theme.toggle()"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--orange)"/><circle cx="22" cy="22" r="9" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M22 13 A9 9 0 0 0 22 31 Z" style="fill:var(--inkx)"/></svg></span><span class="sl" data-t="settings.theme">Tema</span><span class="sv" data-t="settings.themeValue">Gündüz / Gece</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="cycleLang()"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--teal)"/><circle cx="22" cy="22" r="9" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M13 22 H31" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M22 13 C17 16 17 28 22 31 C27 28 27 16 22 13 Z" style="fill:none;stroke:var(--inkx);stroke-width:2"/></svg></span><span class="sl" data-t="settings.language">Dil</span><span class="sv" data-t="settings.languageValue">Türkçe</span><span class="chev">⇄</span></button>
+          <div class="sitem"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--brick)"/><path d="M15 19 H19 L24 15 V29 L19 25 H15 Z" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linejoin:round"/><path d="M28 18 Q31 22 28 26" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round"/></svg></span><span class="sl" data-t="settings.sound">Ses</span><span class="tgl on" id="tglSound" onclick="Settings.toggleSound()"></span></div>
+          <div class="sitem"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--orange)"/><rect x="17" y="13" width="10" height="18" rx="2.5" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M13 18 V26 M31 18 V26" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round"/></svg></span><span class="sl" data-t="settings.haptics">Titreşim &amp; efekt</span><span class="tgl on" id="tglHaptic" onclick="Settings.toggleHaptic()"></span></div>
         </div>
       </div>
       <div class="sgroup">
         <div class="gt" data-t="settings.groups.progress">İlerleme</div>
         <div class="slist">
-          <button class="sitem" onclick="Settings.exportData()"><span class="si">📤</span><span class="sl" data-t="settings.exportData">Veriyi dışa aktar</span><span class="chev">›</span></button>
-          <button class="sitem" onclick="Settings.importData()"><span class="si">📥</span><span class="sl" data-t="settings.importData">Veriyi içe aktar</span><span class="chev">›</span></button>
-          <button class="sitem" onclick="Game.reset()"><span class="si">♻️</span><span class="sl" data-t="settings.reset">İlerlemeyi sıfırla</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="Settings.exportData()"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--teal)"/><path d="M22 12 V26 M17 17 L22 12 L27 17" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><path d="M14 26 V31 H30 V26" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/></svg></span><span class="sl" data-t="settings.exportData">Veriyi dışa aktar</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="Settings.importData()"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--brick)"/><path d="M22 12 V26 M17 21 L22 26 L27 21" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><path d="M14 26 V31 H30 V26" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/></svg></span><span class="sl" data-t="settings.importData">Veriyi içe aktar</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="Game.reset()"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--orange)"/><path d="M31 22 A9 9 0 1 1 27 14.5" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round"/><path d="M31 13 V19 H25" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/></svg></span><span class="sl" data-t="settings.reset">İlerlemeyi sıfırla</span><span class="chev">›</span></button>
         </div>
       </div>
       <div class="sgroup">
         <div class="gt" data-t="settings.groups.legal">Yasal &amp; Destek</div>
         <div class="slist">
-          <button class="sitem" onclick="UI.show('s-privacy')"><span class="si">🔒</span><span class="sl" data-t="settings.privacy">Gizlilik Politikası</span><span class="chev">›</span></button>
-          <button class="sitem" onclick="UI.show('s-terms')"><span class="si">📄</span><span class="sl" data-t="settings.terms">Kullanım Şartları</span><span class="chev">›</span></button>
-          <button class="sitem" onclick="UI.show('s-support')"><span class="si">✉️</span><span class="sl" data-t="settings.support">Destek / İletişim</span><span class="chev">›</span></button>
-          <button class="sitem" onclick="UI.show('s-faq')"><span class="si">❓</span><span class="sl" data-t="settings.faq">SSS / Yardım</span><span class="chev">›</span></button>
-          <button class="sitem" onclick="UI.show('s-about')"><span class="si">ℹ️</span><span class="sl" data-t="settings.about">Hakkında</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="UI.show('s-privacy')"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--teal)"/><rect x="15" y="21" width="14" height="11" rx="2.5" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M18 21 V18 A4 4 0 0 1 26 18 V21" style="fill:none;stroke:var(--inkx);stroke-width:2"/></svg></span><span class="sl" data-t="settings.privacy">Gizlilik Politikası</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="UI.show('s-terms')"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--brick)"/><rect x="15" y="13" width="14" height="18" rx="2.5" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M18 19 H26 M18 23 H26 M18 27 H23" style="fill:none;stroke:var(--inkx);stroke-width:1.6;stroke-linecap:round"/></svg></span><span class="sl" data-t="settings.terms">Kullanım Şartları</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="UI.show('s-support')"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--orange)"/><rect x="13" y="16" width="18" height="12" rx="2.5" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M14 18 L22 24 L30 18" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/></svg></span><span class="sl" data-t="settings.support">Destek / İletişim</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="UI.show('s-faq')"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--teal)"/><path d="M18 18.5 A4 4 0 1 1 22 24 V25.5" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/><circle cx="22" cy="30" r="1.4" style="fill:var(--inkx)"/></svg></span><span class="sl" data-t="settings.faq">SSS / Yardım</span><span class="chev">›</span></button>
+          <button class="sitem" onclick="UI.show('s-about')"><span class="si"><svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true"><polygon points="8,12 32,9 35,32 11,35" style="fill:var(--brick)"/><circle cx="22" cy="22" r="9" style="fill:none;stroke:var(--inkx);stroke-width:2"/><path d="M22 21 V27" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round"/><circle cx="22" cy="16.5" r="1.4" style="fill:var(--inkx)"/></svg></span><span class="sl" data-t="settings.about">Hakkında</span><span class="chev">›</span></button>
         </div>
       </div>
-      <div class="sfoot">Japanese Flick · <span data-t="settings.version">sürüm</span> 1.0 Beta</div>
+      <div class="sfoot">Japanese Flick · <span data-t="settings.version">sürüm</span> 1.0</div>
     </div>
   </section>
 
@@ -908,7 +1001,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <section class="screen nf" id="s-achv">
     <div class="nfscroll">
       <div class="shead">
-        <button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-home')">‹</button>
+        <button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-home')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
         <h2 data-t="achv.title">Başarılar</h2>
       </div>
       <button class="spill" style="cursor:default" id="achvStats">Seviye 1</button>
@@ -926,7 +1019,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- GİZLİLİK -->
   <section class="screen nf" id="s-privacy">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')">‹</button><h2 data-t="settings.privacy">Gizlilik Politikası</h2></div>
+      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button><h2 data-t="settings.privacy">Gizlilik Politikası</h2></div>
       <div class="prose" data-prose="privacy">
         <p>Japanese Flick gizliliğinize saygı duyar ve <b>tamamen cihazınızda</b> çalışır.</p>
         <ul>
@@ -945,7 +1038,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- ŞARTLAR -->
   <section class="screen nf" id="s-terms">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')">‹</button><h2 data-t="settings.terms">Kullanım Şartları</h2></div>
+      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button><h2 data-t="settings.terms">Kullanım Şartları</h2></div>
       <div class="prose" data-prose="terms">
         <ul>
           <li>Japanese Flick eğitim amaçlı, ücretsiz bir uygulamadır.</li>
@@ -961,7 +1054,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- DESTEK -->
   <section class="screen nf" id="s-support">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')">‹</button><h2 data-t="settings.support">Destek / İletişim</h2></div>
+      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button><h2 data-t="settings.support">Destek / İletişim</h2></div>
       <div class="prose" data-prose="support">
         <p>Bir sorun mu var, önerin mi?</p>
         <ul>
@@ -977,7 +1070,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- SSS / YARDIM -->
   <section class="screen nf" id="s-faq">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')">‹</button><h2 id="faqTitle">SSS / Yardım</h2></div>
+      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button><h2 id="faqTitle">SSS / Yardım</h2></div>
       <div class="faq-langbar">
         <button class="faq-lang on" id="faqTR" onclick="setFaqLang('tr')">Türkçe</button>
         <button class="faq-lang" id="faqEN" onclick="setFaqLang('en')">English</button>
@@ -989,11 +1082,11 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- HAKKINDA -->
   <section class="screen nf" id="s-about">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')">‹</button><h2 data-t="settings.about">Hakkında</h2></div>
+      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-settings')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button><h2 data-t="settings.about">Hakkında</h2></div>
       <div class="prose" data-prose="about">
         <p><b>Japanese Flick</b> — Japonca telefon flick klavyesi için parmak kası dojosu.</p>
         <p>Kana yönlerini öğrenmeni, hiragana ve katakana tanımanı ve küçük görevlerle pratik yapmanı amaçlar. Tamamen çevrimdışı, cihazında çalışır.</p>
-        <p>Sürüm 1.0 Beta</p>
+        <p>Sürüm 1.0</p>
       </div>
     </div>
   </section>
@@ -1003,7 +1096,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- DERS SAHNESİ -->
   <section class="screen" id="s-lesson">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" id="lessonTitle">Ders</div>
       <div class="pill cy" id="lessonHearts">❤️ 5</div>
     </div>
@@ -1015,8 +1108,15 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- KANA SETLERİ -->
   <section class="screen nf" id="s-sets">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()">‹</button><h2 id="setsTitle" data-t="sets.title">Kana Setleri</h2></div>
-      <p class="muted" style="margin:0 16px 2px;font-size:13px" data-t="sets.intro">Her flick tuşu bir set. Sırayla aç; birkaç set bitince karışık çalış.</p>
+      <div class="shead">
+        <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
+        <h2 id="setsTitle" data-t="sets.title">Kana Setleri</h2>
+        <div class="sh-actions">
+          <button class="sh-ic" aria-label="Kelime Albümü" data-ta="album.title" onclick="KanaDex.open()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="9,12 31,9 34,31 12,34" style="fill:var(--teal)"/><path d="M22 13 L22 31 M22 13 C17 10 10 10 7 13 L7 28 C10 25 17 28 22 31 M22 13 C27 10 34 10 37 13 L37 28 C34 25 27 28 22 31" style="fill:none;stroke:var(--inkx);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
+          <button class="sh-ic" aria-label="Ayarlar" onclick="UI.show('s-settings')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--brick)"/><circle cx="13" cy="22" r="3.2" style="fill:var(--inkx)"/><circle cx="22" cy="22" r="3.2" style="fill:var(--inkx)"/><circle cx="31" cy="22" r="3.2" style="fill:var(--inkx)"/></svg></button>
+        </div>
+      </div>
+      <p class="muted" style="margin:0 16px 12px;font-size:13px" data-t="sets.intro">Her flick tuşu bir set. Sırayla aç; birkaç set bitince karışık çalış.</p>
       <div class="setsgrid" id="setsGrid"></div>
       <div style="padding:2px 16px 26px"><button class="btn" id="setsMix" style="width:100%;display:none" data-t="sets.mixBtn">🎲 Karışık çalış</button>
         <div id="mixPanel" style="display:none;margin-top:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px">
@@ -1030,7 +1130,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- KELİME KAŞİFİ -->
   <section class="screen nf" id="s-dex">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()">‹</button><h2 data-t="album.title">Kelime Albümü</h2></div>
+      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button><h2 data-t="album.title">Kelime Albümü</h2></div>
       <p class="muted" style="margin:0 16px 2px;font-size:13px" data-t="album.desc">Keşfettiğin kelimeler burada toplanır.</p>
       <div id="dexBody" style="padding:4px 16px 30px"></div>
     </div>
@@ -1039,7 +1139,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- SOHBET -->
   <section class="screen" id="s-chat">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Chat.back()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Chat.back()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" id="chatTitle">Sohbet</div>
       <div class="pill cy" id="chatWho"></div>
     </div>
@@ -1049,9 +1149,9 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- REFLEKS DOJO -->
   <section class="screen" id="s-reflex">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" id="reflexTitle" data-t="home.reflex.title">Refleks Dojo</div>
-      <div class="pill cy" id="reflexCombo">🔥 0</div>
+      <div class="pill cy" id="reflexCombo"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--brick);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><path d="M12 21.5 A6 6 0 0 1 6 15.5 C6 11.5 10 10.7 9.8 6.6 C12.8 8.6 12 12 14 12 C14.2 10 15 9 15 7.9 C17.2 10 18 12.8 18 15.5 A6 6 0 0 1 12 21.5 Z"/></svg> 0</div>
     </div>
     <div class="stage" id="reflexStage"></div>
   </section>
@@ -1059,7 +1159,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- SANDBOX -->
   <section class="screen" id="s-sandbox">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" data-t="sc.freeWrite">Serbest yazma</div>
     </div>
     <div class="stage" id="sandboxStage"></div>
@@ -1068,7 +1168,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- TEKRAR (SRS) -->
   <section class="screen" id="s-review">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" data-t="sc.review">Tekrar</div>
     </div>
     <div class="stage" id="reviewStage"></div>
@@ -1077,7 +1177,7 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- ÖLÜ KOD (v1): eski tam-ekran Sözlük — yerini DictDrawer aldı. Reopenable.
   <section class="screen" id="s-dict">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game.home()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" data-t="home.dict.title">Sözlük</div>
     </div>
     <div class="scroll"><div class="dict" id="dictList" style="margin-top:8px"></div></div>
@@ -1088,11 +1188,11 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- OYUNLAR -->
   <section class="screen nf" id="s-games">
     <div class="nfscroll">
-      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-home')">‹</button><h2 data-t="home.games.title">Oyunlar</h2></div>
+      <div class="shead"><button class="back" aria-label="Geri" data-ta="nav.back" onclick="UI.show('s-home')"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button><h2 data-t="home.games.title">Oyunlar</h2></div>
       <div class="board">
-        <button class="mod row g60" onclick="Game60.open()"><div class="fill"><div class="itile it-orange">⏱️</div><div class="tx"><span class="t" data-t="gm.g60name">60 Saniye</span><span class="s"><span data-t="gm.g60d">Bir dakikada kaç kana? · En iyi: </span><b id="g60best">0</b></span></div><span class="chev">›</span></div></button>
-        <button class="mod row gflow" onclick="Flow.open()"><div class="fill"><div class="itile it-teal">🌊</div><div class="tx"><span class="t" data-t="gm.flow">Akış</span><span class="s" data-t="gm.flowd">Ritim-flick · seviye seç</span></div><span class="chev">›</span></div></button>
-        <button class="mod row gshiri" onclick="Shiritori.open()"><div class="fill"><div class="itile it-brick">🔗</div><div class="tx"><span class="t">Shiritori しりとり</span><span class="s" data-t="gm.shid">Kelime zinciri · oyna</span></div><span class="chev">›</span></div></button>
+        <button class="mod row g60" onclick="Game60.open()"><div class="fill"><div class="itile it-orange"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="13.6" r="7"/><path d="M12 13.6 V9.9"/><path d="M9.7 3.8 H14.3"/><path d="M12 3.8 V6.5"/></svg></div><div class="tx"><span class="t" data-t="gm.g60name">60 Saniye</span><span class="s"><span data-t="gm.g60d">Bir dakikada kaç kana? · En iyi: </span><b id="g60best">0</b></span></div><span class="chev">›</span></div></button>
+        <button class="mod row gflow" onclick="Flow.open()"><div class="fill"><div class="itile it-teal"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M3 10 C5 7 7.2 7 9 10 C10.8 13 13 13 15 10 C16.8 7.2 19 7.2 21 10"/><path d="M3 15 C5 12 7.2 12 9 15 C10.8 18 13 18 15 15 C16.8 12.2 19 12.2 21 15"/></svg></div><div class="tx"><span class="t" data-t="gm.flow">Akış</span><span class="s" data-t="gm.flowd">Ritim-flick · seviye seç</span></div><span class="chev">›</span></div></button>
+        <button class="mod row gshiri" onclick="Shiritori.open()"><div class="fill"><div class="itile it-brick"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3.5" y="9" width="10" height="6" rx="3"/><rect x="10.5" y="9" width="10" height="6" rx="3"/></svg></div><div class="tx"><span class="t">Shiritori しりとり</span><span class="s" data-t="gm.shid">Kelime zinciri · oyna</span></div><span class="chev">›</span></div></button>
         <!-- v1'de gizlendi (Faz 3 içerik adayı, reopenable): <button class="mod row" onclick="UI.toast('Katakana Şifre yakında ✨')"><div class="fill"><div class="itile it-brown">🔤</div><div class="tx"><span class="t">Katakana Şifre</span><span class="s">Yabancı kelimeleri yaz · yakında</span></div><span class="chev">›</span></div></button> -->
       </div>
     </div>
@@ -1101,10 +1201,10 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- 60 SANİYE -->
   <section class="screen" id="s-game60">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game60.quit()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Game60.quit()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" data-t="gm.g60name">60 Saniye</div>
-      <div class="pill" id="g60timer">⏱️ 60</div>
-      <div class="pill cy" id="g60score">⭐ 0</div>
+      <div class="pill" id="g60timer"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><circle cx="12" cy="13.6" r="7"/><path d="M12 13.6 V9.9"/><path d="M9.7 3.8 H14.3"/><path d="M12 3.8 V6.5"/></svg> 60</div>
+      <div class="pill cy" id="g60score"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--gold-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><path d="M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z"/></svg> 0</div>
     </div>
     <div class="stage" id="game60Stage"></div>
   </section>
@@ -1112,26 +1212,26 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
   <!-- SHIRITORI -->
   <section class="screen" id="s-shiri">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Shiritori.quit()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Shiritori.quit()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl">Shiritori</div>
-      <div class="pill cy" id="shiriScore">🔗 0</div>
+      <div class="pill cy" id="shiriScore"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--teal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><rect x="3.5" y="9" width="10" height="6" rx="3"/><rect x="10.5" y="9" width="10" height="6" rx="3"/></svg> 0</div>
     </div>
     <div class="stage" id="shiriStage"></div>
   </section>
   <!-- AKIŞ (ritim-flick) -->
   <section class="screen" id="s-flow">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Flow.quit()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Flow.quit()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" data-t="gm.flow">Akış</div>
-      <div class="pill" id="flowTimer">⏱️ 60</div>
-      <div class="pill cy" id="flowScore">⭐ 0</div>
+      <div class="pill" id="flowTimer"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><circle cx="12" cy="13.6" r="7"/><path d="M12 13.6 V9.9"/><path d="M9.7 3.8 H14.3"/><path d="M12 3.8 V6.5"/></svg> 60</div>
+      <div class="pill cy" id="flowScore"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--gold-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><path d="M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z"/></svg> 0</div>
     </div>
     <div class="stage" id="flowStage"></div>
   </section>
   <!-- ÇALIŞMA (kana drill) -->
   <section class="screen" id="s-drill">
     <div class="top">
-      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Drill.quit()">‹</button>
+      <button class="back" aria-label="Geri" data-ta="nav.back" onclick="Drill.quit()"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--orange)"/><path d="M27 12 L16 22 L27 32" style="fill:none;stroke:var(--inkx);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
       <div class="ttl" data-t="sc.drill">Çalışma</div>
       <div class="pill" id="drillProg">0 / 8</div>
     </div>
@@ -1139,9 +1239,8 @@ button:focus-visible,[role="button"]:focus-visible,input:focus-visible{outline:2
     <div class="stage" id="drillStage"></div>
   </section>
   <div id="navctrls">
-    <button class="navbtn" onclick="KanaDex.open()" aria-label="Kelime Albümü" data-ta="album.title" title="Kelime Albümü" data-ttl="album.title">📖</button>
-    <button class="navbtn" data-themebtn onclick="Theme.toggle()" aria-label="Tema" title="Tema">🌙</button>
-    <button class="navbtn" onclick="UI.show('s-settings')" aria-label="Ayarlar" title="Ayarlar">⚙</button>
+    <button class="navbtn" onclick="KanaDex.open()" aria-label="Kelime Albümü" data-ta="album.title" title="Kelime Albümü" data-ttl="album.title"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="9,12 31,9 34,31 12,34" style="fill:var(--teal)"/><path d="M22 13 L22 31 M22 13 C17 10 10 10 7 13 L7 28 C10 25 17 28 22 31 M22 13 C27 10 34 10 37 13 L37 28 C34 25 27 28 22 31" style="fill:none;stroke:var(--inkx);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
+    <button class="navbtn" onclick="UI.show('s-settings')" aria-label="Ayarlar" title="Ayarlar"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><polygon points="8,13 30,10 33,30 11,33" style="fill:var(--brick)"/><circle cx="13" cy="22" r="3.2" style="fill:var(--inkx)"/><circle cx="22" cy="22" r="3.2" style="fill:var(--inkx)"/><circle cx="31" cy="22" r="3.2" style="fill:var(--inkx)"/></svg></button>
   </div>
   <div id="dexBanner"></div>
   <div id="dexCard"></div>
@@ -1460,8 +1559,9 @@ const State = {
   dex:{},           // keşfedilen kelimeler (kana->true)
   chatDone:{},      // scenarioId -> true
   badges:{},        // badgeId -> true
+  tips:{},          // bir-kez gösterilen ipuçları (flick, dakuten) -> true
   load(){ try{ const s=JSON.parse(localStorage.getItem(SAVE_KEY)); if(s)Object.assign(this,s);}catch(e){} },
-  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,lang:this.lang,games:this.games,mastery:this.mastery,srs:this.srs,dex:this.dex,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes}));}catch(e){} },
+  save(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify({xp:this.xp,level:this.level,streak:this.streak,done:this.done,chatDone:this.chatDone,badges:this.badges,profile:this.profile,onboarded:this.onboarded,soundOn:this.soundOn,hapticOn:this.hapticOn,theme:this.theme,lang:this.lang,games:this.games,mastery:this.mastery,srs:this.srs,dex:this.dex,daily:this.daily,goal:this.goal,lastGoalDate:this.lastGoalDate,freezes:this.freezes,tips:this.tips}));}catch(e){} },
   addXp(n){ this.xp+=n; const nl=1+Math.floor(this.xp/120); if(nl>this.level){this.level=nl;Sound.level();UI.toast('🎉 '+t('status.level')+' '+nl+'!');UI.confetti();} this.save(); UI.syncHome(); },
   finish(id){ if(!this.done[id]){this.done[id]=true;this.save();} },
   giveBadge(id,label){ if(!this.badges[id]){this.badges[id]=true;this.save();UI.toast('🏅 '+t('status.badge')+': '+t('badge.'+id));} }
@@ -1521,8 +1621,8 @@ const STRINGS={ tr:{
     someT:"Biraz tanıyorum", someS:"Bazılarını okurum ama tereddüt ederim",
     proT:"Hepsini biliyorum", proS:"Sadece klavyede hızlanmak istiyorum",
     toastPro:"Sana güveniyorum. Hadi parmak kası 💪", toastSome:"Bildiklerini pekiştirelim. İstediğinden başla.", toastZero:"Elindeyim. İlk harflerden başlayalım 🌱" },
-  prose:{ privacy:"<p>Japanese Flick gizliliğinize saygı duyar ve <b>tamamen cihazınızda</b> çalışır.</p><ul><li>Kişisel veri toplamaz; hiçbir sunucuya bir şey göndermez.</li><li>İlerlemeniz (seviye, rozetler, notlar) yalnızca cihazınızın yerel depolamasında (localStorage) saklanır.</li><li>Reklam yok, izleme (tracking) yok, üçüncü taraf analitiği yok.</li><li>Telaffuz sesleri uygulamanın içine gömülü yerel ses dosyalarıyla çalınır. Bazı eksik veya desteklenmeyen metinlerde cihazın kendi konuşma motoru yedek olarak kullanılabilir. Ses verisi kaydedilmez, analiz edilmez ve sunucuya gönderilmez.</li><li>Veriyi dışa/içe aktarma tamamen sizin kontrolünüzdedir ve cihazınızda kalır.</li><li>Tarayıcı verilerini veya önbelleği silerseniz ilerlemeniz de silinir.</li></ul><p>Sorularınız için: Ayarlar → Destek / İletişim.</p>", terms:"<ul><li>Japanese Flick eğitim amaçlı, ücretsiz bir uygulamadır.</li><li>Uygulama \"olduğu gibi\" sunulur; kesintisiz veya hatasız çalışacağı garanti edilmez.</li><li>İçerik Japonca öğrenmeye yardımcı olmak içindir; resmî bir dil sertifikası yerine geçmez.</li><li>Uygulamayı kendi sorumluluğunuzda kullanırsınız.</li><li>Bu şartlar zaman zaman güncellenebilir; güncel sürüm uygulama içinde yer alır.</li></ul>", support:"<p>Bir sorun mu var, önerin mi?</p><ul><li>Önce <b>Ayarlar → Veriyi dışa aktar</b> ile yedek al (ilerlemen güvende olsun).</li><li>Bir sorun, öneri veya geri bildirim için: <b>hello@zeynepkaya.app</b></li><li>Mesajına <b>uygulama sürümünü</b>, <b>cihaz modelini</b> ve sorunu gördüğün <b>ekranı</b> eklersen daha hızlı inceleyebilirim.</li></ul><p>İpucu: Klavye Çalışmaları ve Refleks Dojo ile kas hafızanı düzenli çalıştırırsan en hızlı ilerlersin.</p>", about:"<p><b>Japanese Flick</b>: Japonca telefon flick klavyesi için parmak kası dojosu.</p><p>Kana yönlerini öğrenmeni, hiragana ve katakana tanımanı ve küçük görevlerle pratik yapmanı amaçlar. Tamamen çevrimdışı, cihazında çalışır.</p><p>Sürüm 1.0 Beta</p>" },
-  common:{ continueB:"Devam et", continueS:"Devam", finish:"Bitir", home:"Ana sayfa", gotIt:"Anladım", listen:"Dinle", correct:"Doğru!", tryAgain:"Tekrar dene", answer:"Doğrusu:", hint:"İpucu", correctLabel:"doğru" }, dir:{ tap:"dokun", left:"sola kaydır", up:"yukarı kaydır", right:"sağa kaydır", down:"aşağı kaydır", press:"bas", tapC:"Tıkla", leftC:"← Sola kaydır", upC:"↑ Yukarı kaydır", rightC:"→ Sağa kaydır", downC:"↓ Aşağı kaydır", tapS:"tıkla", leftS:"← sola", upS:"↑ yukarı", rightS:"→ sağa", downS:"↓ aşağı" }, lesson:{ heartsOut:"Kalp bitti, tekrar dene 💪", nextLabel:"Sonraki", backToSets:"Setlere dön", laterContinue:"Sonra devam", completed:"Tamamlandı!", lessonDone:"Ders tamam!", correctCount:"doğru", pickAtLeastOne:"En az bir set seç", mixed:"Karışık", mixStudy:"Karışık çalış", setPlural:"set", finishPrevSet:"Önce önceki seti bitir 🔒", writeWithFlick:"Flick ile yaz", findKeyFlick:"Doğru tuşu bul, yönüne kaydır", keyWord:"tuşu", studyThis:"Bunu çalış", typeThis:"Bunu yaz", studyAgain:"Tekrar çalış", notTried:"Henüz denenmedi", attempts:"deneme", hitRate:"isabet", dailyDone:"Günlük hedef tamam! Seri:", todayDone:"Bugün tamam!", dayWord:"gün", dailyGoal:"Günlük hedef", tipFirst:"İlk kez? Aşağıdaki büyük karttan <b>あ行</b> ile başla.", tipTodayPre:"Bugünkü öneri: <b>", tipTodayPost:"</b> yönlerini çalış.", tipGreat:"Harika gidiyorsun! Bir tur <b>Tekrar</b> yap ya da <b>Oyunlar</b>a göz at.", mL0:"Henüz denenmedi", mL1:"Tanışıldı", mL2:"Gelişiyor", mL3:"İyi", mL4:"Usta", a0:"yeni", a1:"tanıyor", a2:"öğreniyor", a3:"iyi", a4:"usta", startHere:"Buradan başla", finishPrevLesson:"Önce önceki dersi bitir 🔒", typeHint:"Yaz..." }, review:{ none:"Şu an tekrara hazır kana yok, hepsi güncel. Oyun ve derslerde pratik yaptıkça, unutmaya yüz tutanlar burada birikir.", done:"tekrar tamam", typePrompt:"{s} yaz", dontKnow:"Bilmiyorum" }, ll:{ p1_t:"Hiragana keşfi", p1_s:"あいうえお ile başla", p1b_t:"Hiragana 2", p1b_s:"はまやらわ", p2_t:"Flick antrenmanı", p2_s:"Tıkla ve kaydır", p3_t:"Romaji → Hiragana", p3_s:"nihongo → にほんご", p4_t:"Hiragana → Romaji", p4_s:"にほんご → nihongo", p5_t:"Katakana", p5_s:"カメラ・ホテル・コーヒー", p6_t:"Dinleme modu", p6_s:"Duy ve yaz", p7_t:"Okuma modu", p7_s:"Gör ve seslendir", p8_t:"Kanji keşfi", p8_s:"Doğal maruz kalma", p9_t:"IME çevirisi", p9_s:"Doğru kanji adayını seç" }, sets:{ title:"Kana Setleri", intro:"Her flick tuşu bir set. Sırayla aç; birkaç set bitince karışık çalış.", mixBtn:"🎲 Karışık çalış", whichMix:"Hangi setleri karıştıralım?", mixStart:"Karışık başla" }, sc:{ drill:"Çalışma", freeWrite:"Serbest yazma", review:"Tekrar" }, mode:{ newKana:"Yeni kana", whichSound:"Bu hangi ses?", typeThisKana:"Bu kana'yı yaz", flickHint:"İlgili tuşa bas, parmağını kaldırmadan yönü göster, sonra bırak.", check:"Kontrol et", longHint:"💡 Uzun ses <b class=\"jp\" style=\"color:var(--cy)\">ー</b>: <b class=\"jp\">ワ</b> tuşunu sağa kaydır · Dakuten <b style=\"color:var(--cy)\">゛ ゜</b> için son harften sonra <b>小゛゜</b>", pickSyll:"Heceleri seç...", kataTag:"Katakana · dinle ve yaz", hearType:"Duy ve yaz", playAgain:"Tekrar çal", show:"Göster", showReading:"Okunuşu göster", slow:"yavaş", fast:"hızlı", spNormal:"normal", spNative:"doğal", typeHeard:"Duyduğunu yaz...", readAloud:"Sesli oku", readDone:"Okudum ✓", readHint:"Önce kendin oku. Sonra cevabı aç ve sesli karşılaştır.", showAnswer:"Cevabı göster", hearCorrect:"Doğru telaffuzu duy", kanjiTag:"Kanji · ezber yok, tanış", kanjiHint:"Tek tek anlamları birleşince kelime mantıklı geliyor mu? Sadece bak ve hisset.", imeTag:"IME · sen yazdın:", imeHint:"Telefon birkaç aday sunar. Anlamına uyan doğru yazımı seç.", rightCand:"Doğru aday!", listenAgain:"Tekrar dinle", notThat:"O değil", meaning:"Anlam", correctIs:"doğrusu", target:"Hedef:", tipWord:"ipucu", missionSend:"Klavyeyle yaz, sonra 改行 (enter) ile gönder.", typeAnswer:"Cevabını yaz...", msgSent:"Mesaj gönderildi! 📨", notYet:"Henüz değil", targetReading:"Hedef okuma:", sendBtn:"Gönder (改行)", planA:"Sadece あいうえお · yön döngüsü", planReview1:"+ あ tekrarı", plusPrevRows:"+ önceki satırlar" }, game:{ howTo:"NASIL OYNANIR?", wordFallback:"kelime", start:"Başla", newRecord:"🎉 Yeni rekor!", best:"En iyi:", record:"Rekor:", g60title:"Bir dakikada kaç kana?", g60r1:"Ekranda bir kana belirir.", g60r2:"Flick klavyeyle o kanayı yaz.", g60r3:"Doğruysa anında yenisi gelir.", g60r4:"<b>60 saniyede</b> en çok doğruyu yapmaya çalış.", correctKana:"doğru kana", shiR1:"Sırayla kelime yazarsınız (sen ↔ uygulama).", shiR2:"Her kelime öncekinin <b>son kanasıyla</b> başlar, ör. ね<b>こ</b> → <b>こ</b>ま.", shiR3:"<b>ん</b> ile biten kelime <b>kaybeder</b>.", shiR4:"Zinciri ne kadar uzatabilirsin?", nextWordPre:"Sıradaki kelime", nextWordPost:"ile başlamalı", send:"Gönder →", noHint:"Bu harf için ipucu yok 🤷", hintLbl:"💡 İpucu · kendin yaz:", mustStart:"{n} ile başlamalı", usedWord:"Bu kelime kullanıldı", endN:"「ん」 ile bitti, zincir koptu! 💥", winMsg:"🎉 Uygulama devam edemedi, kazandın!", longestChain:"🎉 En uzun zincir!", longestChainStat:"En uzun zincir:", flowTitle:"🌊 Akış · seviye seç", flowR1:"Kana yukarıdan aşağı süzülür.", flowR2:"Çizgiye ulaşmadan doğru tuşu bul, yönü <b>flick</b>le.", flowR3:"Seviye ilerledikçe yeni yönler açılır.", flowR4:"Sakin · panik yok, yanlış <b>cezasız</b>.", flowFoot:"Bir seviyeyi bitir, sonraki açılır. İstediğini istediğin kadar tekrar oyna.", play:"Oyna →", playAgain:"Tekrar oyna", levels:"Seviyeler", games:"Oyunlar", combo:"seri", points:"puan", bestCombo:"en yüksek seri", level:"Seviye", unlocked:"açıldı", lv0n:"Ana tuşlar", lv0s:"Tıkla tuşları", lv1n:"Yan tuşlar", lv1s:"Sağ-sol · ← →", lv2n:"Üst / Alt", lv2s:"Yukarı-aşağı · ↑ ↓", lv3s:"Tüm yönler" }, gm:{ g60name:"60 Saniye", g60d:"Bir dakikada kaç kana? · En iyi: ", flow:"Akış", flowd:"Ritim-flick · seviye seç", shid:"Kelime zinciri · oyna" }, reflex:{ allMixed:"HEPSİ KARIŞIK", allMixedSub:"Gerçek sınav · tüm satırlar rastgele", tag:"Kas hafızası antrenmanı", desc:"Ses gösterilir. Doğru tuşu bul, parmağını kaldırmadan yönü kaydır. Düşünmeden, hızlı yapana kadar tekrar.", notPlayed:"Henüz oynanmadı", sameMap:"Bu eşleme HER satırda aynı", typeSound:"Bu sesi yaz", listen:"dinle", guide:"rehber", on:"açık", off:"kapalı", stages:"Kademeler", stageYa:"や ゆ よ + tekrar", nextStage:"Sonraki kademe" }, status:{ level:"Seviye", kanaReady:"kana hazır", upToDate:"Şimdilik güncel ✓", spacedReview:"Aralıklı tekrar", achievement:"Başarım", badge:"Rozet" }, dict:{ soon:"yakında", levelLater:"Bu seviye ileride açılacak.", noMatch:"Eşleşen keşfedilmiş kelime yok.", unlocked:"Yeni kelime kilidi açıldı!", discovered:"keşfedildi" }, group:{ numbers:"Sayılar", bignum:"Büyük Sayılar", colors:"Renkler", weekdays:"Haftanın Günleri", months:"Aylar", seasons:"Mevsimler", directions:"Yönler", position:"Konumlar", family:"Aile", body:"Vücut", clock:"Saatler", question:"Soru Kelimeleri", kosoado:"İşaretler", greetings:"Selamlaşma", animals:"Hayvanlar", fruitveg:"Meyve & Sebze", food:"Yiyecekler", drinks:"İçecekler", nature:"Doğa", home:"Ev", objects:"Eşyalar", places:"Yerler", transport:"Ulaşım", verbs:"Hareket Kelimeleri", adjectives:"Niteleme Kelimeleri" }, kh:{ open:"Küçük harf & sesli işaret yardımı", title:"Küçük harf & sesli işaret", rule:"Büyük harfi yaz, sonra 小゛゜ tuşuna bas. Her basışta sırayla değişir.", dak:"Sesli işaret (dakuten / handakuten)", small:"Küçük harf (yōon / küçük tsu)" }, album:{ title:"Kelime Albümü", desc:"Keşfettiğin kelimeler burada toplanır.", search:"Kelime ara…", searchBtn:"Ara", discovered:"keşfedildi", completed:"tamamlandı", of:"/", tryWrite:"yazmayı dene", notYet:"Bu kelimeyi henüz keşfetmedin — serbest yazı alanında dene 🖊️", emptyTitle:"Albümün seni bekliyor", emptyDesc:"Serbest yazmada kelime yaz; keşfettiklerin burada toplansın.", badgeEarned:"Rozet kazanıldı", almost:"Az kaldı!", found:"keşfettin", setLabel:"seti", back:"Setlere dön", moreLeft:"{n} kelime daha", searchHint:"kana veya anlam" }, badge:{ b_kana:"Kana", b_flick:"Flick", b_kata:"Katakana", d_first:"İlk Keşif", d_10:"On Kelime", d_50:"Elli Kelime", d_100:"Yüz Kelime", d_a:"あ Serisi", d_ka:"か Serisi", d_sa:"さ Serisi", d_n5:"N5 Tamam", g_shiri:"Shiritori Ustası", g_streak7:"7 Gün Seri", s_family:"Aile Sözcükleri", s_body:"Vücut Haritası", s_colors:"Renk Kaşifi", s_numbers:"Sayı Ustası", s_bignum:"Büyük Sayı Ustası", s_clock:"Saat Ustası", s_weekdays:"Hafta Gezgini", s_months:"Takvim Gezgini", s_seasons:"Mevsim Döngüsü", s_directions:"Pusula", s_position:"Konum Ustası", s_greetings:"Selam Veren", s_question:"Meraklı", s_kosoado:"İşaretçi", o_animals:"Hayvan Dostu", o_fruitveg:"Taze Sepet", o_food:"Sofra Sözcükleri", o_drinks:"İçecek Köşesi", o_nature:"Doğa Gezgini", o_home:"Ev Sözcükleri", o_objects:"Eşya Kaşifi", o_places:"Şehir Gezgini", o_transport:"Yolcu", o_verbs:"Hareket Sözcükleri", o_adjectives:"Niteleme Sözcükleri" }, kb:{ del:"sil", space:"boşluk", enter:"satır", conv:"kettei · gönder" }, achv:{ title:"Başarılar", mastery:"Kana Ustalığı", badges:"Rozetler", lNew:"yeni", lMid:"gelişiyor", lMaster:"usta" }, set:{ resetConfirm:"Tüm ilerleme silinsin mi?", exported:"Yedek indirildi 📤", exportFail:"Dışa aktarma başarısız", imported:"Yedek yüklendi, yeniden başlıyor…", importInvalid:"Geçersiz yedek dosyası" }, kl:{ longVowel:"「ワ」 tuşu, sağa kaydır <b>(uzun ses ー)</b>", small:"<b>küçük</b>", then:"sonra", correctLbl:"Doğru", youLbl:"Sen", howToWrite:"nasıl yazılır", missingChar:"Bir karakter eksik kaldı", extraChar:"Fazladan karakter var" }, rf2:{ became:"oldu", wrongToast:"O {r} oldu, hedef {k}", stumbled:"En çok takıldıkların", stagePassed:"Kademe geçildi!", almost:"Az kaldı, tekrar dene", accuracy:"doğruluk", avgSpeed:"ort. hız", bestCombo:"en iyi kombo" }, sb:{ startTyping:"Yazmaya başla...", newWord:"Yeni kelime keşfedildi!", clear:"Sil" }, nav:{ back:"Geri", close:"Kapat", next:"İleri" }
+  prose:{ privacy:"<p>Japanese Flick gizliliğinize saygı duyar ve <b>tamamen cihazınızda</b> çalışır.</p><ul><li>Kişisel veri toplamaz; hiçbir sunucuya bir şey göndermez.</li><li>İlerlemeniz (seviye, rozetler, notlar) yalnızca cihazınızın yerel depolamasında (localStorage) saklanır.</li><li>Reklam yok, izleme (tracking) yok, üçüncü taraf analitiği yok.</li><li>Telaffuz sesleri uygulamanın içine gömülü yerel ses dosyalarıyla çalınır. Bazı eksik veya desteklenmeyen metinlerde cihazın kendi konuşma motoru yedek olarak kullanılabilir. Ses verisi kaydedilmez, analiz edilmez ve sunucuya gönderilmez.</li><li>Veriyi dışa/içe aktarma tamamen sizin kontrolünüzdedir ve cihazınızda kalır.</li><li>Tarayıcı verilerini veya önbelleği silerseniz ilerlemeniz de silinir.</li></ul><p>Sorularınız için: Ayarlar → Destek / İletişim.</p>", terms:"<ul><li>Japanese Flick eğitim amaçlı, ücretsiz bir uygulamadır.</li><li>Uygulama \"olduğu gibi\" sunulur; kesintisiz veya hatasız çalışacağı garanti edilmez.</li><li>İçerik Japonca öğrenmeye yardımcı olmak içindir; resmî bir dil sertifikası yerine geçmez.</li><li>Uygulamayı kendi sorumluluğunuzda kullanırsınız.</li><li>Bu şartlar zaman zaman güncellenebilir; güncel sürüm uygulama içinde yer alır.</li></ul>", support:"<p>Bir sorun mu var, önerin mi?</p><ul><li>Önce <b>Ayarlar → Veriyi dışa aktar</b> ile yedek al (ilerlemen güvende olsun).</li><li>Bir sorun, öneri veya geri bildirim için: <b>hello@zeynepkaya.app</b></li><li>Mesajına <b>uygulama sürümünü</b>, <b>cihaz modelini</b> ve sorunu gördüğün <b>ekranı</b> eklersen daha hızlı inceleyebilirim.</li></ul><p>İpucu: Klavye Çalışmaları ve Refleks Dojo ile kas hafızanı düzenli çalıştırırsan en hızlı ilerlersin.</p>", about:"<p><b>Japanese Flick</b>: Japonca telefon flick klavyesi için parmak kası dojosu.</p><p>Kana yönlerini öğrenmeni, hiragana ve katakana tanımanı ve küçük görevlerle pratik yapmanı amaçlar. Tamamen çevrimdışı, cihazında çalışır.</p><p>Sürüm 1.0</p>" },
+  common:{ continueB:"Devam et", continueS:"Devam", finish:"Bitir", home:"Ana sayfa", gotIt:"Anladım", listen:"Dinle", correct:"Doğru!", tryAgain:"Tekrar dene", answer:"Doğrusu:", hint:"İpucu", correctLabel:"doğru" }, dir:{ tap:"dokun", left:"sola kaydır", up:"yukarı kaydır", right:"sağa kaydır", down:"aşağı kaydır", press:"bas", tapC:"Tıkla", leftC:"← Sola kaydır", upC:"↑ Yukarı kaydır", rightC:"→ Sağa kaydır", downC:"↓ Aşağı kaydır", tapS:"tıkla", leftS:"← sola", upS:"↑ yukarı", rightS:"→ sağa", downS:"↓ aşağı" }, lesson:{ heartsOut:"Kalp bitti, tekrar dene 💪", nextLabel:"Sonraki", backToSets:"Setlere dön", laterContinue:"Sonra devam", completed:"Tamamlandı!", lessonDone:"Ders tamam!", correctCount:"doğru", pickAtLeastOne:"En az bir set seç", mixed:"Karışık", mixStudy:"Karışık çalış", setPlural:"set", finishPrevSet:"Önce önceki seti bitir 🔒", writeWithFlick:"Flick ile yaz", findKeyFlick:"Doğru tuşu bul, yönüne kaydır", keyWord:"tuşu", studyThis:"Bunu çalış", typeThis:"Bunu yaz", studyAgain:"Tekrar çalış", notTried:"Henüz denenmedi", attempts:"deneme", hitRate:"isabet", dailyDone:"Günlük hedef tamam! Seri:", todayDone:"Bugün tamam!", dayWord:"gün", dailyGoal:"Günlük hedef", tipFirst:"İlk kez? Aşağıdaki büyük karttan <b>あ行</b> ile başla.", tipTodayPre:"Bugünkü öneri: <b>", tipTodayPost:"</b> yönlerini çalış.", tipGreat:"Harika gidiyorsun! Bir tur <b>Tekrar</b> yap ya da <b>Oyunlar</b>a göz at.", mL0:"Henüz denenmedi", mL1:"Tanışıldı", mL2:"Gelişiyor", mL3:"İyi", mL4:"Usta", a0:"yeni", a1:"tanıyor", a2:"öğreniyor", a3:"iyi", a4:"usta", startHere:"Buradan başla", finishPrevLesson:"Önce önceki dersi bitir 🔒", typeHint:"Yaz..." }, review:{ none:"Şu an tekrara hazır kana yok, hepsi güncel. Oyun ve derslerde pratik yaptıkça, unutmaya yüz tutanlar burada birikir.", done:"tekrar tamam", typePrompt:"{s} yaz", dontKnow:"Bilmiyorum" }, ll:{ p1_t:"Hiragana keşfi", p1_s:"あいうえお ile başla", p1b_t:"Hiragana 2", p1b_s:"はまやらわ", p2_t:"Flick antrenmanı", p2_s:"Tıkla ve kaydır", p3_t:"Romaji → Hiragana", p3_s:"nihongo → にほんご", p4_t:"Hiragana → Romaji", p4_s:"にほんご → nihongo", p5_t:"Katakana", p5_s:"カメラ・ホテル・コーヒー", p6_t:"Dinleme modu", p6_s:"Duy ve yaz", p7_t:"Okuma modu", p7_s:"Gör ve seslendir", p8_t:"Kanji keşfi", p8_s:"Doğal maruz kalma", p9_t:"IME çevirisi", p9_s:"Doğru kanji adayını seç" }, sets:{ title:"Kana Setleri", intro:"Her flick tuşu bir set. Sırayla aç; birkaç set bitince karışık çalış.", mixBtn:"🎲 Karışık çalış", whichMix:"Hangi setleri karıştıralım?", mixStart:"Karışık başla" }, sc:{ drill:"Çalışma", freeWrite:"Serbest yazma", review:"Tekrar" }, mode:{ newKana:"Yeni kana", whichSound:"Bu hangi ses?", typeThisKana:"Bu kana'yı yaz", flickHint:"İlgili tuşa bas, parmağını kaldırmadan yönü göster, sonra bırak.", check:"Kontrol et", longHint:"💡 Uzun ses <b class=\"jp\" style=\"color:var(--cy)\">ー</b>: <b class=\"jp\">ワ</b> tuşunu sağa kaydır · Dakuten <b style=\"color:var(--cy)\">゛ ゜</b> için son harften sonra <b>小゛゜</b>", pickSyll:"Heceleri seç...", kataTag:"Katakana · dinle ve yaz", hearType:"Duy ve yaz", playAgain:"Tekrar çal", show:"Göster", showReading:"Okunuşu göster", slow:"yavaş", fast:"hızlı", spNormal:"normal", spNative:"doğal", typeHeard:"Duyduğunu yaz...", readAloud:"Sesli oku", readDone:"Okudum ✓", readHint:"Önce kendin oku. Sonra cevabı aç ve sesli karşılaştır.", showAnswer:"Cevabı göster", hearCorrect:"Doğru telaffuzu duy", kanjiTag:"Kanji · ezber yok, tanış", kanjiHint:"Tek tek anlamları birleşince kelime mantıklı geliyor mu? Sadece bak ve hisset.", imeTag:"IME · sen yazdın:", imeHint:"Telefon birkaç aday sunar. Anlamına uyan doğru yazımı seç.", rightCand:"Doğru aday!", listenAgain:"Tekrar dinle", notThat:"O değil", meaning:"Anlam", correctIs:"doğrusu", target:"Hedef:", tipWord:"ipucu", missionSend:"Klavyeyle yaz, sonra 改行 (enter) ile gönder.", typeAnswer:"Cevabını yaz...", msgSent:"Mesaj gönderildi! 📨", notYet:"Henüz değil", targetReading:"Hedef okuma:", sendBtn:"Gönder (改行)", planA:"Sadece あいうえお · yön döngüsü", planReview1:"+ あ tekrarı", plusPrevRows:"+ önceki satırlar" }, game:{ howTo:"NASIL OYNANIR?", wordFallback:"kelime", start:"Başla", newRecord:"🎉 Yeni rekor!", best:"En iyi:", record:"Rekor:", g60title:"Bir dakikada kaç kana?", g60r1:"Ekranda bir kana belirir.", g60r2:"Flick klavyeyle o kanayı yaz.", g60r3:"Doğruysa anında yenisi gelir.", g60r4:"<b>60 saniyede</b> en çok doğruyu yapmaya çalış.", correctKana:"doğru kana", shiR1:"Sırayla kelime yazarsınız (sen ↔ uygulama).", shiR2:"Her kelime öncekinin <b>son kanasıyla</b> başlar, ör. ね<b>こ</b> → <b>こ</b>ま.", shiR3:"<b>ん</b> ile biten kelime <b>kaybeder</b>.", shiR4:"Zinciri ne kadar uzatabilirsin?", nextWordPre:"Sıradaki kelime", nextWordPost:"ile başlamalı", send:"Gönder →", noHint:"Bu harf için ipucu yok 🤷", hintLbl:"💡 İpucu · kendin yaz:", mustStart:"{n} ile başlamalı", usedWord:"Bu kelime kullanıldı", endN:"「ん」 ile bitti, zincir koptu! 💥", winMsg:"<svg viewBox='0 0 24 24' width='17' height='17' aria-hidden='true' style='vertical-align:-3px'><path d='M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z' style='fill:var(--gold-ink);stroke:none'/></svg> Uygulama devam edemedi, kazandın!", longestChain:"<svg viewBox='0 0 24 24' width='17' height='17' aria-hidden='true' style='vertical-align:-3px'><path d='M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z' style='fill:var(--gold-ink);stroke:none'/></svg> En uzun zincir!", longestChainStat:"En uzun zincir:", flowTitle:"🌊 Akış · seviye seç", flowR1:"Kana yukarıdan aşağı süzülür.", flowR2:"Çizgiye ulaşmadan doğru tuşu bul, yönü <b>flick</b>le.", flowR3:"Seviye ilerledikçe yeni yönler açılır.", flowR4:"Sakin · panik yok, yanlış <b>cezasız</b>.", flowFoot:"Bir seviyeyi bitir, sonraki açılır. İstediğini istediğin kadar tekrar oyna.", play:"Oyna →", playAgain:"Tekrar oyna", levels:"Seviyeler", games:"Oyunlar", combo:"seri", points:"puan", bestCombo:"en yüksek seri", level:"Seviye", unlocked:"açıldı", lv0n:"Ana tuşlar", lv0s:"Tıkla tuşları", lv1n:"Yan tuşlar", lv1s:"Sağ-sol · ← →", lv2n:"Üst / Alt", lv2s:"Yukarı-aşağı · ↑ ↓", lv3s:"Tüm yönler" }, gm:{ g60name:"60 Saniye", g60d:"Bir dakikada kaç kana? · En iyi: ", flow:"Akış", flowd:"Ritim-flick · seviye seç", shid:"Kelime zinciri · oyna" }, reflex:{ allMixed:"HEPSİ KARIŞIK", allMixedSub:"Gerçek sınav · tüm satırlar rastgele", tag:"Kas hafızası antrenmanı", desc:"Ses gösterilir. Doğru tuşu bul, parmağını kaldırmadan yönü kaydır. Düşünmeden, hızlı yapana kadar tekrar.", notPlayed:"Henüz oynanmadı", sameMap:"Bu eşleme HER satırda aynı", typeSound:"Bu sesi yaz", listen:"dinle", guide:"rehber", on:"açık", off:"kapalı", stages:"Kademeler", stageYa:"や ゆ よ + tekrar", nextStage:"Sonraki kademe" }, status:{ level:"Seviye", kanaReady:"kana hazır", upToDate:"Şimdilik güncel ✓", spacedReview:"Aralıklı tekrar", achievement:"Başarım", badge:"Rozet" }, dict:{ soon:"yakında", levelLater:"Bu seviye ileride açılacak.", noMatch:"Eşleşen keşfedilmiş kelime yok.", unlocked:"Yeni kelime kilidi açıldı!", discovered:"keşfedildi" }, group:{ numbers:"Sayılar", bignum:"Büyük Sayılar", colors:"Renkler", weekdays:"Haftanın Günleri", months:"Aylar", seasons:"Mevsimler", directions:"Yönler", position:"Konumlar", family:"Aile", body:"Vücut", clock:"Saatler", question:"Soru Kelimeleri", kosoado:"İşaretler", greetings:"Selamlaşma", animals:"Hayvanlar", fruitveg:"Meyve & Sebze", food:"Yiyecekler", drinks:"İçecekler", nature:"Doğa", home:"Ev", objects:"Eşyalar", places:"Yerler", transport:"Ulaşım", verbs:"Hareket Kelimeleri", adjectives:"Niteleme Kelimeleri" }, kh:{ open:"Küçük harf & sesli işaret yardımı", title:"Küçük harf & sesli işaret", rule:"Büyük harfi yaz, sonra 小゛゜ tuşuna bas. Her basışta sırayla değişir.", dak:"Sesli işaret (dakuten / handakuten)", small:"Küçük harf (yōon / küçük tsu)" }, album:{ title:"Kelime Albümü", desc:"Keşfettiğin kelimeler burada toplanır.", search:"Kelime ara…", searchBtn:"Ara", discovered:"keşfedildi", completed:"tamamlandı", of:"/", tryWrite:"yazmayı dene", notYet:"Bu kelimeyi henüz keşfetmedin — serbest yazı alanında dene 🖊️", emptyTitle:"Albümün seni bekliyor", emptyDesc:"Serbest yazmada kelime yaz; keşfettiklerin burada toplansın.", badgeEarned:"Rozet kazanıldı", almost:"Az kaldı!", found:"keşfettin", setLabel:"seti", back:"Setlere dön", moreLeft:"{n} kelime daha", searchHint:"kana veya anlam" }, badge:{ b_kana:"Kana", b_flick:"Flick", b_kata:"Katakana", d_first:"İlk Keşif", d_10:"On Kelime", d_50:"Elli Kelime", d_100:"Yüz Kelime", d_a:"あ Serisi", d_ka:"か Serisi", d_sa:"さ Serisi", d_n5:"N5 Tamam", g_shiri:"Shiritori Ustası", g_streak7:"7 Gün Seri", s_family:"Aile Sözcükleri", s_body:"Vücut Haritası", s_colors:"Renk Kaşifi", s_numbers:"Sayı Ustası", s_bignum:"Büyük Sayı Ustası", s_clock:"Saat Ustası", s_weekdays:"Hafta Gezgini", s_months:"Takvim Gezgini", s_seasons:"Mevsim Döngüsü", s_directions:"Pusula", s_position:"Konum Ustası", s_greetings:"Selam Veren", s_question:"Meraklı", s_kosoado:"İşaretçi", o_animals:"Hayvan Dostu", o_fruitveg:"Taze Sepet", o_food:"Sofra Sözcükleri", o_drinks:"İçecek Köşesi", o_nature:"Doğa Gezgini", o_home:"Ev Sözcükleri", o_objects:"Eşya Kaşifi", o_places:"Şehir Gezgini", o_transport:"Yolcu", o_verbs:"Hareket Sözcükleri", o_adjectives:"Niteleme Sözcükleri" }, kb:{ del:"sil", space:"boşluk", enter:"satır", conv:"kettei · gönder" }, achv:{ title:"Başarılar", mastery:"Kana Ustalığı", badges:"Rozetler", lNew:"yeni", lMid:"gelişiyor", lMaster:"usta" }, set:{ resetConfirm:"Tüm ilerleme silinsin mi?", exported:"Yedek indirildi 📤", exportFail:"Dışa aktarma başarısız", imported:"Yedek yüklendi, yeniden başlıyor…", importInvalid:"Geçersiz yedek dosyası" }, kl:{ longVowel:"「ワ」 tuşu, sağa kaydır <b>(uzun ses ー)</b>", small:"<b>küçük</b>", then:"sonra", correctLbl:"Doğru", youLbl:"Sen", howToWrite:"nasıl yazılır", missingChar:"Bir karakter eksik kaldı", extraChar:"Fazladan karakter var" }, rf2:{ became:"oldu", wrongToast:"O {r} oldu, hedef {k}", stumbled:"En çok takıldıkların", stagePassed:"Kademe geçildi!", almost:"Az kaldı, tekrar dene", accuracy:"doğruluk", avgSpeed:"ort. hız", bestCombo:"en iyi kombo" }, sb:{ startTyping:"Yazmaya başla...", newWord:"Yeni kelime keşfedildi!", clear:"Sil" }, nav:{ back:"Geri", close:"Kapat", next:"İleri" }
 }, en:{
   app:{ name:"Japanese Flick", tagline:"Finger practice for the Japanese phone keyboard" },
   home:{
@@ -1544,8 +1644,8 @@ const STRINGS={ tr:{
     someT:"I know a little", someS:"I can read some but I hesitate",
     proT:"I know them all", proS:"I just want to get faster on the keyboard",
     toastPro:"I trust you. Let's train those fingers 💪", toastSome:"Let's reinforce what you know. Start wherever you like.", toastZero:"I've got you. Let's start with the first letters 🌱" },
-  prose:{ privacy:"<p>Japanese Flick respects your privacy and runs <b>entirely on your device</b>.</p><ul><li>It collects no personal data and sends nothing to any server.</li><li>Your progress (level, badges, notes) is stored only in your device's local storage (localStorage).</li><li>No ads, no tracking, no third-party analytics.</li><li>Pronunciation sounds play from local audio files bundled in the app. For some missing or unsupported text, your device's own speech engine may be used as a fallback. Audio data is not recorded, analyzed or sent to any server.</li><li>Exporting/importing data is entirely under your control and stays on your device.</li><li>If you clear your browser data or cache, your progress is erased too.</li></ul><p>For questions: Settings → Support / Contact.</p>", terms:"<ul><li>Japanese Flick is a free, educational app.</li><li>The app is provided \"as is\"; it is not guaranteed to run uninterrupted or error-free.</li><li>The content is meant to help you learn Japanese; it is not a substitute for an official language certificate.</li><li>You use the app at your own responsibility.</li><li>These terms may be updated from time to time; the current version lives inside the app.</li></ul>", support:"<p>Got a problem or a suggestion?</p><ul><li>First, back up via <b>Settings → Export data</b> (keep your progress safe).</li><li>For any issue, idea or feedback: <b>hello@zeynepkaya.app</b></li><li>If you include the <b>app version</b>, your <b>device model</b> and the <b>screen</b> where you saw the issue, I can look into it faster.</li></ul><p>Tip: practicing regularly with Keyboard Practice and the Reflex Dojo is the fastest way to improve.</p>", about:"<p><b>Japanese Flick</b>: a finger-muscle dojo for the Japanese phone flick keyboard.</p><p>It helps you learn kana directions, recognize hiragana and katakana, and practice with small tasks. Fully offline, runs on your device.</p><p>Version 1.0 Beta</p>" },
-  common:{ continueB:"Continue", continueS:"Continue", finish:"Finish", home:"Home", gotIt:"Got it", listen:"Listen", correct:"Correct!", tryAgain:"Try again", answer:"Answer:", hint:"Hint", correctLabel:"correct" }, dir:{ tap:"tap", left:"flick left", up:"flick up", right:"flick right", down:"flick down", press:"press", tapC:"Tap", leftC:"← Flick left", upC:"↑ Flick up", rightC:"→ Flick right", downC:"↓ Flick down", tapS:"tap", leftS:"← left", upS:"↑ up", rightS:"→ right", downS:"↓ down" }, lesson:{ heartsOut:"Out of hearts, try again 💪", nextLabel:"Next", backToSets:"Back to sets", laterContinue:"Continue later", completed:"Completed!", lessonDone:"Lesson done!", correctCount:"correct", pickAtLeastOne:"Pick at least one set", mixed:"Mixed", mixStudy:"Mixed practice", setPlural:"sets", finishPrevSet:"Finish the previous set first 🔒", writeWithFlick:"Write with flick", findKeyFlick:"Find the right key, flick its direction", keyWord:"key", studyThis:"Study this", typeThis:"Type this", studyAgain:"Practice again", notTried:"Not tried yet", attempts:"attempts", hitRate:"hit rate", dailyDone:"Daily goal done! Streak:", todayDone:"Done today!", dayWord:"days", dailyGoal:"Daily goal", tipFirst:"First time? Start with <b>あ行</b> from the big card below.", tipTodayPre:"Today's suggestion: practice <b>", tipTodayPost:"</b> directions.", tipGreat:"You're doing great! Do a round of <b>Review</b> or check out the <b>Games</b>.", mL0:"Not tried yet", mL1:"Met", mL2:"Improving", mL3:"Good", mL4:"Master", a0:"new", a1:"knows", a2:"learning", a3:"good", a4:"master", startHere:"Start here", finishPrevLesson:"Finish the previous lesson first 🔒", typeHint:"Type..." }, review:{ none:"No kana ready for review right now, everything is up to date. As you practice in games and lessons, the ones you're starting to forget will gather here.", done:"review done", typePrompt:"type {s}", dontKnow:"I don't know" }, ll:{ p1_t:"Hiragana discovery", p1_s:"Start with あいうえお", p1b_t:"Hiragana 2", p1b_s:"はまやらわ", p2_t:"Flick training", p2_s:"Tap and flick", p3_t:"Romaji → Hiragana", p3_s:"nihongo → にほんご", p4_t:"Hiragana → Romaji", p4_s:"にほんご → nihongo", p5_t:"Katakana", p5_s:"カメラ・ホテル・コーヒー", p6_t:"Listening mode", p6_s:"Hear and type", p7_t:"Reading mode", p7_s:"See and say", p8_t:"Kanji discovery", p8_s:"Natural exposure", p9_t:"IME conversion", p9_s:"Pick the right kanji candidate" }, sets:{ title:"Kana Sets", intro:"Each flick key is a set. Unlock them in order; after a few, practice them mixed.", mixBtn:"🎲 Mixed practice", whichMix:"Which sets shall we mix?", mixStart:"Start mixed" }, sc:{ drill:"Practice", freeWrite:"Free Writing", review:"Review" }, mode:{ newKana:"New kana", whichSound:"Which sound is this?", typeThisKana:"Type this kana", flickHint:"Press the key, show the direction without lifting your finger, then release.", check:"Check", longHint:"💡 Long vowel <b class=\"jp\" style=\"color:var(--cy)\">ー</b>: flick <b class=\"jp\">ワ</b> to the right · For dakuten <b style=\"color:var(--cy)\">゛ ゜</b>, use <b>小゛゜</b> after the last letter", pickSyll:"Pick syllables...", kataTag:"Katakana · listen & type", hearType:"Hear & type", playAgain:"Play again", show:"Show", showReading:"Show reading", slow:"slow", fast:"fast", spNormal:"normal", spNative:"native", typeHeard:"Type what you hear...", readAloud:"Read aloud", readDone:"I read it ✓", readHint:"Read it yourself first. Then reveal the answer and compare aloud.", showAnswer:"Show answer", hearCorrect:"Hear correct pronunciation", kanjiTag:"Kanji · just meet it", kanjiHint:"When the individual meanings combine, does the word make sense? Just look and feel it.", imeTag:"IME · you typed:", imeHint:"The phone offers a few candidates. Pick the correct spelling for the meaning.", rightCand:"Right candidate!", listenAgain:"Listen again", notThat:"Not that one", meaning:"Meaning", correctIs:"correct is", target:"Target:", tipWord:"hint", missionSend:"Type with the keyboard, then send with 改行 (enter).", typeAnswer:"Type your answer...", msgSent:"Message sent! 📨", notYet:"Not yet", targetReading:"Target reading:", sendBtn:"Send (改行)", planA:"Only あいうえお · direction cycle", planReview1:"+ あ review", plusPrevRows:"+ previous rows" }, game:{ howTo:"HOW TO PLAY?", wordFallback:"word", start:"Start", newRecord:"🎉 New record!", best:"Best:", record:"Record:", g60title:"How many kana in a minute?", g60r1:"A kana appears on screen.", g60r2:"Type it with the flick keyboard.", g60r3:"If correct, the next appears instantly.", g60r4:"Get as many correct as you can <b>in 60 seconds</b>.", correctKana:"correct kana", shiR1:"You take turns writing words (you ↔ app).", shiR2:"Each word starts with the <b>last kana</b> of the previous, e.g. ね<b>こ</b> → <b>こ</b>ま.", shiR3:"A word ending in <b>ん</b> <b>loses</b>.", shiR4:"How long can you make the chain?", nextWordPre:"Next word must start with", nextWordPost:"", send:"Send →", noHint:"No hint for this letter 🤷", hintLbl:"💡 Hint · type it yourself:", mustStart:"Must start with {n}", usedWord:"This word was already used", endN:"Ended on 「ん」, chain broken! 💥", winMsg:"🎉 The app couldn't continue, you win!", longestChain:"🎉 Longest chain!", longestChainStat:"Longest chain:", flowTitle:"🌊 Flow · pick a level", flowR1:"Kana drift down from the top.", flowR2:"Before it hits the line, find the key and <b>flick</b> the direction.", flowR3:"New directions unlock as you level up.", flowR4:"Relax · no panic, mistakes are <b>free</b>.", flowFoot:"Finish a level to unlock the next. Replay any as much as you like.", play:"Play →", playAgain:"Play again", levels:"Levels", games:"Games", combo:"combo", points:"points", bestCombo:"best combo", level:"Level", unlocked:"unlocked", lv0n:"Main keys", lv0s:"Tap keys", lv1n:"Side keys", lv1s:"Left-right · ← →", lv2n:"Up / Down", lv2s:"Up-down · ↑ ↓", lv3s:"All directions" }, gm:{ g60name:"60 Seconds", g60d:"Kana in a minute · Best: ", flow:"Flow", flowd:"Rhythm-flick · pick a level", shid:"Word chain · play" }, reflex:{ allMixed:"ALL MIXED", allMixedSub:"Real test · all rows random", tag:"Muscle memory", desc:"A sound is shown. Find the right key and flick its direction without lifting your finger. Repeat until it's fast and effortless.", notPlayed:"Not played yet", sameMap:"This mapping is the same on EVERY row", typeSound:"Type this sound", listen:"listen", guide:"guide", on:"on", off:"off", stages:"Stages", stageYa:"や ゆ よ + review", nextStage:"Next stage" }, status:{ level:"Level", kanaReady:"kana ready", upToDate:"Up to date ✓", spacedReview:"Spaced review", achievement:"Achievement", badge:"Badge" }, dict:{ soon:"soon", levelLater:"This level unlocks later.", noMatch:"No matching discovered word.", unlocked:"New word unlocked!", discovered:"discovered" }, group:{ numbers:"Numbers", bignum:"Big Numbers", colors:"Colors", weekdays:"Days of the Week", months:"Months", seasons:"Seasons", directions:"Directions", position:"Positions", family:"Family", body:"Body", clock:"O'clock", question:"Question Words", kosoado:"This & That", greetings:"Greetings", animals:"Animals", fruitveg:"Fruits & Veggies", food:"Food", drinks:"Drinks", nature:"Nature", home:"Home", objects:"Everyday Objects", places:"Places", transport:"Getting Around", verbs:"Action Words", adjectives:"Describing Words" }, kh:{ open:"Small kana & voiced marks help", title:"Small kana & voiced marks", rule:"Type the base kana, then tap the 小゛゜ key. Each tap cycles through.", dak:"Voiced mark (dakuten / handakuten)", small:"Small kana (yōon / small tsu)" }, album:{ title:"Word Album", desc:"The words you discover collect here.", search:"Search words…", searchBtn:"Search", discovered:"discovered", completed:"completed", of:"/", tryWrite:"try writing it", notYet:"You haven't discovered this word yet — try it in Free Writing 🖊️", emptyTitle:"Your album awaits", emptyDesc:"Write words in Free Writing and watch your collection grow.", badgeEarned:"Badge earned", almost:"Almost there!", found:"discovered", setLabel:"set", back:"Back to sets", moreLeft:"{n} more", searchHint:"kana or meaning" }, badge:{ b_kana:"Kana", b_flick:"Flick", b_kata:"Katakana", d_first:"First Discovery", d_10:"Ten Words", d_50:"Fifty Words", d_100:"Hundred Words", d_a:"あ Series", d_ka:"か Series", d_sa:"さ Series", d_n5:"N5 Complete", g_shiri:"Shiritori Master", g_streak7:"7-Day Streak", s_family:"Family Words", s_body:"Body Map", s_colors:"Color Finder", s_numbers:"Number Keeper", s_bignum:"Big Number Keeper", s_clock:"Clock Keeper", s_weekdays:"Weekday Walker", s_months:"Calendar Scout", s_seasons:"Season Cycle", s_directions:"Compass", s_position:"Position Master", s_greetings:"Greeter", s_question:"The Curious", s_kosoado:"Pointer", o_animals:"Animal Friends", o_fruitveg:"Fresh Basket", o_food:"Table Words", o_drinks:"Drinks Corner", o_nature:"Nature Walker", o_home:"Home Words", o_objects:"Object Finder", o_places:"City Walker", o_transport:"Commuter", o_verbs:"Action Words", o_adjectives:"Describing Words" }, kb:{ del:"del", space:"space", enter:"line", conv:"kettei · send" }, achv:{ title:"Achievements", mastery:"Kana Mastery", badges:"Badges", lNew:"new", lMid:"improving", lMaster:"master" }, set:{ resetConfirm:"Reset all progress?", exported:"Backup downloaded 📤", exportFail:"Export failed", imported:"Backup loaded, restarting…", importInvalid:"Invalid backup file" }, kl:{ longVowel:"「ワ」 key, flick right <b>(long vowel ー)</b>", small:"<b>small</b>", then:"then", correctLbl:"Correct", youLbl:"You", howToWrite:"how to write", missingChar:"A character is missing", extraChar:"There is an extra character" }, rf2:{ became:"became", wrongToast:"That was {r}, target {k}", stumbled:"Where you stumble most", stagePassed:"Stage cleared!", almost:"Almost, try again", accuracy:"accuracy", avgSpeed:"avg speed", bestCombo:"best combo" }, sb:{ startTyping:"Start typing...", newWord:"New word discovered!", clear:"Clear" }, nav:{ back:"Back", close:"Close", next:"Next" }
+  prose:{ privacy:"<p>Japanese Flick respects your privacy and runs <b>entirely on your device</b>.</p><ul><li>It collects no personal data and sends nothing to any server.</li><li>Your progress (level, badges, notes) is stored only in your device's local storage (localStorage).</li><li>No ads, no tracking, no third-party analytics.</li><li>Pronunciation sounds play from local audio files bundled in the app. For some missing or unsupported text, your device's own speech engine may be used as a fallback. Audio data is not recorded, analyzed or sent to any server.</li><li>Exporting/importing data is entirely under your control and stays on your device.</li><li>If you clear your browser data or cache, your progress is erased too.</li></ul><p>For questions: Settings → Support / Contact.</p>", terms:"<ul><li>Japanese Flick is a free, educational app.</li><li>The app is provided \"as is\"; it is not guaranteed to run uninterrupted or error-free.</li><li>The content is meant to help you learn Japanese; it is not a substitute for an official language certificate.</li><li>You use the app at your own responsibility.</li><li>These terms may be updated from time to time; the current version lives inside the app.</li></ul>", support:"<p>Got a problem or a suggestion?</p><ul><li>First, back up via <b>Settings → Export data</b> (keep your progress safe).</li><li>For any issue, idea or feedback: <b>hello@zeynepkaya.app</b></li><li>If you include the <b>app version</b>, your <b>device model</b> and the <b>screen</b> where you saw the issue, I can look into it faster.</li></ul><p>Tip: practicing regularly with Keyboard Practice and the Reflex Dojo is the fastest way to improve.</p>", about:"<p><b>Japanese Flick</b>: a finger-muscle dojo for the Japanese phone flick keyboard.</p><p>It helps you learn kana directions, recognize hiragana and katakana, and practice with small tasks. Fully offline, runs on your device.</p><p>Version 1.0</p>" },
+  common:{ continueB:"Continue", continueS:"Continue", finish:"Finish", home:"Home", gotIt:"Got it", listen:"Listen", correct:"Correct!", tryAgain:"Try again", answer:"Answer:", hint:"Hint", correctLabel:"correct" }, dir:{ tap:"tap", left:"flick left", up:"flick up", right:"flick right", down:"flick down", press:"press", tapC:"Tap", leftC:"← Flick left", upC:"↑ Flick up", rightC:"→ Flick right", downC:"↓ Flick down", tapS:"tap", leftS:"← left", upS:"↑ up", rightS:"→ right", downS:"↓ down" }, lesson:{ heartsOut:"Out of hearts, try again 💪", nextLabel:"Next", backToSets:"Back to sets", laterContinue:"Continue later", completed:"Completed!", lessonDone:"Lesson done!", correctCount:"correct", pickAtLeastOne:"Pick at least one set", mixed:"Mixed", mixStudy:"Mixed practice", setPlural:"sets", finishPrevSet:"Finish the previous set first 🔒", writeWithFlick:"Write with flick", findKeyFlick:"Find the right key, flick its direction", keyWord:"key", studyThis:"Study this", typeThis:"Type this", studyAgain:"Practice again", notTried:"Not tried yet", attempts:"attempts", hitRate:"hit rate", dailyDone:"Daily goal done! Streak:", todayDone:"Done today!", dayWord:"days", dailyGoal:"Daily goal", tipFirst:"First time? Start with <b>あ行</b> from the big card below.", tipTodayPre:"Today's suggestion: practice <b>", tipTodayPost:"</b> directions.", tipGreat:"You're doing great! Do a round of <b>Review</b> or check out the <b>Games</b>.", mL0:"Not tried yet", mL1:"Met", mL2:"Improving", mL3:"Good", mL4:"Master", a0:"new", a1:"knows", a2:"learning", a3:"good", a4:"master", startHere:"Start here", finishPrevLesson:"Finish the previous lesson first 🔒", typeHint:"Type..." }, review:{ none:"No kana ready for review right now, everything is up to date. As you practice in games and lessons, the ones you're starting to forget will gather here.", done:"review done", typePrompt:"type {s}", dontKnow:"I don't know" }, ll:{ p1_t:"Hiragana discovery", p1_s:"Start with あいうえお", p1b_t:"Hiragana 2", p1b_s:"はまやらわ", p2_t:"Flick training", p2_s:"Tap and flick", p3_t:"Romaji → Hiragana", p3_s:"nihongo → にほんご", p4_t:"Hiragana → Romaji", p4_s:"にほんご → nihongo", p5_t:"Katakana", p5_s:"カメラ・ホテル・コーヒー", p6_t:"Listening mode", p6_s:"Hear and type", p7_t:"Reading mode", p7_s:"See and say", p8_t:"Kanji discovery", p8_s:"Natural exposure", p9_t:"IME conversion", p9_s:"Pick the right kanji candidate" }, sets:{ title:"Kana Sets", intro:"Each flick key is a set. Unlock them in order; after a few, practice them mixed.", mixBtn:"🎲 Mixed practice", whichMix:"Which sets shall we mix?", mixStart:"Start mixed" }, sc:{ drill:"Practice", freeWrite:"Free Writing", review:"Review" }, mode:{ newKana:"New kana", whichSound:"Which sound is this?", typeThisKana:"Type this kana", flickHint:"Press the key, show the direction without lifting your finger, then release.", check:"Check", longHint:"💡 Long vowel <b class=\"jp\" style=\"color:var(--cy)\">ー</b>: flick <b class=\"jp\">ワ</b> to the right · For dakuten <b style=\"color:var(--cy)\">゛ ゜</b>, use <b>小゛゜</b> after the last letter", pickSyll:"Pick syllables...", kataTag:"Katakana · listen & type", hearType:"Hear & type", playAgain:"Play again", show:"Show", showReading:"Show reading", slow:"slow", fast:"fast", spNormal:"normal", spNative:"native", typeHeard:"Type what you hear...", readAloud:"Read aloud", readDone:"I read it ✓", readHint:"Read it yourself first. Then reveal the answer and compare aloud.", showAnswer:"Show answer", hearCorrect:"Hear correct pronunciation", kanjiTag:"Kanji · just meet it", kanjiHint:"When the individual meanings combine, does the word make sense? Just look and feel it.", imeTag:"IME · you typed:", imeHint:"The phone offers a few candidates. Pick the correct spelling for the meaning.", rightCand:"Right candidate!", listenAgain:"Listen again", notThat:"Not that one", meaning:"Meaning", correctIs:"correct is", target:"Target:", tipWord:"hint", missionSend:"Type with the keyboard, then send with 改行 (enter).", typeAnswer:"Type your answer...", msgSent:"Message sent! 📨", notYet:"Not yet", targetReading:"Target reading:", sendBtn:"Send (改行)", planA:"Only あいうえお · direction cycle", planReview1:"+ あ review", plusPrevRows:"+ previous rows" }, game:{ howTo:"HOW TO PLAY?", wordFallback:"word", start:"Start", newRecord:"🎉 New record!", best:"Best:", record:"Record:", g60title:"How many kana in a minute?", g60r1:"A kana appears on screen.", g60r2:"Type it with the flick keyboard.", g60r3:"If correct, the next appears instantly.", g60r4:"Get as many correct as you can <b>in 60 seconds</b>.", correctKana:"correct kana", shiR1:"You take turns writing words (you ↔ app).", shiR2:"Each word starts with the <b>last kana</b> of the previous, e.g. ね<b>こ</b> → <b>こ</b>ま.", shiR3:"A word ending in <b>ん</b> <b>loses</b>.", shiR4:"How long can you make the chain?", nextWordPre:"Next word must start with", nextWordPost:"", send:"Send →", noHint:"No hint for this letter 🤷", hintLbl:"💡 Hint · type it yourself:", mustStart:"Must start with {n}", usedWord:"This word was already used", endN:"Ended on 「ん」, chain broken! 💥", winMsg:"<svg viewBox='0 0 24 24' width='17' height='17' aria-hidden='true' style='vertical-align:-3px'><path d='M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z' style='fill:var(--gold-ink);stroke:none'/></svg> The app couldn't continue, you win!", longestChain:"<svg viewBox='0 0 24 24' width='17' height='17' aria-hidden='true' style='vertical-align:-3px'><path d='M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z' style='fill:var(--gold-ink);stroke:none'/></svg> Longest chain!", longestChainStat:"Longest chain:", flowTitle:"🌊 Flow · pick a level", flowR1:"Kana drift down from the top.", flowR2:"Before it hits the line, find the key and <b>flick</b> the direction.", flowR3:"New directions unlock as you level up.", flowR4:"Relax · no panic, mistakes are <b>free</b>.", flowFoot:"Finish a level to unlock the next. Replay any as much as you like.", play:"Play →", playAgain:"Play again", levels:"Levels", games:"Games", combo:"combo", points:"points", bestCombo:"best combo", level:"Level", unlocked:"unlocked", lv0n:"Main keys", lv0s:"Tap keys", lv1n:"Side keys", lv1s:"Left-right · ← →", lv2n:"Up / Down", lv2s:"Up-down · ↑ ↓", lv3s:"All directions" }, gm:{ g60name:"60 Seconds", g60d:"Kana in a minute · Best: ", flow:"Flow", flowd:"Rhythm-flick · pick a level", shid:"Word chain · play" }, reflex:{ allMixed:"ALL MIXED", allMixedSub:"Real test · all rows random", tag:"Muscle memory", desc:"A sound is shown. Find the right key and flick its direction without lifting your finger. Repeat until it's fast and effortless.", notPlayed:"Not played yet", sameMap:"This mapping is the same on EVERY row", typeSound:"Type this sound", listen:"listen", guide:"guide", on:"on", off:"off", stages:"Stages", stageYa:"や ゆ よ + review", nextStage:"Next stage" }, status:{ level:"Level", kanaReady:"kana ready", upToDate:"Up to date ✓", spacedReview:"Spaced review", achievement:"Achievement", badge:"Badge" }, dict:{ soon:"soon", levelLater:"This level unlocks later.", noMatch:"No matching discovered word.", unlocked:"New word unlocked!", discovered:"discovered" }, group:{ numbers:"Numbers", bignum:"Big Numbers", colors:"Colors", weekdays:"Days of the Week", months:"Months", seasons:"Seasons", directions:"Directions", position:"Positions", family:"Family", body:"Body", clock:"O'clock", question:"Question Words", kosoado:"This & That", greetings:"Greetings", animals:"Animals", fruitveg:"Fruits & Veggies", food:"Food", drinks:"Drinks", nature:"Nature", home:"Home", objects:"Everyday Objects", places:"Places", transport:"Getting Around", verbs:"Action Words", adjectives:"Describing Words" }, kh:{ open:"Small kana & voiced marks help", title:"Small kana & voiced marks", rule:"Type the base kana, then tap the 小゛゜ key. Each tap cycles through.", dak:"Voiced mark (dakuten / handakuten)", small:"Small kana (yōon / small tsu)" }, album:{ title:"Word Album", desc:"The words you discover collect here.", search:"Search words…", searchBtn:"Search", discovered:"discovered", completed:"completed", of:"/", tryWrite:"try writing it", notYet:"You haven't discovered this word yet — try it in Free Writing 🖊️", emptyTitle:"Your album awaits", emptyDesc:"Write words in Free Writing and watch your collection grow.", badgeEarned:"Badge earned", almost:"Almost there!", found:"discovered", setLabel:"set", back:"Back to sets", moreLeft:"{n} more", searchHint:"kana or meaning" }, badge:{ b_kana:"Kana", b_flick:"Flick", b_kata:"Katakana", d_first:"First Discovery", d_10:"Ten Words", d_50:"Fifty Words", d_100:"Hundred Words", d_a:"あ Series", d_ka:"か Series", d_sa:"さ Series", d_n5:"N5 Complete", g_shiri:"Shiritori Master", g_streak7:"7-Day Streak", s_family:"Family Words", s_body:"Body Map", s_colors:"Color Finder", s_numbers:"Number Keeper", s_bignum:"Big Number Keeper", s_clock:"Clock Keeper", s_weekdays:"Weekday Walker", s_months:"Calendar Scout", s_seasons:"Season Cycle", s_directions:"Compass", s_position:"Position Master", s_greetings:"Greeter", s_question:"The Curious", s_kosoado:"Pointer", o_animals:"Animal Friends", o_fruitveg:"Fresh Basket", o_food:"Table Words", o_drinks:"Drinks Corner", o_nature:"Nature Walker", o_home:"Home Words", o_objects:"Object Finder", o_places:"City Walker", o_transport:"Commuter", o_verbs:"Action Words", o_adjectives:"Describing Words" }, kb:{ del:"del", space:"space", enter:"line", conv:"kettei · send" }, achv:{ title:"Achievements", mastery:"Kana Mastery", badges:"Badges", lNew:"new", lMid:"improving", lMaster:"master" }, set:{ resetConfirm:"Reset all progress?", exported:"Backup downloaded 📤", exportFail:"Export failed", imported:"Backup loaded, restarting…", importInvalid:"Invalid backup file" }, kl:{ longVowel:"「ワ」 key, flick right <b>(long vowel ー)</b>", small:"<b>small</b>", then:"then", correctLbl:"Correct", youLbl:"You", howToWrite:"how to write", missingChar:"A character is missing", extraChar:"There is an extra character" }, rf2:{ became:"became", wrongToast:"That was {r}, target {k}", stumbled:"Where you stumble most", stagePassed:"Stage cleared!", almost:"Almost, try again", accuracy:"accuracy", avgSpeed:"avg speed", bestCombo:"best combo" }, sb:{ startTyping:"Start typing...", newWord:"New word discovered!", clear:"Clear" }, nav:{ back:"Back", close:"Close", next:"Next" }
 }};
 const I18N={ lang:'en' };
 const LANGS=['en','tr'];
@@ -1598,7 +1698,7 @@ const Game60 = {
     this.stopTimer(); this.running=false;
     const best=(State.games&&State.games.best60)||0;
     const tm=document.getElementById('g60timer'), sc=document.getElementById('g60score');
-    if(tm) tm.textContent='⏱️ 60'; if(sc) sc.textContent='⭐ 0';
+    if(tm) tm.innerHTML=IC.timer+' 60'; if(sc) sc.innerHTML=IC.star+' 0';
     document.getElementById('game60Stage').innerHTML=
       '<div class="g60screen"><div class="g60big">60″</div>'
       +'<h3 class="g60h">'+t('game.g60title')+'</h3>'
@@ -1610,8 +1710,8 @@ const Game60 = {
   begin(){
     this.running=true; this.score=0; this.timeLeft=this.dur;
     this.pool=GOJUON.reduce((a,g)=>a.concat(g.k),[]);
-    const sc=document.getElementById('g60score'); if(sc) sc.textContent='⭐ 0';
-    const tm=document.getElementById('g60timer'); if(tm) tm.textContent='⏱️ 60';
+    const sc=document.getElementById('g60score'); if(sc) sc.innerHTML=IC.star+' 0';
+    const tm=document.getElementById('g60timer'); if(tm) tm.innerHTML=IC.timer+' 60';
     document.getElementById('game60Stage').innerHTML=
       '<div class="g60play"><div class="prompt" id="g60prompt"><div class="tag">'+t('mode.typeThisKana')+'</div>'
       +'<div class="big kana jp" id="g60kana">—</div><div class="sub" id="g60roma"></div></div></div>';
@@ -1630,7 +1730,7 @@ const Game60 = {
     if(!this.running||!this.target) return;
     const got=(committed||'').trim(); if(!got) return;
     if(kEq(got,this.target[0])){
-      Mastery.rec(this.target[0],true); this.score++; const sc=document.getElementById('g60score'); if(sc) sc.textContent='⭐ '+this.score;
+      Mastery.rec(this.target[0],true); this.score++; const sc=document.getElementById('g60score'); if(sc) sc.innerHTML=IC.star+' '+this.score;
       Sound.correct(); this.flash('ok'); this.next();
     } else {
       Mastery.rec(this.target[0],false); Sound.wrong(); this.flash('no'); if(this.kb) this.kb.clear();
@@ -1638,7 +1738,7 @@ const Game60 = {
   },
   flash(t){ const p=document.getElementById('g60prompt'); if(!p) return; p.classList.remove('ok','no'); void p.offsetWidth; p.classList.add(t); },
   startTimer(){ this.stopTimer(); this.timer=setInterval(()=>{ this.timeLeft--;
-    const tm=document.getElementById('g60timer'); if(tm) tm.textContent='⏱️ '+Math.max(0,this.timeLeft);
+    const tm=document.getElementById('g60timer'); if(tm) tm.innerHTML=IC.timer+' '+Math.max(0,this.timeLeft);
     if(this.timeLeft<=0) this.end(); },1000); },
   stopTimer(){ if(this.timer){ clearInterval(this.timer); this.timer=null; } },
   end(){
@@ -1677,9 +1777,9 @@ const Shiritori = {
   intro(){
     this.running=false;
     const best=(State.games&&State.games.bestShiri)||0;
-    const sc=document.getElementById('shiriScore'); if(sc) sc.textContent='🔗 0';
+    const sc=document.getElementById('shiriScore'); if(sc) sc.innerHTML=IC.chain+' 0';
     document.getElementById('shiriStage').innerHTML=
-      '<div class="g60screen"><div class="g60big">🔗</div><h3 class="g60h">Shiritori</h3>'
+      '<div class="g60screen"><div class="g60big"><svg viewBox="0 0 24 24" width="44" height="44" aria-hidden="true" style="fill:none;stroke:var(--inkx);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><rect x="3.5" y="9" width="10" height="6" rx="3"/><rect x="10.5" y="9" width="10" height="6" rx="3"/></svg></div><h3 class="g60h">Shiritori</h3>'
       +'<div class="gamerules"><div class="grt">'+t('game.howTo')+'</div><ul><li>'+t('game.shiR1')+'</li><li>'+t('game.shiR2')+'</li><li>'+t('game.shiR3')+'</li><li>'+t('game.shiR4')+'</li></ul></div>'
       +'<div class="g60best">'+t('game.longestChainStat')+' <b>'+best+'</b></div>'
       +'<button class="btn cy g60btn" id="shiriStart">'+t('game.start')+'</button></div>';
@@ -1703,7 +1803,7 @@ const Shiritori = {
     { const hb=document.getElementById('shiriHint'); if(hb) hb.onclick=()=>this.hint(); }
     this.pushChain('uygulama', [w[0], (wmean(wdget(w[0]))||'')]);
     this.updateNeed();
-    const scE=document.getElementById('shiriScore'); if(scE) scE.textContent='🔗 '+this.score;
+    const scE=document.getElementById('shiriScore'); if(scE) scE.innerHTML=IC.chain+' '+this.score;
   },
   updateNeed(){ const n=document.getElementById('shiriNeed'); if(n) n.textContent=this.need; },
   pushChain(who, w){
@@ -1738,7 +1838,7 @@ const Shiritori = {
     this.used.add(w); this.score++; try{ discoverWord(w); }catch(e){}
     try{ Sound.correct(); }catch(e){}
     this.pushChain('me',[w, meaning||t('game.wordFallback')]);
-    const scE=document.getElementById('shiriScore'); if(scE) scE.textContent='🔗 '+this.score;
+    const scE=document.getElementById('shiriScore'); if(scE) scE.innerHTML=IC.chain+' '+this.score;
     this.kb.clear(); const f=document.getElementById('shiriField'); if(f){ f.classList.add('empty'); f.innerHTML='<span class="caret"></span>'; }
     // uygulamanın sırası
     const need2=this.lastKana(w);
@@ -1752,7 +1852,7 @@ const Shiritori = {
     this.used.add(w[0]); this.need=this.lastKana(w[0]); this.score++;
     try{ TTS.speak(w[0],.85); }catch(e){}
     this.pushChain('uygulama', [w[0], (wmean(wdget(w[0]))||'')]); this.updateNeed();
-    const scE=document.getElementById('shiriScore'); if(scE) scE.textContent='🔗 '+this.score;
+    const scE=document.getElementById('shiriScore'); if(scE) scE.innerHTML=IC.chain+' '+this.score;
   },
   warn(msg){ try{ Sound.wrong(); }catch(e){} try{ UI.toast(msg); }catch(e){} },
   win(){ this.finish(t('game.winMsg')); },
@@ -1776,10 +1876,10 @@ const Shiritori = {
 };
 
 const Flow = {
-  LEVELS:[ {name:'@game.lv0n', sub:'@game.lv0s', idx:[0], win:3400},
-           {name:'@game.lv1n', sub:'@game.lv1s', idx:[1,3], win:3200},
-           {name:'@game.lv2n', sub:'@game.lv2s', idx:[2,4], win:3200},
-           {name:'@lesson.mixed', sub:'@game.lv3s', idx:[0,1,2,3,4], win:2800} ],
+  LEVELS:[ {name:'@game.lv0n', sub:'@game.lv0s', idx:[0], win:4500},
+           {name:'@game.lv1n', sub:'@game.lv1s', idx:[1,3], win:3800},
+           {name:'@game.lv2n', sub:'@game.lv2s', idx:[2,4], win:3600},
+           {name:'@lesson.mixed', sub:'@game.lv3s', idx:[0,1,2,3,4], win:3100} ],
   ROUND:20,
   running:false, level:1, idx:0, score:0, combo:0, maxCombo:0, target:null, kb:null, expiry:null, win:3400, queue:[],
   poolFor(idxs){ const rows=['a','ka','sa','ta','na','ha','ma','ya','ra','wa']; const out=[];
@@ -1814,7 +1914,7 @@ const Flow = {
     document.getElementById('flowStage').innerHTML=
       '<div class="flow-play"><div class="flow-lane" id="flowLane"><div class="flow-level" id="flowLevel"></div><div class="flow-combo" id="flowCombo"></div><div class="flow-hitline"></div></div></div>';
     const tm=document.getElementById('flowTimer'); if(tm) tm.textContent='0/'+this.ROUND;
-    const sc=document.getElementById('flowScore'); if(sc) sc.textContent='⭐ 0';
+    const sc=document.getElementById('flowScore'); if(sc) sc.innerHTML=IC.star+' 0';
     const el=document.getElementById('flowLevel'); if(el) el.textContent=t('game.level')+' '+level+' · '+tk(L.name);
     this.kb=Keyboard({ mode:'kana', guide:true, onInput:(c,comp,buf)=>{ this.onType(c,comp,buf); } });
     const play=document.querySelector('#flowStage .flow-play'); if(play) play.appendChild(this.kb.el);
@@ -1848,7 +1948,7 @@ const Flow = {
     if(this.combo && this.combo%10===0){ try{Haptics.combo();}catch(e){} }
     this.score += 1 + Math.floor(this.combo/5);
     try{ Sound.correct(); }catch(e){}
-    const sc=document.getElementById('flowScore'); if(sc) sc.textContent='⭐ '+this.score;
+    const sc=document.getElementById('flowScore'); if(sc) sc.innerHTML=IC.star+' '+this.score;
     const cb=document.getElementById('flowCombo'); if(cb){ cb.textContent=this.combo>=3?('×'+this.combo+' '+t('game.combo')):''; cb.classList.toggle('on',this.combo>=3); }
     const lane=document.getElementById('flowLane'); const node=lane&&lane.querySelector('.flow-note:not(.gone)');
     if(node){ node.classList.add('pop','gone'); setTimeout(()=>{ try{node.remove();}catch(e){} },300); }
@@ -2032,8 +2132,8 @@ const Daily = {
   },
   progress(){ this.ensure(); return {count:State.daily.count, goal:this.goal(), done:State.daily.count>=this.goal()}; },
   sync(){ const el=document.getElementById('dailyGoal'); if(!el) return; const p=this.progress();
-    el.innerHTML = p.done ? '🎯 <b>'+t('lesson.todayDone')+'</b> · 🔥 '+(State.streak||0)+' '+t('lesson.dayWord')
-                          : '🎯 '+t('lesson.dailyGoal')+' <b>'+p.count+'/'+p.goal+'</b>';
+    el.innerHTML = p.done ? IC.target+' <b>'+t('lesson.todayDone')+'</b> · '+IC.fire+' '+(State.streak||0)+' '+t('lesson.dayWord')
+                          : IC.target+' '+t('lesson.dailyGoal')+' <b>'+p.count+'/'+p.goal+'</b>';
     el.classList.toggle('done', p.done); }
 };
 
@@ -2150,11 +2250,14 @@ const Achv = {
   open(){ UI.show('s-achv'); try{ UI.syncHome&&UI.syncHome(); }catch(e){} Mastery.render(); }
 };
 
+const IC={fire:'<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--brick);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><path d="M12 21.5 A6 6 0 0 1 6 15.5 C6 11.5 10 10.7 9.8 6.6 C12.8 8.6 12 12 14 12 C14.2 10 15 9 15 7.9 C17.2 10 18 12.8 18 15.5 A6 6 0 0 1 12 21.5 Z"/></svg>',star:'<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--gold-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><path d="M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z"/></svg>',chain:'<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--teal);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><rect x="3.5" y="9" width="10" height="6" rx="3"/><rect x="10.5" y="9" width="10" height="6" rx="3"/></svg>',timer:'<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><circle cx="12" cy="13.6" r="7"/><path d="M12 13.6 V9.9"/><path d="M9.7 3.8 H14.3"/><path d="M12 3.8 V6.5"/></svg>',target:'<svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="fill:none;stroke:var(--brick);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.3"/><circle cx="12" cy="12" r="1.5" style="fill:var(--brick);stroke:none"/></svg>'};
+const STARBURST='<svg viewBox="0 0 94 76" width="90" height="73" aria-hidden="true" style="display:block;margin:0 auto"><defs><filter id="cbSh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.4" stdDeviation="1.4" flood-color="#000" flood-opacity="0.16"/></filter></defs><g transform="translate(72,20) scale(0.85) translate(-5,-5)" style="opacity:0.9"><path d="M5 0.4 C5.5 3.4 6.6 4.5 9.6 5 C6.6 5.5 5.5 6.6 5 9.6 C4.5 6.6 3.4 5.5 0.4 5 C3.4 4.5 4.5 3.4 5 0.4 Z" style="fill:var(--brick);stroke:none"/></g><g transform="translate(20,50) scale(0.7) translate(-5,-5)" style="opacity:0.9"><path d="M5 0.4 C5.5 3.4 6.6 4.5 9.6 5 C6.6 5.5 5.5 6.6 5 9.6 C4.5 6.6 3.4 5.5 0.4 5 C3.4 4.5 4.5 3.4 5 0.4 Z" style="fill:var(--cy);stroke:none"/></g><circle cx="64" cy="54" r="2.2" style="fill:var(--gold-ink);stroke:none;opacity:0.85"/><circle cx="26" cy="22" r="1.9" style="fill:var(--orange);stroke:none;opacity:0.8"/><g filter="url(#cbSh)"><g transform="translate(24,30) rotate(-14) scale(1.35) translate(-12,-10.8)"><path d="M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z" style="fill:var(--teal);stroke:none"/></g><g transform="translate(70,34) rotate(18) scale(1.18) translate(-12,-10.8)"><path d="M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z" style="fill:var(--orange);stroke:none"/></g><g transform="translate(47,42) rotate(6) scale(2.15) translate(-12,-10.8)"><path d="M12 3.6 L14.1 8.6 L19.5 9.1 L15.4 12.7 L16.6 18 L12 15.2 L7.4 18 L8.6 12.7 L4.5 9.1 L9.9 8.6 Z" style="fill:var(--gold);stroke:none"/></g></g></svg>';
+const HG='<svg viewBox="0 0 24 26" width="64" height="70" aria-hidden="true" style="display:block;margin:0 auto;overflow:visible"><g transform="rotate(-9 12 13)" style="fill:none;stroke:var(--inkx);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M6 3 H18" /><path d="M6 23 H18" /><path d="M7 3.7 C7 8, 11 11.4, 12 13 C13 14.6, 7 18.4, 7 22.3" /><path d="M17 3.7 C17 8, 13 11.4, 12 13 C11 14.6, 17 18.4, 17 22.3" /><path d="M8.7 4.7 H15.3 L12 10.9 Z" style="fill:var(--gold);stroke:none"/><path d="M12 17.4 C13.5 18.5, 15.4 21.1, 15.4 21.9 H8.6 C8.6 21.1, 10.5 18.5, 12 17.4 Z" style="fill:var(--gold);stroke:none"/><circle cx="12" cy="14.6" r="0.62" style="fill:var(--gold);stroke:none"/><circle cx="12" cy="16.3" r="0.5" style="fill:var(--gold);stroke:none"/></g></svg>';
 const Theme = {
-  apply(){ const a=document.getElementById('app'); if(a) a.dataset.theme=(State.theme==='dark'?'dark':'light');
-    document.querySelectorAll('[data-themebtn]').forEach(b=> b.textContent=(State.theme==='dark'?'☀️':'🌙')); },
+  apply(){ const a=document.getElementById('app'); if(a) a.dataset.theme=(State.theme==='dark'?'dark':'light'); },
   toggle(){ State.theme=(State.theme==='dark'?'light':'dark'); State.save(); this.apply(); }
 };
+
 
 /* ---- Sözlük çekmecesi ---- */
 /* DictDrawer kaldırıldı (temizlik turu): erişilemez eski çekmece. Gerekirse git geçmişinden geri alınabilir. */
@@ -2195,7 +2298,7 @@ const KanaDex = {
       var prev=disc.slice(0,4).map(function(w){return w.k;}).join('');
       var isOpen=(self._open===m.g);
       html+='<button class="alb-card'+(done?' done':'')+(isOpen?' open':'')+'" onclick="KanaDex.toggle(\''+m.g+'\')">'
-        +'<span class="alb-e">'+m.e+'</span>'
+        +groupSeal(m)
         +'<span class="alb-mid"><span class="alb-name">'+t('group.'+m.g)+(done?' ✦':'')+'</span>'
         +'<span class="alb-p">'+prog+(done?' · '+t('album.completed'):'')+'</span>'
         +(closed?'<span class="alb-bar"><i style="width:'+pct+'%"></i></span>':'')
@@ -2231,12 +2334,12 @@ const KanaDex = {
   celebrate(w){
     var el=document.getElementById('dexBanner'); if(!el) return;
     var g=w.g, meta=g?(GROUP_META.find(function(m){return m.g===g;})||null):null;
-    var ic='\u2728', head='<b>'+t('dict.unlocked')+'</b>', extra='', big=false;
+    var ic=STARBURST, head='<b>'+t('dict.unlocked')+'</b>', extra='', big=false;
     var sub='<span class="jp">'+w.k+'</span> \u00b7 '+wmean(w);
     if(meta){
       var ws=WORDDEX.filter(function(x){return x.g===g;});
       var disc=ws.filter(function(x){return State.dex[x.k];}).length, total=ws.length, closed=(meta.k==='c');
-      ic=meta.e||'\u2728';
+      ic=groupSeal(meta);
       if(closed && disc===total){
         big=true;
         head='<b>'+t('group.'+g)+' \u2726 '+t('album.completed')+'!</b>';
@@ -2251,11 +2354,22 @@ const KanaDex = {
         if(disc===oms){ big=true; extra='<span class="dexb-x">\ud83c\udfc5 '+t('album.badgeEarned')+': '+t('badge.o_'+g)+'</span>'; }
       }
     }
-    el.innerHTML='<div class="dexbanner-in'+(big?' big':'')+'"><span class="dexbanner-ic">'+ic+'</span><div>'+head+sub+extra+'</div></div>';
-    el.classList.add('on'); clearTimeout(this._bt); this._bt=setTimeout(function(){ el.classList.remove('on'); }, big?3200:2200);
+    var acts='<div class="dexc-acts">'
+      +'<button class="dexc-btn ghost" onclick="KanaDex.dexAlbum()">\ud83d\udcd6 '+t('album.title')+'</button>'
+      +'<button class="dexc-btn primary" onclick="KanaDex.dexClose()">'+t('common.continueB')+'</button></div>';
+    el.innerHTML='<div class="dexbanner-in'+(big?' big':'')+'">'
+      +'<span class="dexbanner-ic'+(meta?'':' sb')+'">'+ic+'</span>'
+      +'<div class="dexc-head">'+head+'</div>'
+      +'<div class="dexc-kana">'+w.k+'</div>'
+      +'<div class="dexc-read">'+w.r+' \u00b7 '+wmean(w)+'</div>'
+      +extra+acts+'</div>';
+    el.onclick=function(e){ if(e.target===el){ KanaDex.dexClose(); } };
+    el.classList.add('on'); clearTimeout(this._bt);
     if(big){ try{ UI.confetti(); }catch(e){} try{ Sound.level&&Sound.level(); }catch(e){} }
   },
-  closeCard(){ const el=document.getElementById('dexCard'); if(el) el.classList.remove('on'); }
+  closeCard(){ const el=document.getElementById('dexCard'); if(el) el.classList.remove('on'); },
+  dexClose(){ var e=document.getElementById('dexBanner'); if(e) e.classList.remove('on'); },
+  dexAlbum(){ this.dexClose(); this.open(); }
 };
 
 /* ---- Kelime keşif başarımları ---- */
@@ -2285,10 +2399,78 @@ function checkGameAch(){ GAMEACH.forEach(function(a){ if(!State.badges[a.id] && 
 function checkDexAch(){ DEXACH.forEach(function(a){ if(!State.badges[a.id] && a.chk()){ State.badges[a.id]=true; State.save(); try{ UI.toast('🏅 '+t('status.achievement')+': '+t('badge.'+a.id)); }catch(e){} } }); }
 function discoverWord(k){ if(!k || typeof wdget!=='function') return; const w=wdgetFlex(k); if(w && !State.dex[w.k]){ State.dex[w.k]=true; State.save(); try{ KanaDex.celebrate(w); }catch(e){} try{ checkDexAch(); }catch(e){} try{ checkSetBadges(); }catch(e){} try{ checkOpenBadges(); }catch(e){} } }
 function toggleBadgeAcc(){ var b=document.getElementById('badgeAccBtn'), body=document.getElementById('badgeAcc'); if(!b||!body) return; var open=body.classList.toggle('open'); b.setAttribute('aria-expanded', open?'true':'false'); }
+const BADGE_SEAL='M 44.64 7.01 Q 50.00 4.00 55.36 7.01 Q 60.72 10.01 66.86 10.09 Q 73.00 10.16 76.14 15.44 Q 79.27 20.73 84.56 23.86 Q 89.84 27.00 89.91 33.14 Q 89.99 39.28 92.99 44.64 Q 96.00 50.00 92.99 55.36 Q 89.99 60.72 89.91 66.86 Q 89.84 73.00 84.56 76.14 Q 79.27 79.27 76.14 84.56 Q 73.00 89.84 66.86 89.91 Q 60.72 89.99 55.36 92.99 Q 50.00 96.00 44.64 92.99 Q 39.28 89.99 33.14 89.91 Q 27.00 89.84 23.86 84.56 Q 20.73 79.27 15.44 76.14 Q 10.16 73.00 10.09 66.86 Q 10.01 60.72 7.01 55.36 Q 4.00 50.00 7.01 44.64 Q 10.01 39.28 10.09 33.14 Q 10.16 27.00 15.44 23.86 Q 20.73 20.73 23.86 15.44 Q 27.00 10.16 33.14 10.09 Q 39.28 10.01 44.64 7.01 Z';
+const BADGE_TILE_T='translate(50,50) scale(0.82) translate(-50,-50)';
+const BADGEIC={
+ b_kana:{c:'--teal',kana:'あ'},
+ b_kata:{c:'--orange',kana:'カ'},
+ b_flick:{c:'--brick',g:'<rect x="5.5" y="5.5" width="13" height="13" rx="4"/><path d="M12 15.6 V9 M8.7 12.3 L12 9 L15.3 12.3"/>'},
+ g_shiri:{c:'--gold',g:'<rect x="3.5" y="9" width="10" height="6" rx="3"/><rect x="10.5" y="9" width="10" height="6" rx="3"/>'},
+ g_streak7:{c:'--brick',g:'<path d="M12 21 A6 6 0 0 1 6 15 C6 11 10 10.2 9.8 6.2 C12.8 8.2 12 11.6 14 11.6 C14.2 9.6 15 8.6 15 7.5 C17.2 9.6 18 12.4 18 15 A6 6 0 0 1 12 21 Z"/>'},
+ d_first:{c:'--teal',g:'<path d="M12 20.5 V12.5"/><path d="M12 13.5 C8 13.5 5.8 10.6 6.4 7.3 C10 7.8 12.2 10.4 12 13.5"/><path d="M12 12.5 C16 12.5 18.2 9.6 17.6 6.3 C14 6.8 11.8 9.4 12 12.5"/>'},
+ d_10:{c:'--orange',g:'<path d="M12 6.4 C9.6 5 5.4 5 3.8 6.4 V17.6 C5.4 16.2 9.6 16.2 12 17.6 C14.4 16.2 18.6 16.2 20.2 17.6 V6.4 C18.6 5 14.4 5 12 6.4 Z"/><path d="M12 6.4 V17.6"/>'},
+ d_50:{c:'--brick',g:'<rect x="4" y="15" width="16" height="4.2" rx="1.3"/><rect x="5.6" y="10.4" width="12.8" height="4.2" rx="1.3"/><rect x="4.6" y="5.8" width="14.8" height="4.2" rx="1.3"/>'},
+ d_100:{c:'--gold',g:'<path d="M12 5 L21 9 L12 13 L3 9 Z"/><path d="M6.6 10.6 V15 C6.6 16.6 17.4 16.6 17.4 15 V10.6"/><path d="M21 9 V13.8"/>'},
+ d_a:{c:'--teal',kana:'あ'},
+ d_ka:{c:'--orange',kana:'か'},
+ d_sa:{c:'--brick',kana:'さ'},
+ d_n5:{c:'--gold',g:'<path d="M8 4.2 H16 V9 A4 4 0 0 1 8 9 Z"/><path d="M8 5.6 H5.4 A2 2 0 0 0 7.6 9.2"/><path d="M16 5.6 H18.6 A2 2 0 0 1 16.4 9.2"/><path d="M12 13 V16"/><path d="M9 20.2 H15"/><path d="M9.8 20.2 C9.8 17.6 14.2 17.6 14.2 20.2"/>'},
+ s_colors:{c:'--teal',g:'<circle cx="9.5" cy="10" r="4.1"/><circle cx="14.5" cy="10" r="4.1"/><circle cx="12" cy="14.6" r="4.1"/>'},
+ s_months:{c:'--orange',g:'<rect x="4.5" y="5.5" width="15" height="14" rx="2.4"/><path d="M4.5 9.5 H19.5"/><path d="M8.5 3.5V7"/><path d="M15.5 3.5V7"/><path d="M8 13H10M14 13H16M8 16.4H10M14 16.4H16"/>'},
+ s_family:{c:'--brick',g:'<circle cx="8.3" cy="8" r="2.7"/><circle cx="15.7" cy="8" r="2.7"/><path d="M3.6 20 V17.2 A4.7 4.7 0 0 1 13 17.2 V20"/><path d="M11 20 V17.2 A4.7 4.7 0 0 1 20.4 17.2 V20"/>'},
+ s_body:{c:'--gold',g:'<circle cx="12" cy="5.8" r="2.7"/><path d="M12 8.5 V16"/><path d="M12 11 L6.8 13"/><path d="M12 11 L17.2 13"/><path d="M12 16 L8.3 21"/><path d="M12 16 L15.7 21"/>'},
+ s_numbers:{c:'--teal',g:'<rect x="4" y="4.8" width="16" height="14.4" rx="2.2"/><path d="M4 10 H20 M4 14.4 H20"/><circle cx="8.5" cy="7.4" r="1.15" style="fill:var(--on);stroke:none"/><circle cx="14.5" cy="12.1" r="1.15" style="fill:var(--on);stroke:none"/><circle cx="10.5" cy="16.8" r="1.15" style="fill:var(--on);stroke:none"/>'},
+ s_bignum:{c:'--orange',g:'<ellipse cx="12" cy="7" rx="7" ry="2.6"/><path d="M5 7 V11 C5 12.4 19 12.4 19 11 V7"/><path d="M5 11 V15 C5 16.4 19 16.4 19 15 V11"/><path d="M5 15 V18.4 C5 19.8 19 19.8 19 18.4 V15"/>'},
+ s_clock:{c:'--brick',g:'<circle cx="12" cy="12.4" r="7.6"/><path d="M12 7.8 V12.4 L15.2 14.6"/>'},
+ s_weekdays:{c:'--gold',g:'<rect x="3.5" y="8.4" width="17" height="8.4" rx="2.2"/><path d="M7 8.4 V16.8 M10.4 8.4 V16.8 M13.6 8.4 V16.8 M17 8.4 V16.8"/>'},
+ s_seasons:{c:'--teal',g:'<circle cx="12" cy="12" r="7.6"/><path d="M12 4.4 V19.6 M4.4 12 H19.6"/>'},
+ s_directions:{c:'--orange',g:'<circle cx="12" cy="12.6" r="7.8"/><path d="M12 7 L14.2 12.6 L12 18.2 L9.8 12.6 Z"/><path d="M12 3.4 V5"/>'},
+ s_position:{c:'--brick',g:'<path d="M12 20.8 C12 20.8 18 14.4 18 10 A6 6 0 0 0 6 10 C6 14.4 12 20.8 12 20.8 Z"/><circle cx="12" cy="10" r="2.3"/>'},
+ s_greetings:{c:'--gold',g:'<path d="M4 7 A2.2 2.2 0 0 1 6.2 4.8 H17.8 A2.2 2.2 0 0 1 20 7 V13.6 A2.2 2.2 0 0 1 17.8 15.8 H10 L6 19.4 V15.8 A2.2 2.2 0 0 1 4 13.6 Z"/><path d="M8.5 10.2 H15.5"/>'},
+ s_question:{c:'--teal',g:'<path d="M8.3 9 A3.6 3.6 0 1 1 12 12.6 V14.6"/><circle cx="12" cy="18" r="0.5" style="fill:var(--on);stroke:none"/>'},
+ s_kosoado:{c:'--orange',g:'<path d="M7 4.6 L7 18.6 L10.6 14.9 L13.2 20.4 L15.6 19.3 L13 13.9 L18.2 13.9 Z"/>'},
+ o_animals:{c:'--teal',g:'<path d="M12 19 C8.7 19 7.3 16.7 8.7 14.8 C10 13 14 13 15.3 14.8 C16.7 16.7 15.3 19 12 19 Z"/><circle cx="7.4" cy="10" r="1.5"/><circle cx="10.6" cy="7.6" r="1.6"/><circle cx="13.4" cy="7.6" r="1.6"/><circle cx="16.6" cy="10" r="1.5"/>'},
+ o_fruitveg:{c:'--orange',g:'<path d="M12 8.2 C10 6.2 6.6 6.8 5.6 9.7 C4.6 12.6 6 18 9 19.4 C10.4 20 11 19.4 12 19.4 C13 19.4 13.6 20 15 19.4 C18 18 19.4 12.6 18.4 9.7 C17.4 6.8 14 6.2 12 8.2 Z"/><path d="M12 8.2 C12 6 13.2 4.6 15.4 4.6"/>'},
+ o_food:{c:'--brick',g:'<path d="M4.5 11 H19.5 C19.5 16 16 19 12 19 C8 19 4.5 16 4.5 11 Z"/><path d="M3.4 11 H20.6"/><path d="M14.5 6 L21 10.2"/><path d="M9 8 C9 6.6 8 6.4 8 5"/>'},
+ o_drinks:{c:'--gold',g:'<path d="M6 9.5 H16 V15 A3 3 0 0 1 13 18 H9 A3 3 0 0 1 6 15 Z"/><path d="M16 11 H18 A2 2 0 0 1 18 15 H16"/><path d="M9 5 C9 6.4 8 6.4 8 7.8 M12.5 5 C12.5 6.4 11.5 6.4 11.5 7.8"/>'},
+ o_nature:{c:'--teal',g:'<path d="M3 19 L9 8 L13 15 L16 10 L21 19 Z"/><circle cx="16.8" cy="6.8" r="1.9"/>'},
+ o_home:{c:'--orange',g:'<path d="M4 11.2 L12 4.6 L20 11.2"/><path d="M6 10.2 V19 H18 V10.2"/><rect x="10.2" y="14" width="3.6" height="5"/>'},
+ o_objects:{c:'--brick',g:'<path d="M12 4 L20 8 V16 L12 20 L4 16 V8 Z"/><path d="M4 8 L12 12 L20 8"/><path d="M12 12 V20"/>'},
+ o_places:{c:'--gold',g:'<rect x="3.5" y="10.5" width="6" height="8.5" rx="0.6"/><rect x="9.5" y="6" width="5.4" height="13" rx="0.6"/><rect x="14.9" y="12.5" width="5.6" height="6.5" rx="0.6"/><path d="M5.4 13h1.6M5.4 16h1.6M11.2 9h1.6M11.2 12.5h1.6M11.2 16h1.6"/>'},
+ o_transport:{c:'--teal',g:'<rect x="5.5" y="5" width="13" height="12" rx="3"/><rect x="7.2" y="7.4" width="3.6" height="3.2" rx="0.6"/><rect x="13.2" y="7.4" width="3.6" height="3.2" rx="0.6"/><circle cx="9" cy="14" r="0.9" style="fill:var(--on);stroke:none"/><circle cx="15" cy="14" r="0.9" style="fill:var(--on);stroke:none"/><path d="M8.5 17 L6.5 20 M15.5 17 L17.5 20"/>'},
+ o_verbs:{c:'--orange',g:'<circle cx="14" cy="5.4" r="2.2"/><path d="M14 8 L10.6 12 L13.2 15 L11 20"/><path d="M10.6 12 L6.6 10.8"/><path d="M13.2 15 L17.2 16.2"/><path d="M11 20 L7.4 20"/>'},
+ o_adjectives:{c:'--brick',g:'<path d="M7 5 H17 L21 10 L12 20 L3 10 Z"/><path d="M3 10 H21"/><path d="M7 5 L9.6 10 L12 20"/><path d="M17 5 L14.4 10 L12 20"/>'}
+};
+function badgeSeal(b){
+  var d=BADGEIC[b.id];
+  var color=d?('var('+d.c+')'):'var(--panel2)';
+  var s='<svg class="bg-seal" viewBox="0 0 100 100" aria-hidden="true">'
+    +'<path d="'+BADGE_SEAL+'" fill="var(--on)"/>'
+    +'<path d="'+BADGE_SEAL+'" transform="'+BADGE_TILE_T+'" fill="'+color+'"/>'
+    +'<ellipse cx="50" cy="30" rx="21" ry="10" fill="#ffffff" opacity="0.12"/>';
+  if(d && d.g){ var gs=42/24; s+='<g transform="translate('+(50-12*gs)+','+(50-12*gs)+') scale('+gs+')" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round">'+d.g+'</g>'; }
+  s+='</svg>';
+  var ov='';
+  if(d && d.kana){ ov='<span class="bg-ov bg-kana">'+d.kana+'</span>'; }
+  else if(!d){ ov='<span class="bg-ov bg-emoji">'+b.e+'</span>'; }
+  return s+ov;
+}
+function groupSeal(m){
+  var bid=(m.k==='c'?'s_':'o_')+m.g; var d=BADGEIC[bid];
+  if(!d){ return '<span class="alb-e">'+m.e+'</span>'; }
+  var color='var('+d.c+')';
+  var s='<svg class="alb-seal" viewBox="0 0 100 100" aria-hidden="true">'
+    +'<path d="'+BADGE_SEAL+'" fill="var(--on)"/>'
+    +'<path d="'+BADGE_SEAL+'" transform="'+BADGE_TILE_T+'" fill="'+color+'"/>'
+    +'<ellipse cx="50" cy="30" rx="21" ry="10" fill="#ffffff" opacity="0.12"/>';
+  if(d.g){ var gs=42/24; s+='<g transform="translate('+(50-12*gs)+','+(50-12*gs)+') scale('+gs+')" style="fill:none;stroke:var(--on);stroke-width:2;stroke-linecap:round;stroke-linejoin:round">'+d.g+'</g>'; }
+  else if(d.kana){ s+='<text x="50" y="54" text-anchor="middle" style="font-family:var(--jp);font-size:40px;font-weight:800;fill:var(--on)">'+d.kana+'</text>'; }
+  return s+'</svg>';
+}
 function renderBadgeGrid(){ const g=document.getElementById('badgeGrid'); if(!g) return;
   const all=BADGES.concat(DEXACH).concat(SETBADGES).concat(OPENBADGES).concat(GAMEACH);
   g.innerHTML=all.map(function(b){ var got=!!State.badges[b.id];
-    return '<div class="bg-item'+(got?' got':'')+'"><div class="bg-e">'+b.e+'</div><div class="bg-t">'+t('badge.'+b.id)+'</div></div>'; }).join('');
+    return '<div class="bg-item'+(got?' got':'')+'"><div class="bg-e">'+badgeSeal(b)+'</div><div class="bg-t">'+t('badge.'+b.id)+'</div></div>'; }).join('');
 }
 
 
@@ -2308,10 +2490,15 @@ function setFaqLang(l){ faqLang=l; var tr=document.getElementById('faqTR'), en=d
 
 const UI = {
   show(id){ $$('.screen').forEach(e=>e.classList.remove('on')); $('#'+id).classList.add('on');
-    const focus=['s-lesson','s-game60','s-flow','s-shiri','s-reflex','s-drill','s-chat'].indexOf(id)>=0;
+    const focus=['s-onboard','s-flicktut','s-lesson','s-game60','s-flow','s-shiri','s-reflex','s-drill','s-chat','s-sets'].indexOf(id)>=0;
     const nc=document.getElementById('navctrls'); if(nc) nc.style.display=focus?'none':'flex';
     if(id==='s-achv'){ try{ renderBadgeGrid(); }catch(e){} } if(id==='s-faq'){ try{ setFaqLang(I18N.lang); }catch(e){} } },/* Batch3-Faz1b + Faz2 */
-  toast(t){ const e=$('#toast'); e.textContent=t; e.classList.add('on'); clearTimeout(this._t); this._t=setTimeout(()=>e.classList.remove('on'),1900); },
+  toast(t){ const e=$('#toast'); e.textContent=t;
+    // Klavye açıksa toast'ı klavyenin hemen üstüne, kapalıysa ekranın altına koy (island'a hiç dokunmaz)
+    var kb=document.querySelector('.screen.on .kb');
+    if(kb && kb.offsetParent!==null){ var r=kb.getBoundingClientRect(); if(r.height>0){ e.style.top='auto'; e.style.bottom=Math.round(window.innerHeight - r.top + 8)+'px'; } }
+    else { e.style.top='auto'; e.style.bottom='calc(var(--sab) + 24px)'; }
+    e.classList.add('on'); clearTimeout(this._t); this._t=setTimeout(()=>e.classList.remove('on'),1900); },
   confetti(){ const wrap=$('#confetti'); const cols=['#d3813a','#57a99a','#e8bd76','#6bb39d','#a68fc4'];
     for(let i=0;i<70;i++){ const c=document.createElement('i'); c.className='cf';
       c.style.left=Math.random()*100+'%'; c.style.background=cols[i%cols.length];
@@ -2321,8 +2508,8 @@ const UI = {
       wrap.appendChild(c); setTimeout(()=>c.remove(),dur);
     } },
   syncHome(){
-    const st=$('#nfStatus'); if(st) st.innerHTML=t('status.level')+' <b>'+State.level+'</b> <i>·</i> 🔥 <b>'+State.streak+'</b> <i>·</i> ⭐ <b>'+State.xp+'</b>';
-    const as=$('#achvStats'); if(as) as.textContent=t('status.level')+' '+State.level+' · 🔥 '+State.streak+' · ⭐ '+State.xp;
+    const st=$('#nfStatus'); if(st) st.innerHTML=t('status.level')+' <b>'+State.level+'</b> <i>·</i> '+IC.fire+' <b>'+State.streak+'</b> <i>·</i> '+IC.star+' <b>'+State.xp+'</b>';
+    const as=$('#achvStats'); if(as) as.innerHTML=t('status.level')+' '+State.level+' · '+IC.fire+' '+State.streak+' · '+IC.star+' '+State.xp;
     try{ Daily.sync(); }catch(e){}
     try{ Reflex.syncHomeNum(); }catch(e){}
     try{ const rd=$('#reviewDue'); if(rd){ const n=(typeof SRS!=='undefined')?SRS.dueCount():0; rd.textContent = n>0? (n+' '+t('status.kanaReady')) : t('status.upToDate'); } }catch(e){}
@@ -2530,7 +2717,7 @@ function flickDiagram(kana){
   const dirName={0:t('dir.tap'),1:t('dir.left'),2:t('dir.up'),3:t('dir.right'),4:t('dir.down')};
   const map={c:0,l:1,u:2,r:3,d:4};
   function cell(pos){ const i=map[pos]; const k=disp[i]||''; if(!k) return '<div class="fd-cell empty"></div>';
-    const hi=(i===idx); return '<div class="fd-cell'+(pos==='c'?' center':'')+(hi?' hi':'')+'">'+k+'</div>'; }
+    const hi=(i===idx); return '<div class="fd-cell'+(pos==='c'?' center':'')+(hi?' hi':'')+'"><span class="fdk">'+k+'</span></div>'; }
   return '<div class="flickdiag">'
     +'<div class="fd-r"><div class="fd-cell empty"></div>'+cell('u')+'<div class="fd-cell empty"></div></div>'
     +'<div class="fd-r">'+cell('l')+cell('c')+cell('r')+'</div>'
@@ -2557,7 +2744,13 @@ const KanaSet = {
       document.getElementById('bNext').onclick=()=>{ if(TTS.stop)TTS.stop(); Game.next(); };
       TTS.speak(kana,.7);
     } else if(q.type==='recog'){
-      const wrong=sample(ALLKANA_H.filter(x=>x[1]!==romaji),3).map(x=>x[1]);
+      // T-03: en az 1 çeldirici aynı satırdan (ünsüz ailesi) gelsin — ayırt etme değeri artar
+      const baseH=(typeof kataToHira==='function')?kataToHira(kana):kana;
+      let fam=[];
+      for(const r in ROWS_H){ if(ROWS_H[r].indexOf(baseH)>=0){ fam=ROWS_H[r].map(x=>ROMA_OF[x]).filter(x=>x&&x!==romaji); break; } }
+      const famPick=fam.length?sample(fam,1):[];
+      const pool=ALLKANA_H.filter(x=>x[1]!==romaji && famPick.indexOf(x[1])<0).map(x=>x[1]);
+      const wrong=famPick.concat(sample(pool,3-famPick.length));
       const opts=shuffle([romaji].concat(wrong));
       stage.innerHTML='<div class="prompt"><div class="tag">'+t('mode.whichSound')+'</div><div class="big kana jp">'+kana+'</div></div><div class="opts" id="optWrap"></div>';
       const wrap=document.getElementById('optWrap');
@@ -2567,14 +2760,16 @@ const KanaSet = {
         wrap.appendChild(b); });
     } else {
       stage.innerHTML='<div class="prompt"><div class="tag">'+t('lesson.writeWithFlick')+'</div><div class="big word" style="font-family:var(--ui);color:var(--gold-ink);font-size:46px">'+romaji+'</div><div class="sub">'+t('lesson.findKeyFlick')+'</div></div>'
+        +(State.tips.flick?'':'<div class="hint">💡 '+t('mode.flickHint')+'</div>')
         +'<div class="field empty" id="typeField" data-ph='+t('lesson.typeHint')+'><span class="caret"></span></div>';
       if(Game.kb) Game.kb.el.remove();
       Game.kb=Keyboard({ mode:this.script==='kata'?'kata':'kana', onInput:(c,comp)=>{ const f=document.getElementById('typeField'); if(!f)return; f.classList.toggle('empty',!(c||comp)); f.innerHTML=(c?'<span>'+c+'</span>':'')+(comp?'<span class="compose">'+comp+'</span>':'')+'<span class="caret"></span>'; } });
       const chk=document.createElement('button'); chk.className='btn cy'; chk.style.margin='10px 0'; chk.textContent=t('mode.check');
-      chk.onclick=()=>{ Game.kb.forceCommit(); const got=(Game.kb.getCommitted()||'').trim();
+      chk.onclick=()=>{ Game.kb.forceCommit(); const got=(Game.kb.getCommitted()||'').trim(); chk.style.display='none';
         if(kEq(got,kana)){ Mastery.rec(kana,true); Game.hit(); Game.feedback(true,t('common.correct'), romaji+' = '+kana); }
         else { Mastery.rec(kana,false); Game.miss(); Game.feedback(false,t('common.tryAgain'),t('common.answer')+' <span class="ans jp">'+kana+'</span> ('+romaji+')'); } };
       stage.appendChild(chk); stage.appendChild(Game.kb.el);
+      if(!State.tips.flick){ State.tips.flick=true; State.save(); }
       TTS.speak(kana,.75);
     }
   }
@@ -2628,12 +2823,16 @@ const KanaSets = {
 const Game = {
   cur:null, queue:[], idx:0, correct:0, kb:null,
   home(){ TTS.stop(); UI.show('s-home'); UI.syncHome(); },
-  reset(){ if(confirm(t('set.resetConfirm'))){ localStorage.removeItem(SAVE_KEY); State.xp=0;State.level=1;State.done={};State.chatDone={};State.badges={};State.profile=null;State.onboarded=false;State.save();UI.syncHome();Onboard.start(); } },
+  reset(){ if(confirm(t('set.resetConfirm'))){ localStorage.removeItem(SAVE_KEY); State.xp=0;State.level=1;State.done={};State.chatDone={};State.badges={};State.profile=null;State.onboarded=false;State.tips={};State.save();UI.syncHome();Onboard.start(); } },
   start(id){
     const L=LESSONS.find(x=>x.id===id) || SETS_H.find(x=>x.id===id) || SETS_K.find(x=>x.id===id); if(!L)return; this.cur=L; this.idx=0; this.correct=0; State.hearts=5;
     $('#lessonTitle').textContent=(STRINGS[I18N.lang].ll&&STRINGS[I18N.lang].ll[L.id+'_t'])||L.title; UI.show('s-lesson');
     const map={discover:Discover,flick:Flick,r2k:R2K,k2r:K2R,kata:Kata,listen:Listen,read:Read,kanji:Kanji,ime:Ime,mission:Mission,kset:KanaSet};
     this.mode=map[L.type]; this.mode.build(L); this.renderProgress();
+    // T-04: ilk dakuten/yōon setine girişte bir kerelik tanıtım kartı (mevcut KanaHelp: dakuten + küçük kana)
+    if(L.type==='kset' && !State.tips.dakuten && EXTRA_ROWS.some(g=>L.id==='hs_'+g.r || L.id==='ks_'+g.r)){
+      State.tips.dakuten=true; State.save(); try{ KanaHelp.open(); }catch(e){}
+    }
   },
   startTrack(firstId){
     const L0=LESSONS.find(l=>l.id===firstId); if(!L0){ this.start(firstId); return; }
@@ -2666,7 +2865,7 @@ const Game = {
     const backBtn = isSetLike
       ? '<button class="btn'+(nextBtn?' ghost':'')+'" style="max-width:280px" onclick="KanaSets.open(\''+(L.script||'hira')+'\')">'+t('lesson.backToSets')+'</button>'
       : '<button class="btn'+(nextBtn?' ghost':'')+'" style="max-width:280px" onclick="Game.home()">'+(nextBtn?t('lesson.laterContinue'):t('common.continueB'))+'</button>';
-    stage.innerHTML='<div class="center"><div class="big-emoji">🎉</div><h2 style="font-size:24px;font-weight:900">'+(isSetLike?t('lesson.completed'):t('lesson.lessonDone'))+'</h2>'
+    stage.innerHTML='<div class="center"><div class="big-emoji">'+STARBURST+'</div><h2 style="font-size:24px;font-weight:900">'+(isSetLike?t('lesson.completed'):t('lesson.lessonDone'))+'</h2>'
       +'<p class="muted">'+this.correct+'/'+this.queue.length+' '+t('lesson.correctCount')+' · +'+(this.correct*10+25)+' XP</p>'
       +nextBtn+backBtn+'</div>';
     $('#feed').classList.remove('on');
@@ -3070,7 +3269,7 @@ const Reflex = (()=>{
     const stage=STAGES[i];
     cur={ i, stage, queue:buildQueue(stage), pos:0, correct:0, attempts:0, combo:0, bestCombo:0, rts:[], miss:{}, t0:0,
           guide:(st.guide!=null? st.guide : (i<=2)) };
-    $('#reflexCombo').style.display=''; $('#reflexCombo').textContent='🔥 0';
+    $('#reflexCombo').style.display=''; $('#reflexCombo').innerHTML=IC.fire+' 0';
     $('#reflexTitle').textContent=tk(stage.t);
     next();
   }
@@ -3105,10 +3304,10 @@ const Reflex = (()=>{
       const fast=rt<FAST;
       flash.style.color=fast?'var(--cy)':'var(--gold)';
       flash.textContent=fast?('⚡ '+rt+' ms'):(rt+' ms');
-      $('#reflexCombo').textContent='🔥 '+cur.combo;
+      $('#reflexCombo').innerHTML=IC.fire+' '+cur.combo;
       cur.pos++; setTimeout(next, fast?170:320);
     } else {
-      cur.combo=0; $('#reflexCombo').textContent='🔥 0';
+      cur.combo=0; $('#reflexCombo').innerHTML=IC.fire+' 0';
       cur.miss[c.kana]=(cur.miss[c.kana]||0)+1;
       Sound.wrong();
       const dir=[t('dir.tapS'),t('dir.leftS'),t('dir.upS'),t('dir.rightS'),t('dir.downS')][c.idx];
@@ -3138,7 +3337,7 @@ const Reflex = (()=>{
           return '<div style="background:var(--ink2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;text-align:center"><span class="jp" style="font-size:22px">'+k+'</span><div style="color:var(--mut);font-size:11.5px;margin-top:2px">'+(cell?cell.romaji:'')+' · '+dir+' · ×'+n+'</div></div>'; }).join('')
       + '</div>'; }
     $('#reflexStage').innerHTML='<div class="center" style="padding-top:6px">'
-      +'<div class="big-emoji">'+(passed?'🎉':'💪')+'</div>'
+      +'<div class="big-emoji">'+(passed?STARBURST:HG)+'</div>'
       +'<h2 style="font-size:22px;font-weight:900">'+(passed?t('rf2.stagePassed'):t('rf2.almost'))+'</h2>'
       +'<div style="display:flex;gap:18px;justify-content:center;margin:14px 0">'
       + statBox(pctS(Math.round(acc*100)),t('rf2.accuracy')) + statBox(avgRt+'ms',t('rf2.avgSpeed')) + statBox(cur.bestCombo,t('rf2.bestCombo')) +'</div>'
@@ -3430,9 +3629,105 @@ const Onboard = {
       else if(profile==='zero') Reflex.setGuidePref(true);
     }catch(e){}
     UI.syncHome();
-    if(profile==='pro'){ UI.toast(t('onboard.toastPro')); Reflex.open(); }
-    else if(profile==='some'){ Game.home(); UI.toast(t('onboard.toastSome')); }
-    else { Game.home(); UI.toast(t('onboard.toastZero')); }
+    if(profile==='pro'){ UI.toast(t('onboard.toastPro')); Reflex.open(); return; }
+    if(!State.tips.flickIntro && typeof FlickTut!=='undefined'){ FlickTut.open(profile); return; }
+    Game.home(); UI.toast(profile==='some'?t('onboard.toastSome'):t('onboard.toastZero'));
+  }
+};
+
+/* ============================================================
+   İLK FLICK DENEMESİ (onboarding tutorial)
+   ============================================================ */
+const FTUT_STR = {
+  tr:{ teach:'Küçük bir yöntem: Japon yazısını ve klavyeyi kavramaya <b>yardımcı oluyor</b> olabilir. Heceler 5 sesle düşünülür — <b>a · i · u · e · o</b> — ve bu sesler her tuşta <b>hep aynı yönlerde</b>.',
+    tap:['Tuşa <span class="em">dokun</span>','Sadece dokun → “a”'], up:['<span class="em">Yukarı</span> kaydır','Tut, yukarı süzül, bırak → “u”'],
+    right:['Şimdi <span class="em">sağa</span> kaydır','Aynı tuş, başka yön → “e”'], free:['Serbest dene 🎉','İstediğin yöne — hepsi あ ailesi'],
+    almost:'Az kaldı!', a_tap:'sadece dokun', a_up:'yukarı süzül', a_right:'sağa süzül',
+    doneH:'İşte <span class="em">flick</span> bu 🌱', doneS:'Gerisi hep bu mantık.',
+    stripT:'あ’da yaptığını diğerlerinde de aynı yaparsın.<br>10 tuş, düzenli bir sıra:',
+    skip:'Atla ›', primary:'Hiragana ile başla →', ghost:'Ana sayfaya git' },
+  en:{ teach:'A small method: it <b>may help</b> you grasp Japanese script and the keyboard. Syllables are counted in 5 vowels — <b>a · i · u · e · o</b> — and they sit in the <b>same directions on every key</b>.',
+    tap:['<span class="em">Tap</span> the key','Just tap → “a”'], up:['Flick <span class="em">up</span>','Hold, flick up, release → “u”'],
+    right:['Now flick <span class="em">right</span>','Same key, another direction → “e”'], free:['Try freely 🎉','Any direction — all the あ family'],
+    almost:'Almost!', a_tap:'just tap', a_up:'flick up', a_right:'flick right',
+    doneH:'That’s <span class="em">flick</span> 🌱', doneS:'The rest follows the same logic.',
+    stripT:'What you did with あ, you do the same on the others.<br>10 keys, one tidy order:',
+    skip:'Skip ›', primary:'Start with hiragana →', ghost:'Go to home' }
+};
+const FlickTut = {
+  profile:null, si:0, finished:false, sx:0, sy:0, downing:false, freeTries:0, _up:null,
+  V:{tap:['あ','a'],up:['う','u'],left:['い','i'],right:['え','e'],down:['お','o']},
+  CONS:[['あ','a'],['か','ka'],['さ','sa'],['た','ta'],['な','na'],['は','ha'],['ま','ma'],['や','ya'],['ら','ra'],['わ','wa']],
+  L(){ return FTUT_STR[I18N.lang]||FTUT_STR.en; },
+  steps(){ var L=this.L(); return [{dir:'tap',ins:L.tap[0],sub:L.tap[1]},{dir:'up',ins:L.up[0],sub:L.up[1]},{dir:'right',ins:L.right[0],sub:L.right[1]},{dir:'free',ins:L.free[0],sub:L.free[1]}]; },
+  open(profile){
+    this.profile=profile; this.si=0; this.finished=false; this.freeTries=0;
+    UI.show('s-flicktut');
+    var L=this.L(), self=this;
+    var dots=''; for(var i=0;i<4;i++) dots+='<div class="ftut-dot'+(i===0?' on':'')+'"></div>';
+    var strip=''; this.CONS.forEach(function(c,idx){ strip+='<div class="ft-sk'+(idx===0?' first':'')+'">'+c[0]+'<span class="r">'+c[1]+'</span></div>'; });
+    $('#ftutStage').innerHTML=
+      '<div class="ftut" id="ftutRoot">'
+      +'<div class="ftut-top"><div class="ftut-dots" id="ftDots">'+dots+'</div><button class="ftut-skip" id="ftSkip">'+L.skip+'</button></div>'
+      +'<div class="ftut-teach" id="ftTeach">'+L.teach+'<div class="ftut-vw"><span>あ</span><span>い</span><span>う</span><span>え</span><span>お</span></div></div>'
+      +'<div class="ftut-ins" id="ftIns"></div><div class="ftut-sub" id="ftSub"></div>'
+      +'<div class="ftut-stage"><div class="ftut-kw" id="ftKw">'
+        +'<div class="ft-slot up" id="ft-up">う<span class="r">u</span></div><div class="ft-slot down" id="ft-down">お<span class="r">o</span></div>'
+        +'<div class="ft-slot left" id="ft-left">い<span class="r">i</span></div><div class="ft-slot right" id="ft-right">え<span class="r">e</span></div>'
+        +'<div class="ft-ring" id="ftRing"></div><div class="ft-key" id="ftKey">あ</div><div class="ft-fly" id="ftFly">あ</div>'
+      +'</div></div>'
+      +'<div class="ftut-strip" id="ftStrip"><div class="ftut-strip-t">'+L.stripT+'</div><div class="ftut-strip-row">'+strip+'</div></div>'
+      +'<div class="ftut-foot" id="ftFoot"><button class="ftut-go primary" id="ftPrimary">'+L.primary+'</button><button class="ftut-go ghost" id="ftGhost">'+L.ghost+'</button></div>'
+      +'</div>';
+    $('#ftSkip').onclick=function(){ self.exit('home'); };
+    $('#ftPrimary').onclick=function(){ self.exit('hira'); };
+    $('#ftGhost').onclick=function(){ self.exit('home'); };
+    $('#ftKey').addEventListener('pointerdown',function(e){ e.preventDefault(); self.start(e.clientX,e.clientY); });
+    this._up=function(e){ self.endAt(e.clientX,e.clientY); };
+    window.addEventListener('pointerup',this._up);
+    this.setStep();
+  },
+  setStep(){ var st=this.steps(), s=st[this.si]; if(!s)return;
+    $('#ftIns').innerHTML=s.ins; $('#ftSub').innerHTML=s.sub;
+    var dots=$('#ftDots').children; for(var i=0;i<dots.length;i++) dots[i].classList.toggle('on', i<=this.si);
+    if(this.si>=1) $('#ftKw').classList.add('show');
+    if(s.dir==='free'){ this.hot(null); var tc=$('#ftTeach'); if(tc) tc.style.opacity='.55'; }
+    else if(s.dir!=='tap') this.hot(s.dir); else this.hot(null);
+  },
+  hot(dir){ ['up','down','left','right'].forEach(function(x){ var e=document.getElementById('ft-'+x); if(e) e.classList.toggle('hot', x===dir); }); },
+  fill(dir){ if(dir&&dir!=='tap'){ var s=document.getElementById('ft-'+dir); if(s){ s.classList.add('filled'); s.classList.remove('hot'); } } },
+  say(k){ try{ TTS.speak(k,.8); }catch(e){} },
+  flyTo(dir){ var t=this.V[dir]; var pos={tap:[0,0],up:[0,-80],down:[0,80],left:[-80,0],right:[80,0]}[dir];
+    var fly=$('#ftFly'), ring=$('#ftRing'), self=this; if(!fly)return;
+    fly.textContent=t[0]; fly.style.transition='none'; fly.style.transform='translate(0,0) scale(1)'; fly.classList.add('on'); void fly.offsetWidth;
+    fly.style.transition='transform .3s cubic-bezier(.2,.9,.3,1.2)';
+    fly.style.transform='translate('+pos[0]+'px,'+pos[1]+'px) scale('+(dir==='tap'?1.1:1)+')';
+    setTimeout(function(){ self.say(t[0]); if(ring){ ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); } self.fill(dir); }, 210);
+    setTimeout(function(){ if(fly) fly.classList.remove('on'); }, 920);
+  },
+  advance(dir){ this.flyTo(dir); var st=this.steps(); var self=this;
+    if(st[this.si].dir!=='free'){ this.si++; if(this.si<st.length){ setTimeout(function(){ self.setStep(); }, 640); } }
+    else { this.freeTries++; if(this.freeTries>=2 && !this.finished){ setTimeout(function(){ self.closing(); }, 900); } }
+  },
+  start(x,y){ if(this.finished)return; this.downing=true; this.sx=x; this.sy=y; var k=$('#ftKey'); if(k)k.classList.add('press'); if(this.si>=1) $('#ftKw').classList.add('show'); },
+  endAt(x,y){ if(!this.downing)return; this.downing=false; var key=$('#ftKey'); if(key)key.classList.remove('press');
+    var dx=x-this.sx, dy=y-this.sy, ax=Math.abs(dx), ay=Math.abs(dy), T=24, dir;
+    if(ax<T&&ay<T) dir='tap'; else if(ay>ax) dir=(dy<0?'up':'down'); else dir=(dx<0?'left':'right');
+    var st=this.steps(), want=st[this.si].dir, L=this.L();
+    if(want==='free'){ this.advance(dir); return; }
+    if(dir===want){ this.advance(dir); }
+    else { var a=(want==='tap'?L.a_tap:want==='up'?L.a_up:want==='right'?L.a_right:want);
+      $('#ftSub').innerHTML='<span style="color:var(--gold);font-weight:800">'+L.almost+'</span> '+a;
+      if(key) key.animate([{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}],{duration:200}); }
+  },
+  closing(){ this.finished=true; this.hot(null); var root=$('#ftutRoot'); if(root) root.classList.add('done');
+    var L=this.L(); $('#ftIns').innerHTML=L.doneH; $('#ftSub').innerHTML=L.doneS; $('#ftStrip').classList.add('on'); $('#ftFoot').classList.add('on');
+  },
+  exit(where){
+    try{ if(this._up) window.removeEventListener('pointerup', this._up); }catch(e){}
+    try{ State.tips.flickIntro=true; State.save(); }catch(e){}
+    if(where==='hira'){ try{ Game.start('hs_a'); return; }catch(e){} }
+    Game.home(); try{ UI.toast(this.profile==='some'?t('onboard.toastSome'):t('onboard.toastZero')); }catch(e){}
   }
 };
 
