@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gizlilik Politikası · Japanese Flick</title>
-<meta name="description" content="Gizlilik Politikası — Japonca Flick Klavye uygulaması.">
+<meta name="description" content="Gizlilik Politikası — Japonca Flick Klavye uygulaması. Privacy Policy — Japanese Flick.">
 <style>*{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#F4EEE3;--panel:#FBF7EF;--ink:#2E2119;--muted:#6a6155;--line:#E4DACB;--accent:#C0562B;--accent2:#A4392C;--gold:#8c6414}
 html{-webkit-text-size-adjust:100%}
@@ -15,7 +15,10 @@ header{padding:40px 0 26px;border-bottom:1px solid var(--line)}
 .mark{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:900;flex:none}
 .brand h1{font-family:"Shippori Mincho",Georgia,serif;font-size:22px;font-weight:800;letter-spacing:.3px}
 .brand .sub{font-size:13px;color:var(--muted);margin-top:2px}
-main{padding:32px 0 8px}
+main{padding:22px 0 8px}
+.langbar{display:flex;gap:8px;margin:0 0 22px;position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:5}
+.langbar button{flex:1;max-width:150px;padding:9px;border-radius:11px;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-weight:800;font-size:13px;cursor:pointer}
+.langbar button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .doc-title{font-family:"Shippori Mincho",Georgia,serif;font-size:30px;font-weight:800;line-height:1.15;margin-bottom:6px}
 .updated{font-size:13px;color:var(--muted);margin-bottom:26px}
 h2{font-family:"Shippori Mincho",Georgia,serif;font-size:20px;font-weight:800;margin:30px 0 10px;color:var(--ink)}
@@ -41,13 +44,20 @@ footer .fine{font-size:12.5px}
   <header>
     <div class="brand">
       <div class="mark">あ</div>
-      <div><h1>Japonca Flick Klavye</h1><div class="sub">Japonca kana yazmayı öğreten uygulama</div></div>
+      <div>
+        <h1><span class="tr">Japonca Flick Klavye</span><span class="en" hidden>Japanese Flick</span></h1>
+        <div class="sub"><span class="tr">Japonca kana yazmayı öğreten uygulama</span><span class="en" hidden>An app that teaches Japanese kana writing</span></div>
+      </div>
     </div>
   </header>
   <main>
+    <div class="langbar"><button id="btr" class="on" onclick="sl('tr')">Türkçe</button><button id="ben" onclick="sl('en')">English</button></div>
+
+    <!-- ================= TÜRKÇE ================= -->
+    <div class="tr">
     <div class="doc-title">Gizlilik Politikası</div>
     <div class="updated">Son güncelleme: 8 Temmuz 2026</div>
-    
+
 <p>Japonca Flick Klavye (“uygulama”), Japonca flick klavyesini ve kana yazımını öğreten, eğitim amaçlı bir uygulamadır. Gizliliğinize verdiğimiz önem nedeniyle uygulama <strong>hiçbir kişisel veri toplamaz, saklamaz veya paylaşmaz.</strong> Bu politika, uygulamanın verilerle nasıl (aslında ne kadar az) ilişki kurduğunu açıklar.</p>
 
 <div class="note">
@@ -88,12 +98,71 @@ footer .fine{font-size:12.5px}
 <h2>İletişim</h2>
 <p>Gizlilikle ilgili sorularınız için bize ulaşabilirsiniz:</p>
 <a class="mail" href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a>
+    </div>
+
+    <!-- ================= ENGLISH ================= -->
+    <div class="en" hidden>
+    <div class="doc-title">Privacy Policy</div>
+    <div class="updated">Last updated: 8 July 2026</div>
+
+<p>Japanese Flick (“the app”) is an educational app that teaches the Japanese flick keyboard and kana writing. Because we care about your privacy, the app <strong>collects, stores or shares no personal data whatsoever.</strong> This policy explains how — and, really, how little — the app deals with data.</p>
+
+<div class="note">
+  <div class="nt">IN SHORT</div>
+  <ul>
+    <li><strong>No account, no sign-in.</strong> You don't need to register to use the app.</li>
+    <li><strong>No data collected.</strong> No personal data such as name, email, location, contacts or advertising ID is collected.</li>
+    <li><strong>Nothing sent to a server.</strong> The app runs entirely on your device and can be used offline.</li>
+    <li><strong>No tracking or ads.</strong> No analytics, cookie-based tracking or third-party advertising is used.</li>
+  </ul>
+</div>
+
+<h2>Your progress data</h2>
+<p>Your learning progress — the kana you've learned, game scores, your settings, your streak count and your own reminder notes — is kept only in your device's <strong>local storage (localStorage)</strong>. This data never leaves your device; it is not sent to us or to any third party.</p>
+<p>You can delete this data anytime with the in-app <strong>“Reset progress”</strong> option. Clearing your browser's or the app's data also erases it completely.</p>
+
+<h2>Backup (export / import)</h2>
+<p>The app lets you export your progress as a file and restore it later. This backup file is saved only to a location you choose; it is not sent to us and is not seen by us.</p>
+
+<h2>Audio and pronunciation</h2>
+<p>Pronunciation sounds are played from <strong>local audio files bundled inside the app</strong>. For some missing or unsupported text, your device's own speech engine (text-to-speech / TTS) may be used as a fallback. Audio data is <strong>not recorded, not analyzed and not sent to a server.</strong> The app does not access your microphone.</p>
+
+<h2>Cookies and tracking</h2>
+<p>The app uses no tracking cookies. Local storage (localStorage) is used only to keep your progress on your device; it is not used for advertising or profiling.</p>
+
+<h2>Children's privacy</h2>
+<p>Because the app collects no data, it is suitable for all ages and is compliant by design with children's data regulations (e.g. COPPA, GDPR-K). No data is collected from children or adults.</p>
+
+<h2>Third parties</h2>
+<p>The app contains <strong>no</strong> third-party analytics, advertising or social-media tracking components. Some pronunciation sounds are audio files produced under a commercial license with Narakeet (Video Puppet Ltd.) and <strong>bundled</strong> into the app; no third-party server is contacted at runtime.</p>
+
+<h2>Data retention and deletion</h2>
+<p>Since all data stays only on your device, you decide the retention period. An in-app reset, or clearing your device/browser data, permanently deletes all related data.</p>
+
+<h2>Changes</h2>
+<p>If we change this policy, we'll publish the updated version on this page and change the “Last updated” date above.</p>
+
+<h2>Contact</h2>
+<p>For privacy questions you can reach us:</p>
+<a class="mail" href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a>
+    </div>
 
   </main>
   <footer>
-    <nav><a href="/privacy/" aria-current="page">Gizlilik</a><a href="/terms/">Kullanım Şartları</a><a href="/support/">Destek</a></nav>
-    <div class="fine">© 2026 Zeynep Kaya · Japonca Flick Klavye · İletişim: <a href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a></div>
+    <nav>
+      <a href="../privacy/" aria-current="page"><span class="tr">Gizlilik</span><span class="en" hidden>Privacy</span></a>
+      <a href="../terms/"><span class="tr">Kullanım Şartları</span><span class="en" hidden>Terms</span></a>
+      <a href="../support/"><span class="tr">Destek</span><span class="en" hidden>Support</span></a>
+    </nav>
+    <div class="fine">© 2026 Zeynep Kaya · <span class="tr">Japonca Flick Klavye · İletişim:</span><span class="en" hidden>Japanese Flick · Contact:</span> <a href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a></div>
   </footer>
 </div>
+<script>
+function sl(l){document.documentElement.lang=l;
+ document.querySelectorAll('.tr').forEach(function(e){e.hidden=(l!=='tr');});
+ document.querySelectorAll('.en').forEach(function(e){e.hidden=(l!=='en');});
+ document.getElementById('btr').classList.toggle('on',l==='tr');
+ document.getElementById('ben').classList.toggle('on',l==='en');}
+</script>
 </body>
 </html>
