@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.1.0 — 2026-07-15
+- 🃏 **Kana Kartları** flip-kart öğrenme aracı eklendi — `/apps/japanese-flick/oyunlar/kana-kartlari/`. Gojūon ısı-haritası ızgarası; karta dokun → 3B çevrilir (ön: kana → arka: romaji + öbür yazıdaki eş). Hiragana/Katakana ön yüz seçimi, "hepsini çevir", çevirince yumuşak nota. Ana sayfa + JF sayfasına link.
+
 ### v1.0.7 — 2026-07-15
 - 🎼 Yakalama melodisi **Kōjō no Tsuki** (Taki Rentarō, geleneksel) oldu — zarif, sakin. (Sakura kodda duruyor; tek satır MEL değişimiyle geri alınır.)
 
