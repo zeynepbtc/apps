@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.0.6 — 2026-07-15
+- 🎶 Yanlış/kaçan yakalamada sert 'buzz' yerine artık yumuşak, kibar bir **nota** çalıyor — her dokunuş müzikli, hiçbiri çirkin değil.
+
 ### v1.0.5 — 2026-07-15
 - 🎵 Kana Yağmuru sesi **melodiye** dönüştü: doğru yakalayışlar artık tek tek **Sakura Sakura** (geleneksel) ezgisini çalar — seri büyüdükçe melodi ilerler, hata sıfırlayınca baştan başlar. En tiz notada takılıp tekrarlama sorunu giderildi.
 
