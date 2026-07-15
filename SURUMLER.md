@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.3.1 — 2026-07-15
+- 🎨 Yasal sayfalar (Gizlilik/Şartlar/Destek/SSS) tasarım diline hizalandı: **favicon (app logosu)** eklendi, gövde fontu **Inter**'e çekildi, palet token'ları siteyle eşitlendi (Shippori başlıklar + terracotta aksan korundu). Artık aynı dil.
+
 ### v1.3.0 — 2026-07-15
 - 📄 Japanese Flick sayfası footer'ına yasal/yardım linkleri: **SSS · Destek · Gizlilik · Şartlar** (sade satır, en altta; güven verir, öne çıkmaz).
 - 🔎 **SEO temeli:** sitemap.xml + robots.txt; ana sayfa ve JF sayfasına canonical + tam Open Graph + Twitter kartı + JSON-LD (Organization/WebSite + SoftwareApplication). Google artık siteyi doğru okuyabilir.
