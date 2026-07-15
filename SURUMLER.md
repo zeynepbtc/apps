@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.0.5 — 2026-07-15
+- 🎵 Kana Yağmuru sesi **melodiye** dönüştü: doğru yakalayışlar artık tek tek **Sakura Sakura** (geleneksel) ezgisini çalar — seri büyüdükçe melodi ilerler, hata sıfırlayınca baştan başlar. En tiz notada takılıp tekrarlama sorunu giderildi.
+
 ### v1.0.4 — 2026-07-15
 - 🔊 Kana Yağmuru'na **ses & juice**: doğru yakalayınca seri büyüdükçe skalada tırmanan koto/pentatonik tını, nazik hata sesi, seviye geçişinde minik koto koşusu. Yakalama dalgası (ripple) + **combo (×N)** göstergesi. **Ses aç/kapa** düğmesi (tercih hatırlanır). Sakin, elit, Japon esintili.
 
