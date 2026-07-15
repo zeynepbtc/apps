@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.1.3 — 2026-07-15
+- 🩹 JF sayfası hero logosu havada/bağlamsız duruyordu → küçültülüp **beta rozetiyle aynı satıra** (app başlığı gibi) yerleştirildi.
+
 ### v1.1.2 — 2026-07-15
 - 🩹 Logo yerleşim düzeltmesi: ana sayfadaki JF kartında gerçek logo, telefon maketinin içinde yazıyla çakışıyordu → logo **kart başlığına** (Beta rozetinin yanına) taşındı; maket kendi çizili ikonuna döndü.
 
