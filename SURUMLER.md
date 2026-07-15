@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.0.7 — 2026-07-15
+- 🎼 Yakalama melodisi **Kōjō no Tsuki** (Taki Rentarō, geleneksel) oldu — zarif, sakin. (Sakura kodda duruyor; tek satır MEL değişimiyle geri alınır.)
+
 ### v1.0.6 — 2026-07-15
 - 🎶 Yanlış/kaçan yakalamada sert 'buzz' yerine artık yumuşak, kibar bir **nota** çalıyor — her dokunuş müzikli, hiçbiri çirkin değil.
 

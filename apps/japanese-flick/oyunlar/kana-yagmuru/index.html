@@ -495,6 +495,8 @@ var AC=null, sndOn=true;
 try{ sndOn = localStorage.getItem('kanaRainSnd')!=='0'; }catch(e){}
 var YO=[261.63,293.66,329.63,392.00,440.00,523.25,587.33,659.25,783.99,880.00,1046.50];
 var SAKURA=[440.00,440.00,493.88,440.00,440.00,493.88,440.00,493.88,523.25,493.88,440.00,493.88,440.00,349.23,493.88,493.88,659.25,659.25,698.46,659.25,523.25,493.88,440.00,493.88,523.25,493.88,440.00,493.88,440.00,349.23];
+var KOJO=[493.88,554.37,587.33,739.99,739.99,659.25,587.33,554.37,493.88,554.37,587.33,493.88,554.37,587.33,659.25,739.99,739.99,659.25,587.33,554.37,493.88,554.37,587.33,554.37,440.00,493.88];
+var MEL=KOJO;
 function ensureAudio(){ if(!AC){ try{ AC=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ AC=null; } } if(AC&&AC.state==='suspended'){ AC.resume(); } }
 function tone(freq,dur,type,vol,when){
   if(!AC) return;
@@ -510,8 +512,8 @@ function tone(freq,dur,type,vol,when){
 }
 function sfxCorrect(streak){
   if(!sndOn) return; ensureAudio(); if(!AC) return;
-  var i=((streak||1)-1)%SAKURA.length; if(i<0)i=0;
-  var f=SAKURA[i];
+  var i=((streak||1)-1)%MEL.length; if(i<0)i=0;
+  var f=MEL[i];
   tone(f,0.42,'triangle',0.13);
   tone(f*2,0.5,'sine',0.045,AC.currentTime+0.012);
 }
