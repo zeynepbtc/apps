@@ -1360,6 +1360,12 @@ body.aiapp #aiThread{flex:1;max-height:none!important}
 .mkcat button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
 .mkcat button:hover:not(.on){border-color:var(--accent);color:var(--accent)}
 
+/* faux-fullscreen fallback (works inside iframes where the FS API is blocked) */
+html.faux-full,body.faux-full{overflow:hidden!important}
+body.faux-full .app{position:fixed;inset:0;z-index:60;width:100vw;height:100vh;height:100dvh;
+  margin:0;border-radius:0;box-shadow:none;background:var(--bg)}
+body.faux-full .content{max-width:none}
+
 /* ================= ENTERPRISE MEETING ================= */
 #meet-layer{position:fixed;inset:0;z-index:200;pointer-events:none}
 .mroom{position:absolute;inset:0;pointer-events:auto;background:#0B1020;color:#EAEFFB;display:flex;flex-direction:column;
@@ -6890,7 +6896,8 @@ I.compress=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wi
   const theme=$('#btnTheme');
   if(theme&&theme.parentNode)theme.parentNode.insertBefore(btn,theme);
 })();
-function isFull(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+let fauxFull=false;
+function isFull(){return !!(document.fullscreenElement||document.webkitFullscreenElement)||fauxFull;}
 function paintFull(){
   const b=$('#btnFull');
   if(!b)return;
@@ -6898,15 +6905,28 @@ function paintFull(){
   b.title=isFull()?'Exit fullscreen':'Fullscreen';
   b.classList.toggle('mic-on',isFull());
 }
+function setFaux(on){
+  fauxFull=on;
+  document.documentElement.classList.toggle('faux-full',on);
+  document.body.classList.toggle('faux-full',on);
+  paintFull();
+}
 function toggleFull(){
-  const el=document.documentElement;
-  if(!isFull()){
+  const nativeOn=!!(document.fullscreenElement||document.webkitFullscreenElement);
+  if(!nativeOn&&!fauxFull){
+    const el=document.documentElement;
     const req=el.requestFullscreen||el.webkitRequestFullscreen||el.msRequestFullscreen;
-    if(req)req.call(el).catch(()=>toast('Fullscreen was blocked by the browser'));
-    else toast('Fullscreen is not supported here');
-  }else{
+    if(req){
+      const r=req.call(el);
+      if(r&&r.catch)r.catch(()=>setFaux(true));   // blocked in iframe -> faux
+    }else{
+      setFaux(true);                               // API absent -> faux
+    }
+  }else if(nativeOn){
     const ex=document.exitFullscreen||document.webkitExitFullscreen;
     if(ex)ex.call(document);
+  }else{
+    setFaux(false);                                // leaving faux mode
   }
 }
 document.addEventListener('click',e=>{
@@ -6915,6 +6935,7 @@ document.addEventListener('click',e=>{
 ['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,paintFull));
 document.addEventListener('keydown',e=>{
   if(e.key==='F11'){e.preventDefault();toggleFull();}
+  else if(e.key==='Escape'&&fauxFull){setFaux(false);}
 });
 
 /* ---------- disable long-press copy/paste callouts ---------- */
