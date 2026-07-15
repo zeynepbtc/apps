@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.1.4 — 2026-07-15
+- 🏷️ **Zeynep Kaya Apps stüdyo logosu**: topbar'daki "ZK" yer tutucu yerine gerçek mark (fırça/hareket, palet renkleri: kiremit + sarı + tatlı mavi, krem zemin). Ana sayfa faviconu da bu logo oldu.
+
 ### v1.1.3 — 2026-07-15
 - 🩹 JF sayfası hero logosu havada/bağlamsız duruyordu → küçültülüp **beta rozetiyle aynı satıra** (app başlığı gibi) yerleştirildi.
 
