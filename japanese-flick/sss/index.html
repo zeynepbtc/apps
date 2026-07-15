@@ -27,6 +27,11 @@ details>div b{color:var(--ink)}
 a{color:var(--accent)}
   .backlink{display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;padding:8px 14px;border-radius:999px;background:#fff9ee;border:1px solid #d8cbbb;color:#2b251f;font-weight:800;font-size:13px;text-decoration:none;transition:color .15s}
   .backlink:hover{color:#bf6f2b}
+  .zk-footer{max-width:760px;margin:46px auto 0;padding:22px 20px 42px;border-top:1px solid #d8cbbb;text-align:center;font-family:Inter,system-ui,sans-serif}
+  .zk-footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:9px 18px;margin-bottom:13px}
+  .zk-footer nav a{color:#746a5e;font-size:13px;font-weight:700;text-decoration:none;transition:color .15s}
+  .zk-footer nav a:hover{color:#bf6f2b}
+  .zk-fine{color:#a99a86;font-size:12.5px;font-weight:700}
 </style></head>
 <body><div class="wrap">
 <h1>Japanese Flick</h1>
@@ -88,7 +93,17 @@ a{color:var(--accent)}
 <details><summary><span class="tr">Hata nasıl bildiririm?</span><span class="en" hidden>How do I report a bug?</span></summary><div class="tr"><b>hello@zeynepkaya.app</b> adresine yaz. Mesajına uygulama sürümünü, cihaz modelini ve sorunu gördüğün ekranı eklersen daha hızlı bakılır.</div><div class="en" hidden>Write to <b>hello@zeynepkaya.app</b>. If you include the app version, your device model, and the screen where you saw the issue, it can be looked at faster.</div></details>
 <details><summary><span class="tr">Bunu kim yaptı?</span><span class="en" hidden>Who made this?</span></summary><div class="tr">Japoncayı ve oyun oynamayı çok seven, 40 yaşından sonra Japonca öğrenmeye çalışan, aslında fotoğrafçı ve film yapımcısı olan Zeynep Kaya tarafından meraktan yapıldı. Japoncayı kendine öğretmek için oyunlar yaparken böyle bir ürün ortaya çıktı. Dileriz siz de eğlenceli bulursunuz.</div><div class="en" hidden>Made out of curiosity by Zeynep Kaya, a photographer and filmmaker who loves Japanese and gaming and started learning Japanese after turning 40. It grew out of little games she was building to teach herself Japanese. We hope you find it fun too.</div></details>
 <details><summary><span class="tr">Yeni özellikler gelecek mi?</span><span class="en" hidden>Will new features come?</span></summary><div class="tr">Evet, uygulama düzenli güncelleniyor: yeni kelimeler, kana tekrar sistemi, dil seçenekleri gibi işler yol haritasında.</div><div class="en" hidden>Yes, the app is updated regularly: new words, a kana review system, language options and more are on the roadmap.</div></details>
-<p class="foot"><span class="tr">İletişim:</span><span class="en" hidden>Contact:</span> <a href="mailto:hello@zeynepkaya.app">hello@zeynepkaya.app</a></p>
+<footer class="zk-footer">
+    <nav>
+      <a href="/"><span class="tr">Ana sayfa</span><span class="en" hidden>Home</span></a>
+      <a href="/apps/japanese-flick/">Japanese Flick</a>
+      <a href="/japanese-flick/sss/"><span class="tr">SSS</span><span class="en" hidden>FAQ</span></a>
+      <a href="/japanese-flick/support/"><span class="tr">Destek</span><span class="en" hidden>Support</span></a>
+      <a href="/japanese-flick/privacy/"><span class="tr">Gizlilik</span><span class="en" hidden>Privacy</span></a>
+      <a href="/japanese-flick/terms/"><span class="tr">Şartlar</span><span class="en" hidden>Terms</span></a>
+    </nav>
+    <div class="zk-fine">© 2026 Zeynep Kaya Apps</div>
+  </footer>
 </div>
 <script>
 function sl(l){document.documentElement.lang=l;

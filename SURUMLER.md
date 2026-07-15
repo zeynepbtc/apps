@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.3.3 — 2026-07-15
+- 🦶 **Tek ortak footer** tüm içerik sayfalarında (ana sayfa, JF, Gizlilik/Şartlar/Destek/SSS): Ana sayfa · Japanese Flick · SSS · Destek · Gizlilik · Şartlar. Aynı stil, aynı linkler, home dahil.
+
 ### v1.3.2 — 2026-07-15
 - 🔙 Yasal sayfalara (Gizlilik/Şartlar/Destek/SSS) **Japanese Flick'e dönüş** butonu.
 - 🎨 Eski bordo/terracotta renkler → **turuncu tonlarımız** (#d3813a / #bf6f2b); あ gradient işareti → **gerçek Flick logosu**.

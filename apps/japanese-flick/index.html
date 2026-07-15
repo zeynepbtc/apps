@@ -992,6 +992,11 @@
   .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:9px 20px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(216,203,187,.55)}
   .footer-links a{color:var(--muted);font-size:13px;font-weight:700;transition:color .15s}
   .footer-links a:hover{color:var(--orange2)}
+  .zk-footer{max-width:760px;margin:46px auto 0;padding:22px 20px 42px;border-top:1px solid #d8cbbb;text-align:center;font-family:Inter,system-ui,sans-serif}
+  .zk-footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:9px 18px;margin-bottom:13px}
+  .zk-footer nav a{color:#746a5e;font-size:13px;font-weight:700;text-decoration:none;transition:color .15s}
+  .zk-footer nav a:hover{color:#bf6f2b}
+  .zk-fine{color:#a99a86;font-size:12.5px;font-weight:700}
 </style>
 </head>
 
@@ -1470,17 +1475,16 @@
 
   </section>
 
-  <footer class="footer">
-    <nav class="footer-links">
+  <footer class="zk-footer">
+    <nav>
+      <a href="/"><span class="tr">Ana sayfa</span><span class="en">Home</span></a>
+      <a href="/apps/japanese-flick/">Japanese Flick</a>
       <a href="/japanese-flick/sss/"><span class="tr">SSS</span><span class="en">FAQ</span></a>
       <a href="/japanese-flick/support/"><span class="tr">Destek</span><span class="en">Support</span></a>
       <a href="/japanese-flick/privacy/"><span class="tr">Gizlilik</span><span class="en">Privacy</span></a>
       <a href="/japanese-flick/terms/"><span class="tr">Şartlar</span><span class="en">Terms</span></a>
     </nav>
-    © <span id="year"></span> Zeynep Kaya Apps · Japanese Flick
-    <br />
-    <span class="tr">Bağımsız olarak tasarlanmakta ve geliştirilmektedir.</span>
-    <span class="en">Independently designed and developed.</span>
+    <div class="zk-fine">© 2026 Zeynep Kaya Apps</div>
   </footer>
 
 </main>
