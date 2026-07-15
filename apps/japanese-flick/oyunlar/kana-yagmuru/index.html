@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
-<title>Kana Yağmuru — Japanese Flick</title>
+<title>Kana Yağmuru · Japanese Flick</title>
 <meta name="description" content="Bedava hiragana & katakana okuma oyunu. Düşen kanayı doğru okunuşuyla yakala. Seviye ve sonsuz mod. Japanese Flick'in ücretsiz web oyunu." />
 <link rel="canonical" href="https://zeynepkaya.app/apps/japanese-flick/oyunlar/kana-yagmuru/" />
 <style>
@@ -163,7 +163,7 @@
         <span class="tr">Kana düşüyor. Doğru okunuşunu yere değmeden yakala. Hızını sen seç, seviyeler seni ustalığa taşısın.</span>
         <span class="en block">Kana falls. Catch its reading before it lands. Pick your speed; the levels carry you to mastery.</span>
       </p>
-      <span class="note">✍️ <span class="tr">Sadece okuma — <b>yazmayı</b> uygulamada flick klavyeyle öğreniyorsun.</span><span class="en">Reading only — you learn to <b>type</b> with the flick keyboard in the app.</span></span>
+      <span class="note">✍️ <span class="tr">Sadece okuma; <b>yazmayı</b> uygulamada flick klavyeyle öğreniyorsun.</span><span class="en">Reading only; you learn to <b>type</b> with the flick keyboard in the app.</span></span>
 
       <div class="label"><span class="tr">Mod</span><span class="en">Mode</span></div>
       <div class="opts" id="modeRow">
@@ -188,7 +188,7 @@
       </div>
 
       <button class="btn primary block" style="margin-top:16px" onclick="startGame()"><span class="tr">Oyna ▶</span><span class="en">Play ▶</span></button>
-      <p class="foot"><span class="tr">Klavye: 1–4 seç · P duraklat.</span><span class="en">Keys: 1–4 choose · P pause.</span></p>
+      <p class="foot"><span class="tr">Klavye: 1-4 seç · P duraklat.</span><span class="en">Keys: 1-4 choose · P pause.</span></p>
     </section>
 
     <!-- GAME -->
@@ -201,7 +201,7 @@
         <button class="pausebtn" id="pauseBtn" onclick="togglePause()" aria-label="Pause">⏸</button>
       </div>
       <div class="levelbar" id="levelbar">
-        <span class="levelname" id="levelName">—</span>
+        <span class="levelname" id="levelName"></span>
         <div class="prog"><i id="progFill"></i></div>
         <span class="levelname" id="progText">0/0</span>
       </div>
@@ -210,9 +210,9 @@
         <div class="combo" id="combo"></div>
         <div class="flash" id="flash"></div>
         <div class="overlay" id="overlay">
-          <h3 id="ovTitle">—</h3>
+          <h3 id="ovTitle"></h3>
           <p id="ovText"></p>
-          <button class="btn primary" id="ovBtn" onclick="overlayAction()">—</button>
+          <button class="btn primary" id="ovBtn" onclick="overlayAction()"></button>
         </div>
       </div>
       <div class="choices" id="choices"></div>
@@ -223,13 +223,13 @@
       <span class="badge" style="align-self:center">🌧️ <span class="tr">Bitti</span><span class="en">Game over</span></span>
       <div style="margin:16px 0 4px">
         <div class="big-score" id="finalScore">0</div>
-        <div style="color:var(--muted);font-weight:700;margin-top:4px" id="finalSub">—</div>
+        <div style="color:var(--muted);font-weight:700;margin-top:4px" id="finalSub"></div>
       </div>
       <div class="cta">
-        <b class="tr">Okumayı çözdün. Sıra yazmakta.</b>
-        <b class="en">You can read it. Now type it.</b>
-        <p class="tr">Japonlar telefonda flick klavyeyle yazıyor. Japanese Flick sana onu öğretiyor — kana, refleks dojo ve kelimelerle.</p>
-        <p class="en">Japanese people type with the flick keyboard. Japanese Flick teaches you exactly that — kana, reflex dojo and words.</p>
+        <b class="tr">Ya bunları bir de yazabilsen?</b>
+        <b class="en">What if you could type them too?</b>
+        <p class="tr">Japonlar telefonda flick klavyeyle yazıyor. Japanese Flick sana onu öğretiyor: kana, refleks dojo ve kelimelerle.</p>
+        <p class="en">Japanese people type with the flick keyboard. Japanese Flick teaches you exactly that: kana, reflex dojo and words.</p>
         <a class="btn primary block" href="/apps/japanese-flick/"><span class="tr">Uygulamaya bak →</span><span class="en">See the app →</span></a>
       </div>
       <button class="btn secondary block" style="margin-top:10px" onclick="toStart()"><span class="tr">Tekrar oyna</span><span class="en">Play again</span></button>
@@ -271,14 +271,14 @@ var CONFUS=[["ね","ne"],["れ","re"],["わ","wa"],["ぬ","nu"],["め","me"],["�
 /* 12 levels: zero -> master */
 var LEVELS=[
  {n:{tr:"あ satırı",en:"あ row"}, set:cum(H.a), target:15, f:1.00},
- {n:{tr:"あ–こ",en:"あ–こ"}, set:cum(H.a,H.ka), target:18, f:0.97},
- {n:{tr:"あ–そ",en:"あ–そ"}, set:cum(H.a,H.ka,H.sa), target:20, f:0.94},
- {n:{tr:"あ–と",en:"あ–と"}, set:cum(H.a,H.ka,H.sa,H.ta), target:20, f:0.90},
- {n:{tr:"あ–ほ",en:"あ–ほ"}, set:cum(H.a,H.ka,H.sa,H.ta,H.na,H.ha), target:22, f:0.86},
+ {n:{tr:"あ〜こ",en:"あ〜こ"}, set:cum(H.a,H.ka), target:18, f:0.97},
+ {n:{tr:"あ〜そ",en:"あ〜そ"}, set:cum(H.a,H.ka,H.sa), target:20, f:0.94},
+ {n:{tr:"あ〜と",en:"あ〜と"}, set:cum(H.a,H.ka,H.sa,H.ta), target:20, f:0.90},
+ {n:{tr:"あ〜ほ",en:"あ〜ほ"}, set:cum(H.a,H.ka,H.sa,H.ta,H.na,H.ha), target:22, f:0.86},
  {n:{tr:"Tüm hiragana",en:"All hiragana"}, set:HIRA, target:25, f:0.82},
  {n:{tr:"Hiragana · hızlı",en:"Hiragana · fast"}, set:HIRA, target:25, f:0.72},
- {n:{tr:"Katakana ア–ソ",en:"Katakana ア–ソ"}, set:cum(K.a,K.ka,K.sa), target:20, f:0.82},
- {n:{tr:"Katakana ア–ホ",en:"Katakana ア–ホ"}, set:cum(K.a,K.ka,K.sa,K.ta,K.na,K.ha), target:22, f:0.76},
+ {n:{tr:"Katakana ア〜ソ",en:"Katakana ア〜ソ"}, set:cum(K.a,K.ka,K.sa), target:20, f:0.82},
+ {n:{tr:"Katakana ア〜ホ",en:"Katakana ア〜ホ"}, set:cum(K.a,K.ka,K.sa,K.ta,K.na,K.ha), target:22, f:0.76},
  {n:{tr:"Tüm katakana",en:"All katakana"}, set:KATA, target:25, f:0.72},
  {n:{tr:"Karışık · hızlı",en:"Mixed · fast"}, set:cum(HIRA,KATA), target:28, f:0.64},
  {n:{tr:"Benzeyenler · usta",en:"Look-alikes · master"}, set:CONFUS, target:30, f:0.58}
