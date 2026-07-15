@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.1.1 — 2026-07-15
+- 🎨 Japanese Flick **gerçek logosu** sitede: JF sayfası hero'suna logo rozeti, ana sayfadaki JF kartındaki çizili ikon → gerçek app logosu (vektör SVG). Ayrıca favicon + apple-touch ikonu + sosyal paylaşım görseli (feature graphic, og:image + twitter card).
+
 ### v1.1.0 — 2026-07-15
 - 🃏 **Kana Kartları** flip-kart öğrenme aracı eklendi — `/apps/japanese-flick/oyunlar/kana-kartlari/`. Gojūon ısı-haritası ızgarası; karta dokun → 3B çevrilir (ön: kana → arka: romaji + öbür yazıdaki eş). Hiragana/Katakana ön yüz seçimi, "hepsini çevir", çevirince yumuşak nota. Ana sayfa + JF sayfasına link.
 
