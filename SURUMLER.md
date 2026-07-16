@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.9.0 — 2026-07-16
+- 🎮 **Yeni web oyunu: Konbini Shift** (`/apps/japanese-flick/oyunlar/konbini/`). Japonca alışveriş/servis oyunu: konbinide tezgâhtasın, müşteri "〜を ください" der, raftan doğru ürünü verirsin → müşteri "ありがとうございました", kasaya ¥ + seri bonusu, kelime defteri. 8 ürün (おにぎり/パン/お茶/水/コーヒー/たまご/べんとう/アイス, sade SVG glifleri), vardiya = 8 müşteri, ja-JP ses, "okunuş+anlam" ipucu, açılış/nasıl-oynanır ekranı. Ana sayfa + JF Oyunlar ızgarasına kart (alışveriş poşeti glyph + gold blok), sitemap + canonical. Zeynep'in 12 mini oyun listesindeki 1 numara. Doğrulama: 8 müşteri servis + yanlış cevap testi, 0 JS hatası.
+
 ### v1.8.1 — 2026-07-16
 - 📣 **App Store duyurusu netleştirme** (Zeynep geri bildirimi). Ana sayfa hero JF kartındaki siyah **"Yakında" rozeti** → "App Store'da yayında · Google Play yakında" (App Store linkine bağlı). Hero CTA'ya **"App Store'da İndir"** birincil düğmesi (indirme yukarı taşındı). Mini-zaman çizelgesindeki "Kapalı beta test aşamasında" → "App Store'da yayında (16 Tem); Google Play (Android) yakında". JF hero durum satırı "App Store'da yayında · Google Play'de yakında"; og:description güncellendi. Artık hiçbir yerde yanıltıcı "kapalı beta/yakında" yok.
 

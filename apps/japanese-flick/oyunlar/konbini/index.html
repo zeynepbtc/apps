@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Konbini Shift · Japanese Flick</title>
+<meta name="description" content="Bedava Japonca alışveriş oyunu. Konbinide çalış, müşterinin Japonca isteğini oku, raftan doğru ürünü ver. Japanese Flick'in ücretsiz web oyunu." />
+<link rel="canonical" href="https://zeynepkaya.app/apps/japanese-flick/oyunlar/konbini/" />
+<link rel="icon" type="image/png" sizes="32x32" href="/japanese-flick/icons/appicon-rounded-512.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#efe7d6;--paper:#fbf6ec;--ink:#3a2f28;--soft:#6d6055;--line:#e2d8c6;
+    --accent:#d3813a;--teal:#4f9a8f;--brick:#b5502f;--deep:#275f59;--gold:#c99a3f;--ok:#4f9a8f}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:radial-gradient(130% 70% at 50% -10%,#f3ecdd 0,var(--bg) 58%);color:var(--ink);min-height:100%;
+    font-family:"Klee One",-apple-system,system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;
+    display:flex;justify-content:center;padding:max(14px,env(safe-area-inset-top)) 13px 34px}
+  .phone{width:100%;max-width:430px}
+  .top{display:flex;align-items:center;gap:10px;margin:4px 2px 14px}
+  .logo{width:40px;height:40px;border-radius:12px;background:var(--brick);color:#fff;display:grid;place-items:center;
+    font-family:"Shippori Mincho",serif;font-weight:700;font-size:20px;box-shadow:0 6px 16px rgba(58,47,40,.22)}
+  .brand{flex:1;font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px}
+  .brand small{display:block;font-family:"Klee One";font-weight:400;font-size:11px;color:var(--soft)}
+  .helpbtn{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:#efe7d6;color:var(--soft);font-weight:700;font-size:15px;cursor:pointer}
+  .siteback{display:inline-block;margin:0 0 8px 2px;color:var(--soft);text-decoration:none;font-size:13px}
+  .box{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 12px 30px -18px rgba(58,47,40,.5)}
+  .pad{padding:18px 17px}
+
+  /* HUD */
+  .hud{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--soft);margin:0 2px 12px}
+  .hud b{color:var(--ink)}
+  .yen{font-weight:700;color:var(--accent)}
+
+  /* counter / customer */
+  .counter{display:flex;gap:12px;align-items:flex-start;margin-bottom:6px}
+  .cust{width:64px;height:64px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;position:relative}
+  .cust svg{width:64px;height:64px}
+  .bubbles{flex:1;min-width:0}
+  .clerk{font-size:12.5px;color:var(--teal);font-family:"Shippori Mincho",serif;margin-bottom:6px}
+  .bubble{background:#fffdf7;border:1px solid #efe4cf;border-radius:14px;border-top-left-radius:4px;padding:13px 15px;position:relative}
+  .req{font-family:"Shippori Mincho",serif;font-size:22px;line-height:1.5}
+  .req .want{color:var(--brick);font-weight:700}
+  .rd{background:none;border:1px solid var(--line);border-radius:9px;padding:4px 10px;font-size:12px;color:var(--soft);cursor:pointer;margin-top:10px;font-family:"Klee One"}
+  .spk{background:none;border:1px solid var(--line);border-radius:9px;padding:4px 9px;font-size:13px;cursor:pointer;margin-top:10px;margin-left:6px}
+  .help{margin-top:9px;font-size:13px;color:var(--soft);display:none}
+  .help.show{display:block}
+  .help .ro{font-style:italic}
+
+  .shelf-label{font-size:12.5px;color:var(--soft);margin:18px 2px 9px}
+  .shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+  .item{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:10px 6px 8px;cursor:pointer;text-align:center;transition:.13s}
+  .item:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .item .g{width:44px;height:44px;margin:0 auto}
+  .item .nm{font-family:"Shippori Mincho",serif;font-size:14px;margin-top:3px;display:block}
+  .item.ok{border-color:var(--ok);background:#e8f2ef}
+  .item.bad{border-color:var(--brick);background:#f7e9e4;animation:sh .3s}
+  @keyframes sh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+  .flash{margin-top:14px;text-align:center;min-height:26px;font-family:"Shippori Mincho",serif;font-size:17px}
+  .flash.good{color:var(--ok)}.flash.bad{color:var(--brick)}
+
+  /* intro */
+  .intro{text-align:center}
+  .ihero{width:58px;height:58px;border-radius:16px;background:var(--brick);color:#fff;display:grid;place-items:center;
+    font-family:"Shippori Mincho",serif;font-weight:700;font-size:26px;margin:8px auto 10px}
+  .ititle{font-family:"Shippori Mincho",serif;font-size:23px;margin:0 0 8px}
+  .ilead{font-size:14.5px;margin:0 0 18px;line-height:1.55}
+  .steps{text-align:left;display:grid;gap:13px;margin:0 0 18px}
+  .step{display:flex;gap:12px;align-items:flex-start}
+  .step .sn{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--brick);color:#fff;display:grid;place-items:center;font-weight:700;font-size:14px}
+  .step b{font-size:14.5px}.step p{font-size:12.5px;color:var(--soft);margin:2px 0 0;line-height:1.5}
+  .btn{width:100%;margin-top:6px;background:var(--brick);color:#fff;border:none;border-radius:12px;padding:13px;font-family:"Klee One";font-weight:600;font-size:15px;cursor:pointer}
+
+  /* end */
+  .end{text-align:center;padding:22px 8px}
+  .end .big{font-family:"Shippori Mincho",serif;font-size:22px;margin:0 0 6px}
+  .end .yenbig{font-size:34px;font-weight:800;color:var(--accent);margin:6px 0}
+  .learned{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:14px 0 4px}
+  .lchip{background:#f2ead9;border-radius:999px;padding:6px 12px;font-size:13px;font-family:"Shippori Mincho",serif;cursor:pointer}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="phone">
+  <a class="siteback" href="/#oyunlar">← Oyunlar</a>
+  <div class="top">
+    <div class="logo">店</div>
+    <div class="brand">Konbini Shift<small>müşteriye doğru ürünü ver</small></div>
+    <button class="helpbtn" onclick="showIntro()" title="Nasıl oynanır?">?</button>
+  </div>
+
+  <!-- INTRO -->
+  <div id="intro" class="box"><div class="pad intro">
+    <div class="ihero">店</div>
+    <h2 class="ititle">Konbini Shift</h2>
+    <p class="ilead">Bir Japon marketinde (konbini) tezgâhtasın. Müşteri gelir, Japonca bir şey ister. Sen raftan <b>doğru ürünü</b> verirsin; böylece günlük Japonca alışveriş kelimelerini öğrenirsin.</p>
+    <div class="steps">
+      <div class="step"><span class="sn">1</span><div><b>İsteği oku</b><p>Müşteri “〜を ください” (… lütfen) der. Takıldıysan “okunuş + anlam”a dokun.</p></div></div>
+      <div class="step"><span class="sn">2</span><div><b>Ürünü ver</b><p>Raftaki ürünlerden istenen doğru olana dokun.</p></div></div>
+      <div class="step"><span class="sn">3</span><div><b>Bahşiş kazan</b><p>Doğruysa müşteri teşekkür eder, kasaya ¥ eklenir, kelime defterine düşer. Bir vardiya = 8 müşteri.</p></div></div>
+    </div>
+    <button class="btn" onclick="startShift()">Vardiyaya başla →</button>
+  </div></div>
+
+  <!-- PLAY -->
+  <div id="play" class="box hidden"><div class="pad">
+    <div class="hud"><span>Müşteri <b id="cnum">1</b>/8</span><span class="yen" id="yen">¥0</span><span>seri <b id="combo">0</b></span></div>
+    <div class="counter">
+      <div class="cust" id="cust"></div>
+      <div class="bubbles">
+        <div class="clerk">いらっしゃいませ！ <span style="color:var(--soft)">(hoş geldiniz)</span></div>
+        <div class="bubble">
+          <div class="req" id="req"></div>
+          <button class="rd" id="rdbtn" onclick="toggleHelp()">okunuş + anlam</button>
+          <button class="spk" onclick="speakReq()">🔊</button>
+          <div class="help" id="help"><div class="ro" id="ro"></div><div class="tr" id="tr"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="shelf-label">Raf — istenen ürüne dokun:</div>
+    <div class="shelf" id="shelf"></div>
+    <div class="flash" id="flash"></div>
+  </div></div>
+
+  <!-- END -->
+  <div id="end" class="box hidden"><div class="end">
+    <p class="big">Vardiya bitti! 🏮</p>
+    <div class="yenbig" id="endyen">¥0</div>
+    <p style="color:var(--soft);font-size:13.5px" id="endmsg"></p>
+    <div class="learned" id="learned"></div>
+    <button class="btn" style="max-width:240px;margin:16px auto 0" onclick="startShift()">Yeni vardiya</button>
+  </div></div>
+</div>
+
+<script>
+const ITEMS=[
+ {id:"onigiri",jp:"おにぎり",ro:"onigiri",tr:"pirinç topu",g:'<path d="M22 8 L36 34 Q37 36.5 33.5 36.5 L10.5 36.5 Q7 36.5 8 34 Z" fill="#fbf6ec" stroke="#3a2f28" stroke-width="2"/><rect x="16" y="26" width="12" height="10.5" rx="1" fill="#3a5a40"/>'},
+ {id:"pan",jp:"パン",ro:"pan",tr:"ekmek",g:'<path d="M8 27 Q8 14 22 14 Q36 14 36 27 L36 32 Q36 34 34 34 L10 34 Q8 34 8 32 Z" fill="#d9a55c" stroke="#3a2f28" stroke-width="2"/>'},
+ {id:"ocha",jp:"お茶",ro:"ocha",tr:"çay",g:'<rect x="17.5" y="7" width="9" height="6" rx="1.5" fill="#3a2f28"/><path d="M16.5 13 Q16.5 16 15.5 18 L15.5 34 Q15.5 37 18.5 37 L25.5 37 Q28.5 37 28.5 34 L28.5 18 Q27.5 16 27.5 13 Z" fill="#5c8a4a" stroke="#3a2f28" stroke-width="2"/>'},
+ {id:"mizu",jp:"水",ro:"mizu",tr:"su",g:'<rect x="17.5" y="7" width="9" height="6" rx="1.5" fill="#3a2f28"/><path d="M16.5 13 Q16.5 16 15.5 18 L15.5 34 Q15.5 37 18.5 37 L25.5 37 Q28.5 37 28.5 34 L28.5 18 Q27.5 16 27.5 13 Z" fill="#8fc3d6" stroke="#3a2f28" stroke-width="2"/>'},
+ {id:"coffee",jp:"コーヒー",ro:"kōhī",tr:"kahve",g:'<path d="M13 16 L31 16 L29 34 Q29 36 27 36 L17 36 Q15 36 15 34 Z" fill="#8a5a3a" stroke="#3a2f28" stroke-width="2"/><path d="M31 20 Q37 20 37 25 Q37 30 30.5 30" fill="none" stroke="#3a2f28" stroke-width="2"/>'},
+ {id:"tamago",jp:"たまご",ro:"tamago",tr:"yumurta",g:'<ellipse cx="22" cy="24" rx="11" ry="14" fill="#fbf6ec" stroke="#3a2f28" stroke-width="2"/>'},
+ {id:"bento",jp:"べんとう",ro:"bentō",tr:"hazır yemek",g:'<rect x="8" y="14" width="28" height="18" rx="3" fill="#b5502f" stroke="#3a2f28" stroke-width="2"/><line x1="22" y1="14" x2="22" y2="32" stroke="#3a2f28" stroke-width="1.4"/><line x1="8" y1="23" x2="36" y2="23" stroke="#3a2f28" stroke-width="1.4"/>'},
+ {id:"aisu",jp:"アイス",ro:"aisu",tr:"dondurma",g:'<path d="M14 22 Q14 11 22 11 Q30 11 30 22 Z" fill="#efe3cf" stroke="#3a2f28" stroke-width="2"/><path d="M16 22 L28 22 L24 36 L20 36 Z" fill="#d9a55c" stroke="#3a2f28" stroke-width="2"/>'},
+];
+const CUSTCOLORS=["#4f9a8f","#d3813a","#b5502f","#275f59","#c99a3f","#8a5a3a","#7a5aa0","#e08fb0"];
+function custSVG(i){const c=CUSTCOLORS[i%CUSTCOLORS.length];
+  return `<svg viewBox="0 0 64 64"><circle cx="32" cy="30" r="26" fill="${c}" opacity=".18"/><circle cx="32" cy="25" r="11" fill="${c}"/><path d="M14 52 Q14 38 32 38 Q50 38 50 52 Z" fill="${c}"/><circle cx="28" cy="24" r="1.8" fill="#fff"/><circle cx="36" cy="24" r="1.8" fill="#fff"/></svg>`;}
+
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+let shift=[], idx=0, yen=0, combo=0, learned=[], busy=false;
+
+function startShift(){
+  shift=[];const pool=shuffle(ITEMS);
+  for(let i=0;i<8;i++) shift.push(pool[i%pool.length].id);
+  shift=shuffle(shift);
+  idx=0;yen=0;combo=0;learned=[];busy=false;
+  show('play');renderCustomer();
+}
+function renderCustomer(){
+  busy=false;
+  const it=ITEMS.find(x=>x.id===shift[idx]);
+  document.getElementById('cnum').textContent=idx+1;
+  document.getElementById('yen').textContent='¥'+yen;
+  document.getElementById('combo').textContent=combo;
+  document.getElementById('cust').innerHTML=custSVG(idx);
+  document.getElementById('req').innerHTML=`<span class="want">${it.jp}</span> を ください。`;
+  document.getElementById('ro').textContent=it.ro+" o kudasai.";
+  document.getElementById('tr').textContent='"'+it.tr+'" lütfen.';
+  document.getElementById('help').classList.remove('show');
+  document.getElementById('rdbtn').textContent='okunuş + anlam';
+  document.getElementById('flash').textContent='';document.getElementById('flash').className='flash';
+  // shelf
+  const shelf=document.getElementById('shelf');shelf.innerHTML='';
+  ITEMS.forEach(x=>{
+    const b=document.createElement('button');b.className='item';
+    b.innerHTML=`<div class="g"><svg viewBox="0 0 44 44">${x.g}</svg></div><span class="nm">${x.jp}</span>`;
+    b.onclick=()=>pick(x,b,it);
+    shelf.appendChild(b);
+  });
+  setTimeout(()=>speak(it.jp+"をください"),350);
+}
+function pick(x,btn,target){
+  if(busy)return;
+  if(x.id===target.id){
+    busy=true;btn.classList.add('ok');
+    combo++;const tip=110+ (combo>1?(combo-1)*10:0);yen+=tip;
+    if(!learned.includes(target.id))learned.push(target.id);
+    speak("ありがとうございました");
+    const f=document.getElementById('flash');f.className='flash good';f.textContent=`ありがとう！ +¥${tip}`;
+    document.getElementById('yen').textContent='¥'+yen;
+    setTimeout(()=>{idx++; if(idx>=shift.length) endShift(); else renderCustomer();},900);
+  }else{
+    btn.classList.add('bad');combo=0;document.getElementById('combo').textContent=0;
+    const f=document.getElementById('flash');f.className='flash bad';f.textContent='hmm… tekrar bak';
+    setTimeout(()=>btn.classList.remove('bad'),350);
+  }
+}
+function toggleHelp(){const h=document.getElementById('help');h.classList.toggle('show');document.getElementById('rdbtn').textContent=h.classList.contains('show')?'gizle':'okunuş + anlam';}
+function speakReq(){const it=ITEMS.find(x=>x.id===shift[idx]);speak(it.jp+"をください");}
+function showIntro(){show('intro');}
+function show(id){['intro','play','end'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id));window.scrollTo(0,0);}
+
+function endShift(){
+  document.getElementById('endyen').textContent='¥'+yen;
+  document.getElementById('endmsg').textContent = yen>=1000 ? 'Harika vardiya! Müdür gurur duyuyor.' : 'İyi iş! Bir vardiya daha?';
+  const L=document.getElementById('learned');L.innerHTML='';
+  [...new Set(learned)].forEach(id=>{const it=ITEMS.find(x=>x.id===id);
+    const c=document.createElement('span');c.className='lchip';c.textContent=`${it.jp} · ${it.tr}`;c.onclick=()=>speak(it.jp);L.appendChild(c);});
+  show('end');
+}
+show('intro');
+</script>
+</body>
+</html>
