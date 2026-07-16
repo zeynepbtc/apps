@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.6.4 — 2026-07-16
+- ⬆️ **Japanese Flick canlı web (PWA) v76 → v79 güncellendi** (`/japanese-flick/`). HDD kaynağındaki (Capacitor `www`) v79 uygulama çekirdeği deploy edildi: `index.html` (385 KB) + `sw.js` (jflick-v79) + ~280 yeni ses/ikon varlığı (409 → 689). **Yasal sayfalar (SSS/Destek/Gizlilik/Şartlar) reskin'li hâlleriyle korundu**, dokunulmadı. Notlar: Play native app zaten Capacitor (gömülü assetler) → bu web PWA'sı ondan bağımsız ayrı yayındır; iOS build hâlâ v76 (ayrı iş). App index'inde em-dash var (Zeynep'in ürün kodu, native ile eşleşsin diye deploy sadık tutuldu).
+
 ### v1.6.3 — 2026-07-16
 - ⚖️ **Yasal sayfalar (SSS · Destek · Gizlilik · Şartlar) tek iskelete çekildi:** site topbar (Zeynep Kaya Apps markası + TR/EN dil hapı), **dil kalıcılığı** (`zk_lang` → dil artık sayfalar arası hatırlanıyor), footer'a Hakkımda linki + fikri mülkiyet/haklar notu. Sayfa içerikleri (SSS akordeonları, metinler) **aynen korundu**. **Em-dash'ler temizlendi** (meta açıklamalar + gizlilik metni). Test: TR/EN geçişi + kalıcılık ✓, 0 JS hatası.
 
