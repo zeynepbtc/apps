@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.9.10 — 2026-07-16
+- 🐞 **Kana oyunları — dil hatası düzeltildi.** TR modunda üst topbar marka alt-yazısı + mod alt-metinleri **hem TR hem EN** gösteriyordu (`.brand small` / `.opt small` kuralları `.en{display:none}`'ı specificity ile eziyordu). Çözüm: `body:not(.lang-en) .en{display:none}` (specificity 0,2,0 → container kurallarını yener, `!important` yok). 3 kana oyununa uygulandı. Doğrulama: TR modunda yalnız TR, EN modunda yalnız EN görünüyor (brand + mod alt-metinleri), 0 JS hatası. (Not: Takımyıldızı `ICON` kelime-emoji haritası Zeynep kararıyla şimdilik olduğu gibi bırakıldı.)
+
 ### v1.9.9 — 2026-07-16
 - 🗑️ **Yokai Mail siteden kaldırıldı** (Zeynep kararı: "çok bi ilerleyeceği yok, kalıcı kaldır" → retro/aksiyonlu oyunlara yöneleceğiz). Home + Japanese Flick oyun ızgaralarından kart, sitemap girdisi, oyun dizini ve kod yorumu temizlendi. (Takımyıldızı/Yağmuru/Market kalıyor ve geliştirilecek.)
 - 🎨 **Kana oyunları — emoji rozet temizliği (ikon diline uyarlama).** Dekoratif emojiler monokrom **brand çizgi-ikonlarına** çevrildi (`.eico`, currentColor): Kana Yağmuru → yağmur badge, kalem notu, mod ikonları (bayrak/sonsuz), hız ikonları (1/2/3 chevron), canlar (SVG kalp), bitiş ekranı emojileri kaldırıldı. Takımyıldızı → kalem notu + 5 başarı rozeti (yıldız/parıltı/ışın/hilal/harita SVG, altın). Kana Kartları → footer emoji temizlendi. İşlevsel 🔊/🔇 ve ▶/⏸ ile ← → okları korundu; Takımyıldızı'nda tematik ✦ yıldızları (badge/can) korundu. Doğrulama: 3 oyunda 0 JS hatası, ikonlar ekran görüntüsüyle onaylandı.
