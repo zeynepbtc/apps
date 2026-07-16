@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.7.0 — 2026-07-16
+- 🎮 **Yeni web oyunu: Yōkai Mail** (`/apps/japanese-flick/oyunlar/yokai-mail/`). Merak temelli Japonca kelime oyunu: yokai'lerden gelen N5 mektuplarında eksik kelimeyi **kana karolarını dokunarak yaz** (şık seçme değil — Flick'in "yazma" ruhu web'de); doğruda yokai cevap verir + kelime **Kelime Defteri**'ne eklenir (kanji + kana + anlam + ja-JP ses). 5 yokai (Nekomata/Karakasa/Yuki-onna/Kappa/Kitsune), koleksiyon + seri sayacı (localStorage), "yarın gelir" kilitli zarf. Ana sayfa + JF tanıtım Oyunlar ızgarasına kart (Flick ikon dili, zarf glyph + teal blok), sitemap + canonical. Okuma web / cevap Flick köprüsü ileride. Doğrulama: baştan sona oynanış (kana-yaz → ödül → defter), 0 JS hatası.
+
 ### v1.6.6 — 2026-07-16
 - 🐞 **Kırık logo düzeltmesi.** v1.6.4'teki v79 deploy'unda `/japanese-flick/icons/` klasörü PWA ikon setiyle değişince iki pazarlama varlığı düşmüştü: `logo-square.svg` (JF logosu — 5 yerde: ana sayfa Flick kartı, JF tanıtım hero'su, kana-takımyıldızı/kana-kartları/kana-yağmuru oyun başlıkları) ve `appicon-rounded-512.png` (favikon/apple-touch-icon — 6 sayfada). İkisi de **git geçmişinden orijinalleriyle geri getirildi** (yeni PWA ikonlarına dokunulmadı). Tüm site tarandı: başka kırık yerel varlık referansı yok.
 
