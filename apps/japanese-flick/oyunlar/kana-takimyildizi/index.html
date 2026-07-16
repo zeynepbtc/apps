@@ -143,6 +143,10 @@
   .foot a{color:var(--gold2);font-weight:700}
   .siteback{display:inline-flex;align-items:center;gap:6px;margin:0 2px 12px;padding:8px 14px;border-radius:12px;background:var(--sky2);border:1px solid var(--line);color:var(--cream);text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 6px 18px rgba(4,6,16,.35);transition:transform .15s}
   .siteback:hover{transform:translateY(-1px)}
+  .eico{display:inline-block;vertical-align:-.16em;width:1.1em;height:1.1em}
+  .eico path,.eico line,.eico polyline,.eico circle,.eico polygon{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .eico.fill path,.eico.fill polygon{fill:currentColor;stroke:none}
+  .bdg .eico{color:var(--gold2)}
 </style>
 </head>
 <body class="lang-tr">
@@ -180,7 +184,7 @@
           <circle cx="240" cy="26" r="13" fill="rgba(244,238,227,.14)" stroke="rgba(227,188,106,.4)"/><text x="240" y="32" text-anchor="middle">ぬ</text>
         </g>
       </svg>
-      <span class="note">✍️ <span class="tr">Sadece okuma; <b>yazmayı</b> uygulamada flick klavyeyle öğreniyorsun.</span><span class="en">Reading only; you learn to <b>type</b> in the app.</span></span>
+      <span class="note"><svg class="eico" viewBox="0 0 24 24"><path d="M4 20l4-1L19 8a2 2 0 0 0-3-3L5 16l-1 4z"/><line x1="14" y1="7" x2="17" y2="10"/></svg> <span class="tr">Sadece okuma; <b>yazmayı</b> uygulamada flick klavyeyle öğreniyorsun.</span><span class="en">Reading only; you learn to <b>type</b> in the app.</span></span>
       <button class="btn primary block" style="margin-top:16px" onclick="startGame()"><span class="tr">Gökyüzünü çiz ▶</span><span class="en">Draw the sky ▶</span></button>
       <p class="foot"><span class="tr">Kana yıldızlarına doğru sırayla dokun.</span><span class="en">Tap the kana stars in the right order.</span></p>
     </section>
@@ -268,7 +272,7 @@ var WORDS3=[
  ["せんせい","sensei","öğretmen","teacher"],["たいへん","taihen","zor / aman","tough"]
 ];
 var ICON={"ほし":"✦","つき":"🌙","そら":"☁","やま":"⛰","うみ":"🌊","ねこ":"🐱","いぬ":"🐶","はな":"🌸","とり":"🐦","くも":"☁","ゆき":"❄","あめ":"🌧","かわ":"🏞","もり":"🌲","あさ":"🌅","よる":"🌌","あか":"🟥","しろ":"⬜","くろ":"⬛","あお":"🟦","みち":"🛣","いえ":"🏠","ふね":"⛵","くち":"👄","あし":"🦵","なつ":"☀","はる":"🌸","あき":"🍁","ふゆ":"⛄","ゆめ":"💭","こえ":"🗣","さかな":"🐟","からす":"🐦‍⬛","さくら":"🌸","みかん":"🍊","あした":"➡","ひとり":"🚶","きもの":"👘","すもう":"🤼","はさみ":"✂","みなと":"⚓","あたま":"🧠","くすり":"💊","せかい":"🌍","さしみ":"🍣","ひこうき":"✈","くつした":"🧦","せんせい":"👩‍🏫","たいへん":"😵"};
-/* GELİŞTİRME NOTU (roadmap): 2→3→4 hece kademeleri (var), sonraki: gramer/cümle modu (yokai mail tarzı),
+/* GELİŞTİRME NOTU (roadmap): 2→3→4 hece kademeleri (var), sonraki: gramer/cümle modu,
    kelime haznesini büyüt, çözülen takımyıldızı arka plana "as", Flick içi sürüm. Detay: FIKIRLER-defteri.md */
 /* çeldirici havuzu: düz kana glifleri (benzeyenler dahil) */
 var KANA_POOL="あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん".split("");
@@ -294,11 +298,11 @@ function showScreen(id){['startScreen','gameScreen','overScreen'].forEach(functi
 function loadStats(){try{return JSON.parse(localStorage.getItem('zkStats')||'{}')||{};}catch(e){return {};}}
 function saveStats(o){try{localStorage.setItem('zkStats',JSON.stringify(o));}catch(e){}}
 var BADGES=[
- {id:'first', ic:'🌟', tr:'İlk takımyıldızın', en:'First constellation', test:function(g){return g.words>=1;}},
- {id:'five',  ic:'✨', tr:'5 kelime', en:'5 words', test:function(g){return g.words>=5;}},
- {id:'streak5',ic:'🎇',tr:'5’li seri', en:'Streak of 5', test:function(g){return g.bestStreak>=5;}},
- {id:'ten',   ic:'🌙', tr:'Gece kuşu · 10 kelime', en:'Night owl · 10 words', test:function(g){return g.words>=10;}},
- {id:'sky',   ic:'🗺️', tr:'Gökyüzü haritacısı · 200 puan', en:'Sky cartographer · 200 pts', test:function(g){return g.best>=200;}}
+ {id:'first', ic:'<svg class="eico fill" viewBox="0 0 24 24"><polygon points="12,3 14.6,8.8 21,9.5 16.2,13.9 17.6,20.2 12,16.9 6.4,20.2 7.8,13.9 3,9.5 9.4,8.8"/></svg>', tr:'İlk takımyıldızın', en:'First constellation', test:function(g){return g.words>=1;}},
+ {id:'five',  ic:'<svg class="eico" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>', tr:'5 kelime', en:'5 words', test:function(g){return g.words>=5;}},
+ {id:'streak5',ic:'<svg class="eico" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M18 6l-2.5 2.5M6 18l2.5-2.5M18 18l-2.5-2.5"/><circle cx="12" cy="12" r="2.5"/></svg>', tr:'5’li seri', en:'Streak of 5', test:function(g){return g.bestStreak>=5;}},
+ {id:'ten',   ic:'<svg class="eico fill" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 10.5 4 6.3 6.3 0 0 0 20 14.5z"/></svg>', tr:'Gece kuşu · 10 kelime', en:'Night owl · 10 words', test:function(g){return g.words>=10;}},
+ {id:'sky',   ic:'<svg class="eico" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>', tr:'Gökyüzü haritacısı · 200 puan', en:'Sky cartographer · 200 pts', test:function(g){return g.best>=200;}}
 ];
 var freshBadges=[];
 function commitStats(){

@@ -27,6 +27,11 @@
 
 ## Geçmiş
 
+### v1.9.9 — 2026-07-16
+- 🗑️ **Yokai Mail siteden kaldırıldı** (Zeynep kararı: "çok bi ilerleyeceği yok, kalıcı kaldır" → retro/aksiyonlu oyunlara yöneleceğiz). Home + Japanese Flick oyun ızgaralarından kart, sitemap girdisi, oyun dizini ve kod yorumu temizlendi. (Takımyıldızı/Yağmuru/Market kalıyor ve geliştirilecek.)
+- 🎨 **Kana oyunları — emoji rozet temizliği (ikon diline uyarlama).** Dekoratif emojiler monokrom **brand çizgi-ikonlarına** çevrildi (`.eico`, currentColor): Kana Yağmuru → yağmur badge, kalem notu, mod ikonları (bayrak/sonsuz), hız ikonları (1/2/3 chevron), canlar (SVG kalp), bitiş ekranı emojileri kaldırıldı. Takımyıldızı → kalem notu + 5 başarı rozeti (yıldız/parıltı/ışın/hilal/harita SVG, altın). Kana Kartları → footer emoji temizlendi. İşlevsel 🔊/🔇 ve ▶/⏸ ile ← → okları korundu; Takımyıldızı'nda tematik ✦ yıldızları (badge/can) korundu. Doğrulama: 3 oyunda 0 JS hatası, ikonlar ekran görüntüsüyle onaylandı.
+- **Kalan (ayrı iş):** Takımyıldızı'ndaki oyun-içi kelime→emoji `ICON` haritası (~50 emoji) hâlâ emoji — özel ikon çizimi büyük iş, Zeynep onayı bekliyor. Ayrıca kana oyunlarında **önceden var olan** dil hatası: TR modunda üst başlık marka alt-yazısı + mod alt-metinleri hem TR hem EN gösteriyor (`small.en` `.en{display:none}`'ı eziyor).
+
 ### v1.9.8 — 2026-07-16
 - 🛒 **Konbini — vitrin çeşitliliği + görünür yenileme** (Zeynep: "2 müşteride bir vitrin yenilenecek gibi değiştir, ürün çeşidini de arttır"). (1) **Ürün havuzu 14 → 24** (yeni: balık, et, çilek, mandalina, sandviç, ramen, puding, salata, pirinç krakeri, çikolata — her biri TR/EN + kendi SVG glifi). (2) **Vitrin her 2 müşteride TAM yenileniyor:** yeni raf, önceki raftaki ürünlerin **dışından** seçiliyor (`buildShelf()` + `prevIds`) → art arda raflarda **0 örtüşme**, bir vardiyada **~22 farklı ürün** görülüyor (eski halde tekrar hissi vardı). Doğrulama: JS geçerli, 24 ürünün hepsi tam, art arda raf örtüşmesi 0, 0 hata. **İleriye not:** "N seviyesine göre vitrin" fikri kaydedildi (JLPT kademeli havuz).
 
