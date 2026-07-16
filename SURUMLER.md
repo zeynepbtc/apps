@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.9.2 — 2026-07-16
+- 🛒 **Konbini Shift — iki düzeltme** (Zeynep bildirdi). **(1) Ses kesilmesi:** müşteri "ありがとうございました" derken sonraki müşterinin sesi araya girip "arigatoug" gibi kesiyordu → artık teşekkür sesi bitince (`utterance.onend`) sıradaki müşteriye geçiliyor (2.4sn fallback). **(2) Ürün çeşitliliği:** her vardiyada aynı 8 ürün dönüyordu → ürün havuzu 8→**14**'e çıkarıldı (süt, elma, muz, meyve suyu, kek, atıştırmalık eklendi) ve her vardiya rastgele **8 farklı ürün** seçiyor; vardiyalar artık birbirinden farklı. Doğrulama: iki vardiyanın rafı farklı, 0 JS hatası.
+
 ### v1.9.1 — 2026-07-16
 - 🔤 **Türkçe karakter (ş/ğ/İ/ı) düzeltmesi** (Zeynep bildirdi). Oyun/araç/hakkımda sayfalarındaki **Klee One** ve **Shippori Mincho** fontları Türkçe özel harfleri taşımıyor, o harfler sistem fontuna düşüp kelime ortasında bozuk görünüyordu. Çözüm: **Nunito** (tam Türkçe destekli, sıcak) eklendi; font yığınları `"Nunito","Klee One"` ve `"Shippori Mincho","Nunito"` yapıldı → Latin/Türkçe harfler Nunito'da tutarlı, Japonca kana/kanji hâlâ Klee One/Shippori'de. 8 sayfa: 5 oyun (Konbini, Yokai Mail, Kana Yağmuru/Takımyıldızı/Kartları) + 2 araç (Hiragana/Katakana) + /hakkimda. Ana sayfa/JF/yasal sayfalar Inter kullandığı için zaten sorunsuzdu.
 

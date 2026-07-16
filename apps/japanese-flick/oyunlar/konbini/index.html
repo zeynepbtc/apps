@@ -145,20 +145,25 @@ const ITEMS=[
  {id:"tamago",jp:"たまご",ro:"tamago",tr:"yumurta",g:'<ellipse cx="22" cy="24" rx="11" ry="14" fill="#fbf6ec" stroke="#3a2f28" stroke-width="2"/>'},
  {id:"bento",jp:"べんとう",ro:"bentō",tr:"hazır yemek",g:'<rect x="8" y="14" width="28" height="18" rx="3" fill="#b5502f" stroke="#3a2f28" stroke-width="2"/><line x1="22" y1="14" x2="22" y2="32" stroke="#3a2f28" stroke-width="1.4"/><line x1="8" y1="23" x2="36" y2="23" stroke="#3a2f28" stroke-width="1.4"/>'},
  {id:"aisu",jp:"アイス",ro:"aisu",tr:"dondurma",g:'<path d="M14 22 Q14 11 22 11 Q30 11 30 22 Z" fill="#efe3cf" stroke="#3a2f28" stroke-width="2"/><path d="M16 22 L28 22 L24 36 L20 36 Z" fill="#d9a55c" stroke="#3a2f28" stroke-width="2"/>'},
+ {id:"gyunyu",jp:"牛乳",ro:"gyūnyū",tr:"süt",g:'<path d="M15 15 L29 15 L29 34 Q29 36 27 36 L17 36 Q15 36 15 34 Z" fill="#fbf6ec" stroke="#3a2f28" stroke-width="2"/><path d="M15 15 L22 8 L29 15" fill="#fbf6ec" stroke="#3a2f28" stroke-width="2"/><rect x="17" y="24" width="10" height="6" fill="#8fc3d6"/>'},
+ {id:"ringo",jp:"りんご",ro:"ringo",tr:"elma",g:'<circle cx="22" cy="26" r="11" fill="#c0392b" stroke="#3a2f28" stroke-width="2"/><path d="M22 15 L22 11" stroke="#5a3a2a" stroke-width="2"/><path d="M22 13 Q26 9 29 11" fill="none" stroke="#5c8a4a" stroke-width="2.5"/>'},
+ {id:"banana",jp:"バナナ",ro:"banana",tr:"muz",g:'<path d="M13 15 Q15 31 29 33 Q35 33 34 28 Q23 28 19 16 Q18 13 15 14 Z" fill="#e0b23a" stroke="#3a2f28" stroke-width="2"/>'},
+ {id:"juice",jp:"ジュース",ro:"jūsu",tr:"meyve suyu",g:'<rect x="14" y="15" width="16" height="21" rx="2" fill="#d3813a" stroke="#3a2f28" stroke-width="2"/><rect x="24" y="9" width="2.6" height="7" rx="1" fill="#3a2f28"/>'},
+ {id:"keeki",jp:"ケーキ",ro:"kēki",tr:"kek",g:'<path d="M12 34 L22 15 L32 34 Z" fill="#efe3cf" stroke="#3a2f28" stroke-width="2"/><path d="M13.5 30 L30.5 30 L32 34 L12 34 Z" fill="#e08fb0" stroke="#3a2f28" stroke-width="2"/><circle cx="22" cy="19" r="2.4" fill="#c0392b"/>'},
+ {id:"okashi",jp:"おかし",ro:"okashi",tr:"atıştırmalık",g:'<rect x="16" y="18" width="12" height="10" rx="3" fill="#7a5aa0" stroke="#3a2f28" stroke-width="2"/><path d="M16 23 L10 19 L11 27 Z" fill="#7a5aa0" stroke="#3a2f28" stroke-width="2"/><path d="M28 23 L34 19 L33 27 Z" fill="#7a5aa0" stroke="#3a2f28" stroke-width="2"/>'},
 ];
 const CUSTCOLORS=["#4f9a8f","#d3813a","#b5502f","#275f59","#c99a3f","#8a5a3a","#7a5aa0","#e08fb0"];
 function custSVG(i){const c=CUSTCOLORS[i%CUSTCOLORS.length];
   return `<svg viewBox="0 0 64 64"><circle cx="32" cy="30" r="26" fill="${c}" opacity=".18"/><circle cx="32" cy="25" r="11" fill="${c}"/><path d="M14 52 Q14 38 32 38 Q50 38 50 52 Z" fill="${c}"/><circle cx="28" cy="24" r="1.8" fill="#fff"/><circle cx="36" cy="24" r="1.8" fill="#fff"/></svg>`;}
 
-function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+function speak(t,cb){try{const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=.9;if(cb){u.onend=cb;u.onerror=cb;}speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){if(cb)cb();}}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-let shift=[], idx=0, yen=0, combo=0, learned=[], busy=false;
+let shelfItems=[], shift=[], idx=0, yen=0, combo=0, learned=[], busy=false;
 
 function startShift(){
-  shift=[];const pool=shuffle(ITEMS);
-  for(let i=0;i<8;i++) shift.push(pool[i%pool.length].id);
-  shift=shuffle(shift);
+  shelfItems=shuffle(ITEMS).slice(0,8);
+  shift=[];for(let i=0;i<8;i++) shift.push(shelfItems[Math.floor(Math.random()*shelfItems.length)].id);
   idx=0;yen=0;combo=0;learned=[];busy=false;
   show('play');renderCustomer();
 }
@@ -177,7 +182,7 @@ function renderCustomer(){
   document.getElementById('flash').textContent='';document.getElementById('flash').className='flash';
   // shelf
   const shelf=document.getElementById('shelf');shelf.innerHTML='';
-  ITEMS.forEach(x=>{
+  shelfItems.forEach(x=>{
     const b=document.createElement('button');b.className='item';
     b.innerHTML=`<div class="g"><svg viewBox="0 0 44 44">${x.g}</svg></div><span class="nm">${x.jp}</span>`;
     b.onclick=()=>pick(x,b,it);
@@ -191,10 +196,12 @@ function pick(x,btn,target){
     busy=true;btn.classList.add('ok');
     combo++;const tip=110+ (combo>1?(combo-1)*10:0);yen+=tip;
     if(!learned.includes(target.id))learned.push(target.id);
-    speak("ありがとうございました");
-    const f=document.getElementById('flash');f.className='flash good';f.textContent=`ありがとう！ +¥${tip}`;
     document.getElementById('yen').textContent='¥'+yen;
-    setTimeout(()=>{idx++; if(idx>=shift.length) endShift(); else renderCustomer();},900);
+    const f=document.getElementById('flash');f.className='flash good';f.textContent=`ありがとう！ +¥${tip}`;
+    let advanced=false;
+    const go=()=>{if(advanced)return;advanced=true;idx++; if(idx>=shift.length) endShift(); else renderCustomer();};
+    speak("ありがとうございました", go);
+    setTimeout(go, 2400);
   }else{
     btn.classList.add('bad');combo=0;document.getElementById('combo').textContent=0;
     const f=document.getElementById('flash');f.className='flash bad';f.textContent='hmm… tekrar bak';
