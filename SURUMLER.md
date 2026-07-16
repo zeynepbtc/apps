@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.7.2 — 2026-07-16
+- ✏️ **Yōkai Mail — Türkçe çeviri düzeltmeleri** (Zeynep testte fark etti). "Bugün yağmurlu" → "Bugün hava yağmurlu"; "Yağmurlu günü severim" → "Yağmurlu günleri severim … yürüyüşe çıktım"; Kitsune'de "___ da yaşıyorum" (dağ da) → "___da yaşıyorum" (dağda, doğru ek); küçük noktalama. Anlam-dilbilgisi uyumu düzeltildi.
+
 ### v1.7.1 — 2026-07-16
 - 🧭 **Yōkai Mail — onboarding.** Zeynep testte "ne yapılacağı, yokai'lerin kim olduğu, amaç anlaşılmıyor" dedi → oyuna **açılış/nasıl oynanır ekranı** eklendi (yokai nedir + 3 adım: mektubu oku · eksik kelimeyi kana ile yaz · kelimeni topla + amaç), ilk açılışta gelir (localStorage `yokaimail_seen`), üstteki **"?"** düğmesiyle tekrar açılır. Mektup ekranında yönerge netleştirildi + "okunuş+anlam" ipucu satırı. Doğrulandı (açılış→başla→oyna akışı, 0 JS hatası).
 
