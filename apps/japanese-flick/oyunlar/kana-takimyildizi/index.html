@@ -235,19 +235,36 @@
 <script>
 /* ================= data ================= */
 /* kelime: [kana(diz), romaji, tr, en]  — hepsi düz kana (dakuten yok), kana'lar tekrarsız */
+/* 2 hece */
 var WORDS1=[
  ["ほし","hoshi","yıldız","star"],["つき","tsuki","ay","moon"],["そら","sora","gökyüzü","sky"],
  ["やま","yama","dağ","mountain"],["うみ","umi","deniz","sea"],["ねこ","neko","kedi","cat"],
  ["いぬ","inu","köpek","dog"],["はな","hana","çiçek","flower"],["とり","tori","kuş","bird"],
  ["くも","kumo","bulut","cloud"],["ゆき","yuki","kar","snow"],["あめ","ame","yağmur","rain"],
  ["かわ","kawa","nehir","river"],["もり","mori","orman","forest"],["あさ","asa","sabah","morning"],
- ["よる","yoru","gece","night"]
+ ["よる","yoru","gece","night"],["あか","aka","kırmızı","red"],["しろ","shiro","beyaz","white"],
+ ["くろ","kuro","siyah","black"],["あお","ao","mavi","blue"],["みち","michi","yol","road"],
+ ["いえ","ie","ev","house"],["ふね","fune","gemi","boat"],["くち","kuchi","ağız","mouth"],
+ ["あし","ashi","ayak","leg"],["なつ","natsu","yaz","summer"],["はる","haru","ilkbahar","spring"],
+ ["あき","aki","sonbahar","autumn"],["ふゆ","fuyu","kış","winter"],["ゆめ","yume","rüya","dream"],
+ ["こえ","koe","ses","voice"]
 ];
+/* 3 hece */
 var WORDS2=[
  ["さかな","sakana","balık","fish"],["からす","karasu","karga","crow"],["さくら","sakura","sakura","cherry blossom"],
- ["みかん","mikan","mandalina","mandarin"],["あした","ashita","yarın","tomorrow"],["ひとり","hitori","tek kişi","alone"]
+ ["みかん","mikan","mandalina","mandarin"],["あした","ashita","yarın","tomorrow"],["ひとり","hitori","tek kişi","alone"],
+ ["きもの","kimono","kimono","kimono"],["すもう","sumou","sumo","sumo"],["はさみ","hasami","makas","scissors"],
+ ["みなと","minato","liman","port"],["あたま","atama","kafa","head"],["くすり","kusuri","ilaç","medicine"],
+ ["せかい","sekai","dünya","world"],["さしみ","sashimi","sashimi","sashimi"]
 ];
-var ICON={"ほし":"✦","つき":"🌙","そら":"☁","やま":"⛰","うみ":"🌊","ねこ":"🐱","いぬ":"🐶","はな":"🌸","とり":"🐦","くも":"☁","ゆき":"❄","あめ":"🌧","かわ":"🏞","もり":"🌲","あさ":"🌅","よる":"🌌","さかな":"🐟","からす":"🐦‍⬛","さくら":"🌸","みかん":"🍊","あした":"➡","ひとり":"🚶"};
+/* 4 hece (ileri) */
+var WORDS3=[
+ ["ひこうき","hikouki","uçak","airplane"],["くつした","kutsushita","çorap","socks"],
+ ["せんせい","sensei","öğretmen","teacher"],["たいへん","taihen","zor / aman","tough"]
+];
+var ICON={"ほし":"✦","つき":"🌙","そら":"☁","やま":"⛰","うみ":"🌊","ねこ":"🐱","いぬ":"🐶","はな":"🌸","とり":"🐦","くも":"☁","ゆき":"❄","あめ":"🌧","かわ":"🏞","もり":"🌲","あさ":"🌅","よる":"🌌","あか":"🟥","しろ":"⬜","くろ":"⬛","あお":"🟦","みち":"🛣","いえ":"🏠","ふね":"⛵","くち":"👄","あし":"🦵","なつ":"☀","はる":"🌸","あき":"🍁","ふゆ":"⛄","ゆめ":"💭","こえ":"🗣","さかな":"🐟","からす":"🐦‍⬛","さくら":"🌸","みかん":"🍊","あした":"➡","ひとり":"🚶","きもの":"👘","すもう":"🤼","はさみ":"✂","みなと":"⚓","あたま":"🧠","くすり":"💊","せかい":"🌍","さしみ":"🍣","ひこうき":"✈","くつした":"🧦","せんせい":"👩‍🏫","たいへん":"😵"};
+/* GELİŞTİRME NOTU (roadmap): 2→3→4 hece kademeleri (var), sonraki: gramer/cümle modu (yokai mail tarzı),
+   kelime haznesini büyüt, çözülen takımyıldızı arka plana "as", Flick içi sürüm. Detay: FIKIRLER-defteri.md */
 /* çeldirici havuzu: düz kana glifleri (benzeyenler dahil) */
 var KANA_POOL="あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん".split("");
 
@@ -316,7 +333,7 @@ function distractorCount(){return Math.min(5, 2+Math.floor(S.score/60));}
 
 function nextWord(){
   if(S.phase!=='playing')return;
-  var pool=(S.score>=45)?WORDS1.concat(WORDS2):WORDS1.slice();
+  var pool=(S.score>=130)?WORDS1.concat(WORDS2,WORDS3):(S.score>=50?WORDS1.concat(WORDS2):WORDS1.slice());
   S.word=pool[rand(pool.length)];
   S.idx=0;S.hadError=false;
   paintClue();

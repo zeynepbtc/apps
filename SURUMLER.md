@@ -27,6 +27,11 @@
 
 ## Geçmiş
 
+### v1.4.0 — 2026-07-16
+- 🌌 **Kana Takımyıldızı** web oyunu eklendi — `/apps/japanese-flick/oyunlar/kana-takimyildizi/`. Gece göğü estetiği; kelimenin kanalarını sırayla birleştirip takımyıldız çiz (doğru → yıldızlar parlar + kelime ja-JP sesle okunur + koto). 2→3→4 hece kademeleri, çeldirici benzer kanalar, 3 can, seri.
+- 🏆 **Kişisel rekor + rozet katmanı** (localStorage `zkStats`, tüm web oyunlarının paylaşabileceği): en yüksek puan, en uzun seri, toplam takımyıldız + 5 rozet.
+- 🧭 Ana sayfa + JF sayfası oyun bölümüne kart; sitemap'e eklendi. Geliştirme notu: gramer/cümle modu, kelime haznesi büyütme, Flick içi sürüm (FIKIRLER-defteri'nde).
+
 ### v1.3.5 — 2026-07-15
 - 📊 **Cloudflare Web Analytics** eklendi (8 sayfa, oyunlar dahil): çerezsiz, bannersız ziyaretçi + sayfa + kaynak ölçümü. Test fazını artık ölçebiliriz.
 
