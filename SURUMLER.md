@@ -27,6 +27,11 @@
 
 ## Geçmiş
 
+### v1.4.3 — 2026-07-16
+- 🔄 Kana Takımyıldızı: **döndürme/adres çubuğu bug'ı** giderildi. Telefonda kelime ortasında ekran yeniden boyutlanınca (adres çubuğu gizlenmesi / oryantasyon) gökyüzü sıfırdan çiziliyor, çizgiler ve yanan yıldızlar kayboluyordu → artık yıldızlar oransal konuma göre **yerinde taşınıyor**, ilerleme hiç bozulmuyor.
+- 📱 **Çentik/safe-area** desteği: `env(safe-area-inset-*)` ile üst bar ve alttaki CTA çentikli iPhone'larda kesilmiyor.
+- ▶ Oyun sonu **"Tekrar çiz"** artık tek dokunuşla doğrudan yeni oyunu başlatıyor (hero ekranına dönmüyor).
+
 ### v1.4.2 — 2026-07-16
 - 🩹 Ana sayfa: footer'da olmayan `#year` öğesine erişen script satırı `null` hatası verip **parallax'ı durduruyordu** → footer yılı `<span id="year">` yapıldı (hata bitti, parallax çalışıyor, yıl otomatik güncelleniyor).
 

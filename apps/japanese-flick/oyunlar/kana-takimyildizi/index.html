@@ -40,7 +40,9 @@
       radial-gradient(1.2px 1.2px at 12% 82%, rgba(227,188,106,.5), transparent),
       radial-gradient(1.1px 1.1px at 92% 88%, rgba(244,238,227,.4), transparent);}
   a{color:inherit;text-decoration:none}
-  .page{position:relative;z-index:1;width:100%;max-width:440px;margin:0 auto;padding:14px 15px 20px;display:flex;flex-direction:column;height:100dvh;height:min(800px,100dvh)}
+  .page{position:relative;z-index:1;width:100%;max-width:440px;margin:0 auto;
+    padding:max(14px,env(safe-area-inset-top)) max(15px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(15px,env(safe-area-inset-left));
+    display:flex;flex-direction:column;height:100dvh;height:min(800px,100dvh)}
   @media (min-width:600px){
     body{padding:22px}
     .page{height:min(720px,90dvh);margin-block:auto;border:1px solid var(--line);border-radius:32px;
@@ -227,7 +229,7 @@
         <p class="en">Japanese people type every kana you just read with the flick keyboard. Japanese Flick teaches exactly that.</p>
         <a class="btn primary block" href="/apps/japanese-flick/"><span class="tr">Uygulamaya bak →</span><span class="en">See the app →</span></a>
       </div>
-      <button class="btn secondary block" style="margin-top:10px" onclick="toStart()"><span class="tr">Tekrar çiz</span><span class="en">Play again</span></button>
+      <button class="btn secondary block" style="margin-top:10px" onclick="startGame()"><span class="tr">Tekrar çiz</span><span class="en">Play again</span></button>
       <p class="foot">© <span id="yr"></span> Zeynep Kaya Apps · <a href="/apps/japanese-flick/">Japanese Flick</a></p>
     </section>
   </main>
@@ -270,7 +272,7 @@ var KANA_POOL="あいうえおかきくけこさしすせそたちつてとな�
 
 /* ================= state ================= */
 var S={phase:'start',word:null,idx:0,hadError:false,
-  score:0,streak:0,bestStreak:0,lives:3,words:0,stars:[],centers:[],pending:null,
+  score:0,streak:0,bestStreak:0,lives:3,words:0,stars:[],litOrder:[],pending:null,
   bag:[],poolKey:'',lastWord:null};
 
 function $(id){return document.getElementById(id);}
@@ -361,7 +363,7 @@ function buildSky(){
   var sky=$('sky');
   // temizle
   S.stars.forEach(function(s){if(s.el&&s.el.parentNode)s.el.parentNode.removeChild(s.el);});
-  S.stars=[];S.centers=[];
+  S.stars=[];S.litOrder=[];
   $('poly').setAttribute('points','');
 
   var kanas=S.word[0].split("");
@@ -392,8 +394,20 @@ function buildSky(){
     el.style.left=x+'px';el.style.top=y+'px';
     (function(kana,el){el.onclick=function(){tapStar(kana,el);};})(items[k],el);
     sky.appendChild(el);
-    S.stars.push({kana:items[k],el:el,x:x,y:y,used:false});
+    // fx/fy: oransal konum — resize'da yıldızları yerinde taşımak için (ilerleme bozulmasın)
+    S.stars.push({kana:items[k],el:el,x:x,y:y,fx:x/W,fy:y/Hh,used:false});
   }
+}
+
+/* resize/oryantasyonda: yeniden çizmeden yıldızları oransal konuma taşı, çizgileri koru */
+function layoutStars(){
+  var sky=$('sky');var W=sky.clientWidth,Hh=sky.clientHeight;
+  if(!W||!Hh)return;
+  S.stars.forEach(function(s){
+    s.x=s.fx*W;s.y=s.fy*Hh;
+    s.el.style.left=s.x+'px';s.el.style.top=s.y+'px';
+  });
+  drawLines();
 }
 
 function tapStar(kana,el){
@@ -403,7 +417,7 @@ function tapStar(kana,el){
   if(st&&st.used)return;
   if(kana===target){
     st.used=true;el.classList.add('lit');
-    S.centers.push([st.x,st.y]);drawLines();
+    S.litOrder.push(st);drawLines();
     sfxNote(S.idx);
     S.idx++;
     if(S.idx>=S.word[0].length){ wordDone(); }
@@ -414,7 +428,7 @@ function tapStar(kana,el){
   }
 }
 function drawLines(){
-  var pts=S.centers.map(function(c){return c[0].toFixed(1)+','+c[1].toFixed(1);}).join(' ');
+  var pts=S.litOrder.map(function(s){return s.x.toFixed(1)+','+s.y.toFixed(1);}).join(' ');
   $('poly').setAttribute('points',pts);
 }
 function wordDone(){
@@ -490,8 +504,8 @@ function showOverlay(t,x,b,a){$('ovTitle').textContent=t;$('ovText').textContent
 function hideOverlay(){$('overlay').classList.remove('show');}
 function overlayAction(){var a=S.pending;hideOverlay();if(a==='start')toStart();}
 
-/* resize: oyundaysak gökyüzünü yeniden yerleştir (satır kaybolmasın) */
-var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(S.phase==='playing')buildSky();},250);});
+/* resize/oryantasyon: yıldızları yerinde taşı (yeniden çizmeden) → ilerleme + çizgiler korunur */
+var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if((S.phase==='playing'||S.phase==='between')&&S.stars.length)layoutStars();},180);});
 
 /* init */
 if($('sndBtn')){$('sndBtn').textContent=sndOn?'\u{1F50A}':'\u{1F507}';$('sndBtn').classList.toggle('off',!sndOn);}
