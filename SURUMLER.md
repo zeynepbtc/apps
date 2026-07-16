@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.8.0 — 2026-07-16
+- 🎉 **Japanese Flick App Store'da YAYINDA** (16 Tem 2026, ilk sürüm). Site duyurusu güncellendi: JF hero eyebrow "App Store'da Yayında", hero + duyuru bölümünde **"App Store'da İndir"** düğmesi (link: apps.apple.com/app/japanese-flick/id6789942860, yeni sekme), durum satırı + release kartı metni yenilendi. Ana sayfa "Güncellemeler" kartı "artık App Store'da" oldu + indir düğmesi. **QR kod** eklendi (`/apps/japanese-flick/appstore-qr.svg`, ink renkli) hero/duyuruya. Ton: sakin, iddiasız. Not: resmi Apple "Download on the App Store" rozeti yerine şimdilik sitenin dilinde metin düğme (Apple rozeti sonra eklenebilir). Google Play hâlâ kapalı beta.
+
 ### v1.7.2 — 2026-07-16
 - ✏️ **Yōkai Mail — Türkçe çeviri düzeltmeleri** (Zeynep testte fark etti). "Bugün yağmurlu" → "Bugün hava yağmurlu"; "Yağmurlu günü severim" → "Yağmurlu günleri severim … yürüyüşe çıktım"; Kitsune'de "___ da yaşıyorum" (dağ da) → "___da yaşıyorum" (dağda, doğru ek); küçük noktalama. Anlam-dilbilgisi uyumu düzeltildi.
 
