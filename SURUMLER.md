@@ -27,6 +27,9 @@
 
 ## Geçmiş
 
+### v1.4.2 — 2026-07-16
+- 🩹 Ana sayfa: footer'da olmayan `#year` öğesine erişen script satırı `null` hatası verip **parallax'ı durduruyordu** → footer yılı `<span id="year">` yapıldı (hata bitti, parallax çalışıyor, yıl otomatik güncelleniyor).
+
 ### v1.4.1 — 2026-07-16
 - 🎲 Kana Takımyıldızı: kelime seçimi **"torba" (bag) yöntemine** geçti — havuzdaki her kelime bir kez çıkmadan tekrar etmiyor, aynı kelime peşpeşe gelmiyor. Çok daha bol çeşit.
 
