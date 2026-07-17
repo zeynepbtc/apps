@@ -1,0 +1,2829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Nova — AI Banking Prototype</title>
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0B1120;
+    --bg-deep-2:#0F1830;
+    --bg-card:#141E38;
+    --bg-card-2:#101A33;
+    --accent:#5B8CFF;
+    --accent-2:#8B6CFF;
+    --accent-soft:rgba(91,140,255,0.16);
+    --text-primary:#F6F8FC;
+    --text-secondary:#9AA6C3;
+    --text-tertiary:#6C7796;
+    --positive:#3DDC97;
+    --negative:#FF6B81;
+    --divider:rgba(255,255,255,0.08);
+    --shadow-glow: 0 0 60px rgba(91,140,255,0.35);
+  }
+  [data-theme="violet"]{
+    --bg-deep:#120A22; --bg-deep-2:#170D2C; --bg-card:#1E1238; --bg-card-2:#170E2B;
+    --accent:#A972FF; --accent-2:#FF7AD1; --accent-soft:rgba(169,114,255,0.18);
+    --shadow-glow: 0 0 60px rgba(169,114,255,0.35);
+  }
+  [data-theme="teal"]{
+    --bg-deep:#06161A; --bg-deep-2:#081D22; --bg-card:#0E2A2E; --bg-card-2:#0A2226;
+    --accent:#2FE0C4; --accent-2:#4FB3FF; --accent-soft:rgba(47,224,196,0.16);
+    --shadow-glow: 0 0 60px rgba(47,224,196,0.30);
+  }
+  [data-theme="amber"]{
+    --bg-deep:#1A1005; --bg-deep-2:#221607; --bg-card:#2A1B0C; --bg-card-2:#221609;
+    --accent:#FFB040; --accent-2:#FF7A59; --accent-soft:rgba(255,176,64,0.18);
+    --shadow-glow: 0 0 60px rgba(255,176,64,0.32);
+  }
+  [data-theme="mustard"]{
+    --bg-deep:#160F04; --bg-deep-2:#1E1406; --bg-card:#28190A; --bg-card-2:#201407;
+    --accent:#C98A2B; --accent-2:#8C5B1E; --accent-soft:rgba(201,138,43,0.20);
+    --shadow-glow: 0 0 60px rgba(201,138,43,0.30);
+  }
+  [data-theme="crimson"]{
+    --bg-deep:#160508; --bg-deep-2:#1F070B; --bg-card:#2A0D12; --bg-card-2:#210A0E;
+    --accent:#FF4D67; --accent-2:#B92E45; --accent-soft:rgba(255,77,103,0.18);
+    --shadow-glow: 0 0 60px rgba(255,77,103,0.30);
+  }
+  [data-theme="forest"]{
+    --bg-deep:#050F0A; --bg-deep-2:#07160D; --bg-card:#0D2417; --bg-card-2:#0A1C11;
+    --accent:#34C77B; --accent-2:#1F8F5C; --accent-soft:rgba(52,199,123,0.18);
+    --shadow-glow: 0 0 60px rgba(52,199,123,0.30);
+  }
+  [data-theme="obsidian"]{
+    --bg-deep:#0A0B0F; --bg-deep-2:#0E0F14; --bg-card:#16171E; --bg-card-2:#111218;
+    --accent:#8FA6FF; --accent-2:#5ED8D0; --accent-soft:rgba(143,166,255,0.16);
+    --shadow-glow: 0 0 60px rgba(143,166,255,0.28);
+  }
+  [data-theme="graphite"]{
+    --bg-deep:#101114; --bg-deep-2:#151619; --bg-card:#1D1E22; --bg-card-2:#18191C;
+    --accent:#C7CDD6; --accent-2:#8A93A3; --accent-soft:rgba(199,205,214,0.14);
+    --shadow-glow: 0 0 60px rgba(199,205,214,0.22);
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent; user-select:none;}
+  html,body{
+    margin:0; padding:0; background:#05070c;
+    font-family:'Inter', -apple-system, sans-serif; overflow:hidden;
+    overscroll-behavior:none;
+  }
+  .stage{ display:flex; align-items:center; justify-content:center; width:100%; height:100vh; height:100dvh; }
+  .phone{
+    position:relative; width:390px; height:844px; background:var(--bg-deep);
+    border-radius:48px; overflow:hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 10px #0a0a0a, 0 0 0 12px #2a2a2a;
+    transition: background 0.5s ease; font-variant-numeric: tabular-nums;
+  }
+  /* On real phone viewports the app fills the true screen and respects the
+     device's safe area (Dynamic Island / notch on top, home indicator on
+     bottom). Using explicit top/right/bottom/left:0 on a fixed element (NOT
+     width/height percentages or vh/dvh) is the most reliable way to match
+     the true visible viewport on iOS Safari — the browser computes the
+     exact box from the four edges directly, immune to toolbar show/hide
+     quirks that make vh/height:100% unreliable. .stage is removed from the
+     box tree entirely here so it can't interfere. Since every .screen uses
+     inset:0 relative to this positioned ancestor, padding added here
+     automatically insets ALL screens — no per-screen safe-area code needed. */
+  @media (max-width: 520px){
+    .stage{ display:contents; }
+    .phone{
+      position:fixed; top:0; right:0; bottom:0; left:0;
+      width:auto; height:auto;
+      border-radius:0; box-shadow:none;
+      box-sizing:border-box;
+      padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    }
+  }
+  .screen{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    opacity:0; pointer-events:none;
+    transition: opacity 0.18s ease;
+  }
+  .screen.active{ opacity:1; pointer-events:auto; }
+
+  .statusbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 28px 6px; color:var(--text-primary); font-size:15px; font-weight:600; flex-shrink:0;
+  }
+  .statusbar .icons{ display:flex; gap:6px; align-items:center; }
+
+  .topbar{ display:flex; align-items:center; gap:12px; padding:56px 22px 0; }
+  .topbar .grow{ flex:1; }
+  .icon-btn{
+    width:38px; height:38px; border-radius:12px; background:var(--bg-card);
+    border:1px solid var(--divider); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; flex-shrink:0; position:relative;
+  }
+  .icon-btn svg{ width:18px; height:18px; stroke:var(--text-primary); }
+  .icon-btn .badge{
+    position:absolute; top:-3px; right:-3px; width:15px; height:15px; border-radius:50%;
+    background:var(--negative); color:#fff; font-size:9px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; border:2px solid var(--bg-deep);
+  }
+  .page-title{ font-family:'Space Grotesk'; font-weight:700; font-size:19px; color:var(--text-primary); }
+
+  .scroll{ flex:1; overflow-y:auto; padding: 56px 26px 110px; }
+  .scroll::-webkit-scrollbar{ display:none; }
+  .scroll.no-nav{ padding-bottom:34px; }
+
+  /* ===== Dashboard header ===== */
+  .profile-row{ display:flex; align-items:center; gap:14px; margin-top:6px; margin-bottom:20px; }
+  .avatar-wrap{ position:relative; width:56px; height:56px; flex-shrink:0; }
+  .avatar{
+    width:56px; height:56px; border-radius:50%;
+    background: linear-gradient(160deg, var(--bg-card), var(--bg-card-2));
+    border:1.5px dashed var(--text-tertiary); display:flex; align-items:center; justify-content:center;
+  }
+  .avatar svg{ width:24px; height:24px; opacity:0.55; }
+  .avatar-plus{
+    position:absolute; right:-2px; bottom:-2px; width:19px; height:19px; border-radius:50%;
+    background:var(--accent); display:flex; align-items:center; justify-content:center;
+    border:2.5px solid var(--bg-deep); font-size:12px; color:#0B1120; font-weight:800;
+  }
+  .greeting{ flex:1; }
+  .greeting .hi{ color:var(--text-secondary); font-size:12.5px; font-weight:500; }
+  .greeting .name{ color:var(--text-primary); font-size:16.5px; font-weight:700; margin-top:2px; }
+  .header-actions{ display:flex; gap:10px; }
+
+  /* ===== Balance & accounts ===== */
+  .balance-card{
+    background: linear-gradient(150deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    border:1px solid var(--divider); border-radius:26px; padding:24px 26px 22px;
+    margin-bottom:16px; position:relative; overflow:hidden;
+  }
+  .balance-card::after{
+    content:''; position:absolute; width:220px; height:220px; border-radius:50%;
+    background: var(--accent-soft); filter:blur(40px); top:-100px; right:-80px;
+  }
+  .balance-label{ color:var(--text-secondary); font-size:12.5px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; position:relative; }
+  .balance-value{
+    font-family:'Space Grotesk'; font-weight:700; font-size:42px; color:var(--text-primary);
+    margin-top:8px; letter-spacing:-0.01em; position:relative;
+  }
+  .balance-sub{ margin-top:6px; font-size:13px; color:var(--positive); font-weight:600; position:relative; }
+
+  .accounts-scroll{ display:flex; gap:12px; overflow-x:auto; margin: 4px -26px 20px; padding: 2px 26px 6px; }
+  .accounts-scroll::-webkit-scrollbar{ display:none; }
+  .account-card{
+    flex:0 0 158px; background:var(--bg-card); border:1px solid var(--divider);
+    border-radius:20px; padding:16px 16px 15px;
+  }
+  .account-kind{ display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.04em; }
+  .account-kind .dot{ width:6px; height:6px; border-radius:50%; }
+  .account-kind .dot.blue{ background:var(--accent); }
+  .account-kind .dot.green{ background:var(--positive); }
+  .account-kind .dot.red{ background:var(--negative); }
+  .account-value{ font-family:'Space Grotesk'; font-weight:700; font-size:20px; color:var(--text-primary); margin-top:10px; }
+  .account-note{ font-size:11.5px; color:var(--text-tertiary); margin-top:5px; }
+
+  .action-row{ display:flex; gap:14px; margin-bottom:22px; }
+  .action-btn{
+    flex:1; background:var(--bg-card); border:1px solid var(--divider); border-radius:20px;
+    padding:16px 14px; display:flex; flex-direction:column; align-items:flex-start; gap:10px;
+    cursor:pointer; transition: transform 0.15s ease, background 0.2s ease;
+  }
+  .action-btn:active{ transform:scale(0.96); background:var(--bg-card-2); }
+  .action-icon{ width:38px; height:38px; border-radius:12px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; }
+  .action-icon svg{ width:18px; height:18px; stroke:var(--accent); }
+  .action-label{ font-size:13.5px; font-weight:700; color:var(--text-primary); }
+
+  .insight-card{
+    display:flex; align-items:center; gap:14px; cursor:pointer;
+    background: linear-gradient(120deg, var(--accent-soft), transparent);
+    border:1px solid var(--divider); border-radius:20px; padding:16px 18px; margin-bottom:22px;
+  }
+  .insight-icon{
+    width:42px; height:42px; border-radius:14px; flex-shrink:0;
+    background: linear-gradient(160deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center;
+  }
+  .insight-icon svg{ width:20px; height:20px; stroke:#0B1120; }
+  .insight-text{ flex:1; }
+  .insight-tag{ font-size:11px; font-weight:800; color:var(--accent); text-transform:uppercase; letter-spacing:0.05em; }
+  .insight-msg{ font-size:13px; color:var(--text-primary); font-weight:600; margin-top:3px; line-height:1.4; }
+  .insight-card svg.chev{ width:16px; height:16px; stroke:var(--text-tertiary); flex-shrink:0; }
+
+  .section-title{ font-size:15px; font-weight:700; color:var(--text-primary); margin: 4px 0 12px; display:flex; justify-content:space-between; align-items:center; }
+  .section-title span.muted{ font-size:12.5px; color:var(--accent); font-weight:600; cursor:pointer; }
+
+  .txn{ display:flex; align-items:center; gap:14px; padding:13px 0; border-bottom:1px solid var(--divider); cursor:pointer; }
+  .txn:last-child{ border-bottom:none; }
+  .txn-icon{ width:42px; height:42px; border-radius:13px; flex-shrink:0; background:var(--bg-card); border:1px solid var(--divider); display:flex; align-items:center; justify-content:center; font-size:18px; }
+  .txn-info{ flex:1; min-width:0; }
+  .txn-title{ font-size:14.5px; font-weight:600; color:var(--text-primary); }
+  .txn-date{ font-size:12.5px; color:var(--text-tertiary); margin-top:2px; }
+  .txn-amount{ font-size:14.5px; font-weight:700; }
+  .txn-amount.neg{ color:var(--text-primary); }
+  .txn-amount.pos{ color:var(--positive); }
+
+  .bill-row{ display:flex; align-items:center; gap:14px; padding:12px 14px; background:var(--bg-card); border:1px solid var(--divider); border-radius:16px; margin-bottom:10px; cursor:pointer; }
+  .bill-row .txn-icon{ font-size:17px; }
+  .bill-due{ font-size:11.5px; font-weight:700; padding:4px 9px; border-radius:100px; background:var(--accent-soft); color:var(--accent); flex-shrink:0; }
+
+  .navbar{
+    position:absolute; left:0; right:0; bottom:0; height:86px; padding-bottom:18px;
+    background: linear-gradient(180deg, transparent, var(--bg-deep) 30%);
+    display:flex; align-items:center; justify-content:space-around; flex-shrink:0;
+  }
+  .navitem{ display:flex; flex-direction:column; align-items:center; gap:5px; color:var(--text-tertiary); cursor:pointer; padding:6px 10px; }
+  .navitem svg{ width:22px; height:22px; }
+  .navitem span{ font-size:10.5px; font-weight:600; }
+  .navitem.active{ color:var(--accent); }
+
+  /* ===== Generic list-select screens (recipients / bills) ===== */
+  .list-option{
+    display:flex; align-items:center; gap:14px; padding:14px; background:var(--bg-card);
+    border:1px solid var(--divider); border-radius:18px; margin-bottom:12px; cursor:pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+  }
+  .list-option:active{ transform:scale(0.98); background:var(--bg-card-2); }
+  .list-avatar{
+    width:44px; height:44px; border-radius:50%; flex-shrink:0;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:#0B1120;
+  }
+  .list-main{ flex:1; }
+  .list-title{ font-size:14.5px; font-weight:700; color:var(--text-primary); }
+  .list-sub{ font-size:12px; color:var(--text-tertiary); margin-top:2px; }
+  .list-chev{ width:16px; height:16px; stroke:var(--text-tertiary); flex-shrink:0; }
+
+  .field-label{ font-size:12px; font-weight:700; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; margin: 18px 0 10px; }
+  .text-input{
+    width:100%; background:var(--bg-card); border:1px solid var(--divider); border-radius:16px;
+    padding:15px 16px; font-size:15px; font-weight:600; color:var(--text-primary); outline:none;
+  }
+  .text-input:focus{ border-color:var(--accent); }
+  .text-input::placeholder{ color:var(--text-tertiary); font-weight:500; }
+
+  /* ===== Bill details ===== */
+  .provider-card{
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    padding:30px 20px 26px; margin-top:10px;
+  }
+  .provider-icon{
+    width:64px; height:64px; border-radius:20px; background:var(--bg-card); border:1px solid var(--divider);
+    display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:16px;
+  }
+  .provider-name{ font-family:'Space Grotesk'; font-size:18px; font-weight:700; color:var(--text-primary); }
+  .provider-amount{ font-family:'Space Grotesk'; font-size:40px; font-weight:700; color:var(--text-primary); margin-top:14px; }
+  .detail-rows{ margin-top:10px; }
+  .detail-row{ display:flex; justify-content:space-between; padding:13px 0; border-bottom:1px solid var(--divider); }
+  .detail-row:last-child{ border-bottom:none; }
+  .detail-key{ font-size:13.5px; color:var(--text-tertiary); font-weight:500; }
+  .detail-val{ font-size:13.5px; color:var(--text-primary); font-weight:700; }
+  .status-chip{ font-size:11px; font-weight:800; padding:4px 10px; border-radius:100px; }
+  .status-chip.due{ background:rgba(255,107,129,0.14); color:var(--negative); }
+  .status-chip.ok{ background:rgba(61,220,151,0.14); color:var(--positive); }
+
+  /* ===== Amount / keypad ===== */
+  .send-body{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px; padding: 0 30px 40px; }
+  .to-chip{
+    display:flex; align-items:center; gap:10px; background:var(--bg-card); border:1px solid var(--divider);
+    padding:8px 16px 8px 8px; border-radius:100px;
+  }
+  .to-chip .mini-avatar{
+    width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:#0B1120;
+  }
+  .to-chip span{ font-size:13.5px; font-weight:600; color:var(--text-secondary); }
+  .amount-field{ display:flex; align-items:baseline; gap:6px; justify-content:center; }
+  .amount-currency{ font-family:'Space Grotesk'; font-size:36px; font-weight:700; color:var(--text-tertiary); }
+  .amount-input{
+    font-family:'Space Grotesk'; font-size:56px; font-weight:700; color:var(--text-primary);
+    background:transparent; border:none; outline:none; width:220px; text-align:center; caret-color:var(--accent);
+  }
+  .balance-hint{ font-size:13px; color:var(--text-tertiary); font-weight:500; }
+  .keypad{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; width:100%; max-width:280px; }
+  .key{ text-align:center; padding:14px 0; font-size:20px; font-weight:600; color:var(--text-primary); border-radius:16px; cursor:pointer; background:var(--bg-card); border:1px solid var(--divider); }
+  .key:active{ background:var(--bg-card-2); }
+  .key.empty{ background:transparent; border:none; cursor:default; }
+
+  .primary-btn{
+    margin: 0 26px 34px; padding:17px; border-radius:18px; border:none;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0B1120;
+    font-size:16px; font-weight:800; cursor:pointer; letter-spacing:0.01em; box-shadow: var(--shadow-glow);
+  }
+  .primary-btn:disabled{ opacity:0.4; box-shadow:none; }
+  .secondary-btn{
+    margin: 0 26px 14px; padding:16px; border-radius:18px; border:1px solid var(--divider);
+    background:var(--bg-card); color:var(--text-primary); font-size:15px; font-weight:700; cursor:pointer;
+  }
+
+  /* ===== Review screen ===== */
+  .review-hero{ text-align:center; padding: 8px 30px 4px; }
+  .review-amount{ font-family:'Space Grotesk'; font-size:46px; font-weight:700; color:var(--text-primary); margin-top:6px; }
+  .review-to{ font-size:13.5px; color:var(--text-tertiary); font-weight:600; margin-top:8px; }
+  .review-card{ margin: 22px 26px 0; background:var(--bg-card); border:1px solid var(--divider); border-radius:20px; padding:6px 18px; }
+
+  /* ===== Authorizing ===== */
+  .auth-wrap{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+  .spinner{ width:64px; height:64px; border-radius:50%; border:3.5px solid var(--divider); border-top-color:var(--accent); animation: spin 0.9s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .auth-text{ font-family:'Space Grotesk'; font-size:17px; font-weight:700; color:var(--text-primary); }
+  .auth-sub{ font-size:13px; color:var(--text-tertiary); }
+
+  /* ===== Success ===== */
+  #success{ align-items:center; justify-content:center; text-align:center; background: var(--bg-deep); }
+  .check-wrap{ width:120px; height:120px; border-radius:50%; background: var(--accent-soft); display:flex; align-items:center; justify-content:center; margin-bottom:30px; position:relative; }
+  .check-ring{ position:absolute; inset:0; border-radius:50%; border:3px solid var(--accent); opacity:0; }
+  .screen.active .check-ring{ animation: ringPulse 2.3s ease-out 0.2s; }
+  @keyframes ringPulse{ 0%{ transform:scale(0.6); opacity:0.9; } 100%{ transform:scale(1.8); opacity:0; } }
+  .check-circle{ width:88px; height:88px; border-radius:50%; background: linear-gradient(160deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; position:relative; z-index:2; }
+  .check-circle svg{ width:44px; height:44px; }
+  .check-path{ stroke:#0B1120; stroke-width:3.4; fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:40; stroke-dashoffset:40; }
+  .screen.active .check-path{ animation: draw 0.9s ease forwards 0.7s; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  .burst{ position:absolute; inset:0; pointer-events:none; }
+  .burst i{
+    position:absolute; top:50%; left:50%; width:6px; height:6px; border-radius:50%;
+    background: var(--accent); opacity:0; transform: translate(-50%,-50%);
+  }
+  .screen.active .burst i{ animation: burstFly 1s ease-out forwards 1.5s; }
+  @keyframes burstFly{
+    0%{ opacity:1; transform: translate(-50%,-50%) translate(0,0) scale(1); }
+    100%{ opacity:0; transform: translate(-50%,-50%) translate(var(--bx), var(--by)) scale(0.3); }
+  }
+  .success-title{ font-family:'Space Grotesk'; font-weight:700; font-size:25px; color:var(--text-primary); opacity:0; }
+  .screen.active .success-title{ animation: fadeUp 0.6s ease forwards 1.6s; }
+  .success-sub{ font-size:14.5px; color:var(--text-secondary); margin-top:10px; max-width:260px; line-height:1.5; opacity:0; }
+  .screen.active .success-sub{ animation: fadeUp 0.6s ease forwards 1.95s; }
+  .success-amount{ font-family:'Space Grotesk'; font-weight:700; font-size:38px; color:var(--accent); margin-top:22px; opacity:0; }
+  .screen.active .success-amount{ animation: fadeUp 0.6s ease forwards 2.3s; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+  .success-actions{ display:flex; gap:12px; margin-top:40px; opacity:0; }
+  .screen.active .success-actions{ animation: fadeUp 0.6s ease forwards 2.7s; }
+  .success-btn{ padding:15px 26px; border-radius:16px; border:1px solid var(--divider); background:var(--bg-card); color:var(--text-primary); font-size:14px; font-weight:700; cursor:pointer; }
+  .success-btn.primary{ background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0B1120; border:none; }
+
+  /* ===== Receipt ===== */
+  .receipt-card{ margin: 10px 26px 0; background:var(--bg-card); border:1px solid var(--divider); border-radius:22px; padding:22px 20px; }
+  .receipt-check{ width:52px; height:52px; border-radius:50%; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; margin: 0 auto 14px; }
+  .receipt-check svg{ width:26px; height:26px; stroke:var(--accent); }
+  .receipt-amount{ text-align:center; font-family:'Space Grotesk'; font-size:32px; font-weight:700; color:var(--text-primary); }
+  .receipt-status{ text-align:center; margin-top:6px; }
+  .receipt-divider{ border-top:1px dashed var(--divider); margin:18px 0; }
+  .receipt-actions{ display:flex; gap:12px; margin: 22px 26px 0; }
+  .receipt-actions .secondary-btn, .receipt-actions .primary-btn{ margin:0; flex:1; }
+
+  /* ===== Transaction detail ===== */
+  .txn-hero{ display:flex; flex-direction:column; align-items:center; text-align:center; padding: 18px 30px 6px; }
+  .txn-hero-icon{ width:60px; height:60px; border-radius:20px; background:var(--bg-card); border:1px solid var(--divider); display:flex; align-items:center; justify-content:center; font-size:26px; margin-bottom:14px; }
+  .txn-hero-amount{ font-family:'Space Grotesk'; font-size:36px; font-weight:700; color:var(--text-primary); margin-top:4px; }
+
+  /* ===== Cards ===== */
+  .card-visual{
+    margin-top:14px; padding:24px 22px; border-radius:24px;
+    background: linear-gradient(155deg, var(--bg-card) 0%, var(--bg-card-2) 55%, var(--bg-deep) 130%);
+    border:1px solid var(--divider); position:relative; overflow:hidden;
+  }
+  .card-visual::after{ content:''; position:absolute; width:200px; height:200px; border-radius:50%; background: var(--accent-soft); filter:blur(46px); bottom:-110px; left:-60px; }
+  .card-top-row{ display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1; }
+  .card-chip{ width:38px; height:28px; border-radius:7px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); opacity:0.9; }
+  .card-network{ font-size:13px; font-weight:700; letter-spacing:0.15em; color:var(--text-tertiary); }
+  .card-number{ font-family:'Space Grotesk'; font-size:21px; font-weight:600; letter-spacing:0.08em; color:var(--text-primary); margin:26px 0 22px; position:relative; z-index:1; }
+  .card-bottom-row{ display:flex; justify-content:space-between; position:relative; z-index:1; }
+  .card-label{ font-size:10.5px; color:var(--text-tertiary); font-weight:700; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:5px; }
+  .card-value{ font-size:14px; font-weight:700; color:var(--text-primary); letter-spacing:0.03em; }
+
+  .settings-row{ display:flex; align-items:center; justify-content:space-between; background:var(--bg-card); border:1px solid var(--divider); border-radius:18px; padding:16px 18px; margin-bottom:12px; cursor:pointer; }
+  .settings-row-title{ font-size:14.5px; font-weight:700; color:var(--text-primary); }
+  .settings-row-hint{ font-size:12px; color:var(--text-tertiary); margin-top:3px; }
+  .settings-row-left{ display:flex; align-items:center; gap:12px; }
+  .settings-row-icon{ width:36px; height:36px; border-radius:11px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .settings-row-icon svg{ width:17px; height:17px; stroke:var(--accent); }
+  .toggle{ width:46px; height:27px; border-radius:100px; background:var(--bg-card-2); border:1px solid var(--divider); position:relative; flex-shrink:0; transition:background 0.2s ease; }
+  .toggle-knob{ position:absolute; top:2px; left:2px; width:21px; height:21px; border-radius:50%; background:var(--text-tertiary); transition: all 0.2s ease; }
+  .toggle.on{ background:var(--accent); border-color:var(--accent); }
+  .toggle.on .toggle-knob{ left:21px; background:#0B1120; }
+  .chev-btn svg{ width:16px; height:16px; stroke:var(--text-tertiary); }
+
+  /* ===== Notifications ===== */
+  .notif-row{ display:flex; gap:13px; padding:14px 0; border-bottom:1px solid var(--divider); cursor:pointer; }
+  .notif-row:last-child{ border-bottom:none; }
+  .notif-icon{ width:40px; height:40px; border-radius:13px; background:var(--bg-card); border:1px solid var(--divider); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+  .notif-icon.alert{ background:rgba(255,107,129,0.14); border-color:rgba(255,107,129,0.3); }
+  .notif-info{ flex:1; }
+  .notif-title{ font-size:14px; font-weight:700; color:var(--text-primary); }
+  .notif-desc{ font-size:12.5px; color:var(--text-secondary); margin-top:3px; line-height:1.4; }
+  .notif-time{ font-size:11px; color:var(--text-tertiary); margin-top:5px; }
+
+  /* ===== Support Center ===== */
+  .support-header{ display:flex; align-items:center; gap:11px; flex:1; }
+  .support-avatar{
+    width:38px; height:38px; border-radius:50%; flex-shrink:0;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk'; font-weight:700; font-size:15px; color:#0B1120;
+  }
+  .support-name{ font-size:14.5px; font-weight:800; color:var(--text-primary); }
+  .support-role{ font-size:11px; color:var(--text-tertiary); font-weight:600; margin-top:2px; display:flex; align-items:center; gap:5px; }
+  .online-dot{ width:6px; height:6px; border-radius:50%; background:var(--positive); box-shadow:0 0 5px var(--positive); flex-shrink:0; }
+
+  #supportChat{ padding: 18px 20px 16px; display:flex; flex-direction:column; gap:12px; }
+  .chat-row{ display:flex; gap:9px; align-items:flex-end; max-width:100%; }
+  .chat-row.user{ justify-content:flex-end; }
+  .chat-avatar{ width:26px; height:26px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#0B1120; font-family:'Space Grotesk'; }
+  .chat-bubble{
+    max-width:76%; padding:11px 14px; border-radius:16px; font-size:13.5px; line-height:1.5; font-weight:500;
+  }
+  .chat-row.emily .chat-bubble{ background:var(--bg-card); border:1px solid var(--divider); color:var(--text-primary); border-bottom-left-radius:5px; }
+  .chat-row.user .chat-bubble{ background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0B1120; font-weight:600; border-bottom-right-radius:5px; }
+  .chat-status{ font-size:10.5px; color:var(--text-tertiary); text-align:right; margin-top:3px; margin-right:2px; }
+
+  .chat-typing{ display:flex; gap:4px; padding:13px 16px; }
+  .chat-typing span{ width:6px; height:6px; border-radius:50%; background:var(--text-tertiary); animation: typingDot 1.1s infinite ease-in-out; }
+  .chat-typing span:nth-child(2){ animation-delay:0.15s; }
+  .chat-typing span:nth-child(3){ animation-delay:0.3s; }
+  @keyframes typingDot{ 0%,60%,100%{ opacity:0.3; transform:translateY(0); } 30%{ opacity:1; transform:translateY(-3px); } }
+
+  .chat-action-btn{
+    margin-top:9px; display:inline-block; padding:10px 18px; border-radius:100px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0B1120;
+    font-size:12.5px; font-weight:800; cursor:pointer;
+  }
+  .chat-widget{ background:var(--bg-card); border:1px solid var(--divider); border-radius:16px; padding:14px 16px; margin-top:4px; max-width:82%; }
+  .chat-suggestions{ display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  .chat-suggest-chip{
+    align-self:flex-start; background:var(--bg-card); border:1px solid var(--divider); color:var(--text-secondary);
+    font-size:12.5px; font-weight:600; padding:10px 15px; border-radius:14px; cursor:pointer; max-width:88%;
+  }
+  .chat-suggest-chip:active{ background:var(--bg-card-2); }
+
+  .support-input-row{ display:flex; gap:10px; padding:12px 20px 24px; align-items:center; flex-shrink:0; }
+  .support-input-row .text-input{ flex:1; }
+  .support-send-btn{
+    width:46px; height:46px; border-radius:50%; border:none; flex-shrink:0;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)); display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .support-send-btn svg{ width:19px; height:19px; stroke:#0B1120; }
+
+  .timeline{ display:flex; flex-direction:column; gap:0; margin-top:4px; }
+  .timeline-step{ display:flex; gap:12px; position:relative; padding-bottom:18px; }
+  .timeline-step:last-child{ padding-bottom:0; }
+  .timeline-dot{ width:20px; height:20px; border-radius:50%; background:var(--bg-card-2); border:2px solid var(--divider); display:flex; align-items:center; justify-content:center; flex-shrink:0; z-index:1; }
+  .timeline-dot.done{ background:var(--accent); border-color:var(--accent); }
+  .timeline-dot.done svg{ width:11px; height:11px; stroke:#0B1120; }
+  .timeline-step:not(:last-child)::before{
+    content:''; position:absolute; left:9.5px; top:20px; bottom:0; width:1.4px; background:var(--divider);
+  }
+  .timeline-text{ padding-top:1px; }
+  .timeline-title{ font-size:12.5px; font-weight:700; color:var(--text-primary); }
+  .timeline-time{ font-size:11px; color:var(--text-tertiary); margin-top:1px; }
+
+  /* ===== Identity Verification (2FA) ===== */
+  .verify-badge{ width:64px; height:64px; border-radius:50%; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+  .verify-badge svg{ width:28px; height:28px; stroke:var(--accent); }
+  .code-boxes{ display:flex; gap:9px; margin-top:26px; }
+  .code-box{
+    width:42px; height:52px; border-radius:14px; background:var(--bg-card); border:1px solid var(--divider);
+    text-align:center; font-family:'Space Grotesk'; font-size:22px; font-weight:700; color:var(--text-primary);
+    outline:none;
+  }
+  .code-box:focus{ border-color:var(--accent); }
+  .verify-hint{ font-size:12.5px; color:var(--text-tertiary); margin-top:18px; text-align:center; }
+  .verify-resend{ font-size:12.5px; color:var(--accent); font-weight:700; margin-top:10px; cursor:pointer; }
+
+  /* ===== Toast ===== */
+  .toast{
+    position:absolute; top:22px; left:50%; transform:translateX(-50%) translateY(-14px);
+    background:var(--bg-card); border:1px solid var(--divider); color:var(--text-primary);
+    padding:12px 20px; border-radius:100px; font-size:12.5px; font-weight:700;
+    display:flex; align-items:center; gap:8px; box-shadow:0 10px 30px rgba(0,0,0,0.4);
+    opacity:0; pointer-events:none; transition: opacity 0.25s ease, transform 0.25s ease; z-index:50;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .toast svg{ width:15px; height:15px; stroke:var(--positive); flex-shrink:0; }
+
+  /* ===== Scan to Pay (Contactless QR) ===== */
+  #scanPay{ background:#000; }
+  .scan-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; background:#05070c; }
+  .scan-fallback{
+    position:absolute; inset:0; z-index:0; display:none;
+    background:
+      radial-gradient(120% 80% at 50% 30%, #16233f 0%, #0B1120 55%, #05070c 100%);
+  }
+  .scan-fallback.active{ display:block; }
+  .scan-fallback::before, .scan-fallback::after{
+    content:''; position:absolute; border-radius:50%; opacity:0.25; filter:blur(50px);
+  }
+  .scan-fallback::before{ width:260px; height:260px; background:var(--accent); top:12%; left:-40px; animation: scanFloat 7s ease-in-out infinite; }
+  .scan-fallback::after{ width:220px; height:220px; background:var(--accent-2); bottom:14%; right:-30px; animation: scanFloat 9s ease-in-out infinite reverse; }
+  @keyframes scanFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(30px); } }
+  .scan-dim{ position:absolute; inset:0; z-index:1; background: linear-gradient(180deg, rgba(5,7,12,0.72) 0%, rgba(5,7,12,0.35) 28%, rgba(5,7,12,0.35) 62%, rgba(5,7,12,0.82) 100%); }
+
+  .scan-init{ position:absolute; inset:0; z-index:4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background: radial-gradient(120% 80% at 50% 30%, var(--bg-deep-2) 0%, var(--bg-deep) 60%); }
+  .scan-init.hidden{ display:none; }
+  .scan-init-spinner{ width:42px; height:42px; border-radius:50%; border:3px solid var(--divider); border-top-color:var(--accent); animation: spin 0.8s linear infinite; }
+  .scan-init-text{ font-size:15px; font-weight:600; color:var(--text-secondary); }
+
+  .scan-ui{ position:absolute; inset:0; z-index:3; display:flex; flex-direction:column; opacity:0; transition: opacity 0.3s ease; }
+  .scan-ui.show{ opacity:1; }
+  .scan-topbar{ display:flex; align-items:center; justify-content:space-between; padding:14px 20px 0; }
+  .scan-topbar .icon-btn{ background:rgba(20,30,56,0.6); backdrop-filter:blur(8px); }
+  .scan-title{ display:flex; align-items:center; gap:7px; font-size:15px; font-weight:700; color:#fff; }
+  .scan-title svg{ width:16px; height:16px; stroke:var(--accent); }
+  .scan-flash{ transition: background 0.2s ease; }
+  .scan-flash.on{ background:var(--accent); }
+  .scan-flash.on svg{ stroke:#0B1120; }
+  .scan-instruction{ text-align:center; font-size:13.5px; font-weight:600; color:rgba(255,255,255,0.85); margin-top:18px; padding:0 40px; }
+
+  .scan-frame-wrap{ flex:1; display:flex; align-items:center; justify-content:center; }
+  .scan-frame{ position:relative; width:250px; height:250px; }
+  .scan-corner{ position:absolute; width:38px; height:38px; border:3px solid #fff; box-shadow:0 0 12px rgba(91,140,255,0.5); }
+  .scan-corner.tl{ top:0; left:0; border-right:none; border-bottom:none; border-radius:14px 0 0 0; }
+  .scan-corner.tr{ top:0; right:0; border-left:none; border-bottom:none; border-radius:0 14px 0 0; }
+  .scan-corner.bl{ bottom:0; left:0; border-right:none; border-top:none; border-radius:0 0 0 14px; }
+  .scan-corner.br{ bottom:0; right:0; border-left:none; border-top:none; border-radius:0 0 14px 0; }
+  .scan-line{ position:absolute; left:8px; right:8px; top:8px; height:2px; border-radius:2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow:0 0 12px var(--accent); animation: scanSweep 2.4s ease-in-out infinite; }
+  @keyframes scanSweep{ 0%{ top:8px; } 50%{ top:238px; } 100%{ top:8px; } }
+  .scan-detected{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; }
+  .scan-detected.show{ opacity:1; }
+  .scan-detected-ring{ position:absolute; width:96px; height:96px; border-radius:50%; border:3px solid var(--positive); opacity:0; }
+  .scan-detected.show .scan-detected-ring{ animation: ringPulse 1.2s ease-out; }
+  .scan-detected-check{ width:70px; height:70px; border-radius:50%; background:var(--positive); display:flex; align-items:center; justify-content:center; transform:scale(0.7); }
+  .scan-detected.show .scan-detected-check{ animation: popIn 0.4s ease forwards; }
+  @keyframes popIn{ to{ transform:scale(1); } }
+  .scan-detected-check svg{ width:38px; height:38px; }
+  .scan-detected-check .check-path{ stroke:#0B1120; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:40; stroke-dashoffset:40; }
+  .scan-detected.show .check-path{ animation: draw 0.5s ease forwards 0.15s; }
+
+  .scan-bottom{ padding:0 20px 26px; display:flex; flex-direction:column; gap:14px; }
+  .scan-secure{ display:flex; align-items:center; justify-content:center; gap:7px; font-size:12px; font-weight:600; color:rgba(255,255,255,0.7); }
+  .scan-secure svg{ width:13px; height:13px; stroke:var(--positive); }
+  .merchant-card{ display:flex; align-items:center; gap:13px; background:rgba(20,30,56,0.7); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:14px 16px; }
+  .merchant-icon{ width:40px; height:40px; border-radius:12px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .merchant-icon svg{ width:20px; height:20px; stroke:var(--accent); }
+  .merchant-info{ flex:1; min-width:0; }
+  .merchant-name{ font-size:14.5px; font-weight:700; color:#fff; }
+  .merchant-sub{ font-size:12px; color:rgba(255,255,255,0.6); margin-top:2px; }
+  .merchant-amount{ font-family:'Space Grotesk'; font-size:20px; font-weight:700; color:#fff; opacity:0; transition: opacity 0.4s ease; }
+  .merchant-amount.show{ opacity:1; }
+
+  .scan-proc-ring{ width:64px; height:64px; border-radius:50%; border:4px solid var(--divider); border-top-color:var(--accent); animation: spin 0.9s linear infinite; }
+
+  /* ===== Frozen card state ===== */
+  .card-visual.frozen{ filter:saturate(0.32) brightness(0.9); transition: filter 2.2s ease; }
+  .card-visual.frozen::after{ background: rgba(150,190,220,0.22); transition: background 2.2s ease; }
+  .frost-sweep{
+    position:absolute; inset:0; z-index:3; pointer-events:none; opacity:0;
+    background: linear-gradient(100deg, transparent 0%, rgba(191,217,236,0.4) 45%, transparent 88%);
+    transform: translateX(-130%);
+  }
+  .card-visual.freezing .frost-sweep{ animation: frostSweep 2s ease forwards; }
+  @keyframes frostSweep{
+    0%{ transform:translateX(-130%); opacity:0; }
+    12%{ opacity:0.95; }
+    80%{ opacity:0.85; }
+    100%{ transform:translateX(130%); opacity:0; }
+  }
+  .frozen-badge{
+    position:absolute; top:16px; right:16px; z-index:4; display:flex; align-items:center; gap:6px;
+    background:rgba(150,190,220,0.16); border:1px solid rgba(150,190,220,0.35); color:#BFD9EC;
+    font-size:10.5px; font-weight:800; padding:5px 10px; border-radius:100px; opacity:0; transform:scale(0.9);
+    transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;
+  }
+  .frozen-badge.show{ opacity:1; transform:scale(1); }
+  .frozen-badge svg{ width:12px; height:12px; }
+  .frozen-check-path{ stroke:#BFD9EC; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:16; stroke-dashoffset:16; }
+  .frozen-badge.show .frozen-check-path{ animation: draw 0.5s ease forwards 1.3s; }
+
+
+  /* ===== AI Chatbot ===== */
+  #ai{ background: radial-gradient(120% 80% at 50% 0%, var(--bg-deep-2) 0%, var(--bg-deep) 60%); }
+  .ai-tag{ display:flex; align-items:center; gap:6px; background:var(--bg-card); border:1px solid var(--divider); padding:6px 13px 6px 9px; border-radius:100px; }
+  .ai-tag .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 6px var(--accent); }
+  .ai-tag span{ font-size:11.5px; font-weight:800; color:var(--text-primary); letter-spacing:0.01em; }
+  .ai-center{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding-bottom:0; min-height:0; }
+  .ai-bottom-spacer{ flex:0 1 0%; min-height:0; }
+  .ai-bot-label{ display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--text-primary); font-size:28px; font-weight:800; letter-spacing:0.02em; text-transform:none; text-align:center; margin-top:22px; }
+  .ai-bot-icon{
+    width:86px; height:86px; border-radius:25px; flex-shrink:0;
+    background: linear-gradient(155deg, var(--accent-soft), transparent);
+    border:1.5px solid var(--accent); display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 0 22px var(--accent-soft);
+  }
+  .ai-bot-icon svg{ width:50px; height:50px; stroke:var(--accent); }
+  .bot-leg{ transform-box: fill-box; transform-origin: center top; animation: botHop 0.9s ease-in-out infinite; }
+  .bot-leg-l{ animation-delay: 0s; }
+  .bot-leg-r{ animation-delay: 0.45s; }
+  @keyframes botHop{
+    0%, 100%{ transform: translate(0, 0); }
+    50%{ transform: translate(0.6px, -1.6px); }
+  }
+  .bot-tassel{ transform-origin: 12.6px 0.6px; animation: tasselSway 1.3s ease-in-out infinite; }
+  @keyframes tasselSway{
+    0%, 100%{ transform: rotate(-11deg); }
+    50%{ transform: rotate(13deg); }
+  }
+  .ring-wrap{ position:relative; width:270px; height:270px; display:flex; align-items:center; justify-content:center; perspective:600px; flex-shrink:0; overflow:hidden; border-radius:50%; z-index:1; }
+  .ring-glow{ position:absolute; width:232px; height:232px; border-radius:50%; background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%); filter:blur(11px); transition: background 0.4s ease; }
+  .vortex{ position:relative; width:232px; height:232px; transform-style:preserve-3d; }
+  .vring{
+    position:absolute; border-radius:50%; border-style:solid; border-color:transparent;
+    transform-style:preserve-3d;
+  }
+  .vring.r1{
+    inset:0; border-width:2.6px; border-top-color:var(--accent); border-right-color:var(--accent);
+    filter:drop-shadow(0 0 9px var(--accent)); opacity:0.9;
+    animation: vspin var(--r1-speed, 7s) linear infinite;
+  }
+  .vring.r2{
+    inset:24px; border-width:2px; border-bottom-color:var(--accent-2); border-left-color:var(--accent-2);
+    filter:drop-shadow(0 0 8px var(--accent-2)); opacity:0.75;
+    animation: vspinRev var(--r2-speed, 5.2s) linear infinite;
+  }
+  .vring.r3{
+    inset:50px; border-width:1.6px; border-top-color:var(--accent-2); border-left-color:var(--accent);
+    filter:drop-shadow(0 0 7px var(--accent)); opacity:0.6;
+    animation: vspin var(--r3-speed, 3.8s) linear infinite;
+  }
+  .vring.r4{
+    inset:78px; border-width:1.4px; border-bottom-color:var(--accent); border-right-color:var(--accent-2);
+    filter:drop-shadow(0 0 6px var(--accent-2)); opacity:0.45;
+    animation: vspinRev var(--r4-speed, 2.6s) linear infinite;
+  }
+  @keyframes vspin{
+    from{ transform: rotateX(62deg) rotateZ(0deg); }
+    to{ transform: rotateX(62deg) rotateZ(360deg); }
+  }
+  @keyframes vspinRev{
+    from{ transform: rotateX(62deg) rotateY(8deg) rotateZ(360deg); }
+    to{ transform: rotateX(62deg) rotateY(8deg) rotateZ(0deg); }
+  }
+  .core{ position:absolute; width:138px; height:138px; border-radius:50%; background: linear-gradient(160deg, var(--bg-card), var(--bg-card-2)); border:1px solid var(--divider); display:flex; align-items:center; justify-content:center; box-shadow: inset 0 0 30px rgba(255,255,255,0.03), 0 0 0 1px var(--divider); z-index:2; }
+  .core-wave{ display:flex; align-items:center; justify-content:center; gap:4px; width:89px; height:55px; }
+  .core-wave .wbar{ width:4.5px; min-height:4.5px; border-radius:4.5px; background:linear-gradient(180deg, var(--accent), var(--accent-2)); box-shadow:0 0 7px var(--accent); transition: background 0.3s ease; }
+  .ai-state-text{ font-family:'Space Grotesk'; font-weight:700; font-size:20px; color:var(--text-primary); letter-spacing:0.01em; height:26px; text-align:center; margin-top:2px; position:relative; z-index:2; }
+
+  .ai-response-card{
+    background:var(--bg-card); border:1px solid var(--divider); border-radius:18px; padding:14px 16px;
+    display:flex; gap:12px; align-items:flex-start; opacity:0; transform:translateY(8px);
+    transition: all 0.3s ease;
+  }
+  .ai-response-card.show{ opacity:1; transform:translateY(0); }
+  .ai-response-avatar{ width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg, var(--accent), var(--accent-2)); flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+  .ai-response-avatar svg{ width:15px; height:15px; stroke:#0B1120; }
+  .ai-response-text{ font-size:13px; color:var(--text-primary); font-weight:500; line-height:1.5; }
+
+  .quick-row{
+    display:flex; gap:10px; overflow-x:auto; padding: 0 22px 4px; flex-shrink:0;
+    scroll-snap-type: x proximity; margin-top:10px; position:relative; z-index:2;
+  }
+  .quick-row::-webkit-scrollbar{ display:none; }
+  .quick-btn{
+    background:var(--bg-card); border:1px solid var(--divider); border-radius:16px;
+    padding:12px 14px; min-height:58px; flex:0 0 auto; width:158px;
+    display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:6px; text-align:center; cursor:pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+    scroll-snap-align: start;
+  }
+  .quick-btn:active{ background:var(--bg-card-2); transform:scale(0.97); }
+  .quick-btn-icon{ width:26px; height:26px; border-radius:8px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .quick-btn-icon svg{ width:14px; height:14px; stroke:var(--accent); }
+  .quick-btn-label{ font-size:12px; font-weight:700; color:var(--text-primary); line-height:1.25; max-width:100%; }
+
+  .hold-speak-label{
+    text-align:center; font-size:12.5px; font-weight:700; color:var(--text-tertiary);
+    text-transform:uppercase; letter-spacing:0.06em; flex-shrink:0; margin: 18px 0 12px;
+    position:relative; z-index:2;
+  }
+
+  .mic-wrap{ display:flex; flex-direction:column; align-items:center; gap:0; padding-bottom:16px; margin-top:0; flex-shrink:0; position:relative; z-index:2; }
+  .mic-btn{
+    width:76px; height:76px; border-radius:50%; position:relative; cursor:pointer; border:none;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.10), rgba(255,255,255,0.02) 60%), var(--bg-card);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 0 1px var(--divider) inset, 0 0 26px var(--accent-soft);
+    display:flex; align-items:center; justify-content:center;
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
+  }
+  .mic-btn::after{
+    content:''; position:absolute; inset:-8px; border-radius:50%; border:1.5px solid var(--accent-soft);
+    opacity:0.6; transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .mic-btn.pressed{ transform:scale(0.93); box-shadow: 0 0 0 1px var(--accent) inset, 0 0 40px var(--accent-soft); }
+  .mic-btn.pressed::after{ opacity:1; transform:scale(1.08); }
+  .mic-btn svg{ width:24px; height:24px; stroke:var(--accent); fill:none; transition: stroke 0.2s ease; }
+
+  /* Shrink further on shorter viewports (e.g. compact browser windows) so
+     everything still fits without scrolling. */
+  @media (max-height: 760px){
+    .ring-wrap{ width:224px; height:224px; }
+    .ring-glow{ width:192px; height:192px; }
+    .vortex{ width:192px; height:192px; }
+    .core{ width:114px; height:114px; }
+    .core-wave{ width:74px; height:46px; }
+    .ai-bot-label{ margin-top:10px; }
+    .ai-bot-icon{ width:46px; height:46px; }
+    .ai-bot-icon svg{ width:27px; height:27px; }
+    .quick-btn{ min-height:50px; padding:10px 12px; }
+    .mic-btn{ width:70px; height:70px; }
+    .hold-speak-label{ margin:10px 0 8px; }
+  }
+
+  /* ===== AI Insights ===== */
+  .insight-summary-card{ background:var(--bg-card); border:1px solid var(--divider); border-radius:22px; padding:22px 22px 20px; margin-top:12px; }
+  .insight-summary-top{ display:flex; justify-content:space-between; align-items:baseline; }
+  .insight-summary-label{ font-size:12.5px; color:var(--text-secondary); font-weight:600; }
+  .insight-summary-value{ font-family:'Space Grotesk'; font-size:30px; font-weight:700; color:var(--text-primary); margin-top:6px; }
+  .cat-row{ margin-bottom:14px; }
+  .cat-top{ display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:7px; }
+  .cat-name{ color:var(--text-primary); font-weight:600; }
+  .cat-amt{ color:var(--text-tertiary); font-weight:600; }
+  .cat-bar-track{ height:8px; border-radius:6px; background:var(--bg-card-2); overflow:hidden; }
+  .cat-bar-fill{ height:100%; border-radius:6px; background:linear-gradient(90deg, var(--accent), var(--accent-2)); }
+  .savings-ring-wrap{ display:flex; align-items:center; gap:18px; padding:6px 4px; }
+  .savings-num{ font-family:'Space Grotesk'; font-size:26px; font-weight:700; color:var(--text-primary); }
+  .savings-label{ font-size:12px; color:var(--text-tertiary); margin-top:3px; }
+
+  /* ===== Fraud alert ===== */
+  .fraud-badge{ width:64px; height:64px; border-radius:50%; background:rgba(255,107,129,0.14); border:1px solid rgba(255,107,129,0.3); display:flex; align-items:center; justify-content:center; margin: 14px auto 0; }
+  .fraud-badge svg{ width:30px; height:30px; stroke:var(--negative); }
+  .fraud-title{ text-align:center; font-family:'Space Grotesk'; font-size:19px; font-weight:700; color:var(--text-primary); margin-top:16px; }
+  .fraud-sub{ text-align:center; font-size:13px; color:var(--text-tertiary); margin-top:6px; padding:0 24px; line-height:1.5; }
+  .fraud-card{ margin: 22px 26px 0; background:var(--bg-card); border:1px solid var(--divider); border-radius:20px; padding:6px 18px; }
+  .fraud-actions{ display:flex; gap:12px; margin: 24px 26px 0; }
+  .fraud-actions button{ flex:1; }
+  .decline-btn{ background:transparent; border:1px solid var(--negative); color:var(--negative); }
+  .fraud-result{ text-align:center; padding: 30px 30px 0; }
+  .fraud-result .status-chip{ font-size:12px; padding:6px 14px; }
+
+  /* ===== Settings ===== */
+  .settings-card{ background:var(--bg-card); border:1px solid var(--divider); border-radius:22px; padding:20px 20px 22px; margin-bottom:22px; }
+  .settings-card-label{ font-size:15px; font-weight:700; color:var(--text-primary); }
+  .settings-card-hint{ font-size:12.5px; color:var(--text-tertiary); margin-top:4px; margin-bottom:18px; }
+  .theme-grid{ display:grid; grid-template-columns:repeat(4,1fr); row-gap:18px; column-gap:6px; }
+  .theme-option{ display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; }
+  .swatch{ width:34px; height:34px; border-radius:50%; cursor:pointer; border:2.5px solid transparent; position:relative; }
+  .swatch.selected{ border-color:#fff; }
+  .theme-option .swatch{ width:44px; height:44px; }
+  .theme-option span{ font-size:11.5px; font-weight:600; color:var(--text-secondary); }
+  .swatch[data-t="blue"]{ background:linear-gradient(135deg,#5B8CFF,#8B6CFF); }
+  .swatch[data-t="violet"]{ background:linear-gradient(135deg,#A972FF,#FF7AD1); }
+  .swatch[data-t="teal"]{ background:linear-gradient(135deg,#2FE0C4,#4FB3FF); }
+  .swatch[data-t="amber"]{ background:linear-gradient(135deg,#FFB040,#FF7A59); }
+  .swatch[data-t="mustard"]{ background:linear-gradient(135deg,#C98A2B,#8C5B1E); }
+  .swatch[data-t="crimson"]{ background:linear-gradient(135deg,#FF4D67,#B92E45); }
+  .swatch[data-t="forest"]{ background:linear-gradient(135deg,#34C77B,#1F8F5C); }
+  .swatch[data-t="obsidian"]{ background:linear-gradient(135deg,#8FA6FF,#5ED8D0); }
+  .swatch[data-t="graphite"]{ background:linear-gradient(135deg,#C7CDD6,#8A93A3); }
+
+  /* ===== Line chart ===== */
+  .line-chart-wrap svg{ display:block; width:100%; height:auto; }
+  .chart-line{ fill:none; stroke:var(--accent); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+  .chart-fill{ fill:url(#chartFillGrad); opacity:0.35; stroke:none; }
+  .chart-dot{ fill:var(--bg-deep); stroke:var(--accent); stroke-width:2.2; }
+  .chart-month-label{ font-size:9.5px; fill:var(--text-tertiary); font-weight:600; }
+
+  /* ===== AI insight bullets ===== */
+  .ai-bullets{ display:flex; flex-direction:column; gap:10px; }
+  .ai-bullet{ display:flex; gap:11px; align-items:flex-start; background:var(--bg-card); border:1px solid var(--divider); border-radius:16px; padding:13px 15px; }
+  .ai-bullet-dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); margin-top:6px; flex-shrink:0; box-shadow:0 0 6px var(--accent); }
+  .ai-bullet-text{ font-size:13px; color:var(--text-primary); font-weight:500; line-height:1.5; }
+
+  /* ===== Category cards ===== */
+  .cat-card{ display:flex; align-items:center; gap:13px; background:var(--bg-card); border:1px solid var(--divider); border-radius:18px; padding:14px 16px; margin-bottom:10px; cursor:pointer; transition: transform 0.1s ease, background 0.15s ease; }
+  .cat-card:active{ transform:scale(0.98); background:var(--bg-card-2); }
+  .cat-card-icon{ width:42px; height:42px; border-radius:13px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+  .cat-card-main{ flex:1; min-width:0; }
+  .cat-card-top{ display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .cat-card-name{ font-size:14px; font-weight:700; color:var(--text-primary); }
+  .cat-card-pct{ font-size:11px; font-weight:800; padding:3px 9px; border-radius:100px; flex-shrink:0; }
+  .cat-card-pct.up{ background:rgba(255,107,129,0.14); color:var(--negative); }
+  .cat-card-pct.down{ background:rgba(61,220,151,0.14); color:var(--positive); }
+  .cat-card-sub{ font-size:12px; color:var(--text-tertiary); margin-top:3px; font-weight:500; }
+  .cat-card-track{ height:6px; border-radius:6px; background:var(--bg-card-2); margin-top:9px; overflow:hidden; }
+  .cat-card-fill{ height:100%; border-radius:6px; background:linear-gradient(90deg, var(--accent), var(--accent-2)); width:0%; transition: width 0.7s cubic-bezier(.4,0,.2,1); }
+  .cat-card-chev{ width:15px; height:15px; stroke:var(--text-tertiary); flex-shrink:0; }
+
+  /* ===== Simple stats grid ===== */
+  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
+  .stat-box{ background:var(--bg-card); border:1px solid var(--divider); border-radius:16px; padding:14px 16px; }
+  .stat-box .num{ font-family:'Space Grotesk'; font-size:19px; font-weight:700; color:var(--text-primary); }
+  .stat-box .lbl{ font-size:11px; color:var(--text-tertiary); margin-top:4px; font-weight:600; }
+
+  /* ===== Time range segmented control ===== */
+  .segmented{ display:flex; background:var(--bg-card); border:1px solid var(--divider); border-radius:14px; padding:4px; gap:4px; }
+  .segmented button{ flex:1; border:none; background:transparent; color:var(--text-tertiary); font-size:11.5px; font-weight:700; padding:10px 4px; border-radius:10px; cursor:pointer; font-family:'Inter'; }
+  .segmented button.active{ background:var(--accent-soft); color:var(--accent); }
+
+  /* ===== Donut chart ===== */
+  .donut-wrap{ position:relative; width:190px; height:190px; margin:6px auto 0; }
+  .donut-wrap svg{ width:100%; height:100%; }
+  .donut-seg{ transition: stroke-dasharray 0.9s ease, stroke-dashoffset 0.9s ease; }
+  .donut-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .donut-center .amt{ font-family:'Space Grotesk'; font-size:22px; font-weight:700; color:var(--text-primary); }
+  .donut-center .lbl{ font-size:10.5px; color:var(--text-tertiary); font-weight:600; margin-top:3px; }
+  .donut-legend{ display:grid; grid-template-columns:1fr 1fr; gap:9px 16px; margin-top:20px; text-align:left; }
+  .monthly-report-card{ background:var(--bg-card); border:1px solid var(--divider); border-radius:22px; padding:26px 22px 22px; margin-top:8px; width:100%; }
+  .legend-item{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-secondary); font-weight:600; }
+  .legend-dot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .legend-pct{ margin-left:auto; color:var(--text-primary); font-weight:700; }
+
+  /* ===== Card limit slider ===== */
+  .limit-display{ text-align:center; font-family:'Space Grotesk'; font-size:40px; font-weight:700; color:var(--text-primary); margin: 6px 0 22px; }
+  .limit-slider{
+    -webkit-appearance:none; width:100%; height:6px; border-radius:6px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    outline:none; margin-bottom:10px;
+  }
+  .limit-slider::-webkit-slider-thumb{
+    -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+    background:#fff; border:4px solid var(--accent); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3);
+  }
+  .limit-slider::-moz-range-thumb{
+    width:26px; height:26px; border-radius:50%; background:#fff; border:4px solid var(--accent); cursor:pointer;
+  }
+  .limit-range-labels{ display:flex; justify-content:space-between; font-size:12px; color:var(--text-tertiary); font-weight:600; margin-bottom:10px; }
+  .pending-badge{
+    width:74px; height:74px; border-radius:50%; background:var(--accent-soft);
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px;
+  }
+  .pending-badge svg{ width:34px; height:34px; stroke:var(--accent); }
+
+  .hidden{ display:none !important; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="phone" id="phone" data-theme="blue">
+
+    <!-- ============ HOME ============ -->
+    <div class="screen active" id="home">
+      <div class="scroll">
+        <div class="profile-row">
+          <div class="avatar-wrap">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--text-secondary)" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></div>
+            <div class="avatar-plus">+</div>
+          </div>
+          <div class="greeting"><div class="hi">Good afternoon</div><div class="name">Jordan Bennett</div></div>
+          <div class="header-actions">
+            <div class="icon-btn" onclick="openSupport()" title="Support Center">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg>
+            </div>
+            <div class="icon-btn" onclick="goTo('notifications')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+              <div class="badge">3</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="balance-card">
+          <div class="balance-label">Total Balance</div>
+          <div class="balance-value">$5,930.00</div>
+          <div class="balance-sub">↑ 2.4% since last month</div>
+        </div>
+
+        <div class="accounts-scroll">
+          <div class="account-card">
+            <div class="account-kind"><span class="dot blue"></span>Checking</div>
+            <div class="account-value">$2,340.00</div>
+            <div class="account-note">•••• 2290</div>
+          </div>
+          <div class="account-card">
+            <div class="account-kind"><span class="dot green"></span>Savings</div>
+            <div class="account-value">$3,590.00</div>
+            <div class="account-note">2.4% APY</div>
+          </div>
+          <div class="account-card">
+            <div class="account-kind"><span class="dot red"></span>Credit Card</div>
+            <div class="account-value">$550.00</div>
+            <div class="account-note">of $3,000 limit</div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <div class="action-btn" onclick="openRecipientScreen()">
+            <div class="action-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div>
+            <div class="action-label">Send Money</div>
+          </div>
+          <div class="action-btn" onclick="goTo('bills')">
+            <div class="action-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/></svg></div>
+            <div class="action-label">Pay Bills</div>
+          </div>
+        </div>
+
+        <div class="insight-card" onclick="goTo('aiInsights')">
+          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 013 3v6a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M19 11a7 7 0 01-14 0"/><line x1="12" y1="18" x2="12" y2="22"/></svg></div>
+          <div class="insight-text">
+            <div class="insight-tag">AI Insight</div>
+            <div class="insight-msg">You spent 18% less on groceries this month</div>
+          </div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-title">Account Activity <span class="muted" onclick="goTo('home')">See all</span></div>
+        <div id="txnList"></div>
+
+        <div class="section-title" style="margin-top:22px;">Upcoming Bills</div>
+        <div id="billList"></div>
+      </div>
+      <div class="navbar" id="navHome"></div>
+    </div>
+
+    <!-- ============ SEND: CHOOSE RECIPIENT ============ -->
+    <div class="screen" id="sendRecipient">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Send Money</div></div>
+      <div class="scroll no-nav">
+        <div class="field-label">Choose Recipient</div>
+        <div id="recipientList"></div>
+        <div class="field-label">Or Enter a New Recipient</div>
+        <input class="text-input" id="customRecipientInput" type="text" placeholder="Enter full name">
+        <button class="primary-btn" style="margin:22px 0 0; width:100%;" onclick="useCustomRecipient()">Continue</button>
+      </div>
+    </div>
+
+    <!-- ============ SEND: AMOUNT ============ -->
+    <div class="screen" id="sendAmount">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('sendRecipient')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Send Money</div></div>
+      <div class="send-body">
+        <div class="to-chip"><div class="mini-avatar" id="sendToAvatar">JM</div><span id="sendToLabel">To Jordan Miller</span></div>
+        <div>
+          <div class="amount-field"><span class="amount-currency">$</span><input class="amount-input" id="amountInput" type="text" inputmode="none" placeholder="0" readonly></div>
+          <div class="balance-hint" style="text-align:center; margin-top:8px;">Available balance: $2,340.00</div>
+        </div>
+        <div class="keypad" id="keypad">
+          <div class="key" data-k="1">1</div><div class="key" data-k="2">2</div><div class="key" data-k="3">3</div>
+          <div class="key" data-k="4">4</div><div class="key" data-k="5">5</div><div class="key" data-k="6">6</div>
+          <div class="key" data-k="7">7</div><div class="key" data-k="8">8</div><div class="key" data-k="9">9</div>
+          <div class="key" data-k=".">.</div><div class="key" data-k="0">0</div><div class="key" data-k="back">⌫</div>
+        </div>
+      </div>
+      <button class="primary-btn" id="sendAmountBtn" disabled onclick="goToReview()">Review Payment</button>
+    </div>
+
+    <!-- ============ PAY BILLS: SELECT ============ -->
+    <div class="screen" id="bills">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Pay Bills</div></div>
+      <div class="scroll no-nav">
+        <div class="field-label">Select a Bill</div>
+        <div id="billSelectList"></div>
+      </div>
+    </div>
+
+    <!-- ============ BILL DETAILS ============ -->
+    <div class="screen" id="billDetails">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('bills')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Bill Details</div></div>
+      <div class="scroll no-nav">
+        <div class="provider-card">
+          <div class="provider-icon" id="billIcon">⚡</div>
+          <div class="provider-name" id="billName">Brightline Electric</div>
+          <div class="provider-amount" id="billAmount">$84.30</div>
+        </div>
+        <div class="detail-rows">
+          <div class="detail-row"><span class="detail-key">Category</span><span class="detail-val" id="billCategory">Electricity</span></div>
+          <div class="detail-row"><span class="detail-key">Due Date</span><span class="detail-val" id="billDue">Aug 2</span></div>
+          <div class="detail-row"><span class="detail-key">Status</span><span class="status-chip due" id="billStatus">Due soon</span></div>
+          <div class="detail-row"><span class="detail-key">Pay From</span><span class="detail-val">Checking •••• 2290</span></div>
+        </div>
+      </div>
+      <button class="primary-btn" onclick="goToReview()">Pay Now</button>
+    </div>
+
+    <!-- ============ REVIEW (shared) ============ -->
+    <div class="screen" id="review">
+      <div class="topbar"><div class="icon-btn" onclick="goBackFromReview()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Review Payment</div></div>
+      <div class="review-hero">
+        <div class="mini-avatar" id="reviewAvatar" style="width:52px;height:52px;font-size:16px;margin:0 auto;">JM</div>
+        <div class="review-amount" id="reviewAmount">$0.00</div>
+        <div class="review-to" id="reviewTo">To Jordan Miller</div>
+      </div>
+      <div class="review-card">
+        <div class="detail-row"><span class="detail-key">From</span><span class="detail-val">Checking •••• 2290</span></div>
+        <div class="detail-row"><span class="detail-key">Fee</span><span class="detail-val">$0.00</span></div>
+        <div class="detail-row"><span class="detail-key">Arrival</span><span class="detail-val" id="reviewArrival">Instant</span></div>
+      </div>
+      <div style="flex:1;"></div>
+      <button class="primary-btn" onclick="confirmPayment()">Confirm &amp; Pay</button>
+    </div>
+
+    <!-- ============ AUTHORIZING (shared) ============ -->
+    <div class="screen" id="authorizing">
+      <div class="auth-wrap">
+        <div class="spinner"></div>
+        <div><div class="auth-text">Authorizing Transaction</div><div class="auth-sub" style="text-align:center; margin-top:6px;">Securing your payment...</div></div>
+      </div>
+    </div>
+
+    <!-- ============ SUCCESS (shared) ============ -->
+    <div class="screen" id="success">
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div class="check-wrap">
+          <div class="check-ring"></div>
+          <div class="burst" id="burst"></div>
+          <div class="check-circle"><svg viewBox="0 0 24 24"><path class="check-path" d="M5 13l4 4L19 7"/></svg></div>
+        </div>
+        <div class="success-title">Payment Successful</div>
+        <div class="success-sub" id="successSub">Your transaction was completed successfully and securely.</div>
+        <div class="success-amount" id="successAmount">$0.00</div>
+        <div class="success-actions">
+          <button class="success-btn" onclick="goTo('home')">Home</button>
+          <button class="success-btn primary" onclick="goToReceipt()">View Receipt</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ GENERIC ACTION SUCCESS (Support Center / Freeze Card) ============ -->
+    <div class="screen" id="actionSuccess">
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 30px;">
+        <div class="check-wrap">
+          <div class="check-ring"></div>
+          <div class="burst" id="actionBurst"></div>
+          <div class="check-circle"><svg viewBox="0 0 24 24"><path class="check-path" d="M5 13l4 4L19 7"/></svg></div>
+        </div>
+        <div class="success-title" id="actionSuccessTitle">Done</div>
+        <div class="success-sub" id="actionSuccessSub">Your request was completed successfully.</div>
+        <div class="success-actions">
+          <button class="success-btn primary" onclick="actionSuccessContinue()">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ MONTHLY SPENDING REPORT (AI-generated) ============ -->
+    <div class="screen" id="monthlyReport">
+      <div class="scroll no-nav" style="display:flex; flex-direction:column; align-items:center; text-align:center; padding-top:36px;">
+        <div class="check-wrap" style="margin-bottom:22px;">
+          <div class="check-ring"></div>
+          <div class="burst" id="monthlyReportBurst"></div>
+          <div class="check-circle"><svg viewBox="0 0 24 24"><path class="check-path" d="M5 13l4 4L19 7"/></svg></div>
+        </div>
+        <div class="success-title">Your Monthly Report is Ready</div>
+        <div class="success-sub">Here's a breakdown of this month's spending by category.</div>
+
+        <div class="monthly-report-card" id="monthlyReportChart"></div>
+
+        <div class="success-actions" style="margin-top:32px; margin-bottom:20px;">
+          <button class="success-btn" onclick="goTo('ai')">Back to Assistant</button>
+          <button class="success-btn primary" onclick="goTo('home')">Home</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ RECEIPT (shared) ============ -->
+    <div class="screen" id="receipt">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Receipt</div></div>
+      <div class="scroll no-nav">
+        <div class="receipt-card">
+          <div class="receipt-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="receipt-amount" id="receiptAmount">$0.00</div>
+          <div class="receipt-status"><span class="status-chip ok">Completed</span></div>
+          <div class="receipt-divider"></div>
+          <div class="detail-row"><span class="detail-key">To</span><span class="detail-val" id="receiptTo">Jordan Miller</span></div>
+          <div class="detail-row"><span class="detail-key">Date</span><span class="detail-val" id="receiptDate">Jul 27, 2026</span></div>
+          <div class="detail-row"><span class="detail-key">Time</span><span class="detail-val" id="receiptTime">2:41 PM</span></div>
+          <div class="detail-row"><span class="detail-key">Transaction ID</span><span class="detail-val" id="receiptId">TXN-284917</span></div>
+          <div class="detail-row"><span class="detail-key">Payment Method</span><span class="detail-val">Checking •••• 2290</span></div>
+        </div>
+      </div>
+      <div class="receipt-actions" id="receiptActions">
+        <button class="secondary-btn" onclick="exportReceiptPdf()">Export PDF</button>
+        <button class="primary-btn" id="sendEmailBtn" onclick="sendReceiptEmail()">Send to Email</button>
+      </div>
+    </div>
+
+    <!-- ============ RECEIPT EMAIL SENT (dedicated confirmation screen) ============ -->
+    <div class="screen" id="emailSent">
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 30px;">
+        <div class="check-wrap">
+          <div class="check-ring"></div>
+          <div class="burst" id="emailBurst"></div>
+          <div class="check-circle"><svg viewBox="0 0 24 24"><path class="check-path" d="M5 13l4 4L19 7"/></svg></div>
+        </div>
+        <div class="success-title">Receipt Sent</div>
+        <div class="success-sub">Your receipt has been sent successfully to your registered email address.</div>
+        <div class="success-actions">
+          <button class="success-btn" onclick="goTo('home')">Home</button>
+          <button class="success-btn primary" onclick="goTo('receipt')">Back to Receipt</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCAN TO PAY (Contactless / QR simulation) ============ -->
+    <div class="screen" id="scanPay">
+      <!-- live camera / fallback fills the whole screen -->
+      <video id="scanVideo" class="scan-video" autoplay playsinline muted></video>
+      <div class="scan-fallback" id="scanFallback"></div>
+      <div class="scan-dim"></div>
+
+      <!-- initializing overlay -->
+      <div class="scan-init" id="scanInit">
+        <div class="scan-init-spinner"></div>
+        <div class="scan-init-text">Initializing Camera...</div>
+      </div>
+
+      <!-- scanner UI overlay -->
+      <div class="scan-ui" id="scanUi">
+        <div class="scan-topbar">
+          <div class="icon-btn" onclick="closeScanToPay('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+          <div class="scan-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>Secure QR Payment</div>
+          <div class="icon-btn scan-flash" id="scanFlash" onclick="toggleScanFlash()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        </div>
+
+        <div class="scan-instruction" id="scanInstruction">Align the merchant QR code inside the frame</div>
+
+        <div class="scan-frame-wrap">
+          <div class="scan-frame">
+            <span class="scan-corner tl"></span><span class="scan-corner tr"></span>
+            <span class="scan-corner bl"></span><span class="scan-corner br"></span>
+            <div class="scan-line" id="scanLine"></div>
+            <div class="scan-detected" id="scanDetected">
+              <div class="scan-detected-ring"></div>
+              <div class="scan-detected-check"><svg viewBox="0 0 24 24"><path class="check-path" d="M5 13l4 4L19 7"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scan-bottom">
+          <div class="scan-secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>Secure payment protected by encryption</div>
+          <div class="merchant-card" id="scanMerchant">
+            <div class="merchant-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
+            <div class="merchant-info">
+              <div class="merchant-name" id="scanMerchantName">Merchant</div>
+              <div class="merchant-sub" id="scanMerchantSub">Waiting for payment details</div>
+            </div>
+            <div class="merchant-amount" id="scanMerchantAmount"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SCAN PAY — PROCESSING ============ -->
+    <div class="screen" id="scanProcessing">
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 30px;">
+        <div class="scan-proc-ring"></div>
+        <div class="success-title" style="opacity:1; font-size:22px; margin-top:30px;">Processing Payment...</div>
+        <div class="success-sub" style="opacity:1;">Authorizing secure transaction</div>
+      </div>
+    </div>
+
+    <!-- ============ SCAN PAY — SUCCESS ============ -->
+    <div class="screen" id="scanSuccess">
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 30px;">
+        <div class="check-wrap">
+          <div class="check-ring"></div>
+          <div class="burst" id="scanBurst"></div>
+          <div class="check-circle"><svg viewBox="0 0 24 24"><path class="check-path" d="M5 13l4 4L19 7"/></svg></div>
+        </div>
+        <div class="success-title">Payment Successful</div>
+        <div class="success-amount" id="scanSuccessAmount">$86.40</div>
+        <div class="success-sub" style="opacity:1;">Retail Purchase</div>
+        <div class="success-sub" id="scanSuccessTime" style="opacity:1; margin-top:4px; font-size:13px;">Today</div>
+        <div class="success-actions">
+          <button class="success-btn primary" onclick="finishScanPayment()">Done</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ TRANSACTION DETAIL ============ -->
+    <div class="screen" id="txnDetail">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Transaction</div></div>
+      <div class="scroll no-nav">
+        <div class="txn-hero">
+          <div class="txn-hero-icon" id="tdIcon">🛒</div>
+          <div class="page-title" id="tdMerchant">Grocery Store</div>
+          <div class="txn-hero-amount" id="tdAmount">-$84.20</div>
+        </div>
+        <div class="detail-rows">
+          <div class="detail-row"><span class="detail-key">Date</span><span class="detail-val" id="tdDate">Jul 27, 2026</span></div>
+          <div class="detail-row"><span class="detail-key">Time</span><span class="detail-val" id="tdTime">6:42 PM</span></div>
+          <div class="detail-row"><span class="detail-key">Category</span><span class="detail-val" id="tdCategory">Shopping</span></div>
+          <div class="detail-row"><span class="detail-key">Status</span><span class="status-chip ok">Completed</span></div>
+          <div class="detail-row"><span class="detail-key">Payment Method</span><span class="detail-val" id="tdMethod">Debit Card •••• 2290</span></div>
+          <div class="detail-row"><span class="detail-key">Reference Number</span><span class="detail-val" id="tdRef">TX-88190</span></div>
+        </div>
+      </div>
+      <button class="secondary-btn" style="margin: 0 26px 34px;" onclick="void(0)">Download Receipt</button>
+    </div>
+
+    <!-- ============ CARDS ============ -->
+    <div class="screen" id="cards">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Cards</div>
+        <div class="grow"></div>
+        <div class="icon-btn" id="eyeBtn" onclick="toggleReveal()" title="Show/Hide details">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="eyeIcon"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+      </div>
+      <div class="scroll">
+        <div class="card-visual" id="cardVisual">
+          <div class="frost-sweep" id="frostSweep"></div>
+          <div class="frozen-badge" id="frozenBadge"><svg viewBox="0 0 24 24"><path class="frozen-check-path" d="M5 13l4 4L19 7"/></svg>Frozen</div>
+          <div class="card-top-row"><div class="card-chip"></div><span class="card-network">••••</span></div>
+          <div class="card-number maskable" data-value="4821 9034 5510 2290"></div>
+          <div class="card-bottom-row">
+            <div><div class="card-label">Card Holder</div><div class="card-value">JB</div></div>
+            <div><div class="card-label">Expires</div><div class="card-value maskable" data-value="11/29"></div></div>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:22px;">Card Balance</div>
+        <div class="balance-card" style="padding:20px 24px;">
+          <div class="balance-label">Available Balance</div>
+          <div class="balance-value maskable" data-value="$2,340.00" style="font-size:34px;"></div>
+        </div>
+
+        <div class="section-title">Card Controls</div>
+        <div class="settings-row" id="freezeToggleRow" onclick="toggleFreezeFromCardsScreen(this)">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4 6l16 12M20 6L4 18M2 12h20"/></svg></div><div><div class="settings-row-title">Freeze Card</div><div class="settings-row-hint">Temporarily block all transactions</div></div></div>
+          <div class="toggle"><div class="toggle-knob"></div></div>
+        </div>
+        <div class="settings-row" onclick="toggleRow(this)">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20"/></svg></div><div><div class="settings-row-title">Online Payments</div><div class="settings-row-hint">Allow purchases on websites &amp; apps</div></div></div>
+          <div class="toggle on"><div class="toggle-knob"></div></div>
+        </div>
+        <div class="settings-row" onclick="openScanToPay()">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0112 0M2 12a10 10 0 0120 0M12 20v.01"/></svg></div><div><div class="settings-row-title">Contactless Payments</div><div class="settings-row-hint">Tap to pay in stores</div></div></div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;stroke:var(--text-tertiary);"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row" onclick="toggleRow(this)">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2c2.5 2.5 4 6 4 10s-1.5 7.5-4 10c-2.5-2.5-4-6-4-10s1.5-7.5 4-10z"/></svg></div><div><div class="settings-row-title">Travel Mode</div><div class="settings-row-hint">Notify us before you travel abroad</div></div></div>
+          <div class="toggle"><div class="toggle-knob"></div></div>
+        </div>
+
+        <div class="section-title" style="margin-top:6px;">Manage</div>
+        <div class="settings-row" onclick="goTo('cardLimit')" id="cardLimitRow">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div><div class="settings-row-title">Card Limits</div><div class="settings-row-hint" id="cardLimitHint">Daily spend limit: $2,500</div></div></div>
+          <svg class="list-chev chev-btn" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row" onclick="void(0)">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15h.01M11 15h4"/></svg></div><div><div class="settings-row-title">Virtual Card</div><div class="settings-row-hint">For secure online checkout</div></div></div>
+          <svg class="list-chev chev-btn" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row" onclick="void(0)">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-2.64-6.36M21 3v6h-6"/></svg></div><div><div class="settings-row-title">Replace Card</div><div class="settings-row-hint">Lost, stolen, or damaged</div></div></div>
+          <svg class="list-chev chev-btn" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row" onclick="void(0)">
+          <div class="settings-row-left"><div class="settings-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><div><div class="settings-row-title">PIN Settings</div><div class="settings-row-hint">Change or reset your PIN</div></div></div>
+          <svg class="list-chev chev-btn" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+      <div class="navbar" id="navCards"></div>
+    </div>
+
+    <!-- ============ CARD LIMIT: ADJUST ============ -->
+    <div class="screen" id="cardLimit">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('cards')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Card Limits</div></div>
+      <div class="scroll no-nav">
+        <div class="field-label" style="margin-top:10px;">Current Daily Limit</div>
+        <div class="review-card" style="margin:0 0 24px;">
+          <div class="detail-row"><span class="detail-key">Active Limit</span><span class="detail-val">$2,500.00</span></div>
+          <div class="detail-row"><span class="detail-key">Card</span><span class="detail-val">•••• 2290</span></div>
+        </div>
+
+        <div class="field-label">Select New Limit</div>
+        <div class="limit-display" id="limitDisplay">$2,500</div>
+        <input type="range" class="limit-slider" id="limitSlider" min="500" max="10000" step="100" value="2500" oninput="onLimitSlide(this.value)">
+        <div class="limit-range-labels"><span>$500</span><span>$10,000</span></div>
+      </div>
+      <button class="primary-btn" onclick="goToLimitReview()">Review Request</button>
+    </div>
+
+    <!-- ============ CARD LIMIT: REVIEW ============ -->
+    <div class="screen" id="cardLimitReview">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('cardLimit')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Review Request</div></div>
+      <div class="review-hero">
+        <div class="review-to" style="margin-top:4px;">New Daily Limit</div>
+        <div class="review-amount" id="limitReviewAmount">$2,500</div>
+      </div>
+      <div class="review-card">
+        <div class="detail-row"><span class="detail-key">Current Limit</span><span class="detail-val">$2,500.00</span></div>
+        <div class="detail-row"><span class="detail-key">Requested Limit</span><span class="detail-val" id="limitReviewNew">$2,500.00</span></div>
+        <div class="detail-row"><span class="detail-key">Card</span><span class="detail-val">•••• 2290</span></div>
+        <div class="detail-row"><span class="detail-key">Review Time</span><span class="detail-val">Within 24 hours</span></div>
+      </div>
+      <div style="flex:1;"></div>
+      <button class="primary-btn" onclick="submitLimitRequest()">Submit Request</button>
+    </div>
+
+    <!-- ============ CARD LIMIT: SUBMITTING ============ -->
+    <div class="screen" id="cardLimitSubmitting">
+      <div class="auth-wrap">
+        <div class="spinner"></div>
+        <div><div class="auth-text">Submitting Request...</div><div class="auth-sub" style="text-align:center; margin-top:6px;">Sending your request for review</div></div>
+      </div>
+    </div>
+
+    <!-- ============ CARD LIMIT: SUBMITTED ============ -->
+    <div class="screen" id="cardLimitSubmitted">
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 30px;">
+        <div class="pending-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <div class="success-title" style="opacity:1;">Request Submitted</div>
+        <div class="success-sub" style="opacity:1;">Your request is under review.<br>Estimated decision: within 24 hours.</div>
+        <button class="success-btn primary" style="margin-top:34px;" onclick="goTo('cards')">Back to Cards</button>
+      </div>
+    </div>
+
+    <!-- ============ NOTIFICATIONS ============ -->
+    <div class="screen" id="notifications">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Notifications</div></div>
+      <div class="scroll no-nav" id="notifList"></div>
+    </div>
+
+    <!-- ============ SUPPORT CENTER ============ -->
+    <div class="screen" id="support">
+      <div class="topbar">
+        <div class="icon-btn" onclick="exitSupport()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="support-header">
+          <div class="support-avatar">E</div>
+          <div>
+            <div class="support-name">Emily</div>
+            <div class="support-role"><span class="online-dot"></span>Customer Support Specialist · Online</div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll no-nav" id="supportChat"></div>
+      <div class="support-input-row">
+        <input type="text" class="text-input" id="supportInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendSupportMessage()">
+        <button class="support-send-btn" onclick="sendSupportMessage()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ IDENTITY VERIFICATION (2FA) ============ -->
+    <div class="screen" id="verify2fa">
+      <div class="topbar"><div class="icon-btn" onclick="cancelVerification()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Identity Verification</div></div>
+      <div id="verifyBody" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0 30px;">
+        <div class="verify-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+        <div class="success-title" style="opacity:1; font-size:20px;">For your security, please verify your identity.</div>
+        <div class="code-boxes" id="codeBoxes">
+          <input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" class="code-box" data-i="0">
+          <input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" class="code-box" data-i="1">
+          <input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" class="code-box" data-i="2">
+          <input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" class="code-box" data-i="3">
+          <input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" class="code-box" data-i="4">
+          <input maxlength="1" inputmode="numeric" pattern="[0-9]*" autocomplete="one-time-code" class="code-box" data-i="5">
+        </div>
+        <div class="verify-hint">Code sent to your registered mobile number.</div>
+        <div class="verify-resend" onclick="resendCode()">Resend Code</div>
+        <button class="primary-btn" style="width:100%; margin:28px 0 0;" id="verifyConfirmBtn" onclick="confirmVerification()">Confirm</button>
+      </div>
+      <div id="verifySuccess" class="hidden" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <div class="receipt-check" style="width:66px; height:66px; margin-bottom:16px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+        <div class="success-title" style="opacity:1;">Identity Verified</div>
+      </div>
+    </div>
+
+    <!-- ============ AI CHATBOT ============ -->
+    <div class="screen" id="ai">
+      <div class="topbar">
+        <div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div>
+        <div class="grow"></div>
+        <div class="icon-btn" onclick="goTo('settings')" title="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1-1.6 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg></div>
+      </div>
+
+      <div class="ai-center">
+        <div class="ai-bot-label"><div class="ai-bot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="5" width="14" height="10" rx="3"/><path d="M12 5V2.5"/><circle cx="12" cy="1.4" r="1.3" fill="currentColor" stroke="none"/><g class="bot-tassel"><path d="M12.6 0.6 q2.2 -1.4 3 0.3" stroke-width="1.6"/><circle cx="15.7" cy="1.2" r="0.9" fill="currentColor" stroke="none"/></g><line x1="9" y1="9" x2="9" y2="11"/><line x1="15" y1="9" x2="15" y2="11"/><line class="bot-leg bot-leg-l" x1="9" y1="15.5" x2="9" y2="20"/><line class="bot-leg bot-leg-r" x1="15" y1="15.5" x2="15" y2="20"/></svg></div>AI Assistant</div>
+        <div class="ring-wrap">
+          <div class="ring-glow" id="ringGlow"></div>
+          <div class="vortex" id="vortex">
+            <div class="vring r1"></div>
+            <div class="vring r2"></div>
+            <div class="vring r3"></div>
+            <div class="vring r4"></div>
+          </div>
+          <div class="core"><div class="core-wave" id="coreWave"></div></div>
+        </div>
+        <div class="ai-state-text" id="stateText"></div>
+      </div>
+
+      <div class="quick-row" id="quickGrid"></div>
+
+      <div class="hold-speak-label">Hold to speak</div>
+
+      <div class="mic-wrap">
+        <button class="mic-btn" id="micBtn"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 013 3v6a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M19 11a7 7 0 01-14 0"/><line x1="12" y1="18" x2="12" y2="22"/></svg></button>
+      </div>
+      <div class="ai-bottom-spacer"></div>
+    </div>
+
+    <!-- ============ AI INSIGHTS ============ -->
+    <div class="screen" id="aiInsights">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('ai')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Financial Insights</div></div>
+      <div class="scroll no-nav">
+        <div class="segmented" id="rangeToggle">
+          <button class="active" data-range="month" onclick="setInsightRange('month')">This Month</button>
+          <button data-range="q" onclick="setInsightRange('q')">Last 3 Months</button>
+          <button data-range="h" onclick="setInsightRange('h')">Last 6 Months</button>
+        </div>
+
+        <div class="insight-summary-card" style="margin-top:14px;">
+          <div class="insight-summary-top"><div><div class="insight-summary-label" id="rangeLabel">July Spending</div><div class="insight-summary-value" id="rangeTotal">$2,480.00</div></div><div class="status-chip ok" id="rangeChange">-9%</div></div>
+          <div class="line-chart-wrap" id="monthlyChart" style="margin-top:16px;"></div>
+        </div>
+
+        <div class="section-title" style="margin-top:20px;">Spending Overview</div>
+        <div class="insight-summary-card" style="text-align:center;">
+          <div class="donut-wrap" id="donutWrap"></div>
+          <div class="donut-legend" id="donutLegend"></div>
+        </div>
+
+        <div class="section-title" style="margin-top:20px;">AI Insights</div>
+        <div class="ai-bullets" id="aiBullets"></div>
+
+        <div class="section-title" style="margin-top:20px;">Spending by Category</div>
+        <div id="categoryCards"></div>
+
+        <div class="section-title" style="margin-top:20px;">Savings Progress</div>
+        <div class="insight-summary-card">
+          <div class="savings-ring-wrap">
+            <svg width="64" height="64" viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="var(--bg-card-2)" stroke-width="7"/><circle cx="32" cy="32" r="27" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="54.3" transform="rotate(-90 32 32)"/></svg>
+            <div><div class="savings-num">68%</div><div class="savings-label">of your $10,000 goal reached</div></div>
+          </div>
+        </div>
+
+        <div class="section-title" style="margin-top:20px;">Bills Due Soon</div>
+        <div id="insightBillList"></div>
+
+        <div class="section-title" style="margin-top:6px;">Suggested Action</div>
+        <div class="insight-card" style="margin-top:0;" onclick="goTo('bills')">
+          <div class="insight-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="8" y1="9" x2="16" y2="9"/></svg></div>
+          <div class="insight-text"><div class="insight-tag">Recommended</div><div class="insight-msg">Pay your electricity bill before it's due tomorrow</div></div>
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ CATEGORY: ANALYZING ============ -->
+    <div class="screen" id="categoryLoading">
+      <div class="auth-wrap">
+        <div class="spinner"></div>
+        <div><div class="auth-text" id="catLoadingText">Analyzing...</div><div class="auth-sub" style="text-align:center; margin-top:6px;">This will just take a moment</div></div>
+      </div>
+    </div>
+
+    <!-- ============ CATEGORY DETAIL ============ -->
+    <div class="screen" id="categoryDetail">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('aiInsights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title" id="catDetailTitle">Category</div></div>
+      <div class="scroll no-nav">
+        <div class="provider-card" style="padding:16px 0 6px;">
+          <div class="provider-icon" id="catDetailIcon">🛒</div>
+          <div class="provider-amount" id="catDetailAmount" style="font-size:34px;">$0</div>
+          <div class="balance-hint" id="catDetailBudget">of $0 budget</div>
+        </div>
+
+        <div class="field-label">Weekly Trend</div>
+        <div class="insight-summary-card" style="padding:18px 18px 14px;">
+          <div class="line-chart-wrap" id="categoryChart"></div>
+        </div>
+
+        <div class="field-label">Monthly Comparison</div>
+        <div class="review-card">
+          <div class="detail-row"><span class="detail-key">This Month</span><span class="detail-val" id="catThisMonth">$0</span></div>
+          <div class="detail-row"><span class="detail-key">Last Month</span><span class="detail-val" id="catLastMonth">$0</span></div>
+          <div class="detail-row"><span class="detail-key">Change</span><span class="status-chip ok" id="catChange">0%</span></div>
+        </div>
+
+        <div class="field-label">Simple Statistics</div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="num" id="statTotal">$0</div><div class="lbl">Total Spent</div></div>
+          <div class="stat-box"><div class="num" id="statAvg">$0</div><div class="lbl">Avg per Week</div></div>
+          <div class="stat-box"><div class="num" id="statBudgetPct">0%</div><div class="lbl">Budget Used</div></div>
+          <div class="stat-box"><div class="num" id="statRemaining">$0</div><div class="lbl">Remaining</div></div>
+        </div>
+
+        <div class="field-label">AI Summary</div>
+        <div class="ai-response-card show" style="margin:0;">
+          <div class="ai-response-avatar"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 013 3v6a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M19 11a7 7 0 01-14 0"/></svg></div>
+          <div class="ai-response-text" id="catAiSummary">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ AI FRAUD ALERT ============ -->
+    <div class="screen" id="aiFraud">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Security Alert</div></div>
+      <div id="fraudBody">
+        <div class="fraud-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 4v6c0 5-3.6 8.4-9 10-5.4-1.6-9-5-9-10V6l9-4z"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="fraud-title">Unusual Payment Detected</div>
+        <div class="fraud-sub">We noticed a charge that doesn't match your usual spending pattern. Please review it below.</div>
+        <div class="fraud-card">
+          <div class="detail-row"><span class="detail-key">Merchant</span><span class="detail-val">Unknown Retailer POS</span></div>
+          <div class="detail-row"><span class="detail-key">Amount</span><span class="detail-val">$412.00</span></div>
+          <div class="detail-row"><span class="detail-key">Location</span><span class="detail-val">Lisbon, Portugal</span></div>
+          <div class="detail-row"><span class="detail-key">Time</span><span class="detail-val">Today, 3:47 AM</span></div>
+        </div>
+        <div class="fraud-actions">
+          <button class="secondary-btn decline-btn" style="margin:0;" onclick="resolveFraud('Declined')">Decline</button>
+          <button class="primary-btn" style="margin:0;" onclick="resolveFraud('Approved')">Approve</button>
+        </div>
+      </div>
+      <div class="fraud-result hidden" id="fraudResult">
+        <div class="receipt-check" style="margin:0 auto 16px;"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div>
+        <div class="page-title" id="fraudResultTitle">Payment Declined</div>
+        <div class="fraud-sub" style="margin-top:10px;">This transaction has been blocked and your card has been secured.</div>
+        <button class="secondary-btn" style="margin: 30px auto 0; width:200px;" onclick="goTo('home')">Back to Home</button>
+      </div>
+    </div>
+
+    <!-- ============ SETTINGS ============ -->
+    <div class="screen" id="settings">
+      <div class="topbar"><div class="icon-btn" onclick="goTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="page-title">Settings</div></div>
+      <div class="scroll">
+        <div class="section-title" style="margin-top:18px;">Appearance</div>
+        <div class="settings-card">
+          <div class="settings-card-label">Background Theme</div>
+          <div class="settings-card-hint">Choose an accent color for the whole app</div>
+          <div class="theme-grid" id="themeGrid"></div>
+        </div>
+
+        <div class="section-title">Preferences</div>
+        <div class="settings-row" onclick="toggleRow(this)"><div><div class="settings-row-title">Face ID &amp; Touch ID</div><div class="settings-row-hint">Use biometrics to unlock the app</div></div><div class="toggle on"><div class="toggle-knob"></div></div></div>
+        <div class="settings-row" onclick="toggleRow(this)"><div><div class="settings-row-title">Push Notifications</div><div class="settings-row-hint">Alerts for payments and activity</div></div><div class="toggle on"><div class="toggle-knob"></div></div></div>
+        <div class="settings-row" onclick="toggleRow(this)"><div><div class="settings-row-title">Hide Balances</div><div class="settings-row-hint">Mask amounts across the app by default</div></div><div class="toggle"><div class="toggle-knob"></div></div></div>
+      </div>
+      <div class="navbar" id="navSettings"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ================= DATA =================
+  const recipients = [
+    {name:'Jordan Miller', initials:'JM'},
+    {name:'Sarah Chen', initials:'SC'},
+    {name:'Michael Brown', initials:'MB'},
+    {name:'Emma Wilson', initials:'EW'}
+  ];
+
+  const bills = [
+    {id:'elec', name:'Brightline Electric', category:'Electricity', icon:'⚡', due:'Aug 2', amount:84.30, status:'Due soon', statusClass:'due'},
+    {id:'internet', name:'NetWave Broadband', category:'Internet', icon:'📶', due:'Aug 5', amount:59.99, status:'Upcoming', statusClass:'ok'},
+    {id:'water', name:'Clearflow Water Co.', category:'Water', icon:'💧', due:'Aug 8', amount:32.10, status:'Upcoming', statusClass:'ok'},
+    {id:'gas', name:'HomeGas Utilities', category:'Gas', icon:'🔥', due:'Aug 10', amount:46.75, status:'Upcoming', statusClass:'ok'},
+    {id:'phone', name:'Orbit Mobile', category:'Phone', icon:'📱', due:'Aug 12', amount:28.00, status:'Upcoming', statusClass:'ok'},
+    {id:'insurance', name:'Shieldpoint Insurance', category:'Insurance', icon:'🛡️', due:'Aug 15', amount:120.00, status:'Upcoming', statusClass:'ok'}
+  ];
+
+  const transactions = [
+    {icon:'💊', title:'Pharmacy', date:'Jul 27, 2026', time:'10:14 AM', amount:-24.90, category:'Health', method:'Debit Card •••• 2290', ref:'TX-88213'},
+    {icon:'🛒', title:'Grocery Store', date:'Jul 27, 2026', time:'6:42 PM', amount:-84.20, category:'Shopping', method:'Debit Card •••• 2290', ref:'TX-88190'},
+    {icon:'💼', title:'Salary Deposit', date:'Jul 26, 2026', time:'9:00 AM', amount:2300.00, category:'Income', method:'Direct Deposit', ref:'TX-88104'},
+    {icon:'🏠', title:'Rent Payment', date:'Jul 24, 2026', time:'8:00 AM', amount:-950.00, category:'Housing', method:'Bank Transfer', ref:'TX-87950'}
+  ];
+
+  const notifications = [
+    {icon:'💰', title:'Salary deposited', desc:'$2,300.00 credited to Checking', time:'2h ago'},
+    {icon:'✅', title:'Transfer completed', desc:'$250.00 sent to Jordan Miller', time:'5h ago'},
+    {icon:'💳', title:'Card used', desc:'Grocery Store · $84.20', time:'1d ago'},
+    {icon:'⏰', title:'Bill due tomorrow', desc:'Brightline Electric · $84.30', time:'1d ago'},
+    {icon:'🚨', title:'Suspicious payment detected', desc:'Unusual charge flagged for review', time:'2d ago', fraud:true},
+    {icon:'📊', title:'Monthly summary ready', desc:'Your July spending summary is ready', time:'3d ago'}
+  ];
+
+  const suggestions = [
+    {text:'Analyze My Spending', action:'insights', steps:['Analyzing Spending...','Finding Spending Patterns...','Preparing Financial Report...','Generating AI Insights...'],
+     icon:'<path d="M12 2a3 3 0 013 3v6a3 3 0 01-6 0V5a3 3 0 013-3z"/><path d="M19 11a7 7 0 01-14 0"/><line x1="12" y1="18" x2="12" y2="22"/>'},
+    {text:'Send Money', action:'sendmoney', instant:true,
+     icon:'<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>'},
+    {text:'Pay My Electricity', response:"Your electricity bill is due tomorrow — $84.30 to Brightline Electric.", cta:'Pay now →', action:'bill', steps:['Connecting...','Verifying Bill...','Preparing Payment...','Payment Ready'],
+     icon:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>'},
+    {text:"View This Month's Spending", action:'viewmonthly', steps:['Viewing Your Spending...','Generating Reports...','Creating Charts...','Finalizing Report...'],
+     icon:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l4 2"/>'}
+  ];
+
+  const themes = [
+    {id:'blue', label:'Blue'}, {id:'violet', label:'Violet'}, {id:'teal', label:'Teal'},
+    {id:'amber', label:'Amber'}, {id:'mustard', label:'Mustard'}, {id:'crimson', label:'Crimson'}, {id:'forest', label:'Forest'},
+    {id:'obsidian', label:'Obsidian'}, {id:'graphite', label:'Graphite'}
+  ];
+
+  // Monthly total ($2,480.00) is the sum of every category's `spent` value below —
+  // keep them in sync if either changes.
+
+  const categories = [
+    {id:'food', name:'Food & Groceries', icon:'🛒', spent:420, budget:600, lastMonth:472, changePct:-11,
+     trend:[52,68,45,80,58,74,60],
+     summary:"You spent 11% less on groceries this month compared to June, mostly from fewer takeout orders."},
+    {id:'bills', name:'Bills', icon:'🧾', spent:540, budget:600, lastMonth:519, changePct:4,
+     trend:[70,74,79,77,84,80,88],
+     summary:"Bills remained your largest expense category this month, consistent with prior months."},
+    {id:'shopping', name:'Shopping', icon:'🛍️', spent:480, budget:600, lastMonth:440, changePct:9,
+     trend:[38,58,72,48,86,62,92],
+     summary:"Shopping spend increased slightly, driven by a couple of larger purchases mid-month."},
+    {id:'transport', name:'Transportation', icon:'🚗', spent:260, budget:400, lastMonth:277, changePct:-6,
+     trend:[28,42,38,52,33,47,42],
+     summary:"Transportation costs dropped slightly as you used rideshare less often this month."},
+    {id:'healthcare', name:'Healthcare', icon:'💊', spent:190, budget:300, lastMonth:186, changePct:2,
+     trend:[18,24,14,29,19,33,24],
+     summary:"Healthcare spending stayed steady, in line with your regular prescriptions."},
+    {id:'entertainment', name:'Entertainment', icon:'🎬', spent:230, budget:300, lastMonth:200, changePct:15,
+     trend:[18,33,23,48,28,58,38],
+     summary:"Entertainment spending rose this month, including a couple of concert tickets."},
+    {id:'travel', name:'Travel', icon:'✈️', spent:360, budget:500, lastMonth:295, changePct:22,
+     trend:[8,18,78,38,88,48,68],
+     summary:"Travel spend jumped after a weekend trip was booked mid-month."}
+  ];
+
+  const categoryColors = {
+    food:'#5B8CFF', bills:'#8B6CFF', shopping:'#2FE0C4', transport:'#FFB040',
+    healthcare:'#FF6B81', entertainment:'#34C77B', travel:'#F472B6'
+  };
+
+  const rangeMeta = {
+    month: { label:'July Spending', series:[2210,2340,2600,2410,2725,2480], labels:['Feb','Mar','Apr','May','Jun','Jul'], change:-9, mult:1, variation:{} },
+    q:     { label:'Last 3 Months',  series:[6620,6950,7130],              labels:['May','Jun','Jul'],               change:3,  mult:2.875,
+             variation:{food:0.94,bills:1.05,shopping:1.12,transport:0.9,healthcare:1.0,entertainment:0.85,travel:1.3} },
+    h:     { label:'Last 6 Months',  series:[12100,12650,13100,13500,13800,13950], labels:['Feb','Mar','Apr','May','Jun','Jul'], change:6, mult:5.625,
+             variation:{food:0.9,bills:1.08,shopping:1.18,transport:0.88,healthcare:0.97,entertainment:0.8,travel:1.45} }
+  };
+  let currentRange = 'month';
+  function categoryAmountForRange(cat, range){
+    const m = rangeMeta[range];
+    const v = (m.variation && m.variation[cat.id]) || 1;
+    return Math.round(cat.spent * m.mult * v);
+  }
+  function categoryBudgetForRange(cat, range){
+    return Math.round(cat.budget * rangeMeta[range].mult);
+  }
+
+  function fmt(n){ const s = n<0 ? '-' : ''; return s + '$' + Math.abs(n).toFixed(2); }
+
+  // ================= RENDER LISTS =================
+  function renderTxnList(){
+    document.getElementById('txnList').innerHTML = transactions.map((t,i)=>`
+      <div class="txn" onclick="openTxnDetail(${i})">
+        <div class="txn-icon">${t.icon}</div>
+        <div class="txn-info"><div class="txn-title">${t.title}</div><div class="txn-date">${t.date.split(',')[0]}</div></div>
+        <div class="txn-amount ${t.amount<0?'neg':'pos'}">${t.amount<0? fmt(t.amount) : '+'+fmt(t.amount)}</div>
+      </div>`).join('');
+  }
+  function renderBillList(targetId, limit){
+    const list = limit ? bills.slice(0,limit) : bills;
+    document.getElementById(targetId).innerHTML = list.map((b,i)=>`
+      <div class="bill-row" onclick="openBillDetails('${b.id}')">
+        <div class="txn-icon">${b.icon}</div>
+        <div class="txn-info"><div class="txn-title">${b.name}</div><div class="txn-date">Due ${b.due}</div></div>
+        <div class="bill-due">${fmt(b.amount)}</div>
+      </div>`).join('');
+  }
+  function renderBillSelectList(){
+    document.getElementById('billSelectList').innerHTML = bills.map(b=>`
+      <div class="list-option" onclick="openBillDetails('${b.id}')">
+        <div class="list-avatar">${b.icon}</div>
+        <div class="list-main"><div class="list-title">${b.name}</div><div class="list-sub">${b.category} · Due ${b.due}</div></div>
+        <div class="txn-amount neg" style="margin-right:4px;">${fmt(b.amount)}</div>
+        <svg class="list-chev" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>`).join('');
+  }
+  function renderRecipientList(){
+    document.getElementById('recipientList').innerHTML = recipients.map((r,i)=>`
+      <div class="list-option" onclick="selectRecipient(${i})">
+        <div class="list-avatar">${r.initials}</div>
+        <div class="list-main"><div class="list-title">${r.name}</div><div class="list-sub">Nova Bank recipient</div></div>
+        <svg class="list-chev" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>`).join('');
+  }
+  function renderNotifications(){
+    document.getElementById('notifList').innerHTML = notifications.map((n,i)=>`
+      <div class="notif-row" onclick="${n.fraud? "goTo('aiFraud')" : 'void(0)'}">
+        <div class="notif-icon ${n.fraud?'alert':''}">${n.icon}</div>
+        <div class="notif-info"><div class="notif-title">${n.title}</div><div class="notif-desc">${n.desc}</div><div class="notif-time">${n.time}</div></div>
+      </div>`).join('');
+  }
+  function renderSuggestions(){
+    document.getElementById('quickGrid').innerHTML = suggestions.map((s,i)=>`
+      <div class="quick-btn" onclick="tapSuggestion(${i})">
+        <div class="quick-btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${s.icon}</svg></div>
+        <div class="quick-btn-label">${s.text}</div>
+      </div>`).join('');
+  }
+  function renderThemeGrid(){
+    document.getElementById('themeGrid').innerHTML = themes.map((t,i)=>`
+      <div class="theme-option" onclick="setTheme('${t.id}')">
+        <div class="swatch ${i===0?'selected':''}" data-t="${t.id}"></div>
+        <span>${t.label}</span>
+      </div>`).join('');
+  }
+  function navHTML(active){
+    const items = [
+      {id:'home', label:'Home', screen:'home', icon:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/>'},
+      {id:'cards', label:'Cards', screen:'cards', icon:'<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>'},
+      {id:'ai', label:'AI Chat', screen:'ai', icon:'<circle cx="12" cy="12" r="9"/><path d="M9 10.5c0-1.5 1.2-2.5 3-2.5s3 1 3 2.5-3 2-3 4"/><circle cx="12" cy="16.5" r=".6" fill="currentColor" stroke="none"/>'},
+      {id:'settings', label:'Settings', screen:'settings', icon:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.9l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.9-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1-1.6 1.7 1.7 0 00-1.9.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.9 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1 1.7 1.7 0 00-.3-1.9l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.9.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.9-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.9V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/>'}
+    ];
+    return items.map(it=>`
+      <div class="navitem ${it.id===active?'active':''}" data-nav="${it.id}" onclick="goTo('${it.screen}')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${it.icon}</svg>
+        <span>${it.label}</span>
+      </div>`).join('');
+  }
+
+  // ================= CHARTS =================
+  function buildLineChart(containerId, values, opts){
+    opts = opts || {};
+    const w = opts.w || 320, h = opts.h || 110, pad = 10;
+    const max = Math.max(...values), min = Math.min(...values);
+    const range = (max - min) || 1;
+    const step = (w - pad*2) / (values.length - 1);
+    const pts = values.map((v,i)=>[ pad + i*step, h - pad - ((v-min)/range)*(h-pad*2) ]);
+    let line = `M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)} `;
+    for(let i=1;i<pts.length;i++){ line += `L ${pts[i][0].toFixed(1)} ${pts[i][1].toFixed(1)} `; }
+    const fill = line + `L ${pts[pts.length-1][0].toFixed(1)} ${h-pad} L ${pts[0][0].toFixed(1)} ${h-pad} Z`;
+    const dots = pts.map(p=>`<circle class="chart-dot" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.2"/>`).join('');
+    const labels = opts.labels ? opts.labels.map((l,i)=>`<text class="chart-month-label" x="${pts[i][0].toFixed(1)}" y="${h+2}" text-anchor="middle">${l}</text>`).join('') : '';
+    const gradId = 'grad_' + containerId;
+    const svg = `<svg viewBox="0 0 ${w} ${h+ (opts.labels?14:0)}">
+      <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.5"/>
+        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+      </linearGradient></defs>
+      <path class="chart-fill" fill="url(#${gradId})" d="${fill}" style="opacity:0"/>
+      <path class="chart-line" d="${line}" style="stroke-dasharray:1000; stroke-dashoffset:1000;"/>
+      ${dots}${labels}
+    </svg>`;
+    const el = document.getElementById(containerId);
+    el.innerHTML = svg;
+    requestAnimationFrame(()=>{
+      const linePath = el.querySelector('.chart-line');
+      const fillPath = el.querySelector('.chart-fill');
+      const len = linePath.getTotalLength();
+      linePath.style.strokeDasharray = len;
+      linePath.style.strokeDashoffset = len;
+      linePath.style.transition = 'stroke-dashoffset 1.1s cubic-bezier(.4,0,.2,1)';
+      fillPath.style.transition = 'opacity 1s ease 0.3s';
+      requestAnimationFrame(()=>{
+        linePath.style.strokeDashoffset = 0;
+        fillPath.style.opacity = '0.35';
+      });
+    });
+  }
+
+  function renderMonthlyChart(range){
+    const m = rangeMeta[range || currentRange];
+    buildLineChart('monthlyChart', m.series, {w:320, h:100, labels:m.labels});
+  }
+  function renderCategoryChart(cat){
+    buildLineChart('categoryChart', cat.trend, {w:320, h:100});
+  }
+
+  function renderAiBullets(){
+    const bullets = [
+      "You spent 11% less on groceries this month compared to June.",
+      "Your largest expense category was Bills, at $540.00.",
+      "You are on track to reach your monthly savings goal."
+    ];
+    document.getElementById('aiBullets').innerHTML = bullets.map(b=>`
+      <div class="ai-bullet"><div class="ai-bullet-dot"></div><div class="ai-bullet-text">${b}</div></div>`).join('');
+  }
+
+  function renderCategoryCards(range){
+    range = range || currentRange;
+    document.getElementById('categoryCards').innerHTML = categories.map(c=>{
+      const spent = categoryAmountForRange(c, range);
+      const budget = categoryBudgetForRange(c, range);
+      const pct = Math.round((spent/budget)*100);
+      const up = c.changePct >= 0;
+      return `
+      <div class="cat-card" onclick="openCategoryDetail('${c.id}')">
+        <div class="cat-card-icon">${c.icon}</div>
+        <div class="cat-card-main">
+          <div class="cat-card-top">
+            <span class="cat-card-name">${c.name}</span>
+            <span class="cat-card-pct ${up?'up':'down'}">${up?'+':''}${c.changePct}%</span>
+          </div>
+          <div class="cat-card-sub">${fmt(spent).replace('.00','')} of ${fmt(budget).replace('.00','')} budget</div>
+          <div class="cat-card-track"><div class="cat-card-fill" style="width:${Math.min(pct,100)}%"></div></div>
+        </div>
+        <svg class="cat-card-chev" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>`;
+    }).join('');
+  }
+
+  // ---- Donut / pie chart ----
+  function buildDonutInto(wrapId, legendId, range){
+    range = range || currentRange;
+    const segs = categories.map(c=>({ id:c.id, name:c.name, value:categoryAmountForRange(c, range), color:categoryColors[c.id] }));
+    const total = segs.reduce((s,x)=>s+x.value,0);
+    const r = 68, cx = 95, cy = 95, circumference = 2*Math.PI*r;
+    let offset = 0;
+    const circlesFinal = [];
+    segs.forEach(seg=>{
+      const frac = seg.value/total;
+      const dash = frac*circumference;
+      circlesFinal.push({ ...seg, dash, gap: circumference-dash, offset:-offset, pct: Math.round(frac*100) });
+      offset += dash;
+    });
+    const svg = `<svg viewBox="0 0 190 190">
+      ${circlesFinal.map(s=>`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="24"
+        class="donut-seg" stroke-linecap="butt"
+        stroke-dasharray="0 ${circumference.toFixed(2)}" stroke-dashoffset="${s.offset.toFixed(2)}"
+        transform="rotate(-90 ${cx} ${cy})" data-final="${s.dash.toFixed(2)} ${s.gap.toFixed(2)}"/>`).join('')}
+    </svg><div class="donut-center"><div class="amt">${fmt(total).replace('.00','')}</div><div class="lbl">Total Spent</div></div>`;
+    const wrap = document.getElementById(wrapId);
+    wrap.innerHTML = svg;
+    requestAnimationFrame(()=>{
+      wrap.querySelectorAll('.donut-seg').forEach(el=>{
+        el.setAttribute('stroke-dasharray', el.dataset.final);
+      });
+    });
+    document.getElementById(legendId).innerHTML = circlesFinal.map(s=>`
+      <div class="legend-item"><span class="legend-dot" style="background:${s.color}"></span>${s.name}<span class="legend-pct">${s.pct}%</span></div>`).join('');
+  }
+  function buildDonut(range){
+    buildDonutInto('donutWrap', 'donutLegend', range);
+  }
+
+  // ---- Dedicated AI "View this month's spending" report ----
+  const monthlyReportCategories = [
+    {name:'Food', icon:'🍽️', value:210, color:'#5B8CFF'},
+    {name:'Groceries', icon:'🛒', value:260, color:'#2FE0C4'},
+    {name:'Bills', icon:'🧾', value:520, color:'#8B6CFF'},
+    {name:'Shopping', icon:'🛍️', value:460, color:'#FFB040'},
+    {name:'Healthcare', icon:'💊', value:180, color:'#FF6B81'},
+    {name:'Travel', icon:'✈️', value:340, color:'#F472B6'}
+  ];
+  function buildMonthlyReportChart(){
+    const total = monthlyReportCategories.reduce((s,x)=>s+x.value,0);
+    const r = 68, cx = 95, cy = 95, circumference = 2*Math.PI*r;
+    let offset = 0;
+    const segs = monthlyReportCategories.map(c=>{
+      const frac = c.value/total;
+      const dash = frac*circumference;
+      const seg = { ...c, dash, gap: circumference-dash, offset:-offset, pct: Math.round(frac*100) };
+      offset += dash;
+      return seg;
+    });
+    const html = `<div class="donut-wrap" style="width:172px;height:172px;margin:0 auto;"><svg viewBox="0 0 190 190">
+      ${segs.map(s=>`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${s.color}" stroke-width="24" class="donut-seg" stroke-linecap="butt" stroke-dasharray="0 ${circumference.toFixed(2)}" stroke-dashoffset="${s.offset.toFixed(2)}" transform="rotate(-90 ${cx} ${cy})" data-final="${s.dash.toFixed(2)} ${s.gap.toFixed(2)}"/>`).join('')}
+    </svg><div class="donut-center"><div class="amt">${fmt(total).replace('.00','')}</div><div class="lbl">Total Spent</div></div></div>
+    <div class="donut-legend" style="grid-template-columns:1fr 1fr; margin-top:20px; text-align:left;">
+      ${segs.map(s=>`<div class="legend-item"><span class="legend-dot" style="background:${s.color}"></span>${s.icon} ${s.name}<span class="legend-pct">${s.pct}%</span></div>`).join('')}
+    </div>`;
+    const container = document.getElementById('monthlyReportChart');
+    container.innerHTML = html;
+    requestAnimationFrame(()=>{
+      container.querySelectorAll('.donut-seg').forEach(el=>{
+        el.setAttribute('stroke-dasharray', el.dataset.final);
+      });
+    });
+  }
+  function openMonthlyReport(){
+    buildMonthlyReportChart();
+    buildBurst('monthlyReportBurst');
+    goTo('monthlyReport');
+  }
+
+  function setInsightRange(range){
+    currentRange = range;
+    document.querySelectorAll('#rangeToggle button').forEach(b=> b.classList.toggle('active', b.dataset.range===range));
+    const m = rangeMeta[range];
+    document.getElementById('rangeLabel').textContent = m.label;
+    document.getElementById('rangeTotal').textContent = fmt(m.series[m.series.length-1]);
+    const chip = document.getElementById('rangeChange');
+    const up = m.change >= 0;
+    chip.textContent = (up?'+':'') + m.change + '%';
+    chip.className = 'status-chip ' + (up ? 'due' : 'ok');
+    renderMonthlyChart(range);
+    renderCategoryCards(range);
+    buildDonut(range);
+  }
+
+  // ---- Category detail flow: Analyzing... -> Preparing Category Report... -> show ----
+  function openCategoryDetail(id){
+    goTo('categoryLoading');
+    const loadingText = document.getElementById('catLoadingText');
+    loadingText.textContent = 'Analyzing...';
+    setTimeout(()=>{ loadingText.textContent = 'Preparing Category Report...'; }, 700);
+    setTimeout(()=>{ populateCategoryDetail(id); goTo('categoryDetail'); }, 1500);
+  }
+  function populateCategoryDetail(id){
+    const c = categories.find(x=>x.id===id);
+    const spent = categoryAmountForRange(c, currentRange);
+    const budget = categoryBudgetForRange(c, currentRange);
+    document.getElementById('catDetailTitle').textContent = c.name;
+    document.getElementById('catDetailIcon').textContent = c.icon;
+    document.getElementById('catDetailAmount').textContent = fmt(spent);
+    document.getElementById('catDetailBudget').textContent = 'of ' + fmt(budget) + ' budget';
+    document.getElementById('catThisMonth').textContent = fmt(spent);
+    document.getElementById('catLastMonth').textContent = fmt(c.lastMonth);
+    const chg = document.getElementById('catChange');
+    const up = c.changePct >= 0;
+    chg.textContent = (up?'+':'') + c.changePct + '%';
+    chg.className = 'status-chip ' + (up ? 'due' : 'ok');
+    document.getElementById('statTotal').textContent = fmt(spent);
+    document.getElementById('statAvg').textContent = fmt(spent/4.3);
+    document.getElementById('statBudgetPct').textContent = Math.round((spent/budget)*100) + '%';
+    document.getElementById('statRemaining').textContent = fmt(Math.max(budget-spent,0));
+    document.getElementById('catAiSummary').textContent = c.summary;
+    renderCategoryChart(c);
+  }
+
+  function initStaticContent(){
+    renderTxnList();
+    renderBillList('billList', 3);
+    renderBillList('insightBillList', 3);
+    renderBillSelectList();
+    renderRecipientList();
+    renderNotifications();
+    renderSuggestions();
+    renderThemeGrid();
+    renderAiBullets();
+    renderCategoryCards();
+    renderMonthlyChart();
+    buildDonut();
+    document.getElementById('navHome').innerHTML = navHTML('home');
+    document.getElementById('navCards').innerHTML = navHTML('cards');
+    document.getElementById('navSettings').innerHTML = navHTML('settings');
+  }
+
+  // ================= NAVIGATION =================
+  const screens = document.querySelectorAll('.screen');
+  let currentScreen = 'home';
+  function goTo(id){
+    currentScreen = id;
+    screens.forEach(s=>{ s.classList.toggle('active', s.id===id); });
+    document.querySelectorAll('.navitem').forEach(n=>{
+      n.classList.toggle('active', n.dataset.nav===id);
+    });
+  }
+
+  // ================= FLOW STATE =================
+  let flow = { type:null, name:'Jordan Miller', initials:'JM', amount:0, category:'', billId:null };
+
+  function openRecipientScreen(){ goTo('sendRecipient'); }
+
+  function selectRecipient(i){
+    const r = recipients[i];
+    flow = { type:'send', name:r.name, initials:r.initials, amount:0 };
+    document.getElementById('sendToAvatar').textContent = r.initials;
+    document.getElementById('sendToLabel').textContent = 'To ' + r.name;
+    document.getElementById('amountInput').value = '';
+    updateSendBtn();
+    goTo('sendAmount');
+  }
+  function useCustomRecipient(){
+    const val = document.getElementById('customRecipientInput').value.trim();
+    if(!val) return;
+    const initials = val.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+    flow = { type:'send', name:val, initials: initials || '??', amount:0 };
+    document.getElementById('sendToAvatar').textContent = flow.initials;
+    document.getElementById('sendToLabel').textContent = 'To ' + val;
+    document.getElementById('amountInput').value = '';
+    updateSendBtn();
+    goTo('sendAmount');
+  }
+
+  function openBillDetails(id){
+    const b = bills.find(x=>x.id===id);
+    flow = { type:'bill', name:b.name, initials:b.icon, amount:b.amount, category:b.category, billId:id };
+    document.getElementById('billIcon').textContent = b.icon;
+    document.getElementById('billName').textContent = b.name;
+    document.getElementById('billAmount').textContent = fmt(b.amount);
+    document.getElementById('billCategory').textContent = b.category;
+    document.getElementById('billDue').textContent = 'Due ' + b.due;
+    const statusEl = document.getElementById('billStatus');
+    statusEl.textContent = b.status;
+    statusEl.className = 'status-chip ' + b.statusClass;
+    goTo('billDetails');
+  }
+
+  // ---- Amount keypad (send only) ----
+  const amountInput = document.getElementById('amountInput');
+  const sendAmountBtn = document.getElementById('sendAmountBtn');
+  document.getElementById('keypad').addEventListener('click', (e)=>{
+    const key = e.target.closest('.key');
+    if(!key) return;
+    const k = key.dataset.k;
+    let val = amountInput.value;
+    if(k === 'back'){ val = val.slice(0,-1); }
+    else if(k === '.'){ if(!val.includes('.')) val += '.'; }
+    else {
+      if(val.includes('.') && val.split('.')[1].length>=2) return;
+      if(val.length >= 9) return;
+      val += k;
+    }
+    amountInput.value = val;
+    updateSendBtn();
+  });
+  function updateSendBtn(){
+    const n = parseFloat(amountInput.value);
+    sendAmountBtn.disabled = !(n && n>0);
+  }
+
+  function goToReview(){
+    if(flow.type === 'send'){
+      flow.amount = parseFloat(amountInput.value) || 0;
+    }
+    document.getElementById('reviewAvatar').textContent = flow.initials;
+    document.getElementById('reviewAmount').textContent = fmt(flow.amount);
+    document.getElementById('reviewTo').textContent = 'To ' + flow.name;
+    document.getElementById('reviewArrival').textContent = flow.type==='bill' ? 'By due date' : 'Instant';
+    goTo('review');
+  }
+  function goBackFromReview(){
+    goTo(flow.type==='bill' ? 'billDetails' : 'sendAmount');
+  }
+
+  function confirmPayment(){
+    const needsVerification = (flow.type === 'send' && flow.amount > 1000) || (flow.type === 'bill' && flow.amount > 100);
+    if(needsVerification){
+      requireVerification(startAuthorizing);
+    } else {
+      startAuthorizing();
+    }
+  }
+
+  function startAuthorizing(){
+    goTo('authorizing');
+    setTimeout(()=>{
+      const amt = flow.amount;
+      document.getElementById('successAmount').textContent = fmt(amt);
+      document.getElementById('successSub').textContent = flow.type==='bill'
+        ? `Your payment to ${flow.name} was completed successfully.`
+        : `Your transfer to ${flow.name} was completed successfully.`;
+      buildBurst();
+      goTo('success');
+    }, 1800);
+  }
+
+  function buildBurst(targetId){
+    const burst = document.getElementById(targetId || 'burst');
+    burst.innerHTML = '';
+    const n = 10;
+    for(let i=0;i<n;i++){
+      const angle = (Math.PI*2/n)*i;
+      const dist = 46 + Math.random()*14;
+      const bx = Math.cos(angle)*dist;
+      const by = Math.sin(angle)*dist;
+      const dot = document.createElement('i');
+      dot.style.setProperty('--bx', bx.toFixed(1)+'px');
+      dot.style.setProperty('--by', by.toFixed(1)+'px');
+      burst.appendChild(dot);
+    }
+  }
+
+  // ---- Generic action-success screen (Support Center completions, Freeze Card) ----
+  let actionSuccessReturn = null;
+  function showActionSuccess(title, sub, returnFn){
+    document.getElementById('actionSuccessTitle').textContent = title;
+    document.getElementById('actionSuccessSub').textContent = sub;
+    buildBurst('actionBurst');
+    actionSuccessReturn = returnFn || (()=> goTo('home'));
+    goTo('actionSuccess');
+  }
+  function actionSuccessContinue(){
+    const fn = actionSuccessReturn;
+    actionSuccessReturn = null;
+    if(fn) fn();
+  }
+
+  // ================= SCAN TO PAY (Contactless QR simulation) =================
+  // NOT a real payment. No QR decoding, no NFC, no gateway. Timed visual sim.
+  const DEMO_PAYMENT_RESULT = "success"; // future: "success" | "declined" | "timeout"
+  const SCAN_AMOUNT = 86.40;
+  let scanStream = null;
+  let scanTimers = [];
+  let scanActive = false;
+  function clearScanTimers(){ scanTimers.forEach(clearTimeout); scanTimers = []; }
+
+  function stopScanCamera(){
+    if(scanStream){
+      try { scanStream.getTracks().forEach(t=> t.stop()); } catch(e){}
+      scanStream = null;
+    }
+    const v = document.getElementById('scanVideo');
+    if(v){ try { v.pause(); } catch(e){} v.srcObject = null; v.removeAttribute('src'); v.load && v.load(); }
+    const flash = document.getElementById('scanFlash');
+    if(flash) flash.classList.remove('on');
+  }
+
+  function resetScanUi(){
+    document.getElementById('scanInit').classList.remove('hidden');
+    document.getElementById('scanUi').classList.remove('show');
+    document.getElementById('scanDetected').classList.remove('show');
+    document.getElementById('scanInstruction').textContent = 'Align the merchant QR code inside the frame';
+    document.getElementById('scanMerchantName').textContent = 'Merchant';
+    document.getElementById('scanMerchantSub').textContent = 'Waiting for payment details';
+    document.getElementById('scanMerchantAmount').textContent = '';
+    document.getElementById('scanMerchantAmount').classList.remove('show');
+    document.getElementById('scanFallback').classList.remove('active');
+  }
+
+  async function openScanToPay(){
+    scanActive = true;
+    clearScanTimers();
+    resetScanUi();
+    goTo('scanPay');
+
+    // Try the real rear camera; fall back gracefully to an animated backdrop.
+    let cameraOk = false;
+    try {
+      if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+        scanStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: "environment" } }, audio: false
+        });
+        if(scanActive){
+          const v = document.getElementById('scanVideo');
+          v.srcObject = scanStream;
+          cameraOk = true;
+        } else {
+          // user already left during permission prompt
+          stopScanCamera();
+          return;
+        }
+      }
+    } catch(e){ cameraOk = false; }
+
+    if(!cameraOk){
+      document.getElementById('scanFallback').classList.add('active');
+    }
+
+    // brief "Initializing Camera..." (~0.5s), then the scanner UI + 4s sim
+    scanTimers.push(setTimeout(()=>{
+      if(!scanActive) return;
+      document.getElementById('scanInit').classList.add('hidden');
+      document.getElementById('scanUi').classList.add('show');
+      runScanSequence();
+    }, 550));
+  }
+
+  function runScanSequence(){
+    // ~5s of scanning, then detection confirmation (~0.5s)
+    scanTimers.push(setTimeout(()=>{
+      if(!scanActive) return;
+      // reveal merchant details mid-scan for realism
+      document.getElementById('scanMerchantName').textContent = 'Retail Purchase';
+      document.getElementById('scanMerchantSub').textContent = 'Payment request received';
+      const amtEl = document.getElementById('scanMerchantAmount');
+      amtEl.textContent = fmt(-SCAN_AMOUNT).replace('-','');
+      amtEl.classList.add('show');
+    }, 3200));
+
+    scanTimers.push(setTimeout(()=>{
+      if(!scanActive) return;
+      document.getElementById('scanInstruction').textContent = 'Payment Code Detected';
+      const det = document.getElementById('scanDetected');
+      det.classList.remove('show'); void det.offsetWidth; det.classList.add('show');
+    }, 5000));
+
+    // detection shown ~0.5s → close camera fully → processing
+    scanTimers.push(setTimeout(()=>{
+      if(!scanActive) return;
+      stopScanCamera();
+      goTo('scanProcessing');
+    }, 5600));
+
+    // processing ~1.8s → success
+    scanTimers.push(setTimeout(()=>{
+      if(!scanActive) return;
+      showScanSuccess();
+    }, 7400));
+  }
+
+  function showScanSuccess(){
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2,'0');
+    const mm = String(now.getMinutes()).padStart(2,'0');
+    document.getElementById('scanSuccessAmount').textContent = fmt(SCAN_AMOUNT);
+    document.getElementById('scanSuccessTime').textContent = `Today • ${hh}:${mm}`;
+    buildBurst('scanBurst');
+    goTo('scanSuccess');
+
+    // add to Recent Activity for this session (resets on full reload)
+    addScanTransaction(now);
+
+    // Stays on the success screen until the user taps Done (no auto-return).
+  }
+
+  function finishScanPayment(){
+    scanActive = false;
+    clearScanTimers();
+    stopScanCamera();
+    resetScanUi();
+    goTo('home');
+  }
+
+  function addScanTransaction(now){
+    const hh = now.getHours();
+    const mm = String(now.getMinutes()).padStart(2,'0');
+    const ampm = hh >= 12 ? 'PM' : 'AM';
+    const h12 = ((hh + 11) % 12) + 1;
+    transactions.unshift({
+      icon:'🛍️', title:'Retail Purchase', date:'Today', time:`${h12}:${mm} ${ampm}`,
+      amount:-SCAN_AMOUNT, category:'Shopping', method:'Contactless •••• 2290', ref:'TX-QR'+Math.floor(1000+Math.random()*9000)
+    });
+    renderTxnList();
+  }
+
+  function toggleScanFlash(){
+    const btn = document.getElementById('scanFlash');
+    const on = !btn.classList.contains('on');
+    btn.classList.toggle('on', on);
+    // best-effort torch; silently ignored if unsupported (sim stays reliable)
+    try {
+      if(scanStream){
+        const track = scanStream.getVideoTracks()[0];
+        if(track && track.applyConstraints){ track.applyConstraints({ advanced:[{ torch:on }] }).catch(()=>{}); }
+      }
+    } catch(e){}
+  }
+
+  function closeScanToPay(dest){
+    scanActive = false;
+    clearScanTimers();
+    stopScanCamera();
+    resetScanUi();
+    goTo(dest || 'home');
+  }
+
+  function goToReceipt(){
+    const now = new Date();
+    document.getElementById('receiptAmount').textContent = fmt(flow.amount);
+    document.getElementById('receiptTo').textContent = flow.name;
+    document.getElementById('receiptDate').textContent = 'Jul 27, 2026';
+    document.getElementById('receiptTime').textContent = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    document.getElementById('receiptId').textContent = 'TXN-' + Math.floor(200000+Math.random()*799999);
+    goTo('receipt');
+  }
+
+  function exportReceiptPdf(){
+    showToast('Receipt exported as PDF');
+  }
+  function sendReceiptEmail(){
+    const btn = document.getElementById('sendEmailBtn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(()=>{
+      btn.textContent = 'Send to Email';
+      btn.disabled = false;
+      buildBurst('emailBurst');
+      goTo('emailSent');
+    }, 1300);
+  }
+
+  function openTxnDetail(i){
+    const t = transactions[i];
+    document.getElementById('tdIcon').textContent = t.icon;
+    document.getElementById('tdMerchant').textContent = t.title;
+    document.getElementById('tdAmount').textContent = t.amount<0? fmt(t.amount) : '+'+fmt(t.amount);
+    document.getElementById('tdAmount').style.color = t.amount<0 ? 'var(--text-primary)' : 'var(--positive)';
+    document.getElementById('tdDate').textContent = t.date;
+    document.getElementById('tdTime').textContent = t.time;
+    document.getElementById('tdCategory').textContent = t.category;
+    document.getElementById('tdMethod').textContent = t.method;
+    document.getElementById('tdRef').textContent = t.ref;
+    goTo('txnDetail');
+  }
+
+  // ================= CARD MASKING =================
+  function mask(str){ return str.replace(/[0-9]/g, '•'); }
+  let revealed = false;
+  function paintMaskables(){
+    document.querySelectorAll('.maskable').forEach(el=>{
+      const val = el.dataset.value;
+      el.textContent = revealed ? val : mask(val);
+    });
+  }
+  function toggleReveal(){
+    revealed = !revealed;
+    paintMaskables();
+    const icon = document.getElementById('eyeIcon');
+    icon.innerHTML = revealed
+      ? '<path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a21.4 21.4 0 015.06-6.06M9.9 4.24A10.94 10.94 0 0112 4c7 0 11 8 11 8a21.4 21.4 0 01-2.61 3.69M14.12 14.12a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+      : '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/>';
+  }
+
+  // ================= CARD LIMIT FLOW =================
+  function fmtWhole(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function onLimitSlide(v){
+    document.getElementById('limitDisplay').textContent = fmtWhole(v);
+  }
+  function goToLimitReview(){
+    const v = document.getElementById('limitSlider').value;
+    document.getElementById('limitReviewAmount').textContent = fmtWhole(v);
+    document.getElementById('limitReviewNew').textContent = fmtWhole(v) + '.00';
+    goTo('cardLimitReview');
+  }
+  function submitLimitRequest(){
+    requireVerification(()=>{
+      goTo('cardLimitSubmitting');
+      setTimeout(()=>{ goTo('cardLimitSubmitted'); }, 1900);
+    });
+  }
+
+  function toggleRow(el){
+    el.querySelector('.toggle').classList.toggle('on');
+  }
+
+  // ================= IDENTITY VERIFICATION (2FA) =================
+  let pendingVerifyAction = null;
+  const codeBoxes = document.querySelectorAll('.code-box');
+  codeBoxes.forEach((box, i)=>{
+    box.addEventListener('input', ()=>{
+      const digit = box.value.replace(/[^0-9]/g,'').slice(0,1);
+      clearTimeout(box._maskTimer);
+      if(digit){
+        box.value = digit;
+        box.dataset.real = digit;
+        box._maskTimer = setTimeout(()=>{ box.value = '•'; }, 500);
+        if(codeBoxes[i+1]) codeBoxes[i+1].focus();
+      } else {
+        box.value = '';
+        box.dataset.real = '';
+      }
+    });
+    box.addEventListener('keydown', (e)=>{
+      if(e.key === 'Backspace' && !box.value && codeBoxes[i-1]) codeBoxes[i-1].focus();
+    });
+  });
+  function requireVerification(action){
+    pendingVerifyAction = action;
+    codeBoxes.forEach(b=>{ clearTimeout(b._maskTimer); b.value = ''; b.dataset.real = ''; });
+    document.getElementById('verifyBody').classList.remove('hidden');
+    document.getElementById('verifySuccess').classList.add('hidden');
+    goTo('verify2fa');
+    setTimeout(()=>{ codeBoxes[0] && codeBoxes[0].focus(); }, 350);
+  }
+  function cancelVerification(){
+    pendingVerifyAction = null;
+    goTo('home');
+  }
+  function resendCode(){
+    const hint = document.querySelector('.verify-hint');
+    const original = 'Code sent to your registered mobile number.';
+    hint.textContent = 'A new code has been sent.';
+    setTimeout(()=>{ hint.textContent = original; }, 2200);
+  }
+  function confirmVerification(){
+    const code = Array.from(codeBoxes).map(b=>b.value).join('');
+    if(code.length < 6){
+      codeBoxes.forEach(b=>{ if(!b.value) b.focus(); });
+      return;
+    }
+    document.getElementById('verifyBody').classList.add('hidden');
+    document.getElementById('verifySuccess').classList.remove('hidden');
+    setTimeout(()=>{
+      const action = pendingVerifyAction;
+      pendingVerifyAction = null;
+      if(action) action();
+    }, 1100);
+  }
+
+  // ================= CARD FROZEN STATE (session-only) =================
+  let cardFrozen = false;
+  function setCardFrozen(state){
+    cardFrozen = state;
+    const visual = document.getElementById('cardVisual');
+    const badge = document.getElementById('frozenBadge');
+    const row = document.getElementById('freezeToggleRow');
+    if(visual){
+      visual.classList.toggle('frozen', state);
+      if(state){
+        visual.classList.remove('freezing');
+        void visual.offsetWidth;
+        visual.classList.add('freezing');
+        setTimeout(()=> visual.classList.remove('freezing'), 2100);
+      }
+    }
+    if(badge){
+      badge.classList.remove('show');
+      if(state){
+        void badge.offsetWidth;
+        badge.classList.add('show');
+      }
+    }
+    if(row){
+      const t = row.querySelector('.toggle');
+      if(t) t.classList.toggle('on', state);
+    }
+  }
+  function toggleFreezeFromCardsScreen(el){
+    const turningOn = !cardFrozen;
+    if(turningOn){
+      requireVerification(()=>{
+        setCardFrozen(true);
+        showActionSuccess('Your Card is Frozen', 'Your card has been temporarily frozen and secured. No new transactions can be made until you unfreeze it.', ()=> goTo('cards'));
+      });
+    } else {
+      setCardFrozen(false);
+    }
+  }
+
+  // ================= TOAST =================
+  function showToast(msg){
+    const active = document.querySelector('.screen.active');
+    if(!active) return;
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span>${msg}</span>`;
+    active.appendChild(t);
+    requestAnimationFrame(()=> t.classList.add('show'));
+    setTimeout(()=>{
+      t.classList.remove('show');
+      setTimeout(()=> t.remove(), 300);
+    }, 2000);
+  }
+
+  // ================= SUPPORT CENTER =================
+  const supportScenarios = [
+    { id:'lostcard', label:'I lost my card.' },
+    { id:'paymentfailed', label:'My payment failed.' },
+    { id:'transferpending', label:'My transfer is still pending.' },
+    { id:'limitincrease', label:'I want to increase my card limit.' },
+    { id:'suspicious', label:'I don\u2019t recognize this payment.' }
+  ];
+  let supportInitialized = false;
+  let supportBusy = false;
+
+  function chatAppend(html){
+    const chat = document.getElementById('supportChat');
+    const wrap = document.createElement('div');
+    wrap.innerHTML = html;
+    while(wrap.firstChild) chat.appendChild(wrap.firstChild);
+    chat.scrollTop = chat.scrollHeight;
+  }
+  function userBubble(text){
+    chatAppend(`<div class="chat-row user"><div class="chat-bubble">${text}</div></div><div class="chat-status" id="chatStatusLatest">Sending...</div>`);
+    setTimeout(()=>{ const s = document.getElementById('chatStatusLatest'); if(s){ s.textContent = 'Delivered'; s.removeAttribute('id'); } }, 500);
+  }
+  function emilyTyping(){
+    chatAppend(`<div class="chat-row emily" id="typingRow"><div class="chat-avatar">E</div><div class="chat-bubble chat-typing"><span></span><span></span><span></span></div></div>`);
+    document.getElementById('supportChat').scrollTop = document.getElementById('supportChat').scrollHeight;
+  }
+  function removeTyping(){
+    const row = document.getElementById('typingRow');
+    if(row) row.remove();
+  }
+  function emilyBubble(html){
+    chatAppend(`<div class="chat-row emily"><div class="chat-avatar">E</div><div>${html}</div></div>`);
+  }
+  function emilySay(text, extraHtml, delay){
+    return new Promise(resolve=>{
+      emilyTyping();
+      setTimeout(()=>{
+        removeTyping();
+        emilyBubble(`<div class="chat-bubble">${text}</div>${extraHtml || ''}`);
+        resolve();
+      }, delay || 2200);
+    });
+  }
+
+  function openSupport(){
+    goTo('support');
+    if(supportInitialized) return;
+    supportInitialized = true;
+    emilyBubble(`<div class="chat-bubble">Hello Jordan, welcome to Support Center. How can I help you today?</div>
+      <div class="chat-suggestions">${supportScenarios.map(s=>`<div class="chat-suggest-chip" onclick="handleSupportTap('${s.id}')">${s.label}</div>`).join('')}</div>`);
+  }
+
+  function exitSupport(){
+    document.getElementById('supportChat').innerHTML = '';
+    supportInitialized = false;
+    supportBusy = false;
+    goTo('home');
+  }
+
+  // Called after returning from the generic action-success screen — Emily always
+  // checks in before the conversation is considered over.
+  function supportFollowUp(){
+    goTo('support');
+    emilySay("Is there anything else I can help you with?",
+      `<div class="chat-suggestions">${supportScenarios.map(s=>`<div class="chat-suggest-chip" onclick="handleSupportTap('${s.id}')">${s.label}</div>`).join('')}</div>`, 1800)
+      .then(()=>{ supportBusy = false; });
+  }
+
+  function sendSupportMessage(){
+    if(supportBusy) return;
+    const input = document.getElementById('supportInput');
+    const text = input.value.trim();
+    if(!text) return;
+    const match = supportScenarios.find(s=> s.label.toLowerCase() === text.toLowerCase());
+    input.value = '';
+    if(match){ handleSupportTap(match.id, true); }
+    else {
+      userBubble(text);
+      supportBusy = true;
+      emilySay("Thanks for reaching out — let me connect you with the right information.", `<div class="chat-suggestions">${supportScenarios.map(s=>`<div class="chat-suggest-chip" onclick="handleSupportTap('${s.id}')">${s.label}</div>`).join('')}</div>`, 2200)
+        .then(()=>{ supportBusy = false; });
+    }
+  }
+
+  function handleSupportTap(id, alreadyTyped){
+    if(supportBusy) return;
+    supportBusy = true;
+    const s = supportScenarios.find(x=>x.id===id);
+    if(!alreadyTyped){ userBubble(s.label); document.getElementById('supportInput').value=''; }
+    if(id === 'lostcard') runLostCardFlow();
+    else if(id === 'paymentfailed') runPaymentFailedFlow();
+    else if(id === 'transferpending') runTransferPendingFlow();
+    else if(id === 'limitincrease') runLimitIncreaseFlow();
+    else if(id === 'suspicious') runSuspiciousFlow();
+  }
+
+  function runLostCardFlow(){
+    emilySay("I'm sorry to hear that. Would you like to temporarily freeze your card to prevent any unauthorized use?",
+      `<div class="chat-action-btn" onclick="supportFreezeCard()">Freeze Card</div>`).then(()=>{ supportBusy = false; });
+  }
+  function supportFreezeCard(){
+    if(cardFrozen){ emilySay("Your card is already frozen — you're all set."); return; }
+    supportBusy = true;
+    requireVerification(()=>{
+      goTo('support');
+      userBubble('Freeze Card');
+      emilyTyping();
+      setTimeout(()=>{
+        removeTyping();
+        emilyBubble(`<div class="chat-bubble">Processing...</div>`);
+        setTimeout(()=>{
+          setCardFrozen(true);
+          emilyBubble(`<div class="chat-bubble">✔ Card Frozen Successfully.</div>`);
+          setTimeout(()=>{
+            showActionSuccess('Card Frozen', 'Your card is now safe — no new transactions can be made until you unfreeze it from the Cards tab.', supportFollowUp);
+          }, 700);
+        }, 1800);
+      }, 1600);
+    });
+  }
+
+  function runPaymentFailedFlow(){
+    emilySay("I see your payment didn't go through. Would you like to retry it now?",
+      `<div class="chat-action-btn" onclick="supportRetryPayment()">Retry Payment</div>`).then(()=>{ supportBusy = false; });
+  }
+  function supportRetryPayment(){
+    supportBusy = true;
+    userBubble('Retry Payment');
+    emilyTyping();
+    setTimeout(()=>{
+      removeTyping();
+      emilyBubble(`<div class="chat-bubble">Processing...</div>`);
+      setTimeout(()=>{
+        emilyBubble(`<div class="chat-bubble">✔ Payment Completed.</div>`);
+        setTimeout(()=>{
+          showActionSuccess('Payment Completed', 'Your payment of $84.30 to Brightline Electric has gone through successfully.', supportFollowUp);
+        }, 700);
+      }, 1800);
+    }, 1600);
+  }
+
+  function runTransferPendingFlow(){
+    emilySay("Let me look into that for you. Would you like to track its current status?",
+      `<div class="chat-action-btn" onclick="supportTrackTransfer()">Track Transfer</div>`).then(()=>{ supportBusy = false; });
+  }
+  function supportTrackTransfer(){
+    supportBusy = true;
+    userBubble('Track Transfer');
+    emilyTyping();
+    setTimeout(()=>{
+      removeTyping();
+      emilyBubble(`<div class="chat-bubble">Here's your transfer timeline:</div>
+        <div class="chat-widget">
+          <div class="timeline" id="transferTimeline">
+            <div class="timeline-step"><div class="timeline-dot done"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1120" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div><div class="timeline-text"><div class="timeline-title">Transfer Initiated</div><div class="timeline-time">2:14 PM</div></div></div>
+            <div class="timeline-step"><div class="timeline-dot done"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1120" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></div><div class="timeline-text"><div class="timeline-title">Sent to Recipient Bank</div><div class="timeline-time">2:15 PM</div></div></div>
+            <div class="timeline-step" id="timelineStep3"><div class="timeline-dot"></div><div class="timeline-text"><div class="timeline-title">Processing</div><div class="timeline-time">In progress</div></div></div>
+          </div>
+        </div>`);
+      setTimeout(()=>{
+        const step = document.getElementById('timelineStep3');
+        if(step){
+          step.querySelector('.timeline-dot').className = 'timeline-dot done';
+          step.querySelector('.timeline-dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#0B1120" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+          step.querySelector('.timeline-title').textContent = 'Completed';
+          step.querySelector('.timeline-time').textContent = 'Just now';
+        }
+        setTimeout(()=>{
+          showActionSuccess('Transfer Completed', 'Your transfer has been completed successfully and the funds have arrived.', supportFollowUp);
+        }, 900);
+      }, 2200);
+    }, 1600);
+  }
+
+  function runLimitIncreaseFlow(){
+    emilySay("I can help with that. Ready to submit a request to increase your card limit?",
+      `<div class="chat-action-btn" onclick="supportLimitIncrease()">Submit Request</div>`).then(()=>{ supportBusy = false; });
+  }
+  function supportLimitIncrease(){
+    supportBusy = true;
+    requireVerification(()=>{
+      goTo('support');
+      userBubble('Submit Request');
+      emilyTyping();
+      setTimeout(()=>{
+        removeTyping();
+        emilyBubble(`<div class="chat-bubble">✔ Your request has been submitted.</div>`);
+        setTimeout(()=>{
+          showActionSuccess('Request Submitted', 'Your card limit request is under review. Estimated decision: within 24 hours.', supportFollowUp);
+        }, 700);
+      }, 1800);
+    });
+  }
+
+  function runSuspiciousFlow(){
+    emilySay("Let's take a look at that transaction together.",
+      `<div class="chat-action-btn" onclick="supportReviewTransaction()">Review Transaction</div>`).then(()=>{ supportBusy = false; });
+  }
+  function supportReviewTransaction(){
+    supportBusy = true;
+    userBubble('Review Transaction');
+    emilyTyping();
+    setTimeout(()=>{
+      removeTyping();
+      emilyBubble(`<div class="chat-bubble">Here's the transaction in question:</div>
+        <div class="chat-widget">
+          <div class="detail-row"><span class="detail-key">Merchant</span><span class="detail-val">Unknown Retailer POS</span></div>
+          <div class="detail-row"><span class="detail-key">Amount</span><span class="detail-val">$412.00</span></div>
+          <div class="detail-row"><span class="detail-key">Location</span><span class="detail-val">Lisbon, Portugal</span></div>
+          <div class="detail-row"><span class="detail-key">Time</span><span class="detail-val">Today, 3:47 AM</span></div>
+          <div class="chat-action-btn" onclick="supportReportTransaction()">Report Transaction</div>
+        </div>`);
+      supportBusy = false;
+    }, 1600);
+  }
+  function supportReportTransaction(){
+    supportBusy = true;
+    userBubble('Report Transaction');
+    emilyTyping();
+    setTimeout(()=>{
+      removeTyping();
+      emilyBubble(`<div class="chat-bubble">✔ Investigation Started.</div>`);
+      setTimeout(()=>{
+        showActionSuccess('Investigation Started', "We've flagged this transaction and temporarily secured your card. Our fraud team will follow up within 24 hours.", supportFollowUp);
+      }, 700);
+    }, 1800);
+  }
+
+  // ================= THEME =================
+  const phone = document.getElementById('phone');
+  function setTheme(t){
+    phone.setAttribute('data-theme', t);
+    document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('selected', s.dataset.t===t));
+  }
+
+  // ================= AI FRAUD RESOLUTION =================
+  function resolveFraud(result){
+    document.getElementById('fraudBody').classList.add('hidden');
+    const resultEl = document.getElementById('fraudResult');
+    resultEl.classList.remove('hidden');
+    document.getElementById('fraudResultTitle').textContent = result === 'Approved' ? 'Payment Approved' : 'Payment Declined';
+    document.querySelector('#fraudResult .fraud-sub').textContent = result === 'Approved'
+      ? 'This transaction has been confirmed and your account is secure.'
+      : 'This transaction has been blocked and your card has been secured.';
+  }
+
+  function resetFraudScreen(){
+    document.getElementById('fraudBody').classList.remove('hidden');
+    document.getElementById('fraudResult').classList.add('hidden');
+  }
+
+  // ================= AI CHATBOT — cinematic vortex visualizer =================
+  const vortexEl = document.getElementById('vortex');
+  const VORTEX_SPEEDS = {
+    idle:       ['7.5s','5.6s','4s','2.8s'],
+    listening:  ['2.1s','1.5s','1.05s','0.75s'],
+    processing: ['3.6s','2.7s','2s','1.4s'],
+    thinking:   ['3.2s','2.4s','1.8s','1.3s'],
+    speaking:   ['2.6s','2s','1.4s','1s']
+  };
+  function applyVortexSpeed(state){
+    const s = VORTEX_SPEEDS[state] || VORTEX_SPEEDS.idle;
+    vortexEl.style.setProperty('--r1-speed', s[0]);
+    vortexEl.style.setProperty('--r2-speed', s[1]);
+    vortexEl.style.setProperty('--r3-speed', s[2]);
+    vortexEl.style.setProperty('--r4-speed', s[3]);
+  }
+  applyVortexSpeed('idle');
+
+  let vizState = 'idle'; // idle | listening | processing | thinking | speaking
+
+  // ---- Core waveform: the unmistakable "this is voice AI" signal ----
+  const coreWaveEl = document.getElementById('coreWave');
+  const WAVE_BARS = 13;
+  const waveBarRefs = [];
+  for(let i=0;i<WAVE_BARS;i++){
+    const b = document.createElement('div');
+    b.className = 'wbar';
+    coreWaveEl.appendChild(b);
+    waveBarRefs.push(b);
+  }
+  let waveClock = 0;
+  function animateCoreWave(){
+    waveClock += 1;
+    waveBarRefs.forEach((bar, i)=>{
+      const mid = (WAVE_BARS-1)/2;
+      const distFromMid = 1 - Math.abs(i-mid)/mid; // 0..1, taller near center
+      let h;
+      if(vizState === 'listening'){
+        // erratic, reactive — as if actively capturing a live voice
+        h = 9 + distFromMid * (15 + Math.abs(Math.sin(waveClock*0.35 + i*1.1)) * 47) + Math.random()*14;
+      } else if(vizState === 'speaking'){
+        // smooth traveling wave — as if the AI is talking back
+        h = 9 + distFromMid * (15 + (Math.sin(waveClock*0.14 - i*0.7)*0.5+0.5) * 47);
+      } else if(vizState === 'processing' || vizState === 'thinking'){
+        // steady sweeping pulse — visibly "working"
+        h = 9 + distFromMid * (12 + (Math.sin(waveClock*0.09 + i*0.5)*0.5+0.5) * 31);
+      } else {
+        // idle — gentle resting waveform, still instantly readable as an audio visualizer
+        h = 8 + distFromMid * (7 + Math.sin(waveClock*0.035 + i*0.6)*4);
+      }
+      bar.style.height = Math.max(7, h).toFixed(1) + 'px';
+    });
+    requestAnimationFrame(animateCoreWave);
+  }
+  animateCoreWave();
+
+  const stateText = document.getElementById('stateText');
+  const micBtn = document.getElementById('micBtn');
+
+  function setAiState(s){
+    vizState = s;
+    applyVortexSpeed(s);
+    if(s === 'listening'){ stateText.textContent = 'Listening...'; }
+    else if(s === 'processing'){ stateText.textContent = 'Processing...'; }
+    else if(s === 'thinking'){ stateText.textContent = 'Thinking...'; }
+    else if(s === 'speaking'){ stateText.textContent = 'Speaking...'; }
+    else { stateText.textContent = ''; }
+  }
+
+  let voiceTimers = [];
+  function clearVoiceTimers(){ voiceTimers.forEach(clearTimeout); voiceTimers = []; }
+
+  function pressStart(e){
+    e.preventDefault();
+    clearVoiceTimers();
+    micBtn.classList.add('pressed');
+    setAiState('listening');
+  }
+  function pressEnd(e){
+    e.preventDefault();
+    micBtn.classList.remove('pressed');
+    setAiState('processing');
+    clearVoiceTimers();
+    voiceTimers.push(setTimeout(()=> setAiState('thinking'), 1100));
+    voiceTimers.push(setTimeout(()=> setAiState('speaking'), 2100));
+    voiceTimers.push(setTimeout(()=> setAiState('idle'), 8100));
+  }
+  micBtn.addEventListener('mousedown', pressStart);
+  micBtn.addEventListener('touchstart', pressStart, {passive:false});
+  micBtn.addEventListener('mouseup', pressEnd);
+  micBtn.addEventListener('touchend', pressEnd, {passive:false});
+  micBtn.addEventListener('mouseleave', (e)=>{ if(micBtn.classList.contains('pressed')) pressEnd(e); });
+
+  // ---- Believable AI "thinking" sequence before any result ----
+  function runAiThinking(steps, onDone){
+    clearVoiceTimers();
+    vizState = 'thinking';
+    applyVortexSpeed('thinking');
+    let i = 0;
+    function step(){
+      stateText.textContent = steps[i];
+      i++;
+      if(i < steps.length){ voiceTimers.push(setTimeout(step, 1450)); }
+      else { voiceTimers.push(setTimeout(onDone, 1450)); }
+    }
+    step();
+  }
+
+  // ---- Prepared question taps ----
+  function tapSuggestion(i){
+    const s = suggestions[i];
+    if(s.instant && s.action === 'sendmoney'){ openRecipientScreen(); return; }
+    runAiThinking(s.steps || ['Thinking...'], ()=>{
+      if(s.action === 'bill'){ openBillDetails('elec'); return; }
+      if(s.action === 'insights'){ goTo('aiInsights'); return; }
+      if(s.action === 'viewmonthly'){ openMonthlyReport(); return; }
+      setAiState('idle');
+    });
+  }
+
+  // wrap goTo to reset fraud screen and AI assistant state on entry
+  const _goTo = goTo;
+  const SCAN_SCREENS = ['scanPay','scanProcessing','scanSuccess'];
+  goTo = function(id){
+    if(id === 'aiFraud'){ resetFraudScreen(); }
+    if(id === 'ai'){
+      clearVoiceTimers();
+      setAiState('idle');
+    }
+    // Safety net: landing on any non-scan screen must release the camera.
+    if(SCAN_SCREENS.indexOf(id) === -1){
+      if(scanStream){ stopScanCamera(); }
+      if(id !== 'home'){ scanActive = false; clearScanTimers(); }
+    }
+    _goTo(id);
+  };
+
+  // Release the camera if the app is backgrounded or the page is hidden.
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden && (scanStream || scanActive)){
+      scanActive = false; clearScanTimers(); stopScanCamera();
+    }
+  });
+
+  // ================= INIT =================
+  initStaticContent();
+  paintMaskables();
+</script>
+</body>
+</html>
