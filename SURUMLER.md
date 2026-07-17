@@ -27,6 +27,12 @@
 
 ## Geçmiş
 
+### v1.12.3 — 2026-07-17
+- 📣 **Ana sayfa — "Baito Days · Part-Time Japan" yapım aşamasında duyurusu + ayrı logo** (Zeynep isteği; bu session yalnız web/pazarlama şeridi). Güncellemeler bölümüne yeni bir duyuru kartı: "YAPIM AŞAMASINDA · YENİ UYGULAMA" etiketi, **求人 hanko (kırmızı mühür) app-logosu** (`baito-days-logo.png`, sıcak kâğıt zemin + krem 求人 — İlanlar oyununun 求人 gazete başlığıyla bağ kurar), "Baito Days · Part-Time Japan" başlığı, sıcak/hikâye-tabanlı kısa TR+EN açıklama, "ÇOK YAKINDA / COMING SOON" rozeti. Sağdaki mini zaman çizelgesine de Baito Days satırı eklendi. Uygulama geliştirme ayrı session'da; burada yalnız duyuru. Doğrulama: #updates ekran görüntüsü — kart + logo + etiketler doğru render, 0 JS hatası.
+
+### v1.12.2 — 2026-07-16
+- 🍎 **Ana sayfa + Japanese Flick sayfası — resmi "Download on the App Store" rozeti** (Zeynep, Apple official marketing tools'tan indirdi). Metin butonları Apple'ın resmi siyah SVG rozetiyle değiştirildi; izlenen pazarlama linkine bağlı (`apps.apple.com/tr/app/japanese-flick/id6789942860?itscg=30200&itsct=apps_box_link&mttnsubad=6789942860` / kısa `apple.co/4wfTmsy`). Rozet dosyası: `apps/japanese-flick/appstore-badge.svg`.
+
 ### v1.12.1 — 2026-07-16
 - 💰 **İlanlar — "Kazancım" (kalıcı toplam kazanç)** (Zeynep isteği). Her satış/masadan kazanılan ¥ artık **kalıcı toplam cüzdanda** birikiyor (localStorage `zk_ilanlar_yen`): Sakin bahşişler + Restoran ¥200/masa; Acele'de de ufak ¥ (satış 90, masa 140) → cüzdan her modda büyür. Gazete panosunun üstünde **財 "Kazancım ¥X"** kartı; Kelime Defterim ekranının en üstünde de "Toplam kazancım". Cihaza özel, kalıcı (rekorlar/kelimeler gibi). Doğrulama: 3 satış ¥360 + 1 restoran masası ¥560, panoda görünür, sayfa yenilenince kalıcı, 0 JS hatası.
 
