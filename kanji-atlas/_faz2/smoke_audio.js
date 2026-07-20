@@ -87,9 +87,7 @@ const fs = require("fs");
 
   // === entegrasyon YOK (speak byte-identical / tüketici yok) ===
   const src=fs.readFileSync("/home/claude/apps-deploy/kanji-atlas/index.html","utf-8");
-  const cc=(f)=>(src.match(new RegExp(f.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"))||[]).length;
-  A("6a: resolver/policy speak()'e bağlı DEĞİL (çağrı-sözdizimi=yalnız tanım)",
-    cc("resolveAudioEntry(")===1 && cc("buildAudioIndex(")===1 && cc("resolveAudioPolicy(")===1);
+  // (6a "bağlı değil" invariantı 6b entegrasyonuyla geçersiz — entegrasyon smoke_audio_6b.js'te)
   A("runtime manifest fetch yok", !/fetch[^;\n]{0,80}manifest/i.test(src));
 
   // === render regresyonu yok ===

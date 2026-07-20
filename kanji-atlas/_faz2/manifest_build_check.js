@@ -29,9 +29,9 @@ A("Gate 10) runtime manifest fetch YOK", !fetchesManifest);
 const jsonRefInCode = /(fetch|open|load)[^;\n]{0,40}audio-manifest\.json/i.test(h);
 A("Gate 10b) 'audio-manifest.json' fetch argümanı değil (yalnız yorum)", !jsonRefInCode);
 
-// tüketim yok (bu adımda ölü veri — speak entegrasyonu ayrı commit)
-const consumers = (h.match(/AUDIO_MANIFEST/g) || []).length;
-A("bu adımda tüketici yok (2 anchor + 1 bildirim = 3)", consumers === 3, `${consumers} geçiş`);
+// 6b entegrasyonu sonrası AUDIO_MANIFEST TÜKETİLİYOR (buildAudioIndex(AUDIO_MANIFEST) ile)
+const consumed = (h.match(/AUDIO_MANIFEST/g)||[]).length > 3; // 2 anchor + 1 decl + tüketici(ler)
+A("AUDIO_MANIFEST tüketiliyor (buildAudioIndex ile, 6b)", consumed);
 
 // entries bütünlüğü (harness ile örtüşür)
 A("entries 335 kayıt", embedded && embedded.entries.length === 335);
