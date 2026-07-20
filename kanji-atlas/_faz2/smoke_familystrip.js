@@ -51,7 +51,7 @@ const FILE = "file:///home/claude/atlas_drive_may30.html";
   A("本 (hon): Ağaç ailesi, işaret rolü", /Ağaç ailesi/.test(results.hon.header) && results.hon.rels.includes("işaret"), results.hon.rels.join(","));
   console.log("=== ÇAPRAZ AİLE 休 ===");
   A("休: classification=İnsan (başlık İnsan ailesi)", /İnsan ailesi/.test(results.yasumu.header), results.yasumu.header);
-  A("休: 'Ana yapı bağlantısı' + secondary Ağaç lead'de", /Ana yapı bağlantısı/.test(results.yasumu.lead) && /Ağaç/.test(results.yasumu.lead), results.yasumu.lead);
+  A("休: Sözlük sınıflandırması + Yapısal bağlantılar (hiyerarşisiz) lead'de", /Sözlük sınıflandırması/.test(results.yasumu.lead) && /Yapısal bağlantılar/.test(results.yasumu.lead) && /Ağaç/.test(results.yasumu.lead), results.yasumu.lead);
   A("休: İnsan üyeleri [人亻大天休]", has(results.yasumu.chips, ["人","亻","大","天","休"]), results.yasumu.chips.join(""));
   A("休: TEK 休 (çoğaltılmadı)", results.yasumu.chips.filter(c => c === "休").length === 1, "adet=" + results.yasumu.chips.filter(c => c === "休").length);
   console.log("=== LEGACY FALLBACK ===");

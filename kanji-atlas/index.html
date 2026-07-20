@@ -2725,7 +2725,7 @@ function renderCanonFamily(canon, id){
   }).join("");
   const sec = canon.secondaryFamilies || [];
   const lead = sec.length
-    ? `Ana yapı bağlantısı: <b>${esc(famShort(canon.label))}</b> · Ayrıca bağlantılı: ${sec.map(f=>esc(famShort(f.label))).join(", ")}`
+    ? `Sözlük sınıflandırması: <b>${esc(famShort(canon.label))}</b> · Yapısal bağlantılar: ${sec.map(f=>esc(famShort(f.label))).join(", ")}`
     : `Bu kanji yalnız değil — aynı yapıdan gelenler. Dokun, ailede gez.`;
   return `<div class="section-t"><h3>${esc(canon.label)}</h3></div>
     <div class="lead" style="margin:-4px 2px 10px">${lead}</div>
