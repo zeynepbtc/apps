@@ -2712,24 +2712,29 @@ function familyStrip(c, id){
 function relLabel(r){ return REL_LABEL[r] || r; }
 function famShort(lbl){ return (lbl||"").replace(/ ailesi$/,""); }
 function renderCanonFamily(canon, id){
-  const chips = canon.members.map(n=>{
-    const dc = DATA.chars[n.id] || {};
-    const cur = n.id===id;
-    const lvl = (dc.jlpt_level && dc.jlpt_level!=="N5")?`<span class="flv">${dc.jlpt_level}</span>`:"";
-    return `<div class="fam-chip ${cur?'cur':''}" ${cur?'':`data-go="detail" data-param="${n.id}" role="button" aria-label="${esc((dc.meaning_tr||'')+' — '+relLabel(n.rel))}"`} title="${esc(n.note||relLabel(n.rel))}">
-      <span class="ff">${relLabel(n.rel)}</span>
-      <span class="fg jp">${n.char||''}</span>
+  const chip = (o)=>{ const dc=DATA.chars[o.id]||{}; const cur=o.id===id;
+    const lvl=(dc.jlpt_level&&dc.jlpt_level!=="N5")?`<span class="flv">${dc.jlpt_level}</span>`:"";
+    return `<div class="fam-chip ${cur?'cur':''}" ${cur?'':`data-go="detail" data-param="${o.id}" role="button" aria-label="${esc((dc.meaning_tr||'')+' — '+relLabel(o.rel))}"`} title="${esc(o.note||relLabel(o.rel))}">
+      <span class="ff">${relLabel(o.rel)}</span>
+      <span class="fg jp">${o.char||''}</span>
       <span class="fm">${esc(dc.meaning_tr||'')}</span>
       ${lvl}
-    </div>`;
-  }).join("");
+    </div>`; };
+  const primary = canon.members.map(chip).join("");
   const sec = canon.secondaryFamilies || [];
+  // CONSUMER 2: capraz-aile baglari detailFamilyLinks'ten (kanonik veri) — tek dugum
+  const shown = new Set(canon.members.map(m=>m.id));
+  const links = FR.detailFamilyLinks(id).filter(l=>!shown.has(l.id));
+  const secBlocks = sec.map(sf=>{ const mem=links.filter(l=>l.famId===sf.id); if(!mem.length) return "";
+    return `<div class="lead" style="margin:9px 2px 5px;font-size:12px">Yapısal bağlantılar: <b>${esc(famShort(sf.label))}</b></div><div class="fam-strip">${mem.map(chip).join("")}</div>`;
+  }).join("");
   const lead = sec.length
-    ? `Sözlük sınıflandırması: <b>${esc(famShort(canon.label))}</b> · Yapısal bağlantılar: ${sec.map(f=>esc(famShort(f.label))).join(", ")}`
+    ? `Sözlük sınıflandırması: <b>${esc(famShort(canon.label))}</b>`
     : `Bu kanji yalnız değil — aynı yapıdan gelenler. Dokun, ailede gez.`;
   return `<div class="section-t"><h3>${esc(canon.label)}</h3></div>
     <div class="lead" style="margin:-4px 2px 10px">${lead}</div>
-    <div class="fam-strip">${chips}</div>`;
+    <div class="fam-strip">${primary}</div>
+    ${secBlocks}`;
 }
 function legacyFamilyStrip(c, id){
   const fam=kanjiFamily(c); if(!fam) return "";
