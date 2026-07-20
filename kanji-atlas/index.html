@@ -1186,7 +1186,10 @@ function playAudio(text, category, el, surfaceKind, modeOverride){
     if(surfaceKind==="fixed"){ try{ console.warn("[audio] fixed-not-found (manifest bütünlük)", res.diagnostic); }catch(e){} }
     /* dynamic: beklenen fallback — hata değil (diagnostic'te ayrışır) */
   }
-  if(action==="file" && res.entry && res.entry.ses_dosyasi){ _playAudioFile(res.entry.ses_dosyasi, el, res); return; }
+  if(action==="file" && res.entry && res.entry.ses_dosyasi){
+    if(res.entry.dogrulanmali===true){ try{ console.warn("[audio] qa-pending: doğrulanmamış kayıt çalınıyor (dev)", res.entry.id); }catch(e){} }  // gate 8: dev pending -> file + warning
+    _playAudioFile(res.entry.ses_dosyasi, el, res); return;
+  }
   if(action==="tts"){ speak(text, el); return; }   // mevcut TTS çekirdeği (url yok → useSpeech). speak yeniden yazılmadı.
   /* silent → hiçbir şey (release'te TTS kaçağı YOK) */
 }
