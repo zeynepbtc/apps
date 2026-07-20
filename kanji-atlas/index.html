@@ -1544,6 +1544,9 @@ function load(){
   else if(!last) state.streak=state.streak||1;
   state.lastActive=today;
   // bootstrap: oturum alanları BİLİNÇLİ sıfırlanır (storage taşısa da)
+  // FAZ 2 · fresh-user regresyon fix: DEFAULT onboarding=null + freshState migrate'i atlar → yeni kullanıcıda
+  // onboarding null kalır ve ob-next/ob-* guard'ları (if(!state.onboarding)return) akışı öldürür. Taze nesne garanti et.
+  if(!state.onboarding) state.onboarding = { completed:false, step:1, name:"", motivation:"", level:"", style:"", startedAt:null, completedAt:null };
   state.screen = (state.onboarding&&state.onboarding.completed) ? "home" : "onboarding";
   state.stack=[]; state.param=null; state._game=null; state._gamePick=null;
 }
@@ -1971,7 +1974,7 @@ function Onboarding(){
       body = `<div class="ob-step ob-step-welcome">
         <div class="ob-seal jp">仮</div>
         <div class="ob-title">Japonca Yazı Atlası</div>
-        <div class="ob-lead">Japonca yazı sistemlerini korkmadan ve mantığını anlayarak öğrenmek için tasarlandı.</div>
+        <div class="ob-lead">Japonca yazı sistemlerinin mantığını adım adım keşfedin.</div>
         <button class="btn full ob-cta" data-act="ob-next">Başlayalım</button>
       </div>`;
       break;
