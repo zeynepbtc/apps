@@ -1,0 +1,688 @@
+{
+  "recorded_entries": 214,
+  "distinct_targets": 135,
+  "approved_entries": 92,
+  "pending_entries": 122,
+  "approved_files": 46,
+  "pending_only_files": 89,
+  "copied": [
+    {
+      "target": "audio/kana/a.mp3",
+      "sha256": "9c5792218917eac713694babfd7d02c74dec12eccc24960f6426bf8e92ae5fb3",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/chi.mp3",
+      "sha256": "95f10720a3cc9894859522004b9929f4e6770238b25b9333945396c7b30397eb",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/do.mp3",
+      "sha256": "6a6ae7e5771c80f8f217c53e0100ec6fb6d41ee0f495ddba674e9ce56d1dd4e6",
+      "entries": 1
+    },
+    {
+      "target": "audio/kana/e.mp3",
+      "sha256": "dde5b388fcb02b7e754c6ad5037402adbf8a02ee44ccb2ceae28ae5cbe0703d8",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/fu.mp3",
+      "sha256": "c6bcddd12107b4fc54b4afb4d90da8b06925b9242ab45a1d791e99c62c5ba85f",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/go.mp3",
+      "sha256": "3a49a1219ff1a565c3cb6b8298b52a3ac03774ee14eb06bc32cac5b8cd8aac64",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ha.mp3",
+      "sha256": "c37556469826704ef548b705c80c721cdf90446285f20d1b6f4c9e3a2880a6bc",
+      "entries": 3
+    },
+    {
+      "target": "audio/kana/he.mp3",
+      "sha256": "8f7b9f23765dde5b4b866d8c4c572aaee71611d8bdd2fcf5dcbc9b504162891e",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/hi.mp3",
+      "sha256": "6cce46c480254d5f06c66aa684d6e58691c4bc3d24f12b392fa51069d3db1bcf",
+      "entries": 4
+    },
+    {
+      "target": "audio/kana/ho.mp3",
+      "sha256": "a83ec2990b9c748709af390dc73e3ce94d7d9e2b2e6a1fa043ff4a91b76941a0",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/i.mp3",
+      "sha256": "084b248eca6f4faaa8a6772029348698377654f945297e8812011c15ab1d070a",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ka.mp3",
+      "sha256": "9977c53d6da07d596af7f92dd0b2f5fb6d71db927461fbf67a037219441ed4a5",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ke.mp3",
+      "sha256": "711149c5fee6c358ee202ef54f97048fa4897b506475db7e48bf175661ff5898",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ki.mp3",
+      "sha256": "0cf983830fa689f41c3639860e70a2c46e5e0e32db60577cdab6a9c3b07c81e4",
+      "entries": 5
+    },
+    {
+      "target": "audio/kana/ko.mp3",
+      "sha256": "d32a4f6cd0f7ed4ede97254caeeaeb80a77302a471362981760dbc53664d3cec",
+      "entries": 3
+    },
+    {
+      "target": "audio/kana/ku.mp3",
+      "sha256": "728892407eab3f40f0675a68084611c7cb57459adb47f980762ed2270fc2d8de",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ma.mp3",
+      "sha256": "ca691167d9c1484770d422112a1bfe0f477f6b9843232320afb55a6fd79cf142",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/me.mp3",
+      "sha256": "aa9ea78332fcc44143fea1f480da9b6947b32a8d7ae96aec26197c2436fb1c17",
+      "entries": 3
+    },
+    {
+      "target": "audio/kana/mi.mp3",
+      "sha256": "e690ad1236bdeff67f4008ab4524fa59dd056ad82a3037c6a3c4186f64992688",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/mo.mp3",
+      "sha256": "a232892c3880944f306afd2dbc0e7887aa35a371fdbeabefab415fea72521e8b",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/mu.mp3",
+      "sha256": "6e719e3f427e719a1e89ffc50ba748b229e9be5b3dda6a0477b1e0accca51bc5",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/n.mp3",
+      "sha256": "916c5aa7d8f4ab629ebad91e7f849cb16ca6276eda422e5ae5516296301629d1",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/na.mp3",
+      "sha256": "faa428c4ecdcd46c1ed83fee611c81727f24b9bd803e3eaeea4a35eb22116e67",
+      "entries": 3
+    },
+    {
+      "target": "audio/kana/ne.mp3",
+      "sha256": "7372e3f3398f07ef30f3a62514599a22c61451d9654b0ff3f85bafaec78d06d7",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ni.mp3",
+      "sha256": "4534f4bb3fb60dca1ac3a5730284a9e771ddf234c7f443fba204f3a280a64f1a",
+      "entries": 3
+    },
+    {
+      "target": "audio/kana/no.mp3",
+      "sha256": "5896e6863cdb92b8c52a889febe4571be124976fe8d8e23cc92aabe717eb9d67",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/nu.mp3",
+      "sha256": "78e4d955f2272d9f076c7735a115c63b43919516ae5553e40dfa737840f79c75",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/o.mp3",
+      "sha256": "67b2a0b2f010cfc98374fc3ebfc088a74828b80941fd4b205a1a6f79f46d1e5a",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ra.mp3",
+      "sha256": "e003193ca838ad1fd345f21dd0028480e641e41afd25b54f8b973d4cc3a7c5b0",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/re.mp3",
+      "sha256": "5b1852e7081cdb0f40f12b25fb4c8a54b048154b1827f4985372fa6ace4b4d0c",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ri.mp3",
+      "sha256": "f5278517baec8769728b37f2fa683b90a9acdf965492481d21b670c9b1a4f75a",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ro.mp3",
+      "sha256": "0b409f117be2f3c258b902d00395e4e05c24222cac57bf0ce55e9a8063f7c2a7",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ru.mp3",
+      "sha256": "31bb658bbe1db4fa7d1aa9344795f11b4a44352907e132066b2181321b29b345",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/sa.mp3",
+      "sha256": "25bfb80f7baf81e6db7cd927630c5955a79aedf01126176cd76ea9659bf8113c",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/se.mp3",
+      "sha256": "3fa994a9c3c419a67f9fccc04907d1e90202ebdb06c90a6ac9601c005390882a",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/shi.mp3",
+      "sha256": "37fad79a183c16f9c3626cb7f51a496ff59242c1bbb97547b5f728394ac66d60",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/so.mp3",
+      "sha256": "a31793b699237c8c4cfd02044d9c23f453e4ea90fb8caf2489c303dbc7a6540e",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/su.mp3",
+      "sha256": "3a671fdf2d2ca866c3db1ced58d1b876cc34fba3c0f847476676661a7c7f294f",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ta.mp3",
+      "sha256": "23def142240478228c88dfd395b90a61e98bbb3f7d37e43fd26fd1fdf2cc6b09",
+      "entries": 3
+    },
+    {
+      "target": "audio/kana/te.mp3",
+      "sha256": "d0e2280f738579b69fd8e6109d2ee06456c9d5f3cd1e648727743b577229d61d",
+      "entries": 3
+    },
+    {
+      "target": "audio/kana/to.mp3",
+      "sha256": "650ec418061fc26344092c44348b87d3c0f604d1171e8766b4a1620b67bc1cc8",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/tsu.mp3",
+      "sha256": "3b2f056f4789e1578fe18e35200111dde3d3bb52a90bde91b34f98254a7e6fa2",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/u.mp3",
+      "sha256": "784e2c3312eb00a31958b89c5a0f64519fe8015e43a387d5149a1c9d79a26eaa",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/wa.mp3",
+      "sha256": "78d44e38b31e28e5b769fcc2cb2d80b327577ed8734da06e0fbe626c0042f9d1",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/wo.mp3",
+      "sha256": "af8eb466041317f5f2bc5236b387973c702295ed5eada1b373c9d6138d15bbf8",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/ya.mp3",
+      "sha256": "262576cfe9d0535d91b841b704a1a3b06661e0554ff5ea11e45e20154891e23d",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/yo.mp3",
+      "sha256": "9f1f94d54719a2935d7934d4191b7ce8619b50a53f1c4d2dafe8719962de1dc4",
+      "entries": 2
+    },
+    {
+      "target": "audio/kana/yu.mp3",
+      "sha256": "271d03a5fd0f2ef4b334a8c3104623864f01fc4b4fc7b15bf8a5cca9bb2d3694",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/aka.mp3",
+      "sha256": "75d6b91c554eddcfa9070dbdd3ba4c48eb19799dde2361035a17a404817e4667",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/ame.mp3",
+      "sha256": "e7167f5cfd7367b670d0933db9ea3d2b616ceb25df018930bc5ad83642f433db",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/ao.mp3",
+      "sha256": "4e85f839c5e6855c59baa8fb29735da2d04ebdaa71466b7da72cc7d45fddcd6b",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/arigatou.mp3",
+      "sha256": "5fce5ea84253b27299fcbed79d5eba032817a263be3aa49ee244bbe72af91bb3",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/ashi.mp3",
+      "sha256": "5606c41917ca1b0dbbd6fd62c467b25aa8ddff19c88be753e30686b3af92fde9",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/chichi.mp3",
+      "sha256": "ab2c77e016f5a5206ab348349c683879ec1e554ca7c5f808b9d3e1732f0513a9",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/chiisai.mp3",
+      "sha256": "094a61023534d3f25db6fc58a74c147e9920a57ca32d057cf63307178d615f4b",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/dare.mp3",
+      "sha256": "4e7721130ff7cd9f4dae4df0fce86578e2801aff470aee8157d5e135a81ec760",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/densha.mp3",
+      "sha256": "de2a9afb4267a8b97b115a90f1eca249b7fa7570ec60262e75b2975aeff0795b",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/denwa.mp3",
+      "sha256": "a04611cc8d857cd410c0dc068c1eb7dba9a4727df335e132e7a183c2adaa12ef",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/doko.mp3",
+      "sha256": "c267ac26c659e4cbe98ed4b986a57805f04dbe53676b6b9f48636710110d4fc9",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/gakkou.mp3",
+      "sha256": "5bfc1a1a5a270ce5121ba4eacd68bf81ef9af78f7baa4d027ed5fcbf96af4a02",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/gakusei.mp3",
+      "sha256": "b1c8d45e57b8676e641d6b211459020367951bdead4dea6fbb54961dac0ffa71",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/getsuyoubi.mp3",
+      "sha256": "aa067d535aa84fd7340087f1f81418f80f9eea4b335d1cb9556833d3f1e7beb6",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/gohan.mp3",
+      "sha256": "4eb9301bf7fa30d666880f4c6e5ef4cd1d78b43edf0f7434b6ca00befd19e4a6",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/hachi.mp3",
+      "sha256": "0dc5f09e30f2b0b945881417f99fada8fc4c2b6aa844165999a5a48c46f4c2bd",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/haha.mp3",
+      "sha256": "44b1b5e55f59cac6b18383c2b0a0b25b932dd21aeccd4531a609f89aa8427c13",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/hai.mp3",
+      "sha256": "938654a4657ffee378b41ee823812a2a0eb924aee3d92816dd6670058701dd86",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/hanasu.mp3",
+      "sha256": "54cc87b88d524eeda57b238e4f7c57c1cb97f5c3d334c78cee7693e8d4b0b06c",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/hidari.mp3",
+      "sha256": "e158316311c35ae6a874bf1796bedffc48df47e76733c4d2bbe9b5aa109fdbc0",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/higashi.mp3",
+      "sha256": "1559bedf04324cd29d31ab84fdbd1091a8f99bb9be6136d6c7bb11c86e2d17a5",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/hito.mp3",
+      "sha256": "9718518d39d59ad7b12c1dcee3028fcdb1c460a6ac010b0a408b354dafcfc936",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/hon.mp3",
+      "sha256": "597b9e78f1d7ea938dc66ec21629871c54c326b564095128fd1fb7df852ef530",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/hyaku.mp3",
+      "sha256": "5fa326a997b7ef1aba2374115a99c36713592fe06b7c692d369c5cbc58fbf0fd",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/ichi.mp3",
+      "sha256": "b779fbb40965aa3e275a960b15e29987992d80e252d2ac0eceb1bbdaeb4724e2",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/iie.mp3",
+      "sha256": "e1da07528a8a904ca05e1ceb90207f1424ed64d327d906c953d3f037cf166db8",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/iku.mp3",
+      "sha256": "6cbab2588a445d5f0a4c48ff64c99e6162ce58b46a8ce92560349e325f00e0f9",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/ima.mp3",
+      "sha256": "2b7ebdb2ceadc1c2bd2ea5ef4ededaf90960988bedeacc213692680093c1c18c",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/itsu.mp3",
+      "sha256": "ab6c44422d3270bb7b8c66be7b61daedb5d70674b1bb251497c49de09c8e2770",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/juu.mp3",
+      "sha256": "36fb5a47b7fb216726ca2f15a94688baec4fcd4be1eb4079cebade068a58eb0e",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kaku.mp3",
+      "sha256": "83e5aa2ee79c7950f01a690d4ffd6cbea34f96aade67bfe4d5dd4946f279c300",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kau.mp3",
+      "sha256": "0738430d847a7a1a2898d133201cd04248a560c37f6ac4b422a836063f4bf70f",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kawa.mp3",
+      "sha256": "691f994678fb9bf41b593f949b6c72eaa0b984755e8cfef9d1596154514f9aea",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/kiku.mp3",
+      "sha256": "5075d34d0fcba965675a38190d721232030328306484f859b475a280ea131c8b",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kinyoubi.mp3",
+      "sha256": "a3df97d758d05b0b53eb23522e4fc73e92247ea217bd531c5f2ac22bc73e49a8",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kita.mp3",
+      "sha256": "9514667b6a443b16bae5478d046a6b7f3974f71025655242d9265c3859560d98",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/konbanwa.mp3",
+      "sha256": "24ca0fa002545919f4c2904034c8689d1c1536c6ea2ef641636c4645ed25ca8d",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/konnichiwa.mp3",
+      "sha256": "8d1eea1c77ee31e5e9c1d55f1cb6ffe22a8cd73d5e28868253405b44bde0bd46",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kuchi.mp3",
+      "sha256": "3625a8ea75e5587c6c60f634e1cc477e68ae8225a162b2d14f5735896a5c46d5",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kuni.mp3",
+      "sha256": "e9999ed8f71f6340b81f3681ebd076f2de2ef34701fa8bc7302dfb702c8161ff",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/kuru.mp3",
+      "sha256": "196141b50b29bfe1b4addf8ae574ab118dcfe9e2e78f8aa8f7d003fa4c32a654",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kuruma.mp3",
+      "sha256": "e98bea59ca4c4d71c0c0150972bf1a9d032b383865dc6af73cf29042a64c1b48",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/kyou.mp3",
+      "sha256": "7377ef8339f16c4d06cd3d56fad67f37161fa42cec28d121934a804d78d5aaa5",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/kyuu.mp3",
+      "sha256": "5e79f1062b56a1007195dd49f8ac686c0f4e5b5e53edd9eb8c0e48a39c2c771f",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/mae.mp3",
+      "sha256": "37fcbc9307b202ec5c82a2cd3cd3ee3a905cc79f9a185b72718d846050d97e5f",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/mainichi.mp3",
+      "sha256": "4024e79bd578703807e99ebd977fc9598a68ae5f00b77a75bc556639b63e2678",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/man.mp3",
+      "sha256": "032400b9a823dee98566b7ccd401b0e09e2e396326a70861afa93dea6eb0e728",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/migi.mp3",
+      "sha256": "84b8bf9b9ecc5e941c14b8d27eaf4b3b26e34ec882a79122429a5b64705284d6",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/mimi.mp3",
+      "sha256": "9e952abfd9a6fb7cc8b705f6b51de71add316f957a07ccb0d801fa637cbb2e33",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/minami.mp3",
+      "sha256": "7171c9e2b847bcbe3719dd4b255433d903ea727b9df080da6f8f3ec6a5d0c8b4",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/miru.mp3",
+      "sha256": "0f3bf9d6f4f93cdbb5486a486c1a07d948a1fb8bc39d8c7995277c2921aecb40",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/miruku.mp3",
+      "sha256": "de05a38746f48c3e6388cd3fad86f621fd9cdb7ac165b578b4902ed65cae6dbd",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/mizu.mp3",
+      "sha256": "ab5e20bd9cd94e0a183357ca7c5cae3415947ac832059f89e05bf5300e9d419b",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/mori.mp3",
+      "sha256": "0cf6b74e6acfb8828910bc085173f13f16a0aeeb548093815ef267c6a6bd93de",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/naka.mp3",
+      "sha256": "b61e9c3f888e0f4b20c4c84e31b141428778169d4dda5bc4cd11e85e76b60e10",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/namae.mp3",
+      "sha256": "7b69dde3b1acdf54c5bb4d6168fab24d61cc7675e2f0b80ea74693352c21679e",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/nana.mp3",
+      "sha256": "3ef68cbb02f3c782c7dccadc6d97dd7245912213460c3dd8541864df4e7c2598",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/nani.mp3",
+      "sha256": "473916e1715a3ee2c8f74bcac2a09ff850e6a65b2beec2fbae698d1a5a33e308",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/nichiyoubi.mp3",
+      "sha256": "77368d309aeedc6130bd861ca136e686220abccd3cfe7984d1a2a542824b4ee5",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/nihongo.mp3",
+      "sha256": "0b476f352a796687935243892d40e54db4c60c6b675b7faf41d67945789f9551",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/nishi.mp3",
+      "sha256": "b3b3513ce65719f754bde8e5335fe285b43005e05cc8942f673b773c5c692b92",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/nomu.mp3",
+      "sha256": "b8d10475f91a5483114392bc9fffe06fe51bfc51a3141b8dae0f6a4246115efe",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/ocha.mp3",
+      "sha256": "6cbd986f18726ea0d947412a67605c22b4dd29136b79bbf8db3e932c4ff6e14d",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/ohayou.mp3",
+      "sha256": "8156846e6ac50bce9cd2318b9e92519dfd7e781e2eca5ae3eea5a2c139e0a345",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/okane.mp3",
+      "sha256": "fc832b9096abac1d272260a3495c6819b62e1406ab1e933f5f875cc181fff0f8",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/ookii.mp3",
+      "sha256": "d0a488dce91fe8c916151736395c7d88109d7e3dcc97480fdfa654f329234778",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/pan.mp3",
+      "sha256": "2efb7991ee9c8f5349aaf3459451dc102a3f35be93dfbf04a46a2fda1dd6e765",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/roku.mp3",
+      "sha256": "0b34addb9b259e10cdce07b60269c432f0e12bc5c4dac88f499818903bedc8af",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/sakana.mp3",
+      "sha256": "e1623220ba7d20c3759e50b8f4b885fa50137580d9856a18041bd9d9ef7e0344",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/san.mp3",
+      "sha256": "9afcfe4a8b3dc386701c668eca6edce717320f1f7b166c9fa22d1dad21303e4d",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/sayounara.mp3",
+      "sha256": "3dc847f923f39666bef0e01595b56cd2cc373b1618665a0dc5005c4deb2feadd",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/sen.mp3",
+      "sha256": "fd01e15495196eb828963e1a00fe80f94a6e9a86ce5cfd2ea7ccf4f996832b40",
+      "entries": 3
+    },
+    {
+      "target": "audio/word/sensei.mp3",
+      "sha256": "22b342b93d6df503199bb878c4807331bd0dcc44943a69819f7bd29652c15965",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/shiro.mp3",
+      "sha256": "7e0cdee784eb348ad4c56feeca2608dab4adb8ab4cc660610a9ef011eced0038",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/shita.mp3",
+      "sha256": "1ce542d6c2876e253925853391b66da6e5ba9016fe075c084b8326f743d4f944",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/soto.mp3",
+      "sha256": "e54f4b87dfb3f478bb5448ea32810d46ebd0663b0b23e0d767ca987748f5bed4",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/suiyoubi.mp3",
+      "sha256": "ac3bac4659962c00daaf138296eaa42de5362580fbad64cd921f835f2ca1497c",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/sumimasen.mp3",
+      "sha256": "820554a9b90fd99927ca63943ae6641de9756c77612a072ccfd0c12dd63e232a",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/taberu.mp3",
+      "sha256": "12ee3b21274780cd0fd40df77b7dc82586165776dda67ce1c782002f0c5af816",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/tokei.mp3",
+      "sha256": "bdf70901a696c9300cf32c6ad45cedb39bf7bf971877eb06ca45f9fe34666975",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/tomodachi.mp3",
+      "sha256": "36940bd4110f4f3c7c925e1f549e7c4eea6226b87c3d3bdce1d30cafbe959a46",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/tsuki.mp3",
+      "sha256": "b39ae5ad61d3bf65c8ffd61900ba9b785bbdd73e5a73c218ac716148095992de",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/ue.mp3",
+      "sha256": "22e38d41726f73174264626dd4b9ea7223b3506fc4b855d21729ccbe07a5babe",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/yama.mp3",
+      "sha256": "a329bf345eec09f80d7729a7e0b85cd2a2c45f79d16367eaeea7d6d7ddd00f0f",
+      "entries": 2
+    },
+    {
+      "target": "audio/word/yasumu.mp3",
+      "sha256": "25804eda8be50c33a9c6c63743b09e48f8553fd61b8a085da75e58c333730364",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/yomu.mp3",
+      "sha256": "67a696aa5a196e00b1aaae893d548447c5498cc6cb5c3bb8634027e3ab4e3e9b",
+      "entries": 1
+    },
+    {
+      "target": "audio/word/yon.mp3",
+      "sha256": "96804c6cc3f896af89969002766a0e4656fa8f2b3bc3a74415c9d8a7a05a94c4",
+      "entries": 1
+    }
+  ],
+  "skipped_missing_source": [],
+  "errors": [],
+  "flick_unchanged": true
+}
