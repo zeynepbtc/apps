@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Yazı Atlası">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Crect width='180' height='180' rx='40' fill='%23A4392C'/%3E%3Ctext x='50%25' y='62%25' font-family='serif' font-size='110' fill='white' text-anchor='middle'%3E仮%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Crect width='180' height='180' fill='%23468A80'/%3E%3Crect x='82' y='11' width='16' height='43' fill='%23F1E6CE'/%3E%3Crect x='82' y='126' width='16' height='43' fill='%23F1E6CE'/%3E%3Ccircle cx='90' cy='90' r='59' fill='%23F1E6CE'/%3E%3Ccircle cx='90' cy='90' r='47' fill='%23D3813A'/%3E%3Ctext x='50%25' y='63%25' font-family='serif' font-size='56' fill='%23F6F0E6' text-anchor='middle'%3E木%3C/text%3E%3C/svg%3E">
 <link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Japonca%20Yaz%C4%B1%20Atlas%C4%B1%22%2C%22short_name%22%3A%22Yaz%C4%B1%20Atlas%C4%B1%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23F4EEE3%22%2C%22theme_color%22%3A%22%23A4392C%22%7D">
 <title>Japonca Yazı Atlası</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +58,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* header */
 header{
   flex:none;z-index:30;
-  padding:14px 20px 12px; background:rgba(244,238,227,.82);
+  padding:calc(14px + env(safe-area-inset-top)) 20px 12px; background:rgba(244,238,227,.82);
   -webkit-backdrop-filter:saturate(1.2) blur(10px);backdrop-filter:saturate(1.2) blur(10px);
   border-bottom:1px solid var(--line);
   display:flex;align-items:center;gap:12px;
@@ -668,13 +668,13 @@ small.note{font-size:11px;color:var(--faint);line-height:1.5;display:block}
 .ob-lvl:active{transform:scale(.99)}
 /* === Faz 7-A: 10-ekran onboarding (Apple-tarzı sakin akış) === */
 .ob-root{max-width:440px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;
-  padding:18px 22px 28px;box-sizing:border-box;position:relative;background:var(--bg)}
-.ob-skip{position:absolute;top:14px;right:18px;background:none;border:none;font-family:var(--sans);
+  padding:calc(18px + env(safe-area-inset-top)) 22px 28px;box-sizing:border-box;position:relative;background:var(--bg)}
+.ob-skip{position:absolute;top:calc(14px + env(safe-area-inset-top));right:18px;background:none;border:none;font-family:var(--sans);
   font-size:13px;color:var(--muted);cursor:pointer;padding:8px 4px;letter-spacing:.2px;
   transition:color .15s}
 .ob-skip:hover{color:var(--ink)}
 /* Minimal geri oku — sol üst köşe, çok ufak */
-.ob-back{position:absolute;top:10px;left:14px;background:none;border:none;font-family:var(--sans);
+.ob-back{position:absolute;top:calc(10px + env(safe-area-inset-top));left:14px;background:none;border:none;font-family:var(--sans);
   font-size:24px;color:var(--muted);cursor:pointer;padding:6px 10px;line-height:1;
   font-weight:300;transition:color .15s, transform .12s}
 .ob-back:hover{color:var(--ink)}
