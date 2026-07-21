@@ -42,7 +42,7 @@
 </style>
 </head>
 <body>
-  <div class="eyebrow">Kanji Atlas · alt nav · v9 · yükselen top + submerge</div>
+  <div class="eyebrow">Kanji Atlas · alt nav · v10 · yuva + boşluk</div>
   <h1>Top bağımsız · Home'da gömülür</h1>
   <p class="lead">Sekmeye dokun → top yükselir, ikon içine girer, etiket altta kalır. <b>Logo/Ana Sayfa'ya bas → top menüye gömülür, bar düzleşir.</b></p>
 
@@ -71,7 +71,7 @@
       <div class="tabs" id="tabs"></div>
     </div>
   </div>
-  <p class="foot"><b>v9:</b> aktif sekmede top yükselir + ikon içine girer (büyüteç) + etiket altta kalır · Home'da top menüye eriyip iner, bar düzleşir (bütünleşir). Doz Canlı, jiggle yok. İkonlar geçici.</p>
+  <p class="foot"><b>v10:</b> aktif sekmede top yükselir + ikon içine girer (büyüteç) + etiket altta kalır · Home'da top menüye eriyip iner, bar düzleşir (bütünleşir). Doz Canlı, jiggle yok. İkonlar geçici.</p>
 
   <script>
   (function(){
@@ -86,7 +86,7 @@
     var SEAL='<svg viewBox="0 0 1024 1024"><rect width="1024" height="1024" fill="#FBF5EF"/><path d="M256 716 C 290 392, 562 290, 734 342 C 580 376, 392 478, 376 666 Z" fill="#C0562F"/><circle cx="684" cy="632" r="112" fill="#E3BC6A"/><circle cx="344" cy="344" r="64" fill="#9CBFC9"/></svg>';
     document.getElementById('logo').innerHTML=SEAL;
 
-    var H=96, EDGE=52, R=21, RAISE=26, SUB=54, BUMP=6;  // EDGE bar üst · top R · yükselik/gömülü merkez · barın topa değme kabarması
+    var H=98, EDGE=48, R=20, RAISE=22, SUB=52, DIP=10;  // EDGE bar üst · top R · yükselik/gömülü merkez · barın topa yuva açması (içbükey)
     var nav=document.getElementById('nav'), svg=document.getElementById('svg'), bar=document.getElementById('bar'),
         ball=document.getElementById('ball'), hl=document.getElementById('hl'), aicon=document.getElementById('aicon'),
         tabsEl=document.getElementById('tabs'), scrTitle=document.getElementById('scrTitle');
@@ -103,11 +103,11 @@
       svel=svel*0.8+vel*0.2; var av=Math.abs(svel); if(av<0.5)av=0;
       var stretch=Math.min(0.14, av*0.014), rx=R*(1+stretch), ry=R*(1-stretch*0.55);
       var by=lerp(SUB,RAISE,em), op=Math.max(0,Math.min(1,em*1.15));
-      var bx=cx - svel*0.12, bump=BUMP*em, top=EDGE-bump, HW=R+9;
-      // bar: aktifken topu karşılamak için hafif YUKARI kabarma (göçük değil); Home'da düz
+      var bx=cx - svel*0.12, dip=DIP*em, bot=EDGE+dip, HW=R+12;
+      // bar: aktif topun ALTINDA içbükey yuva açar (boşluk + oturma); Home'da düzleşir. Göçük DEĞİL — top yukarıda ayrık.
       bar.setAttribute('d','M0,'+EDGE+' L'+(bx-HW)+','+EDGE
-        +' C'+(bx-HW*0.42)+','+EDGE+' '+(bx-R*0.8)+','+top+' '+bx+','+top
-        +' C'+(bx+R*0.8)+','+top+' '+(bx+HW*0.42)+','+EDGE+' '+(bx+HW)+','+EDGE
+        +' C'+(bx-HW*0.46)+','+EDGE+' '+(bx-R*0.86)+','+bot+' '+bx+','+bot
+        +' C'+(bx+R*0.86)+','+bot+' '+(bx+HW*0.46)+','+EDGE+' '+(bx+HW)+','+EDGE
         +' L'+W+','+EDGE+' L'+W+','+H+' L0,'+H+' Z');
       ball.setAttribute('cx',cx); ball.setAttribute('cy',by); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry); ball.setAttribute('opacity',op);
       hl.setAttribute('cx',cx); hl.setAttribute('cy',by-ry*0.42); hl.setAttribute('rx',rx*0.5); hl.setAttribute('ry',ry*0.28); hl.setAttribute('opacity',0.3*op);
