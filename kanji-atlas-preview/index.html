@@ -1673,7 +1673,17 @@ function speak(text, el, url){
   useSpeech();
 }
 const AUDIO_ICON='<svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18 6a8 8 0 0 1 0 12"/></svg>';
-function audioBtn(text, category, cls=""){ return `<button class="audio-btn ${cls}" data-speak="${esc(text)}" data-audio-cat="${esc(category||"")}" aria-label="Sesli oku">${AUDIO_ICON}</button>`; }
+/* Koşullu ses butonu (GPT 3.14): release'te yalnız gerçekten ÇALACAK (file) içerikte buton görünür → sessiz buton YOK.
+   development'ta buton her zaman görünür (TTS fallback ile içerik testine izin). */
+function audioBtn(text, category, cls=""){
+  if(AUDIO_MODE!=="development"){
+    try{
+      const res=resolveAudioEntry(_audioIndex(),{category:category||null,text:text});
+      if(resolveAudioPolicy(res,AUDIO_MODE)!=="file") return "";
+    }catch(e){ return ""; }
+  }
+  return `<button class="audio-btn ${cls}" data-speak="${esc(text)}" data-audio-cat="${esc(category||"")}" aria-label="Sesli oku">${AUDIO_ICON}</button>`;
+}
 
 /* ============================ MNEMONIC INK LAYER ============================ */
 // subtle, low-opacity conceptual illustrations drawn behind a kanji on its detail card
