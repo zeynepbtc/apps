@@ -1814,13 +1814,13 @@ function appLogo(px){
     +`</svg></span>`;
 }
 function renderTabs(){
-  const tabs=[["home","Ana Sayfa",ICONS.home],["kana","Kana Okulu",ICONS.practice],["kanji5","Kanji Atlası",ICONS.map],["games","Oyunlar",ICONS.games],["progress","İlerleme",ICONS.progress]];
+  /* P0-1 Dilim 2: 4 root tab (Kana/Kanji/Yazı/Oyunlar). Home → logo; Progress → Home/Profile (tab değil). */
+  const tabs=[["kana","Kana","あ"],["kanji5","Kanji","木"],["practice","Yazı",ICONS.practice],["games","Oyunlar",ICONS.games]];
   const map={
-    home:["home","learn","kana-about","kanji-about","writing-system"],
     kana:["kana","kanadetail"],
-    kanji5:["kanji5","detail","map","transform","practice","drill","quiz","words","worddetail"],
+    kanji5:["kanji5","detail","map","transform","words","worddetail","atlasnode","quiz"],
+    practice:["practice","drill","mochi"],
     games:["games","game"],
-    progress:["progress","review","path"],
   };
   tabbar.innerHTML=tabs.map(([id,lab,ic])=>{
     const on=map[id].includes(state.screen)?"on":"";
@@ -1828,7 +1828,7 @@ function renderTabs(){
   }).join("");
 }
 function renderHeader(){
-  const noBack=["home","kanji5","words","games","progress","profile"].includes(state.screen);
+  const noBack=["home","kana","kanji5","practice","games"].includes(state.screen); /* P0-1 Dilim 2: root'lar (logo); diğer hepsi geri */
   const left = noBack ? appLogo(34) : `<button class="back" data-act="back">‹</button>`;
   let ttl="Ana", sub="Japonca Yazı Atlası";
   const T={home:["Ana","Japonca Yazı Atlası · N5"],learn:["Öğren","Temel ve ilerleme"],map:["Kanji Atlası","Parçadan kanjiye"],
@@ -1853,10 +1853,20 @@ function renderHeader(){
 }
 
 /* ============================ SCREENS ============================ */
+/* P0-1 Dilim 2: nav görünürlük + selector state hazırlığı (görsel Dilim 3'te). */
+const NAV_HIDDEN = ["onboarding","game","drill","profile","profile-edit","reset-confirm"];
+function navSelectorState(screen){
+  const ROOTSEL={kana:"kana",kanji5:"kanji5",practice:"practice",games:"games"};
+  if(ROOTSEL[screen]) return {kind:"active",tab:ROOTSEL[screen]};
+  if(screen==="home") return {kind:"sunk"};      /* Home: floating selector gömülü/pasif (Dilim 3) — DOM'dan kaldırılmaz */
+  return {kind:"hidden"};
+}
 function render(){
   const onb = state.screen==="onboarding";
+  const navHidden = NAV_HIDDEN.includes(state.screen);
   hdr.style.display = onb?"none":"";
-  tabbar.style.display = onb?"none":"";
+  tabbar.style.display = navHidden?"none":"";
+  state._navSel = navSelectorState(state.screen);  /* Dilim 3 floating selector için hazır */
   if(!onb){ renderHeader(); renderTabs(); }
   const R={home:Home,learn:Learn,map:MapView,practice:Practice,review:Review,profile:Profile,
     kana:Kana,path:Path,detail:Detail,transform:Transform,quiz:Quiz,drill:Drill,
@@ -2478,8 +2488,8 @@ function Home(){
     </div>
   </div>`:''}
 
-  <!-- 2. Genel İlerleme -->
-  <div class="prog-strip" data-go="${contGo}" data-param="${contParam}" role="button">
+  <!-- 2. Genel İlerleme (P0-1 Dilim 2: İlerleme ekranına ANA erişim — Progress tab'dan çıktı) -->
+  <div class="prog-strip" data-go="progress" role="button">
     <div class="ring">
       <svg width="46" height="46"><circle cx="23" cy="23" r="19" fill="none" stroke="var(--card2)" stroke-width="4.5"/>
       <circle cx="23" cy="23" r="19" fill="none" stroke="var(--accent)" stroke-width="4.5" stroke-linecap="round"
@@ -3435,6 +3445,7 @@ function Profile(){
       <div class="s"><div class="n">${stats.correct}</div><div class="l">Doğru</div></div>
       <div class="s"><div class="n">${dueCount()}</div><div class="l">Kanji tekrarı</div></div>
     </div>`:''}
+    <button class="btn ghost full" style="margin-top:12px" data-go="progress">İlerleme detayı ›</button>
     <div class="section-t"><h3>Ayarlar</h3></div>
     <div class="card flat">
       <div style="padding:11px 0 12px;border-bottom:1px solid var(--line)">
