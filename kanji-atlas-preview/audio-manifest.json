@@ -2613,670 +2613,744 @@
    "ses_dosyasi": "audio/word/ikura.mp3"
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ohayou",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "おはよう。",
    "okunus": "Ohayou.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ohayou.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_konnichiwa",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "こんにちは。",
    "okunus": "Konnichiwa.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/konnichiwa.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_konbanwa",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "こんばんは。",
    "okunus": "Konbanwa.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/konbanwa.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_arigatou",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "ありがとう。",
    "okunus": "Arigatou.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/arigatou.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_sumimasen",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "すみません。",
    "okunus": "Sumimasen.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/sumimasen.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_sayounara",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "さようなら。",
    "okunus": "Sayounara.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/sayounara.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_hai",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "はい、そうです。",
    "okunus": "Hai, sou desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/hai.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_iie",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "いいえ。",
    "okunus": "Iie.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/iie.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_hitotsu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "一つください。",
    "okunus": "Hitotsu kudasai.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/hitotsu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_futatsu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "二つあります。",
    "okunus": "Futatsu arimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/futatsu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_mittsu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "三つほしいです。",
    "okunus": "Mittsu hoshii desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/mittsu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_hyaku_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "百円です。",
    "okunus": "Hyaku en desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/hyaku_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_sen_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "千円です。",
    "okunus": "Sen en desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/sen_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_man_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "一万円です。",
    "okunus": "Ichiman en desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/man_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ima_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "今、何時ですか。",
    "okunus": "Ima, nanji desu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ima_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_gozen",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "午前九時です。",
    "okunus": "Gozen kuji desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/gozen.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_gogo",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "午後三時です。",
    "okunus": "Gogo sanji desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/gogo.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_han_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "二時半です。",
    "okunus": "Niji han desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/han_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_mainichi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "毎日水を飲みます。",
    "okunus": "Mainichi mizu o nomimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/mainichi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kyou",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "今日は金曜日です。",
    "okunus": "Kyou wa kinyoubi desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kyou.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_getsuyoubi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "月曜日に学校へ行きます。",
    "okunus": "Getsuyoubi ni gakkou e ikimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/getsuyoubi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_suiyoubi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "水曜日は休みです。",
    "okunus": "Suiyoubi wa yasumi desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/suiyoubi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kinyoubi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "金曜日に友達と話します。",
    "okunus": "Kinyoubi ni tomodachi to hanashimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kinyoubi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_nichiyoubi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "日曜日に休みます。",
    "okunus": "Nichiyoubi ni yasumimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/nichiyoubi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_haha_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "母は先生です。",
    "okunus": "Haha wa sensei desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/haha_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_chichi_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "父は車で行きます。",
    "okunus": "Chichi wa kuruma de ikimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/chichi_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_tomodachi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "友達と話します。",
    "okunus": "Tomodachi to hanashimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/tomodachi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_onnanoko",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "女の子が本を読みます。",
    "okunus": "Onnanoko ga hon o yomimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/onnanoko.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_otokonoko",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "男の子が来ます。",
    "okunus": "Otokonoko ga kimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/otokonoko.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_hito_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "あの人は学生です。",
    "okunus": "Ano hito wa gakusei desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/hito_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_sensei",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "先生はやさしいです。",
    "okunus": "Sensei wa yasashii desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/sensei.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_gakusei",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "私は学生です。",
    "okunus": "Watashi wa gakusei desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/gakusei.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_namae",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "お名前は何ですか。",
    "okunus": "Onamae wa nan desu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/namae.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_gakkou",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "学校へ行きます。",
    "okunus": "Gakkou e ikimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/gakkou.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_hon_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "これは本です。",
    "okunus": "Kore wa hon desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/hon_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_nihongo",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "日本語を話します。",
    "okunus": "Nihongo o hanashimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/nihongo.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_mizu_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "水を飲みます。",
    "okunus": "Mizu o nomimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/mizu_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_denwa",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "電話で話します。",
    "okunus": "Denwa de hanashimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/denwa.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_okane",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "お金がありません。",
    "okunus": "Okane ga arimasen.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/okane.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_tokei",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "時計を見ます。",
    "okunus": "Tokei o mimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/tokei.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ocha",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "お茶を飲みます。",
    "okunus": "Ocha o nomimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ocha.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_gohan",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "ご飯を食べます。",
    "okunus": "Gohan o tabemasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/gohan.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_pan",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "パンを買います。",
    "okunus": "Pan o kaimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/pan.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_sakana",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "魚を食べます。",
    "okunus": "Sakana o tabemasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/sakana.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_miruku",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "ミルクを飲みます。",
    "okunus": "Miruku o nomimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/miruku.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_yama_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "山を見ます。",
    "okunus": "Yama o mimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/yama_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kawa_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "川は大きいです。",
    "okunus": "Kawa wa ookii desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kawa_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ame_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "今日は雨です。",
    "okunus": "Kyou wa ame desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ame_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_tenki",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "いい天気です。",
    "okunus": "Ii tenki desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/tenki.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ki_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "木を見ます。",
    "okunus": "Ki o mimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ki_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kuni_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "どこの国ですか。",
    "okunus": "Doko no kuni desu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kuni_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_nihon",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "日本へ行きます。",
    "okunus": "Nihon e ikimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/nihon.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_soto_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "外は雨です。",
    "okunus": "Soto wa ame desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/soto_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ue_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "机の上に本があります。",
    "okunus": "Tsukue no ue ni hon ga arimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ue_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_shita_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "下を見ます。",
    "okunus": "Shita o mimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/shita_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kuruma_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "車で行きます。",
    "okunus": "Kuruma de ikimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kuruma_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_densha",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "電車で行きます。",
    "okunus": "Densha de ikimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/densha.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kimasu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "友達が来ます。",
    "okunus": "Tomodachi ga kimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kimasu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_mimasu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "テレビを見ます。",
    "okunus": "Terebi o mimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/mimasu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kikimasu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "話を聞きます。",
    "okunus": "Hanashi o kikimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kikimasu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_yomimasu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "本を読みます。",
    "okunus": "Hon o yomimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/yomimasu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kakimasu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "名前を書きます。",
    "okunus": "Namae o kakimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kakimasu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_kaimasu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "本を買います。",
    "okunus": "Hon o kaimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/kaimasu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_yasumimasu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "今日は休みます。",
    "okunus": "Kyou wa yasumimasu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/yasumimasu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ookii",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "大きい山です。",
    "okunus": "Ookii yama desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ookii.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_chiisai",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "小さい子です。",
    "okunus": "Chiisai ko desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/chiisai.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_shiroi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "白い車です。",
    "okunus": "Shiroi kuruma desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/shiroi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_akai",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "赤い花です。",
    "okunus": "Akai hana desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/akai.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_aoi",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "青い空です。",
    "okunus": "Aoi sora desu.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/aoi.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_nani_w",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "これは何ですか。",
    "okunus": "Kore wa nan desu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/nani_w.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_dare",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "あの人はだれですか。",
    "okunus": "Ano hito wa dare desu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/dare.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_doko",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "トイレはどこですか。",
    "okunus": "Toire wa doko desu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/doko.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_itsu",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "いつ来ますか。",
    "okunus": "Itsu kimasu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/itsu.mp3",
+   "dogrulanmali": true
   },
   {
-   "durum": "tts",
+   "durum": "recorded",
    "id": "sentence_ikura",
    "kategori": "sentence",
    "kaynak": "yeni",
    "metin": "いくらですか。",
    "okunus": "Ikura desu ka.",
-   "ses_dosyasi": null
+   "ses_dosyasi": "audio/sentence/ikura.mp3",
+   "dogrulanmali": true
   },
   {
    "dogrulanmali": true,
