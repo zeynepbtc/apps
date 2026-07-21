@@ -5732,11 +5732,11 @@ document.addEventListener("click",e=>{
         : "Profil sıfırlanamadı — veri yerinde.");
       return;
     }
-    Object.assign(state, res.state);          // doğrulanmış temiz v2 state benimse
+    Object.assign(state, res.state);          // doğrulanmış temiz v2 state benimse (canonical zaten yazıldı)
     state.userProfile = null;
     state.onboarding = { completed:false, step:1, name:"", motivation:"", level:"", style:"", startedAt:null, completedAt:null };
-    save();                                    // reset başarılı → normal mod → onboarding'i kalıcılaştır
-    toast("Profil sıfırlandı.");
+    const _sv = save();                        // onboarding/profil sıfırını kalıcılaştır — sonucu kontrol et
+    toast(_sv.ok ? "Profil sıfırlandı." : "Profil sıfırlandı — ayarlar bir sonraki açılışta tamamlanacak.");
     go("onboarding", null, false);
   }
   else if(act==="resume"){

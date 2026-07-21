@@ -52,7 +52,11 @@ H("2. Yalnız boolean kana{} legacy → SEED");
   A("last=null & next=null (sahte tarih yok)", a && a.last === null && a.next === null);
   A("type=kana", a && a.type === "kana");
   A("legacy ayna kana{あ} korunur", r.state.kana["あ"] === true);
-  A("canonical v2 yazıldı", S.migrate ? true : true);
+  // GERÇEK stored canonical blob üzerinden doğrula (in-memory değil)
+  const stored = JSON.parse(ls.getItem(KEY));
+  A("stored canonical schemaVersion=2", stored.schemaVersion === 2);
+  A("stored SEED kaydı (あ mastery1/seen1/last-next null)", stored.srs["あ"] && stored.srs["あ"].mastery === 1 && stored.srs["あ"].seen === 1 && stored.srs["あ"].last === null && stored.srs["あ"].next === null);
+  A("stored blob validateV2Shape geçer", S.validateV2Shape(stored) === true);
 }
 
 /* ============ 3. Kana için boolean + srs (ezme yok) ============ */
@@ -191,21 +195,35 @@ H("12. Backup fail → canonical write kapalı, sahte-v2 yok");
   A("kullanıcı eylemleri sonrası canonical byte-değişmez", ls.getItem(KEY) === before);
 }
 
-/* ============ 13. Hash'li yedek → kaynak değişince yeni backup ============ */
-H("13. Hash'li yedek — kaynak blob eşleşmesi");
+/* ============ 13. Hash'li yedek → kaynak DEĞİŞİNCE backup gerçekten yenilenir ============ */
+H("13. Hash'li yedek — kaynak A commit-fail sonrası kaynak B'ye yenilenir");
 {
-  const v1raw = JSON.stringify({ schemaVersion: 1, kana: { "い": true }, srs: {} });
-  const ls = makeLS(); ls.setItem(KEY, v1raw);
-  mk(ls).read();
-  const bak = JSON.parse(ls.getItem(BAK));
-  A("backup yazıldı", !!bak);
-  A("backup.sourceHash = kaynak blob hash'i", bak.sourceHash === hashStr(v1raw));
-  A("backup.raw = kaynak blob (birebir)", bak.raw === v1raw);
-  A("hash deterministik", hashStr(v1raw) === hashStr(v1raw));
-  A("farklı kaynak → farklı hash", hashStr(v1raw) !== hashStr(v1raw + " "));
-  // idempotent: aynı kaynağı tekrar migrate → yeni state yazma ama backup hash aynı
-  const r2 = mk(ls).read();
-  A("v2 sonrası tekrar okuma NO-OP (readOnly değil)", r2.readOnly === false);
+  const A_raw = JSON.stringify({ schemaVersion: 1, kana: { "い": true }, srs: {} });
+  const B_raw = JSON.stringify({ schemaVersion: 1, kana: { "う": true }, srs: {} });
+  A("hash deterministik", hashStr(A_raw) === hashStr(A_raw));
+  A("farklı kaynak → farklı hash", hashStr(A_raw) !== hashStr(B_raw));
+  // toggle-able LS: backup yazımı serbest, canonical (KEY) commit'i başarısız → read-only
+  const m = new Map(); let failKey = null;
+  const ls = {
+    getItem: k => (m.has(k) ? m.get(k) : null),
+    setItem: (k, v) => { if (failKey && k === failKey) throw new Error("sim"); m.set(k, String(v)); },
+    removeItem: k => m.delete(k)
+  };
+  // --- Faz A: kaynak A, canonical commit FAIL ---
+  ls.setItem(KEY, A_raw); failKey = KEY;
+  const rA = mk(ls).read();
+  A("A: commit fail → read-only", rA.commitFailed === true);
+  A("A: canonical HÂLÂ A (commit fail, byte-değişmez)", ls.getItem(KEY) === A_raw);
+  const bakA = JSON.parse(ls.getItem(BAK));
+  A("A: backup source A ile yazıldı (sourceHash A + raw A)", bakA.sourceHash === hashStr(A_raw) && bakA.raw === A_raw);
+  // --- Faz B: canonical HARİCEN B ile değişir (yeni oturum/sekme); commit artık serbest ---
+  failKey = null; ls.setItem(KEY, B_raw);
+  const rB = mk(ls).read();
+  const bakB = JSON.parse(ls.getItem(BAK));
+  A("B: backup YENİLENDİ → sourceHash B", bakB.sourceHash === hashStr(B_raw));
+  A("B: backup.raw = B (birebir, artık A değil)", bakB.raw === B_raw && bakB.raw !== A_raw);
+  A("B: canonical başarıyla v2'ye commit edildi", JSON.parse(ls.getItem(KEY)).schemaVersion === 2 && rB.readOnly === false);
+  A("B: yenilenen backup hash A ile eşleşmiyor (rollback kaynağı doğru)", bakB.sourceHash !== hashStr(A_raw));
 }
 
 /* ============ Ek: başarılı migration sonrası save çalışır + _migratedFrom ============ */
