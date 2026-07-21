@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Kanji Atlas — jel nav v8 (tam görünür, bütünleşik)</title>
+<title>Kanji Atlas — jel nav v9 (yükselen top + submerge)</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Shippori+Mincho:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{ --bg:#EFE7D6; --paper:#FBF5EF; --card:#FFFFFF; --line:#E6DCCB;
@@ -12,56 +12,66 @@
     --serif:'Shippori Mincho',serif; --sans:'Nunito',system-ui,sans-serif;}
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
-    padding:34px 16px 50px;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+    padding:32px 16px 50px;display:flex;flex-direction:column;align-items:center;min-height:100vh}
   .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:800;text-align:center}
-  h1{font-family:var(--serif);font-weight:700;font-size:24px;margin:8px 0 6px;text-align:center}
-  .lead{color:var(--muted);font-size:13.5px;text-align:center;max-width:420px;margin:0 auto;line-height:1.55}
-  .phone{width:336px;max-width:100%;margin:26px auto 0;background:var(--paper);border-radius:36px;overflow:hidden;
+  h1{font-family:var(--serif);font-weight:700;font-size:23px;margin:8px 0 6px;text-align:center}
+  .lead{color:var(--muted);font-size:13px;text-align:center;max-width:430px;margin:0 auto;line-height:1.5}
+  .phone{width:336px;max-width:100%;margin:24px auto 0;background:var(--paper);border-radius:36px;overflow:hidden;
     box-shadow:0 2px 5px rgba(58,47,40,.12),0 30px 55px -26px rgba(58,47,40,.5);border:1px solid rgba(0,0,0,.05);
-    display:flex;flex-direction:column;height:540px}
-  .screen{flex:1;padding:24px 22px 6px;display:flex;flex-direction:column;gap:12px}
-  .st{font-family:var(--serif);font-size:20px;font-weight:600}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;height:58px;box-shadow:0 8px 18px -15px rgba(58,47,40,.3)}
-  .card.sm{height:40px;opacity:.7}
+    display:flex;flex-direction:column;height:560px}
+  .topbar{display:flex;align-items:center;gap:10px;padding:16px 18px 8px}
+  .logo{width:34px;height:34px;border-radius:10px;overflow:hidden;flex:none;box-shadow:0 3px 8px -3px rgba(58,47,40,.4);cursor:pointer}
+  .logo svg{display:block;width:100%;height:100%}
+  .topbar .tt{font-family:var(--serif);font-weight:600;font-size:16px}
+  .topbar .home{margin-left:auto;font-size:11px;font-weight:800;color:var(--amber-deep);background:var(--card);border:1px solid var(--line);
+    padding:6px 12px;border-radius:999px;cursor:pointer}
+  .screen{flex:1;padding:14px 20px 6px;display:flex;flex-direction:column;gap:11px}
+  .st{font-family:var(--serif);font-size:19px;font-weight:600}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;height:54px;box-shadow:0 8px 18px -15px rgba(58,47,40,.3)}
+  .card.sm{height:38px;opacity:.7}
   .hint{margin-top:auto;text-align:center;font-size:12px;color:var(--faint);padding-bottom:4px}
-  .nav{position:relative;height:92px;flex:none;user-select:none;-webkit-user-select:none;touch-action:none}
-  .nav svg{position:absolute;left:0;bottom:0;width:100%;height:92px;overflow:visible;display:block}
-  .tabs{position:absolute;left:0;bottom:0;width:100%;height:56px;display:flex;align-items:flex-end;padding-bottom:11px;z-index:3}
-  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
-  .tab .ic{width:22px;height:22px;color:var(--muted);transition:opacity .14s ease}
+  .nav{position:relative;height:96px;flex:none;user-select:none;-webkit-user-select:none;touch-action:none}
+  .nav svg.bar{position:absolute;left:0;bottom:0;width:100%;height:96px;overflow:visible;display:block;z-index:1}
+  .tabs{position:absolute;left:0;bottom:0;width:100%;height:96px;display:flex;z-index:2}
+  .tab{flex:1;position:relative;pointer-events:none}
+  .tab .ic{position:absolute;left:50%;top:60px;width:22px;height:22px;transform:translateX(-50%);color:var(--muted)}
   .tab .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-  .tab .lb{font-size:11px;font-weight:700;color:var(--muted);transition:color .16s ease}
-  .tab.on .ic{opacity:0} .tab.on .lb{color:var(--amber-deep)}
-  .foot{margin-top:24px;font-size:11.5px;color:var(--muted);text-align:center;max-width:440px;line-height:1.55}
+  .tab .lb{position:absolute;left:0;top:84px;width:100%;text-align:center;font-size:11px;font-weight:700;color:var(--muted)}
+  .foot{margin-top:22px;font-size:11.5px;color:var(--muted);text-align:center;max-width:450px;line-height:1.55}
   .foot b{color:var(--amber-deep)}
 </style>
 </head>
 <body>
-  <div class="eyebrow">Kanji Atlas · alt nav · v8 · tam görünür</div>
-  <h1>Bütünleşik jel — tam top</h1>
-  <p class="lead">Top tam ve önde; bar onu sığ, temiz bir oyukla kucaklıyor. Göçük yok, kesik yok. Doz: Canlı. Dokun ya da sürükle.</p>
+  <div class="eyebrow">Kanji Atlas · alt nav · v9 · yükselen top + submerge</div>
+  <h1>Top bağımsız · Home'da gömülür</h1>
+  <p class="lead">Sekmeye dokun → top yükselir, ikon içine girer, etiket altta kalır. <b>Logo/Ana Sayfa'ya bas → top menüye gömülür, bar düzleşir.</b></p>
 
   <div class="phone">
+    <div class="topbar">
+      <div class="logo" id="logo"></div>
+      <div class="tt">Kanji Atlas</div>
+      <div class="home" id="homeBtn">Ana Sayfa</div>
+    </div>
     <div class="screen">
-      <div class="st">Kana</div>
+      <div class="st" id="scrTitle">Ana Sayfa</div>
       <div class="card"></div><div class="card sm"></div><div class="card sm"></div>
-      <div class="hint">↓ dokun ya da sürükle</div>
+      <div class="hint">sekmeye dokun · logoya bas (gömülme)</div>
     </div>
     <div class="nav" id="nav">
-      <svg id="svg" preserveAspectRatio="none">
+      <svg class="bar" id="svg" preserveAspectRatio="none">
         <defs>
           <linearGradient id="gel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E7A860"/><stop offset="1" stop-color="#CB7A31"/></linearGradient>
           <filter id="sh" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#B5651F" flood-opacity="0.38"/></filter>
         </defs>
         <path id="bar" fill="#fff" stroke="#E6DCCB" stroke-width="1"></path>
         <g filter="url(#sh)"><ellipse id="ball" fill="url(#gel)"></ellipse></g>
-        <ellipse id="hl" fill="#fff" opacity="0.30"></ellipse>
+        <ellipse id="hl" fill="#fff"></ellipse>
         <g id="aicon" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></g>
       </svg>
       <div class="tabs" id="tabs"></div>
     </div>
   </div>
-  <p class="foot"><b>v8:</b> top TAM ve önde (arkaya atılmadı) · bar sığ teğet oyukla kucaklar (göçük yok) · ikonlar tek SVG'de temiz. Bu bütünleşme referanslarındaki gibi mi?</p>
+  <p class="foot"><b>v9:</b> aktif sekmede top yükselir + ikon içine girer (büyüteç) + etiket altta kalır · Home'da top menüye eriyip iner, bar düzleşir (bütünleşir). Doz Canlı, jiggle yok. İkonlar geçici.</p>
 
   <script>
   (function(){
@@ -73,52 +83,69 @@
     ];
     var LB=['Kana','Kanji','Yazı','Oyunlar'], N=4;
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function now(){ return (window.performance&&performance.now)?performance.now():Date.now(); }
-    function easeOut(t){ return 1-Math.pow(1-t,3); }
-    var P = reduce ? {dur:180,maxS:0,k:0,lag:0} : {dur:300,maxS:0.14,k:0.014,lag:0.12};
-    var H=92, EDGE=46, R=23, CY=34, BOT=57, HW=31;   // bar üst çizgisi · top R · top merkez (öne çıkık) · oyuk dibi · oyuk yarı-genişlik
+    var SEAL='<svg viewBox="0 0 1024 1024"><rect width="1024" height="1024" fill="#FBF5EF"/><path d="M256 716 C 290 392, 562 290, 734 342 C 580 376, 392 478, 376 666 Z" fill="#C0562F"/><circle cx="684" cy="632" r="112" fill="#E3BC6A"/><circle cx="344" cy="344" r="64" fill="#9CBFC9"/></svg>';
+    document.getElementById('logo').innerHTML=SEAL;
 
-    var nav=document.getElementById('nav'), svg=document.getElementById('svg'),
-        bar=document.getElementById('bar'), ball=document.getElementById('ball'),
-        hl=document.getElementById('hl'), aicon=document.getElementById('aicon'), tabsEl=document.getElementById('tabs');
+    var H=96, EDGE=52, R=21, RAISE=26, SUB=54, BUMP=6;  // EDGE bar üst · top R · yükselik/gömülü merkez · barın topa değme kabarması
+    var nav=document.getElementById('nav'), svg=document.getElementById('svg'), bar=document.getElementById('bar'),
+        ball=document.getElementById('ball'), hl=document.getElementById('hl'), aicon=document.getElementById('aicon'),
+        tabsEl=document.getElementById('tabs'), scrTitle=document.getElementById('scrTitle');
     tabsEl.innerHTML=LB.map(function(l,i){return '<div class="tab"><span class="ic"><svg viewBox="0 0 24 24">'+ICONS[i]+'</svg></span><span class="lb">'+l+'</span></div>';}).join('');
     var tabs=tabsEl.children;
 
-    var W=0, slot=0, cx=0, prevCx=0, svel=0, active=-1, dragging=false, startX=0, moved=false, tw=null;
+    var W=0, slot=0, cx=0, cxT=0, em=0, emT=0, act=-1, svel=0, dragging=false, startX=0, moved=false, raf=null, prevCx=0;
     function center(i){ return slot*i+slot/2; }
     function clamp(x){ return Math.max(slot/2, Math.min(W-slot/2, x)); }
     function nearest(){ return Math.max(0,Math.min(N-1,Math.round((cx-slot/2)/slot))); }
-    function layout(){ W=nav.clientWidth; slot=W/N; svg.setAttribute('viewBox','0 0 '+W+' '+H); cx=center(0); prevCx=cx; render(0); setActive(0); }
-    function setActive(i){ if(i===active)return; active=i; for(var k=0;k<N;k++) tabs[k].classList.toggle('on',k===i);
-      aicon.innerHTML=ICONS[i]; try{if(navigator.vibrate)navigator.vibrate(reduce?0:8);}catch(e){} }
+    function lerp(a,b,t){ return a+(b-a)*t; }
 
-    function render(vel){
+    function paint(vel){
       svel=svel*0.8+vel*0.2; var av=Math.abs(svel); if(av<0.5)av=0;
-      var stretch=Math.min(P.maxS, av*P.k), rx=R*(1+stretch), ry=R*(1-stretch*0.55);
-      var bx=cx - svel*P.lag;
-      // bar: sığ TEĞET oyuk (aşağı ama hafif) — top baskın, göçük değil
+      var stretch=Math.min(0.14, av*0.014), rx=R*(1+stretch), ry=R*(1-stretch*0.55);
+      var by=lerp(SUB,RAISE,em), op=Math.max(0,Math.min(1,em*1.15));
+      var bx=cx - svel*0.12, bump=BUMP*em, top=EDGE-bump, HW=R+9;
+      // bar: aktifken topu karşılamak için hafif YUKARI kabarma (göçük değil); Home'da düz
       bar.setAttribute('d','M0,'+EDGE+' L'+(bx-HW)+','+EDGE
-        +' C'+(bx-HW*0.5)+','+EDGE+' '+(bx-R*0.86)+','+BOT+' '+bx+','+BOT
-        +' C'+(bx+R*0.86)+','+BOT+' '+(bx+HW*0.5)+','+EDGE+' '+(bx+HW)+','+EDGE
+        +' C'+(bx-HW*0.42)+','+EDGE+' '+(bx-R*0.8)+','+top+' '+bx+','+top
+        +' C'+(bx+R*0.8)+','+top+' '+(bx+HW*0.42)+','+EDGE+' '+(bx+HW)+','+EDGE
         +' L'+W+','+EDGE+' L'+W+','+H+' L0,'+H+' Z');
-      // top TAM ve ÖNDE
-      ball.setAttribute('cx',cx); ball.setAttribute('cy',CY); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry);
-      hl.setAttribute('cx',cx); hl.setAttribute('cy',CY-ry*0.42); hl.setAttribute('rx',rx*0.5); hl.setAttribute('ry',ry*0.28);
-      aicon.setAttribute('transform','translate('+(cx-12)+','+(CY-12)+')');   // ikon SABİT, topun merkezinde (24x24)
-      setActive(nearest());
+      ball.setAttribute('cx',cx); ball.setAttribute('cy',by); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry); ball.setAttribute('opacity',op);
+      hl.setAttribute('cx',cx); hl.setAttribute('cy',by-ry*0.42); hl.setAttribute('rx',rx*0.5); hl.setAttribute('ry',ry*0.28); hl.setAttribute('opacity',0.3*op);
+      aicon.setAttribute('transform','translate('+(cx-12)+','+(by-12)+')'); aicon.setAttribute('opacity',op);
+      var nr=nearest();
+      for(var k=0;k<N;k++){
+        var isAct=(k===nr);
+        tabs[k].querySelector('.ic').style.opacity = (isAct? (1-em) : 1);       // ikon topa "girerken" düz kopyası solar
+        tabs[k].querySelector('.lb').style.color = (isAct && em>0.5)? 'var(--amber-deep)' : 'var(--muted)';
+      }
+      if(nr!==act && em>0.5){ act=nr; try{if(navigator.vibrate)navigator.vibrate(reduce?0:8);}catch(e){} }
+      if(aicon.dataset.i!=nr){ aicon.dataset.i=nr; aicon.innerHTML=ICONS[nr]; }
     }
-    function tweenTo(tx){ var from=cx, t0=now(); if(tw)cancelAnimationFrame(tw);
-      (function step(){ var t=Math.min(1,(now()-t0)/P.dur), nx=from+(tx-from)*easeOut(t), vel=nx-cx; cx=nx; render(vel);
-        if(t<1) tw=requestAnimationFrame(step); else { cx=tx; svel=0; render(0); tw=null; } })(); }
+    function loop(){
+      cx += (cxT-cx)*0.2; em += (emT-em)*(reduce?0.4:0.2);
+      var vel=(cxT-cx)*0.2; paint(vel);
+      if(Math.abs(cxT-cx)>0.3 || Math.abs(emT-em)>0.004) raf=requestAnimationFrame(loop);
+      else { cx=cxT; em=emT; paint(0); raf=null; }
+    }
+    function kick(){ if(!raf) raf=requestAnimationFrame(loop); }
+    function goTab(i){ cxT=center(i); emT=1; scrTitle.textContent=LB[i]; kick(); }
+    function goHome(){ emT=0; scrTitle.textContent='Ana Sayfa'; kick(); }
+
     function xOf(e){ return (e.touches?e.touches[0].clientX:e.clientX)-nav.getBoundingClientRect().left; }
-    function down(e){ dragging=true; moved=false; startX=xOf(e); prevCx=cx; if(tw){cancelAnimationFrame(tw);tw=null;} }
+    function down(e){ dragging=true; moved=false; startX=xOf(e); prevCx=cx; if(raf){cancelAnimationFrame(raf);raf=null;} }
     function move(e){ if(!dragging)return; var x=xOf(e); if(Math.abs(x-startX)>7)moved=true;
-      if(moved){ cx=clamp(x); var vel=cx-prevCx; prevCx=cx; render(vel); e.preventDefault(); } }
+      if(moved){ cx=clamp(x); em+=(1-em)*0.35; var vel=cx-prevCx; prevCx=cx; paint(vel); e.preventDefault(); } }
     function up(){ if(!dragging)return; dragging=false;
-      if(moved) tweenTo(center(nearest())); else tweenTo(center(Math.max(0,Math.min(N-1,Math.floor(startX/slot))))); }
+      if(moved){ cxT=center(nearest()); emT=1; scrTitle.textContent=LB[nearest()]; }
+      else { var i=Math.max(0,Math.min(N-1,Math.floor(startX/slot))); cxT=center(i); emT=1; scrTitle.textContent=LB[i]; }
+      kick(); }
     nav.addEventListener('pointerdown',down); window.addEventListener('pointermove',move); window.addEventListener('pointerup',up);
     nav.addEventListener('touchstart',down,{passive:false}); window.addEventListener('touchmove',move,{passive:false}); window.addEventListener('touchend',up);
-    window.addEventListener('resize',layout); layout();
+    document.getElementById('homeBtn').addEventListener('click',goHome);
+    document.getElementById('logo').addEventListener('click',goHome);
+
+    function layout(){ W=nav.clientWidth; slot=W/N; svg.setAttribute('viewBox','0 0 '+W+' '+H); if(cxT===0){cx=cxT=center(0);} paint(0); }
+    window.addEventListener('resize',layout); layout(); paint(0);
   })();
   </script>
 </body>
