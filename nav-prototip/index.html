@@ -43,7 +43,7 @@
 </style>
 </head>
 <body>
-  <div class="eyebrow">Kanji Atlas · alt nav · v11 · uyarlanan menü</div>
+  <div class="eyebrow">Kanji Atlas · alt nav · v12 · top gömülü + yazılar yukarı</div>
   <h1>Kompakt ↔ açık · içeriğe göre</h1>
   <p class="lead">1) Home: sadece ikonlar. 2) Sekmeye dokun → menü yükselir, yazılar gelir, ikon topa girer. 3) Sayfada karta dokun → menü yuvasına iner, yazılar gizlenir, ikon+top kalır.</p>
 
@@ -76,7 +76,7 @@
       <div class="tabs" id="tabs"></div>
     </div>
   </div>
-  <p class="foot"><b>v11:</b> menü hiç kaybolmaz (ikon+top hep tıklanabilir) — sadece yükseklik + yazılar değişir. Top yarıya kadar gömülü (kompakt), yükselir (açık). Handle'dan yukarı çekilebilir. Doz Canlı. İkonlar geçici.</p>
+  <p class="foot"><b>v12:</b> top artık uçmuyor — bar üst kenarına yarıya gömülü oturuyor, barla birlikte yükseliyor. Yazılar ikonların hemen altında (dibe yapışmadı). Menü hiç kaybolmaz; Doz Canlı. İkonlar geçici.</p>
 
   <script>
   (function(){
@@ -92,9 +92,10 @@
     document.getElementById('logo').innerHTML=SEAL;
 
     // geometri (container H=104)
-    var H=104, R=18;
-    var COMPACT_TOP=60, EXP_TOP=30;      // bar üst kenarı: kompakt alçak, açık yüksek
-    var ICON_Y=78;                        // ikonlar SABİT (yerli yerinde)
+    var H=104, R=17;
+    var COMPACT_TOP=58, EXP_TOP=26;       // bar üst kenarı: kompakt alçak, açık yüksek (drawer yükselir)
+    var ICON_K=22, LABEL_GAP=17;          // ikon bar üst kenarının K px altında · barla birlikte yükselir
+    var EMBED=6;                          // top merkezi bar üst kenarının altında → yarıya gömülü, tam & önde (uçmaz)
     var svg=document.getElementById('svg'), bar=document.getElementById('bar'), handle=document.getElementById('handle'),
         ball=document.getElementById('ball'), hl=document.getElementById('hl'), aicon=document.getElementById('aicon'),
         tabsEl=document.getElementById('tabs'), nav=document.getElementById('nav'),
@@ -112,10 +113,11 @@
       svel=svel*0.8+vel*0.2; var av=Math.abs(svel); if(av<0.5)av=0;
       var stretch=Math.min(0.13, av*0.013), rx=R*(1+stretch), ry=R*(1-stretch*0.5);
       var barTop=lerp(COMPACT_TOP,EXP_TOP,ex);
-      // top: kompaktta yarıya gömülü (merkez ≈ barTop), açıkta yükselir
-      var presentY=lerp(barTop, EXP_TOP-6, ex);   // kompakt: barTop (yarı gömülü) · açık: barTop üstünde
-      var by=lerp(barTop+12, presentY, em), op=Math.max(0,Math.min(1,em*1.2));
-      var bx=cx - svel*0.11, dip=9*em, bot=barTop+dip, HW=R+13;
+      var iconY=barTop+ICON_K, labelY=iconY+LABEL_GAP;
+      // top: yarıya gömülü (merkez = barTop+EMBED) · home'da bara gömülüp solar (uçmaz)
+      var ballRest=barTop+EMBED, submerged=barTop+R+4;
+      var by=lerp(submerged, ballRest, em), op=Math.max(0,Math.min(1,em*1.2));
+      var bx=cx - svel*0.11, bot=barTop+(EMBED+R*0.42)*em, HW=R+13;   // sığ yuva topun altını kucaklar
       // bar: üst kenar barTop; aktif topun altında içbükey yuva
       bar.setAttribute('d','M0,'+barTop+' L'+(bx-HW)+','+barTop
         +' C'+(bx-HW*0.46)+','+barTop+' '+(bx-R*0.86)+','+bot+' '+bx+','+bot
@@ -131,9 +133,9 @@
       var nr=nearest();
       for(var k=0;k<N;k++){
         var icE=tabs[k].querySelector('.ic'), lbE=tabs[k].querySelector('.lb');
-        icE.style.top=ICON_Y+'px';
+        icE.style.top=iconY+'px';
         icE.style.opacity = (k===nr? (1-em) : 1);           // aktif ikon topa girer
-        lbE.style.top=(ICON_Y+20)+'px';
+        lbE.style.top=labelY+'px';
         lbE.style.opacity=ex;                                // yazılar yalnız açıkken
         lbE.style.color=(k===nr && em>0.5)?'var(--amber-deep)':'var(--muted)';
       }
