@@ -854,7 +854,7 @@
    "metin": "一",
    "okunus": "ichi",
    "ses_dosyasi": "audio/word/ichi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -864,7 +864,7 @@
    "metin": "二",
    "okunus": "ni",
    "ses_dosyasi": "audio/kana/ni.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -874,7 +874,7 @@
    "metin": "三",
    "okunus": "san",
    "ses_dosyasi": "audio/word/san.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -884,7 +884,7 @@
    "metin": "人",
    "okunus": "hito",
    "ses_dosyasi": "audio/word/hito.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -924,7 +924,7 @@
    "metin": "木",
    "okunus": "ki",
    "ses_dosyasi": "audio/kana/ki.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -944,7 +944,7 @@
    "metin": "森",
    "okunus": "mori",
    "ses_dosyasi": "audio/word/mori.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -954,7 +954,7 @@
    "metin": "本",
    "okunus": "hon",
    "ses_dosyasi": "audio/word/hon.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -974,7 +974,7 @@
    "metin": "日",
    "okunus": "hi",
    "ses_dosyasi": "audio/kana/hi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -984,7 +984,7 @@
    "metin": "月",
    "okunus": "tsuki",
    "ses_dosyasi": "audio/word/tsuki.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -994,7 +994,7 @@
    "metin": "明",
    "okunus": "aka",
    "ses_dosyasi": "audio/word/aka.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1014,7 +1014,7 @@
    "metin": "晴",
    "okunus": "ha",
    "ses_dosyasi": "audio/kana/ha.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1024,7 +1024,7 @@
    "metin": "子",
    "okunus": "ko",
    "ses_dosyasi": "audio/kana/ko.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1044,7 +1044,7 @@
    "metin": "季",
    "okunus": "ki",
    "ses_dosyasi": "audio/kana/ki.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1064,7 +1064,7 @@
    "metin": "水",
    "okunus": "mizu",
    "ses_dosyasi": "audio/word/mizu.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1074,7 +1074,7 @@
    "metin": "火",
    "okunus": "hi",
    "ses_dosyasi": "audio/kana/hi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1084,7 +1084,7 @@
    "metin": "山",
    "okunus": "yama",
    "ses_dosyasi": "audio/word/yama.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1094,7 +1094,7 @@
    "metin": "川",
    "okunus": "kawa",
    "ses_dosyasi": "audio/word/kawa.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1104,7 +1104,7 @@
    "metin": "口",
    "okunus": "kuchi",
    "ses_dosyasi": "audio/word/kuchi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1114,7 +1114,7 @@
    "metin": "田",
    "okunus": "ta",
    "ses_dosyasi": "audio/kana/ta.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1144,7 +1144,7 @@
    "metin": "四",
    "okunus": "yon",
    "ses_dosyasi": "audio/word/yon.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1154,7 +1154,7 @@
    "metin": "五",
    "okunus": "go",
    "ses_dosyasi": "audio/kana/go.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1164,7 +1164,7 @@
    "metin": "六",
    "okunus": "roku",
    "ses_dosyasi": "audio/word/roku.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1174,7 +1174,7 @@
    "metin": "七",
    "okunus": "nana",
    "ses_dosyasi": "audio/word/nana.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1184,7 +1184,7 @@
    "metin": "八",
    "okunus": "hachi",
    "ses_dosyasi": "audio/word/hachi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1194,7 +1194,7 @@
    "metin": "九",
    "okunus": "kyuu",
    "ses_dosyasi": "audio/word/kyuu.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1204,7 +1204,7 @@
    "metin": "十",
    "okunus": "juu",
    "ses_dosyasi": "audio/word/juu.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1214,7 +1214,7 @@
    "metin": "百",
    "okunus": "hyaku",
    "ses_dosyasi": "audio/word/hyaku.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1224,7 +1224,7 @@
    "metin": "千",
    "okunus": "sen",
    "ses_dosyasi": "audio/word/sen.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1234,7 +1234,7 @@
    "metin": "万",
    "okunus": "man",
    "ses_dosyasi": "audio/word/man.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1264,7 +1264,7 @@
    "metin": "土",
    "okunus": "do",
    "ses_dosyasi": "audio/kana/do.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1304,7 +1304,7 @@
    "metin": "今",
    "okunus": "ima",
    "ses_dosyasi": "audio/word/ima.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1314,7 +1314,7 @@
    "metin": "雨",
    "okunus": "ame",
    "ses_dosyasi": "audio/word/ame.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1324,7 +1324,7 @@
    "metin": "気",
    "okunus": "ki",
    "ses_dosyasi": "audio/kana/ki.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1344,7 +1344,7 @@
    "metin": "母",
    "okunus": "haha",
    "ses_dosyasi": "audio/word/haha.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1354,7 +1354,7 @@
    "metin": "父",
    "okunus": "chichi",
    "ses_dosyasi": "audio/word/chichi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1374,7 +1374,7 @@
    "metin": "目",
    "okunus": "me",
    "ses_dosyasi": "audio/kana/me.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1384,7 +1384,7 @@
    "metin": "耳",
    "okunus": "mimi",
    "ses_dosyasi": "audio/word/mimi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1394,7 +1394,7 @@
    "metin": "手",
    "okunus": "te",
    "ses_dosyasi": "audio/kana/te.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1404,7 +1404,7 @@
    "metin": "足",
    "okunus": "ashi",
    "ses_dosyasi": "audio/word/ashi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1414,7 +1414,7 @@
    "metin": "上",
    "okunus": "ue",
    "ses_dosyasi": "audio/word/ue.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1424,7 +1424,7 @@
    "metin": "下",
    "okunus": "shita",
    "ses_dosyasi": "audio/word/shita.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1434,7 +1434,7 @@
    "metin": "中",
    "okunus": "naka",
    "ses_dosyasi": "audio/word/naka.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1454,7 +1454,7 @@
    "metin": "右",
    "okunus": "migi",
    "ses_dosyasi": "audio/word/migi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1464,7 +1464,7 @@
    "metin": "左",
    "okunus": "hidari",
    "ses_dosyasi": "audio/word/hidari.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1474,7 +1474,7 @@
    "metin": "前",
    "okunus": "mae",
    "ses_dosyasi": "audio/word/mae.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1494,7 +1494,7 @@
    "metin": "東",
    "okunus": "higashi",
    "ses_dosyasi": "audio/word/higashi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1504,7 +1504,7 @@
    "metin": "西",
    "okunus": "nishi",
    "ses_dosyasi": "audio/word/nishi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1514,7 +1514,7 @@
    "metin": "南",
    "okunus": "minami",
    "ses_dosyasi": "audio/word/minami.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1524,7 +1524,7 @@
    "metin": "北",
    "okunus": "kita",
    "ses_dosyasi": "audio/word/kita.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1534,7 +1534,7 @@
    "metin": "白",
    "okunus": "shiro",
    "ses_dosyasi": "audio/word/shiro.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1544,7 +1544,7 @@
    "metin": "赤",
    "okunus": "aka",
    "ses_dosyasi": "audio/word/aka.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1554,7 +1554,7 @@
    "metin": "青",
    "okunus": "ao",
    "ses_dosyasi": "audio/word/ao.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1564,7 +1564,7 @@
    "metin": "先",
    "okunus": "sen",
    "ses_dosyasi": "audio/word/sen.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1594,7 +1594,7 @@
    "metin": "名",
    "okunus": "na",
    "ses_dosyasi": "audio/kana/na.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1604,7 +1604,7 @@
    "metin": "語",
    "okunus": "go",
    "ses_dosyasi": "audio/kana/go.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1614,7 +1614,7 @@
    "metin": "行",
    "okunus": "iku",
    "ses_dosyasi": "audio/word/iku.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1624,7 +1624,7 @@
    "metin": "来",
    "okunus": "kuru",
    "ses_dosyasi": "audio/word/kuru.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1634,7 +1634,7 @@
    "metin": "見",
    "okunus": "miru",
    "ses_dosyasi": "audio/word/miru.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1644,7 +1644,7 @@
    "metin": "聞",
    "okunus": "kiku",
    "ses_dosyasi": "audio/word/kiku.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1654,7 +1654,7 @@
    "metin": "読",
    "okunus": "yomu",
    "ses_dosyasi": "audio/word/yomu.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1664,7 +1664,7 @@
    "metin": "書",
    "okunus": "kaku",
    "ses_dosyasi": "audio/word/kaku.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1674,7 +1674,7 @@
    "metin": "食",
    "okunus": "taberu",
    "ses_dosyasi": "audio/word/taberu.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1684,7 +1684,7 @@
    "metin": "飲",
    "okunus": "nomu",
    "ses_dosyasi": "audio/word/nomu.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1694,7 +1694,7 @@
    "metin": "話",
    "okunus": "hanasu",
    "ses_dosyasi": "audio/word/hanasu.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1704,7 +1704,7 @@
    "metin": "買",
    "okunus": "kau",
    "ses_dosyasi": "audio/word/kau.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1714,7 +1714,7 @@
    "metin": "外",
    "okunus": "soto",
    "ses_dosyasi": "audio/word/soto.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1724,7 +1724,7 @@
    "metin": "国",
    "okunus": "kuni",
    "ses_dosyasi": "audio/word/kuni.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1734,7 +1734,7 @@
    "metin": "車",
    "okunus": "kuruma",
    "ses_dosyasi": "audio/word/kuruma.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1754,7 +1754,7 @@
    "metin": "何",
    "okunus": "nani",
    "ses_dosyasi": "audio/word/nani.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1904,7 +1904,7 @@
    "metin": "今",
    "okunus": "ima",
    "ses_dosyasi": "audio/word/ima.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1944,7 +1944,7 @@
    "metin": "毎日",
    "okunus": "mainichi",
    "ses_dosyasi": "audio/word/mainichi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -1954,7 +1954,7 @@
    "metin": "今日",
    "okunus": "kyou",
    "ses_dosyasi": "audio/word/kyou.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -2024,7 +2024,7 @@
    "metin": "友達",
    "okunus": "tomodachi",
    "ses_dosyasi": "audio/word/tomodachi.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -2064,7 +2064,7 @@
    "metin": "先生",
    "okunus": "sensei",
    "ses_dosyasi": "audio/word/sensei.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
@@ -2144,7 +2144,7 @@
    "metin": "お金",
    "okunus": "okane",
    "ses_dosyasi": "audio/word/okane.mp3",
-   "kaynak": "flick",
+   "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": true
   },
