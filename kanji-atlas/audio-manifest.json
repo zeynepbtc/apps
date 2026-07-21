@@ -893,9 +893,9 @@
       "kategori": "kanji",
       "metin": "大",
       "okunus": "dai",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/dai.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -903,9 +903,9 @@
       "kategori": "kanji",
       "metin": "天",
       "okunus": "ten",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/ten.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -913,9 +913,9 @@
       "kategori": "kanji",
       "metin": "夫",
       "okunus": "otto",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/otto.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -933,9 +933,9 @@
       "kategori": "kanji",
       "metin": "林",
       "okunus": "hayashi",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/hayashi.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1003,9 +1003,9 @@
       "kategori": "kanji",
       "metin": "時",
       "okunus": "toki",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/toki.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1033,9 +1033,9 @@
       "kategori": "kanji",
       "metin": "学",
       "okunus": "gaku",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/gaku.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1053,9 +1053,9 @@
       "kategori": "kanji",
       "metin": "女",
       "okunus": "onna",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/onna.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1123,9 +1123,9 @@
       "kategori": "kanji",
       "metin": "王",
       "okunus": "ou",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/ou.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1133,9 +1133,9 @@
       "kategori": "kanji",
       "metin": "玉",
       "okunus": "tama",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/tama.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1243,9 +1243,9 @@
       "kategori": "kanji",
       "metin": "円",
       "okunus": "en",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/en.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1253,9 +1253,9 @@
       "kategori": "kanji",
       "metin": "金",
       "okunus": "kin",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/kin.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1273,9 +1273,9 @@
       "kategori": "kanji",
       "metin": "年",
       "okunus": "toshi",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/toshi.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1283,9 +1283,9 @@
       "kategori": "kanji",
       "metin": "分",
       "okunus": "fun",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/fun.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1293,9 +1293,9 @@
       "kategori": "kanji",
       "metin": "半",
       "okunus": "han",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/han.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1333,9 +1333,9 @@
       "kategori": "kanji",
       "metin": "男",
       "okunus": "otoko",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/otoko.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1363,9 +1363,9 @@
       "kategori": "kanji",
       "metin": "友",
       "okunus": "tomo",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/tomo.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1443,9 +1443,9 @@
       "kategori": "kanji",
       "metin": "小",
       "okunus": "shou",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/shou.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1483,9 +1483,9 @@
       "kategori": "kanji",
       "metin": "後",
       "okunus": "ato",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/ato.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1573,9 +1573,9 @@
       "kategori": "kanji",
       "metin": "生",
       "okunus": "sei",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/sei.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1583,9 +1583,9 @@
       "kategori": "kanji",
       "metin": "校",
       "okunus": "kou",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/kou.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1743,9 +1743,9 @@
       "kategori": "kanji",
       "metin": "電",
       "okunus": "den",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/kanji/den.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1843,9 +1843,9 @@
       "kategori": "word",
       "metin": "一つ",
       "okunus": "hitotsu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/hitotsu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1853,9 +1853,9 @@
       "kategori": "word",
       "metin": "二つ",
       "okunus": "futatsu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/futatsu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1863,9 +1863,9 @@
       "kategori": "word",
       "metin": "三つ",
       "okunus": "mittsu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/mittsu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1913,9 +1913,9 @@
       "kategori": "word",
       "metin": "午前",
       "okunus": "gozen",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/gozen.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1923,9 +1923,9 @@
       "kategori": "word",
       "metin": "午後",
       "okunus": "gogo",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/gogo.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -1933,9 +1933,9 @@
       "kategori": "word",
       "metin": "半",
       "okunus": "han",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/han.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2033,9 +2033,9 @@
       "kategori": "word",
       "metin": "女の子",
       "okunus": "onnanoko",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/onnanoko.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2043,9 +2043,9 @@
       "kategori": "word",
       "metin": "男の子",
       "okunus": "otokonoko",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/otokonoko.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2243,9 +2243,9 @@
       "kategori": "word",
       "metin": "天気",
       "okunus": "tenki",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/tenki.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2253,9 +2253,9 @@
       "kategori": "word",
       "metin": "木",
       "okunus": "ki",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/ki.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2273,9 +2273,9 @@
       "kategori": "word",
       "metin": "日本",
       "okunus": "nihon",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/nihon.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2333,9 +2333,9 @@
       "kategori": "word",
       "metin": "行きます",
       "okunus": "ikimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/ikimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2343,9 +2343,9 @@
       "kategori": "word",
       "metin": "来ます",
       "okunus": "kimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/kimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2353,9 +2353,9 @@
       "kategori": "word",
       "metin": "見ます",
       "okunus": "mimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/mimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2363,9 +2363,9 @@
       "kategori": "word",
       "metin": "聞きます",
       "okunus": "kikimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/kikimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2373,9 +2373,9 @@
       "kategori": "word",
       "metin": "読みます",
       "okunus": "yomimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/yomimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2383,9 +2383,9 @@
       "kategori": "word",
       "metin": "書きます",
       "okunus": "kakimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/kakimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2393,9 +2393,9 @@
       "kategori": "word",
       "metin": "食べます",
       "okunus": "tabemasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/tabemasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2403,9 +2403,9 @@
       "kategori": "word",
       "metin": "飲みます",
       "okunus": "nomimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/nomimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2413,9 +2413,9 @@
       "kategori": "word",
       "metin": "話します",
       "okunus": "hanashimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/hanashimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2423,9 +2423,9 @@
       "kategori": "word",
       "metin": "買います",
       "okunus": "kaimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/kaimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2433,9 +2433,9 @@
       "kategori": "word",
       "metin": "休みます",
       "okunus": "yasumimasu",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/yasumimasu.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2463,9 +2463,9 @@
       "kategori": "word",
       "metin": "白い",
       "okunus": "shiroi",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/shiroi.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2473,9 +2473,9 @@
       "kategori": "word",
       "metin": "赤い",
       "okunus": "akai",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/akai.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2483,9 +2483,9 @@
       "kategori": "word",
       "metin": "青い",
       "okunus": "aoi",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/aoi.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
@@ -2533,9 +2533,9 @@
       "kategori": "word",
       "metin": "いくら",
       "okunus": "ikura",
-      "ses_dosyasi": null,
+      "ses_dosyasi": "audio/word/ikura.mp3",
       "kaynak": "yeni",
-      "durum": "missing",
+      "durum": "recorded",
       "dogrulanmali": false
     },
     {
