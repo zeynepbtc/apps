@@ -3191,7 +3191,7 @@ function Practice(){
   return `<div class="stagger">
   <div class="lead" style="margin:0 2px 12px">Bir karakter seç ve çizmeye başla. Hayalet izi takip et — önce şekli tanı, sonra çiz.</div>
   ${learning.length?`<div class="section-t" style="margin-top:0"><h3>Tekrar bekleyenler</h3></div>`:`<div class="section-t" style="margin-top:0"><h3>Çalış</h3></div>`}
-  <div style="display:flex;gap:9px;overflow-x:auto;padding:2px 2px 6px;-webkit-overflow-scrolling:touch">
+  <div id="practiceStrip" style="display:flex;gap:9px;overflow-x:auto;padding:2px 2px 6px;-webkit-overflow-scrolling:touch">
     ${ordered.slice(0,16).map(x=>`<button class="kcell" style="aspect-ratio:auto;width:64px;flex:none;padding:11px 4px;${x.id===sel?'border-color:var(--accent);background:var(--accent-tint)':''}" data-practice="${x.id}">
       <div class="c jp" style="${x.id===sel?'color:var(--accent-deep)':''}">${x.character}</div><div class="r">${x.meaning_tr.split(' ')[0]}</div></button>`).join("")}
   </div>
@@ -5342,7 +5342,7 @@ document.addEventListener("click",e=>{
   }
   if(el.dataset.mleft!==undefined){ const G=state._game; if(!G)return; G.sel=parseInt(el.dataset.mleft); G._wrong=null; render(); return; }
   if(el.dataset.mright!==undefined){ matchTap(parseInt(el.dataset.mright)); return; }
-  if(el.dataset.practice){ state._practiceSel=el.dataset.practice; render(); return; }
+  if(el.dataset.practice){ const _ps=document.getElementById('practiceStrip'); const _sl=_ps?_ps.scrollLeft:0; state._practiceSel=el.dataset.practice; render(); const _ns=document.getElementById('practiceStrip'); if(_ns)_ns.scrollLeft=_sl; return; }  /* şerit kaydırma konumunu koru (başa zıplamasın) */
   if(el.dataset.tab){ const t=el.dataset.tab; if(t==="profile"){ go("profile"); } else { goRoot(t); } return; }  /* profile: çağıranı koru; root tab: reset */
   if(el.dataset.go){ const g=el.dataset.go; if(ROOT_SCREENS.includes(g) && !el.dataset.param){ goRoot(g); } else { go(g, el.dataset.param||null); } return; }  /* root hedef (logo/brand/home dahil): reset; diğer: normal push */
   if(el.dataset.mlev!==undefined){
