@@ -40,9 +40,9 @@
 </style>
 </head>
 <body>
-  <div class="eyebrow">Kanji Atlas · alt nav · v21 · net ince yuva yayı</div>
-  <h1>Yuva yayı net · blur yok</h1>
-  <p class="lead">Yuva yayı artık çerçeve inceliğinde net bir çizgi — blur/bulanıklık yok. Köşeler düz kare, kenar payı 10px, 5px negatif alan, küçülmeden batan gömülme aynı.</p>
+  <div class="eyebrow">Kanji Atlas · alt nav · v22 · cilalı çizgi-ikonlar</div>
+  <h1>Final çizgi-ikonlar</h1>
+  <p class="lead">Geometri kilitli. Şimdi ikonlar cilalandı: Kana=açık kitap · Kanji=田 · Yazı=kalem · Oyunlar=kol. Hepsi 24px, aynı çizgi kalınlığı, yuvarlak uç, optik dengeli. Sekmelere dokunup her birini gör.</p>
 
   <div class="phone">
     <div class="topbar">
@@ -78,15 +78,15 @@
       <div class="tabs" id="tabs"></div>
     </div>
   </div>
-  <p class="foot"><b>v21:</b> yuva yayı net ince çizgi (çerçeve kalınlığında, blur yok) · köşeler kare/düz · kenar payı 10px · gap 5px · daire küçülmeden batar. İkonlar geçici — sıradaki iş bunlar.</p>
+  <p class="foot"><b>v22:</b> kilitli geometri + cilalı çizgi-ikonlar (kitap · 田 · kalem · kol) · tutarlı 24px/stroke, yuvarlak uç. Her ikon net okunuyor mu, boyut/ağırlık dengeli mi?</p>
 
   <script>
   (function(){
     var ICONS=[
-      '<path d="M4 5.5c2.6-1 5.4-1 8 .8 2.6-1.8 5.4-1.8 8-.8v13c-2.6-1-5.4-1-8 .8-2.6-1.8-5.4-1.8-8-.8z"/><path d="M12 6.3v13"/>',
-      '<rect x="4.5" y="4.5" width="15" height="15" rx="2.6"/><path d="M12 4.5v15M4.5 12h15"/>',
-      '<path d="M5 19l1.6-4.6L16 5l3 3-9.4 9.4L5 19z"/><path d="M14 7l3 3"/>',
-      '<rect x="3" y="8" width="18" height="9.5" rx="4.5"/><path d="M7.5 12.6h3.4M9.2 10.9v3.4"/><circle cx="16.2" cy="12.6" r="1.2"/>'
+      /* Kana — açık kitap */ '<path d="M12 6.7C9.7 5.2 6.7 4.9 4.3 5.6v11.5c2.4-.7 5.4-.4 7.7 1.1 2.3-1.5 5.3-1.8 7.7-1.1V5.6c-2.4-.7-5.4-.4-7.7 1.1z"/><path d="M12 6.7v11.5"/>',
+      /* Kanji — 田 */ '<rect x="4.6" y="4.6" width="14.8" height="14.8" rx="2.4"/><path d="M12 4.6v14.8M4.6 12h14.8"/>',
+      /* Yazı — kalem */ '<path d="M5.6 18.4l1.7-4.4L16 5.3l2.9 2.9-8.7 8.7z"/><path d="M13.8 7.5l2.9 2.9"/><path d="M7.3 14l2.7 2.7"/>',
+      /* Oyunlar — kol */ '<rect x="2.6" y="8" width="18.8" height="9.4" rx="4.7"/><path d="M7 12.7h3.2M8.6 11.1v3.2"/><circle cx="15.5" cy="11.9" r="1.05"/><circle cx="17.6" cy="13.9" r="1.05"/>'
     ];
     var LB=['Kana','Kanji','Yazı','Oyunlar'], N=4;
     var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
