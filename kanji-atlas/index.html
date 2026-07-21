@@ -13,7 +13,7 @@
 <title>Japonca Yazı Atlası</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;500;600;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F4EEE3; --surface:#FFFFFF; --card:#FCF8F1; --card2:#F1E8D8;
@@ -1776,6 +1776,15 @@ const ICONS={
   words:'<svg viewBox="0 0 24 24"><path d="M4 6h16M4 6v12a1 1 0 0 0 1 1h6M4 6 8 3M20 6v6m0-6L16 3M9 11h6M9 15h3"/><path d="M16 16l2 2 4-4"/></svg>',
   progress:'<svg viewBox="0 0 24 24"><path d="M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-7"/></svg>',
 };
+/* Aile ikon rozeti: temiz daire + 45° çapraz renkli gölge (+6px) + tertemiz glif (Klee One) */
+function iconBadge(glyph,main,shad,size=64){
+  return `<svg viewBox="0 0 100 100" width="${size}" height="${size}" style="overflow:visible;display:block">`
+    +`<circle cx="54" cy="54" r="34" fill="${shad}" opacity=".34"/>`
+    +`<circle cx="48" cy="48" r="34" fill="${main}"/>`
+    +`<text x="48" y="49" text-anchor="middle" dominant-baseline="central" font-size="44" fill="#F6F0E6" style="font-family:'Klee One','Shippori Mincho',serif;font-weight:600">${glyph}</text>`
+    +`</svg>`;
+}
+const IC={amber:'#D3813A',teal:'#468A80',terra:'#B5502F',gold:'#C99A3F',brown:'#3C2F28'};
 function renderTabs(){
   const tabs=[["home","Ana Sayfa",ICONS.home],["kana","Kana Okulu",ICONS.practice],["kanji5","Kanji Atlası",ICONS.map],["games","Oyunlar",ICONS.games],["progress","İlerleme",ICONS.progress]];
   const map={
@@ -2464,7 +2473,7 @@ function Home(){
   </div>`}
   <div class="big-cards">
     <button class="bigcard" data-go="kana">
-      <div class="bg jp">あ</div>
+      <div class="bg" style="background:none;box-shadow:none;overflow:visible">${iconBadge('あ',IC.terra,IC.amber,64)}</div>
       <div class="bd">
         <div class="bt">Kana Rehberi</div>
         <div class="bs">Hiragana ve katakana — Japoncanın ses alfabesi</div>
@@ -2473,7 +2482,7 @@ function Home(){
       <span class="ba">›</span>
     </button>
     <button class="bigcard k2" data-go="kanji5">
-      <div class="bg jp">学</div>
+      <div class="bg" style="background:none;box-shadow:none;overflow:visible">${iconBadge('木',IC.amber,IC.teal,64)}</div>
       <div class="bd">
         <div class="bt">Kanji Atlası</div>
         <div class="bs">Anlam taşıyan işaretler — N5'in 83 kanjisi</div>
@@ -2487,17 +2496,17 @@ function Home(){
   <div class="sec-head"><div class="eb">Anlamak için</div><div class="ti">Japonca nasıl çalışır?</div></div>
   <div class="howto">
     <button class="howto-note" data-go="kana-about">
-      <span class="hg jp">あ</span>
+      <span class="hg" style="width:38px">${iconBadge('あ',IC.terra,IC.amber,38)}</span>
       <span class="ht"><span class="htt">Kana nedir?</span><span class="hss">Japoncanın ses harfleri: hiragana ve katakana</span></span>
       <span class="ha">›</span>
     </button>
     <button class="howto-note" data-go="kanji-about">
-      <span class="hg jp">学</span>
+      <span class="hg" style="width:38px">${iconBadge('木',IC.amber,IC.teal,38)}</span>
       <span class="ht"><span class="htt">Kanji nedir?</span><span class="hss">Anlam taşıyan işaretler nereden gelir</span></span>
       <span class="ha">›</span>
     </button>
     <button class="howto-note" data-go="writing-system">
-      <span class="hg jp">字</span>
+      <span class="hg" style="width:38px">${iconBadge('字',IC.teal,IC.gold,38)}</span>
       <span class="ht"><span class="htt">Japonca Yazı Mantığı</span><span class="hss">Üç sistem bir cümlede nasıl birlikte çalışır</span></span>
       <span class="ha">›</span>
     </button>
@@ -2522,17 +2531,17 @@ function Learn(){
   <div class="h1" style="margin-top:2px">Neyi öğrenmek istersin?</div>
   <div class="lead" style="margin-bottom:6px">Temelden ileriye doğru yapılandırılmış bir yol. İstediğin yerden başlayabilirsin.</div>
 
-  ${hubCard("仮","Kana Temeli","Hiragana ve Katakana — sesleri ve şekilleri","kana","Hiragana / Katakana")}
-  ${hubCard("林","Kanji Haritası","Basit köklerin kanjilere dallanışı","map","Görsel atlas")}
-  ${hubCard("亻","Kök Dönüşümleri","Bir kök konuma göre nasıl değişir","transform","7 dönüşüm")}
-  ${hubCard("筆","Çizim Pratiği","Vuruş sırasını izle, sonra kendin çiz","practice","Stroke order")}
-  ${hubCard("遊","Oyunlar","Eşleme, eşleştirme ve hızlı testler","games","10 oyun")}
-  ${hubCard("道","Öğrenme Yolu","8 aşamalı ilerleme — neredesin?","path","Aşama "+state.pathStage+"/8")}
+  ${hubCard("仮","Kana Temeli","Hiragana ve Katakana — sesleri ve şekilleri","kana","Hiragana / Katakana",IC.terra,IC.amber)}
+  ${hubCard("林","Kanji Haritası","Basit köklerin kanjilere dallanışı","map","Görsel atlas",IC.amber,IC.teal)}
+  ${hubCard("亻","Kök Dönüşümleri","Bir kök konuma göre nasıl değişir","transform","7 dönüşüm",IC.brown,IC.gold)}
+  ${hubCard("筆","Çizim Pratiği","Vuruş sırasını izle, sonra kendin çiz","practice","Stroke order",IC.teal,IC.gold)}
+  ${hubCard("遊","Oyunlar","Eşleme, eşleştirme ve hızlı testler","games","10 oyun",IC.gold,IC.terra)}
+  ${hubCard("道","Öğrenme Yolu","8 aşamalı ilerleme — neredesin?","path","Aşama "+state.pathStage+"/8",IC.terra,IC.gold)}
   </div>`;
 }
-function hubCard(glyph,t,d,go,tag){
+function hubCard(glyph,t,d,go,tag,main,shad){
   return `<div class="card" data-go="${go}" style="cursor:pointer;display:flex;gap:14px;align-items:center;margin-bottom:11px">
-    <div class="jp" style="width:52px;height:52px;flex:none;display:grid;place-items:center;font-size:32px;background:var(--accent-soft);color:var(--accent-deep);border-radius:14px">${glyph}</div>
+    <div style="width:52px;height:52px;flex:none;display:grid;place-items:center">${iconBadge(glyph,main||IC.amber,shad||IC.teal,52)}</div>
     <div style="flex:1"><div style="font-weight:700;font-size:15px">${t}</div><div class="lead" style="margin-top:2px">${d}</div></div>
     <div style="text-align:right"><div class="chip">${tag}</div><div style="color:var(--accent);font-size:20px;margin-top:6px">›</div></div>
   </div>`;
