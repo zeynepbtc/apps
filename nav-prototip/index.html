@@ -40,9 +40,9 @@
 </style>
 </head>
 <body>
-  <div class="eyebrow">Kanji Atlas · alt nav · v17 · tanımlı yuva + kaynaşarak gömülme</div>
-  <h1>Belirgin yuva · daire küçülmeden gömülür</h1>
-  <p class="lead">Yuvanın barla kesişen kenarı ince bir çizgiyle tanımlı (menü çizgi kalınlığında, çember çevresi oyuk formu). Home'a dönerken daire küçülmez — sabit boyutta bara iner, yuva üstünü kapatır, kaynaşarak kaybolur. Bar düz/sabit.</p>
+  <div class="eyebrow">Kanji Atlas · alt nav · v18 · dar yuva + gerçek gömülme</div>
+  <h1>Yay yazıya değmez · daire batarak kaybolur</h1>
+  <p class="lead">Negatif alan daraldı (5px) — yuva yayı artık yazıya değmiyor, aralarında nefes var. Home'da daire küçülmüyor: sabit boyutta aşağı batıyor, yuva penceresi düz kenara mühürlenip üstünü örtüyor. Görünen daire dıştan içe küçülmüyor — aşağı iniyor. Bar düz/sabit.</p>
 
   <div class="phone">
     <div class="topbar">
@@ -73,12 +73,12 @@
         <!-- BAR: düz panel, mask ile yuvarlak delik -->
         <path id="bar" fill="#fff" stroke="#E6DCCB" stroke-width="1" mask="url(#socket)"></path>
         <!-- YUVA KENARI: tanımlı ince çizgi, yalnız bar içinde (üstü clip'lenir) -->
-        <circle id="rim" fill="none" stroke="#D6C9B2" stroke-width="1.5" clip-path="url(#belowbar)"></circle>
+        <circle id="rim" fill="none" stroke="#DACDB6" stroke-width="1.3" clip-path="url(#belowbar)"></circle>
       </svg>
       <div class="tabs" id="tabs"></div>
     </div>
   </div>
-  <p class="foot"><b>v17:</b> yuva kenarı ince tanımlı çizgi (belirgin oyuk) · daire arka katmanda, boyut sabit · Home'da bara inip yuva kapanarak kaynaşır (küçülme yok) · hafif ambient gölge yuvaya groove verir · bar düz/sabit. İkonlar geçici.</p>
+  <p class="foot"><b>v18:</b> negatif alan 5px (yay yazıya değmez, nefes var) · Home'da daire KÜÇÜLMEZ — sabit boyutta aşağı batar, pencere düz kenara mühürlenir (dıştan içe daralma yok) · yuva kenarı ince tanımlı çizgi · bar düz/sabit. İkonlar geçici.</p>
 
   <script>
   (function(){
@@ -95,11 +95,13 @@
     var H=118, RAD=25;
     var BAR_TOP=48;             // düz bar üst kenarı (SABİT)
     var R=28;                   // daire yarıçapı — SABİT (küçülmez)
-    var GAP=10;                 // yuva boşluğu (negatif alan)
-    var PRES_CY=BAR_TOP+12;     // aktif merkez: ~%71 gömülü / ~%29 görünür
-    var SINK_CY=BAR_TOP+34;     // Home: daire bara iner (üstü BAR_TOP altına geçer → örtülür)
+    var GAP=5;                  // yuva boşluğu — DAR (yay yazıya değmesin)
+    var holeR=R+GAP;            // yuva yarıçapı (SABİT) — konsantrik daralmaz
+    var PRES_CY=BAR_TOP+10;     // aktif merkez: ~%68 gömülü / ~%32 görünür
+    var BALL_SINK=BAR_TOP+52;   // Home: daire AŞAĞI batar (küçülmez)
+    var HOLE_SEAL=BAR_TOP-holeR-2; // Home: pencere yükselip düz kenara mühürlenir
     var ICON_Y=BAR_TOP+16;      // satır ikonları (SABİT)
-    var LABEL_Y=BAR_TOP+45;     // yazılar (SABİT)
+    var LABEL_Y=BAR_TOP+47;     // yazılar (SABİT) — yay ile arasında nefes
 
     var svg=document.getElementById('svg'), bar=document.getElementById('bar'),
         ball=document.getElementById('ball'), aicon=document.getElementById('aicon'),
@@ -122,21 +124,21 @@
     function paint(vel){
       svel=svel*0.8+vel*0.2; var av=Math.abs(svel); if(av<0.5)av=0;
       var stretch=Math.min(0.12, av*0.012), bx=cx - svel*0.08;
-      var cy=lerp(SINK_CY, PRES_CY, em);                 // iner/yükselir — KÜÇÜLMEZ
+      var cyB=lerp(BALL_SINK, PRES_CY, em);              // DAİRE: aşağı batar/yükselir — boyut sabit
+      var cyH=lerp(HOLE_SEAL, PRES_CY, em);              // YUVA: yükselip düz kenara mühürlenir
       var rx=R*(1+stretch), ry=R*(1-stretch*0.5);        // yarıçap sabit R (yalnız esneme)
-      var holeR=(R+GAP)*em;                              // yuva açılır/kapanır (Home'da 0 → örtülür)
       // BAR: düz, sabit, yuvarlak üst köşeler
       bar.setAttribute('d','M0,'+(BAR_TOP+RAD)+' Q0,'+BAR_TOP+' '+RAD+','+BAR_TOP
         +' L'+(W-RAD)+','+BAR_TOP+' Q'+W+','+BAR_TOP+' '+W+','+(BAR_TOP+RAD)
         +' L'+W+','+H+' L0,'+H+' Z');
-      // yuva deliği (mask): daire + geniş boşluk, yumuşak kenar
-      mhole.setAttribute('cx',bx); mhole.setAttribute('cy',cy); mhole.setAttribute('rx',holeR); mhole.setAttribute('ry',holeR);
-      // daire (arka katman) + ikon
-      ball.setAttribute('cx',bx); ball.setAttribute('cy',cy); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry);
-      aicon.setAttribute('transform','translate('+(bx-12)+','+(cy-12)+')');
-      aicon.setAttribute('opacity',Math.max(0,Math.min(1,em*1.3)));
-      // YUVA KENARI: tanımlı çizgi (delik kenarında), yalnız bar içinde görünür
-      rim.setAttribute('cx',bx); rim.setAttribute('cy',cy); rim.setAttribute('r',Math.max(0.01,holeR));
+      // yuva penceresi (mask): SABİT yarıçap — konsantrik daralmaz; yükselip düz kenara mühürlenir
+      mhole.setAttribute('cx',bx); mhole.setAttribute('cy',cyH); mhole.setAttribute('rx',holeR); mhole.setAttribute('ry',holeR);
+      // daire (arka katman) + ikon — aşağı batar
+      ball.setAttribute('cx',bx); ball.setAttribute('cy',cyB); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry);
+      aicon.setAttribute('transform','translate('+(bx-12)+','+(cyB-12)+')');
+      aicon.setAttribute('opacity',Math.max(0,Math.min(1,(em-0.1)*1.4)));
+      // YUVA KENARI: ince tanımlı çizgi, yalnız bar içinde; pencereyle birlikte mühürlenip solar
+      rim.setAttribute('cx',bx); rim.setAttribute('cy',cyH); rim.setAttribute('r',holeR);
       rim.setAttribute('opacity',Math.max(0,Math.min(1,(em-0.06)*1.5)));
       var nr=nearest();
       for(var k=0;k<N;k++){ tabs[k].querySelector('.ic').style.opacity=(k===nr?(1-em):1);
