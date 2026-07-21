@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Kanji Atlas — alt nav v15 (socket / negatif boşluk)</title>
+<title>Kanji Atlas — alt nav v17 (tanımlı yuva + kaynaşarak gömülme)</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Shippori+Mincho:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{ --bg:#EFE7D6; --paper:#FBF5EF; --card:#FFFFFF; --line:#E6DCCB;
@@ -16,7 +16,6 @@
   .eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:800;text-align:center}
   h1{font-family:var(--serif);font-weight:700;font-size:22px;margin:8px 0 6px;text-align:center}
   .lead{color:var(--muted);font-size:13px;text-align:center;max-width:450px;margin:0 auto;line-height:1.5}
-  /* screen arka planı GÖRÜNSÜN diye phone paper; barın deliğinden bu görünecek */
   .phone{width:336px;max-width:100%;margin:22px auto 0;background:var(--paper);border-radius:36px;overflow:hidden;
     box-shadow:0 2px 5px rgba(58,47,40,.12),0 30px 55px -26px rgba(58,47,40,.5);border:1px solid rgba(0,0,0,.05);
     display:flex;flex-direction:column;height:580px}
@@ -41,9 +40,9 @@
 </style>
 </head>
 <body>
-  <div class="eyebrow">Kanji Atlas · alt nav · v16 · derin yuva + geniş negatif alan</div>
-  <h1>Yuvasına oturmuş daire</h1>
-  <p class="lead">Daire ~%71 barın içinde, üstünün ~%29'u dışarıda — yuvasına oturmuş. Etrafında 10px'lik yumuşak negatif boşluk (blur'lu) sayfa arka planını açar; daire bara hiçbir yerde değmez. Bar düz/sabit. Home'da daire yuvaya gömülüp kaybolur.</p>
+  <div class="eyebrow">Kanji Atlas · alt nav · v17 · tanımlı yuva + kaynaşarak gömülme</div>
+  <h1>Belirgin yuva · daire küçülmeden gömülür</h1>
+  <p class="lead">Yuvanın barla kesişen kenarı ince bir çizgiyle tanımlı (menü çizgi kalınlığında, çember çevresi oyuk formu). Home'a dönerken daire küçülmez — sabit boyutta bara iner, yuva üstünü kapatır, kaynaşarak kaybolur. Bar düz/sabit.</p>
 
   <div class="phone">
     <div class="topbar">
@@ -52,7 +51,7 @@
     </div>
     <div class="screen">
       <div class="st" id="scrTitle">Kana</div>
-      <div class="subtle" id="scrSub">bir sekmeye dokun · logo = Ana Sayfa (daire yuvaya gömülür)</div>
+      <div class="subtle" id="scrSub">bir sekmeye dokun · logo = Ana Sayfa (daire kaynaşarak gömülür)</div>
       <div class="card"></div>
       <div class="card sm"></div>
       <div class="card sm"></div>
@@ -60,21 +59,26 @@
     <div class="nav" id="nav">
       <svg class="bar" id="svg" preserveAspectRatio="none">
         <defs>
-          <filter id="sh" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#8f5322" flood-opacity="0.24"/></filter>
-          <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6"/></filter>
+          <filter id="sh" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#8f5322" flood-opacity="0.26"/></filter>
+          <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.3"/></filter>
           <mask id="socket">
             <rect id="mrect" x="0" y="0" width="100%" height="100%" fill="#fff"></rect>
             <ellipse id="mhole" fill="#000" filter="url(#soft)"></ellipse>
           </mask>
+          <clipPath id="belowbar"><rect id="clipR" x="0" y="0" width="100%" height="100%"></rect></clipPath>
         </defs>
-        <path id="bar" fill="#fff" stroke="#E6DCCB" stroke-width="1" mask="url(#socket)"></path>
+        <!-- DAİRE + ikon: barın ARKA katmanında → yuva kapanınca bar üstünü örter (kaynaşarak yutulur) -->
         <g filter="url(#sh)"><ellipse id="ball" fill="#D3813A"></ellipse></g>
         <g id="aicon" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"></g>
+        <!-- BAR: düz panel, mask ile yuvarlak delik -->
+        <path id="bar" fill="#fff" stroke="#E6DCCB" stroke-width="1" mask="url(#socket)"></path>
+        <!-- YUVA KENARI: tanımlı ince çizgi, yalnız bar içinde (üstü clip'lenir) -->
+        <circle id="rim" fill="none" stroke="#D6C9B2" stroke-width="1.5" clip-path="url(#belowbar)"></circle>
       </svg>
       <div class="tabs" id="tabs"></div>
     </div>
   </div>
-  <p class="foot"><b>v16:</b> daire ~%71 gömülü (yuvasına oturmuş) · negatif boşluk 10px + blur ile yumuşak (keskin temas yok) · daire bara değmez, ayrı katman · hafif ambient gölge korundu · bar düz/sabit. Home → yuvaya gömülüp kaybolur. İkonlar geçici.</p>
+  <p class="foot"><b>v17:</b> yuva kenarı ince tanımlı çizgi (belirgin oyuk) · daire arka katmanda, boyut sabit · Home'da bara inip yuva kapanarak kaynaşır (küçülme yok) · hafif ambient gölge yuvaya groove verir · bar düz/sabit. İkonlar geçici.</p>
 
   <script>
   (function(){
@@ -89,17 +93,17 @@
 
     // ---- GEOMETRİ ----
     var H=118, RAD=25;
-    var BAR_TOP=48;              // düz bar üst kenarı (SABİT) — bar 70px
-    var R=28;                    // daire yarıçapı (çap 56)
-    var GAP=10;                  // daire ↔ delik arası boşluk — geniş, nefes alan negatif alan
-    var PRES_CY=BAR_TOP+12;      // aktif merkez: ~%71 gömülü / ~%29 görünür (yuvasına oturmuş)
-    var SINK_CY=BAR_TOP+20;      // gömülme hedefi (Home) — bara iyice batar
-    var ICON_Y=BAR_TOP+16;       // satır ikonları (SABİT)
-    var LABEL_Y=BAR_TOP+45;      // yazılar (SABİT) — derin dairenin altında kalır
+    var BAR_TOP=48;             // düz bar üst kenarı (SABİT)
+    var R=28;                   // daire yarıçapı — SABİT (küçülmez)
+    var GAP=10;                 // yuva boşluğu (negatif alan)
+    var PRES_CY=BAR_TOP+12;     // aktif merkez: ~%71 gömülü / ~%29 görünür
+    var SINK_CY=BAR_TOP+34;     // Home: daire bara iner (üstü BAR_TOP altına geçer → örtülür)
+    var ICON_Y=BAR_TOP+16;      // satır ikonları (SABİT)
+    var LABEL_Y=BAR_TOP+45;     // yazılar (SABİT)
 
     var svg=document.getElementById('svg'), bar=document.getElementById('bar'),
         ball=document.getElementById('ball'), aicon=document.getElementById('aicon'),
-        mhole=document.getElementById('mhole'), mrect=document.getElementById('mrect'),
+        mhole=document.getElementById('mhole'), rim=document.getElementById('rim'), clipR=document.getElementById('clipR'),
         tabsEl=document.getElementById('tabs'), nav=document.getElementById('nav'),
         scrTitle=document.getElementById('scrTitle'), scrSub=document.getElementById('scrSub');
     var SEAL='<svg viewBox="0 0 1024 1024"><rect width="1024" height="1024" fill="#FBF5EF"/><path d="M256 716 C 290 392, 562 290, 734 342 C 580 376, 392 478, 376 666 Z" fill="#C0562F"/><circle cx="684" cy="632" r="112" fill="#E3BC6A"/><circle cx="344" cy="344" r="64" fill="#9CBFC9"/></svg>';
@@ -118,35 +122,38 @@
     function paint(vel){
       svel=svel*0.8+vel*0.2; var av=Math.abs(svel); if(av<0.5)av=0;
       var stretch=Math.min(0.12, av*0.012), bx=cx - svel*0.08;
-      var rr=R*em, cy=lerp(SINK_CY, PRES_CY, em);        // yuvadan çık / yuvaya göm (fade yok)
-      var rx=rr*(1+stretch), ry=rr*(1-stretch*0.5);
+      var cy=lerp(SINK_CY, PRES_CY, em);                 // iner/yükselir — KÜÇÜLMEZ
+      var rx=R*(1+stretch), ry=R*(1-stretch*0.5);        // yarıçap sabit R (yalnız esneme)
+      var holeR=(R+GAP)*em;                              // yuva açılır/kapanır (Home'da 0 → örtülür)
       // BAR: düz, sabit, yuvarlak üst köşeler
       bar.setAttribute('d','M0,'+(BAR_TOP+RAD)+' Q0,'+BAR_TOP+' '+RAD+','+BAR_TOP
         +' L'+(W-RAD)+','+BAR_TOP+' Q'+W+','+BAR_TOP+' '+W+','+(BAR_TOP+RAD)
         +' L'+W+','+H+' L0,'+H+' Z');
-      // DELİK (mask): daireyi BİREBİR takip etmez — daha geniş + blur ile yumuşak oyuk (keskin temas yok)
-      mhole.setAttribute('cx',bx); mhole.setAttribute('cy',cy);
-      mhole.setAttribute('rx',rx+GAP*em); mhole.setAttribute('ry',ry+GAP*em);
-      // DAİRE: yuvanın içinde, sayfa bg boşluğu çevresinde
+      // yuva deliği (mask): daire + geniş boşluk, yumuşak kenar
+      mhole.setAttribute('cx',bx); mhole.setAttribute('cy',cy); mhole.setAttribute('rx',holeR); mhole.setAttribute('ry',holeR);
+      // daire (arka katman) + ikon
       ball.setAttribute('cx',bx); ball.setAttribute('cy',cy); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry);
-      aicon.setAttribute('transform','translate('+bx+','+cy+') scale('+Math.max(0.001,em)+') translate(-12,-12)');
-      aicon.setAttribute('opacity',Math.max(0,Math.min(1,(em-0.15)/0.55)));
+      aicon.setAttribute('transform','translate('+(bx-12)+','+(cy-12)+')');
+      aicon.setAttribute('opacity',Math.max(0,Math.min(1,em*1.3)));
+      // YUVA KENARI: tanımlı çizgi (delik kenarında), yalnız bar içinde görünür
+      rim.setAttribute('cx',bx); rim.setAttribute('cy',cy); rim.setAttribute('r',Math.max(0.01,holeR));
+      rim.setAttribute('opacity',Math.max(0,Math.min(1,(em-0.06)*1.5)));
       var nr=nearest();
       for(var k=0;k<N;k++){ tabs[k].querySelector('.ic').style.opacity=(k===nr?(1-em):1);
         tabs[k].querySelector('.lb').style.color=(k===nr && em>0.5)?'var(--amber-deep)':'var(--muted)'; }
       if(nr!==act){ act=nr; if(aicon.dataset.i!=nr){aicon.dataset.i=nr;aicon.innerHTML=ICONS[nr];}
         if(em>0.5)try{if(navigator.vibrate)navigator.vibrate(reduce?0:7);}catch(e){} }
     }
-    // --- ANIMASYON (korunuyor: yatay akış + yerleşme) + em (yuvadan çık / göm) ---
+    // --- ANIMASYON (korunuyor: yatay akış + yerleşme) + em (yuvadan çık / kaynaşarak göm) ---
     function loop(){
-      cx+=(cxT-cx)*(reduce?0.5:0.2); em+=(emT-em)*(reduce?0.5:0.22);
+      cx+=(cxT-cx)*(reduce?0.5:0.2); em+=(emT-em)*(reduce?0.5:0.2);
       var vel=(cxT-cx)*0.2; paint(vel);
-      if(Math.abs(cxT-cx)>0.3||Math.abs(emT-em)>0.005) raf=requestAnimationFrame(loop);
+      if(Math.abs(cxT-cx)>0.3||Math.abs(emT-em)>0.004) raf=requestAnimationFrame(loop);
       else { cx=cxT; em=emT; paint(0); raf=null; }
     }
     function kick(){ if(!raf) raf=requestAnimationFrame(loop); }
     function goTab(i){ cxT=center(i); emT=1; scrTitle.textContent=LB[i]; scrSub.textContent='daire '+LB[i]+' yuvasında · sürükle'; kick(); }
-    function goHome(){ emT=0; scrTitle.textContent='Ana Sayfa'; scrSub.textContent='daire yuvaya gömüldü · düz bar kaldı'; kick(); }
+    function goHome(){ emT=0; scrTitle.textContent='Ana Sayfa'; scrSub.textContent='daire bara inip kaynaştı · düz bar kaldı'; kick(); }
 
     // --- SÜRÜKLEME (korunuyor) ---
     function xOf(e){ return (e.touches?e.touches[0].clientX:e.clientX)-nav.getBoundingClientRect().left; }
@@ -159,6 +166,7 @@
     document.getElementById('logo').addEventListener('click',goHome);
 
     function layout(){ W=nav.clientWidth; slot=W/N; svg.setAttribute('viewBox','0 0 '+W+' '+H);
+      clipR.setAttribute('y',BAR_TOP); clipR.setAttribute('height',H-BAR_TOP);
       if(cxT===0){cx=cxT=center(0); em=emT=1;} paint(0); }
     window.addEventListener('resize',layout); layout(); paint(0);
   })();
