@@ -1775,6 +1775,13 @@ function back(){
   if(prev){ state.screen=prev.screen; state.param=prev.param; render(); main.scrollTop=0; }
   else go("home",null,false);
 }
+/* Root navigation politikası (P0-1 · IA sözleşmesi): alt tab / logo → root reset.
+   Detay dalını kapatır, root'u kendi üzerine push ETMEZ, stack şişmez. Avatar→Profile bunu KULLANMAZ (çağıranı korur). */
+const ROOT_SCREENS = ["home","kana","kanji5","practice","games"];
+function goRoot(screen){
+  state.stack=[]; state.param=null; state.screen=screen;
+  render(); main.scrollTop=0;
+}
 
 const ICONS={
   home:'<svg viewBox="0 0 24 24"><path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H4a1 1 0 0 1-1-1z"/></svg>',
@@ -5221,8 +5228,8 @@ document.addEventListener("click",e=>{
   if(el.dataset.mleft!==undefined){ const G=state._game; if(!G)return; G.sel=parseInt(el.dataset.mleft); G._wrong=null; render(); return; }
   if(el.dataset.mright!==undefined){ matchTap(parseInt(el.dataset.mright)); return; }
   if(el.dataset.practice){ state._practiceSel=el.dataset.practice; render(); return; }
-  if(el.dataset.tab){ go(el.dataset.tab); return; }
-  if(el.dataset.go){ go(el.dataset.go, el.dataset.param||null); return; }
+  if(el.dataset.tab){ const t=el.dataset.tab; if(t==="profile"){ go("profile"); } else { goRoot(t); } return; }  /* profile: çağıranı koru; root tab: reset */
+  if(el.dataset.go){ const g=el.dataset.go; if(ROOT_SCREENS.includes(g) && !el.dataset.param){ goRoot(g); } else { go(g, el.dataset.param||null); } return; }  /* root hedef (logo/brand/home dahil): reset; diğer: normal push */
   if(el.dataset.mlev!==undefined){
     const l=el.dataset.mlev; const ALL=["N5","N4","N3","N2","N1","Kök"];
     const cur=state._mapLevels||ALL.slice();
