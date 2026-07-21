@@ -41,9 +41,9 @@
 </style>
 </head>
 <body>
-  <div class="eyebrow">Kanji Atlas · alt nav · v15 · socket + negatif boşluk</div>
-  <h1>Yuvadan çıkan daire · kesilmiş delik</h1>
-  <p class="lead">Bar düz ve sabit. Aktif dairenin arkasında bara tam yuvarlak bir delik kesili; çevresinde ince boşluk sayfa arka planını gösteriyor. Daire yuvadan çıkar, kayar, geri gömülür. Efekt değil — geometri.</p>
+  <div class="eyebrow">Kanji Atlas · alt nav · v16 · derin yuva + geniş negatif alan</div>
+  <h1>Yuvasına oturmuş daire</h1>
+  <p class="lead">Daire ~%71 barın içinde, üstünün ~%29'u dışarıda — yuvasına oturmuş. Etrafında 10px'lik yumuşak negatif boşluk (blur'lu) sayfa arka planını açar; daire bara hiçbir yerde değmez. Bar düz/sabit. Home'da daire yuvaya gömülüp kaybolur.</p>
 
   <div class="phone">
     <div class="topbar">
@@ -60,10 +60,11 @@
     <div class="nav" id="nav">
       <svg class="bar" id="svg" preserveAspectRatio="none">
         <defs>
-          <filter id="sh" x="-70%" y="-70%" width="240%" height="240%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#8f5322" flood-opacity="0.16"/></filter>
+          <filter id="sh" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#8f5322" flood-opacity="0.24"/></filter>
+          <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6"/></filter>
           <mask id="socket">
             <rect id="mrect" x="0" y="0" width="100%" height="100%" fill="#fff"></rect>
-            <ellipse id="mhole" fill="#000"></ellipse>
+            <ellipse id="mhole" fill="#000" filter="url(#soft)"></ellipse>
           </mask>
         </defs>
         <path id="bar" fill="#fff" stroke="#E6DCCB" stroke-width="1" mask="url(#socket)"></path>
@@ -73,7 +74,7 @@
       <div class="tabs" id="tabs"></div>
     </div>
   </div>
-  <p class="foot"><b>v15:</b> daire barın içine kesilmiş yuvadan çıkar (~%38 gömülü, üst ~%62 görünür) · ~4px boşluk sayfa arka planını açar · bar tamamen düz/sabit, dalga/esneme yok. Home → daire yuvaya geri gömülür (fade değil). İkonlar geçici.</p>
+  <p class="foot"><b>v16:</b> daire ~%71 gömülü (yuvasına oturmuş) · negatif boşluk 10px + blur ile yumuşak (keskin temas yok) · daire bara değmez, ayrı katman · hafif ambient gölge korundu · bar düz/sabit. Home → yuvaya gömülüp kaybolur. İkonlar geçici.</p>
 
   <script>
   (function(){
@@ -90,11 +91,11 @@
     var H=118, RAD=25;
     var BAR_TOP=48;              // düz bar üst kenarı (SABİT) — bar 70px
     var R=28;                    // daire yarıçapı (çap 56)
-    var GAP=4;                   // daire ↔ delik arası boşluk (sayfa bg görünür)
-    var PRES_CY=BAR_TOP-6;       // aktif merkez: ~%38 gömülü / ~%62 görünür
-    var SINK_CY=BAR_TOP+12;      // gömülme hedefi (Home)
+    var GAP=10;                  // daire ↔ delik arası boşluk — geniş, nefes alan negatif alan
+    var PRES_CY=BAR_TOP+12;      // aktif merkez: ~%71 gömülü / ~%29 görünür (yuvasına oturmuş)
+    var SINK_CY=BAR_TOP+20;      // gömülme hedefi (Home) — bara iyice batar
     var ICON_Y=BAR_TOP+16;       // satır ikonları (SABİT)
-    var LABEL_Y=BAR_TOP+42;      // yazılar (SABİT, asla itilmez)
+    var LABEL_Y=BAR_TOP+45;      // yazılar (SABİT) — derin dairenin altında kalır
 
     var svg=document.getElementById('svg'), bar=document.getElementById('bar'),
         ball=document.getElementById('ball'), aicon=document.getElementById('aicon'),
@@ -123,9 +124,9 @@
       bar.setAttribute('d','M0,'+(BAR_TOP+RAD)+' Q0,'+BAR_TOP+' '+RAD+','+BAR_TOP
         +' L'+(W-RAD)+','+BAR_TOP+' Q'+W+','+BAR_TOP+' '+W+','+(BAR_TOP+RAD)
         +' L'+W+','+H+' L0,'+H+' Z');
-      // DELİK (mask): barın içinde tam yuvarlak negatif boşluk = daire + GAP
+      // DELİK (mask): daireyi BİREBİR takip etmez — daha geniş + blur ile yumuşak oyuk (keskin temas yok)
       mhole.setAttribute('cx',bx); mhole.setAttribute('cy',cy);
-      mhole.setAttribute('rx',rr+GAP); mhole.setAttribute('ry',ry+GAP);
+      mhole.setAttribute('rx',rx+GAP*em); mhole.setAttribute('ry',ry+GAP*em);
       // DAİRE: yuvanın içinde, sayfa bg boşluğu çevresinde
       ball.setAttribute('cx',bx); ball.setAttribute('cy',cy); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry);
       aicon.setAttribute('transform','translate('+bx+','+cy+') scale('+Math.max(0.001,em)+') translate(-12,-12)');
