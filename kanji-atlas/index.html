@@ -1701,7 +1701,8 @@ if (typeof module !== "undefined") module.exports = {
   migrateV0ToV1, migrateV1ToV2, migrate, safeMerge, hydrate, createStorage
 };
 
-const STORE = createStorage((typeof localStorage!=="undefined")?localStorage:{getItem:()=>null,setItem:()=>{}}, { resolver: makeTypeResolver(DATA) });
+const APP_RESOLVER = makeTypeResolver(DATA);   // P0-5B: paylaşılan tip çözümleyici (STORE + srsRecord)
+const STORE = createStorage((typeof localStorage!=="undefined")?localStorage:{getItem:()=>null,setItem:()=>{}}, { resolver: APP_RESOLVER });
 if(typeof window!=="undefined") window.STORE = STORE;
 function load(){
   const _r = STORE.read(); Object.assign(state, _r.state);   // hydrate + migration + recovery
@@ -1738,21 +1739,62 @@ function clearProgressData(){
 
 /* ============================ SRS / MASTERY ENGINE ============================ */
 // record an answer for any reviewable item (kanji id or kana character)
-function srsRecord(key, correct){
+/* P0-5B: srsRecord — v2-uyumlu (type/seen/write üretir), resolver TİP OTORİTESİ (eksik VE yanlış type'ı düzeltir),
+   çözülemeyen key güvenli reddedilir/karantina, {ok,reason,record} döndürür. seen = anlamlı maruziyet (çağrı başına +1, I2).
+   opts.known: kullanıcı "biliyorum" beyanı → doğru cevap + mastery tabanı 2 (eski word-known çift-çağrısının açık hali). */
+function srsRecord(key, correct, opts){
+  opts = opts || {};
+  const resolvedType = APP_RESOLVER.resolveType(key);   // DATA-temelli otorite
+  const existing = state.srs[key];
+  if(resolvedType == null){
+    // Çözülemeyen tip → canonical srs KİRLETİLMEZ.
+    if(!isPlainObject(existing)){
+      try{ if(typeof console!=="undefined") console.warn("[srs] çözülemeyen yeni key — kayıt oluşturulmadı:", key); }catch(e){}
+      return { ok:false, reason:"unresolved-type", record:null };
+    }
+    // Mevcut çözülemeyen kayıt → kayıpsız karantinaya taşı, srs'ten çıkar, güvenli kaydet.
+    state._migrationQuarantine = isPlainObject(state._migrationQuarantine) ? state._migrationQuarantine : {};
+    state._migrationQuarantine.srs = isPlainObject(state._migrationQuarantine.srs) ? state._migrationQuarantine.srs : {};
+    state._migrationQuarantine.srs[key] = existing;
+    delete state.srs[key];
+    try{ if(typeof console!=="undefined") console.warn("[srs] çözülemeyen mevcut kayıt karantinaya alındı:", key); }catch(e){}
+    save();
+    return { ok:false, reason:"quarantined", record:null };
+  }
   const now=Date.now();
-  let r=state.srs[key]||{correct:0,wrong:0,mastery:0,last:0,next:0};
-  if(correct){ r.correct++; r.mastery=Math.min(4,r.mastery+1); }
-  else { r.wrong++; r.mastery=Math.max(0, r.mastery-1); }
-  r.last=now;
-  r.next=now + SRS_DAYS[r.mastery]*DAY;
+  // v2 kaydı kur/normalize et (girişteki geçersiz alanları güvenli tut)
+  let r;
+  if(isPlainObject(existing)){
+    r = existing;
+    r.type = resolvedType;                                              // OTORİTE: eksik/yanlış type düzeltilir
+    if(!(Number.isInteger(r.correct)&&r.correct>=0)) r.correct = 0;
+    if(!(Number.isInteger(r.wrong)&&r.wrong>=0))     r.wrong = 0;
+    if(!(Number.isInteger(r.mastery)&&r.mastery>=0&&r.mastery<=4)) r.mastery = Math.max(0,Math.min(4, (r.mastery|0)));
+    if(!(Number.isInteger(r.write)&&r.write>=0))     r.write = 0;
+    if(!(Number.isInteger(r.seen)&&r.seen>=0))       r.seen = Math.max(r.correct+r.wrong, r.mastery>0?1:0); // backfill
+  } else {
+    r = { type:resolvedType, correct:0, wrong:0, mastery:0, seen:0, write:0, last:null, next:null };
+  }
+  // Cevabı uygula
+  if(correct){
+    r.correct++;
+    r.mastery = opts.known ? Math.max(2, Math.min(4, r.mastery+1)) : Math.min(4, r.mastery+1);
+  } else {
+    r.wrong++;
+    r.mastery = Math.max(0, r.mastery-1);
+  }
+  r.seen++;                                                             // tek anlamlı maruziyet (I2)
+  if(r.seen < r.correct + r.wrong) r.seen = r.correct + r.wrong;        // invariant garanti
+  r.last = now;
+  r.next = now + SRS_DAYS[r.mastery]*DAY;
   state.srs[key]=r;
-  // sync legacy status for kanji ids so Review screen + map stay consistent
+  // kanji legacy ayna (Review + harita tutarlılığı) — değişmedi
   if(DATA.chars[key]){
     state.learned[key]=true;
     state.status[key]= ["new","learning","soon","almost","mastered"][r.mastery];
   }
   save();
-  return r;
+  return { ok:true, reason:null, record:r };
 }
 /* FAZ 2 · Kana Review / SRS tutarlılığı — TEK kanonik due kaynağı (kapsam A: yalnız kanji, kesin zaman-temelli).
    SAF: state+data+now ENJEKTE; yan etki yok, giriş mutasyonu yok. Test edilen fonksiyon buildKanjiReviewQueue. */
@@ -5571,8 +5613,8 @@ document.addEventListener("click",e=>{
   else if(act==="hint-save"){ const key=el.dataset.param; const t=document.getElementById("uhint-input"); const val=t?t.value.trim():""; if(val){ state.userHints[key]=val; } else { delete state.userHints[key]; } state._editHint=null; save(); toast(val?"İpucun kaydedildi ✓":"Boş bırakıldı"); render(); }
   else if(act==="hint-cancel"){ state._editHint=null; render(); }
   else if(act==="hint-clear"){ delete state.userHints[el.dataset.param]; state._editHint=null; save(); toast("İpucun silindi"); render(); }
-  else if(act==="kana-known"){ const k=el.dataset.param; state.kana[k]=true; srsRecord(k,true); toast(`${k} tanıdın olarak işaretlendi`); render(); }
-  else if(act==="word-known"){ const id=el.dataset.param; srsRecord(id,true); if(!state.srs[id]||state.srs[id].mastery<2){ srsRecord(id,true); } toast("Kelime tekrara eklendi ✓"); render(); }
+  else if(act==="kana-known"){ const k=el.dataset.param; const _r=srsRecord(k,true); if(_r.ok){ state.kana[k]=true; toast(`${k} tanıdın olarak işaretlendi`); } else { toast("İşaretlenemedi."); } render(); }
+  else if(act==="word-known"){ const id=el.dataset.param; const _r=srsRecord(id,true,{known:true}); toast(_r.ok?"Kelime tekrara eklendi ✓":"Eklenemedi."); render(); }
   else if(act==="audiomode"){ state.settings.audioMode=el.dataset.mode; state.settings.audio=el.dataset.mode!=="off"; save(); render(); }
   else if(act==="game-stroke-kana"){ startGame("stroke",{charId:el.dataset.param}); }
   else if(act==="game-exit"){ state._game=null; go("games",null,false); }
