@@ -1,7 +1,8 @@
 /* GATE 1 · Onboarding B2 — SAF mantık fixture'ı (non-shipping).
    ADIM 7 mantığını shipped index.html'den ÇIKARIR (kaynak = gerçek), node'da test eder.
    Kapsam: normalizeOnboarding (migration + invariant) · startDescriptorFor · competency eşleme ·
-   t() fallback · zaman damgası · rollback-compat (legacy completed aynası) · marker idempotent · userProfile koruma. */
+   t() fallback · zaman damgası · rollback-compat · KANONİK marker (firstMeaningfulActionAt) + markLearn +
+   save-hatası geri-al · shouldShowInitialRec (import/reset semantiği) · userProfile koruma. */
 const fs = require("fs");
 const path = require("path");
 const html = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
@@ -12,14 +13,13 @@ const s = html.indexOf(START), e = html.indexOf(END, s);
 if (s < 0 || e < 0) { console.error("EXTRACT FAIL (markers not found)"); process.exit(1); }
 const src = html.slice(s, e);
 
-// Harness globalleri — uygulamayla uyumlu isPlainObject; state/save enjekte edilir.
 const isPlainObject = x => x !== null && typeof x === "object" && !Array.isArray(x);
 const factory = new Function("isPlainObject", "state", "save", src +
-  "\nreturn { I18N, t, OB_BANDS, OB_STAGES, VALID_START_KEYS, START_DESCRIPTORS, startDescriptorFor, startKeyForCompetency, competencyNeedsIntro, competencyToLegacyLevel, competencyShowAdvanced, normalizeOnboarding, completeOnboarding, skipOnboarding, markFirstMeaningfulLearningAction, hasMeaningfulLearning };");
+  "\nreturn { I18N, t, OB_BANDS, OB_STAGES, VALID_START_KEYS, START_DESCRIPTORS, startDescriptorFor, startKeyForCompetency, competencyNeedsIntro, competencyToLegacyLevel, competencyShowAdvanced, normalizeOnboarding, completeOnboarding, skipOnboarding, markFirstMeaningfulLearningAction, markLearn, hasMeaningfulLearning, shouldShowInitialRec };");
 
 const state = { settings: {}, srs: {}, userProfile: null, onboarding: null };
-let saveCount = 0;
-const save = () => { saveCount++; return { ok: true }; };
+let saveCount = 0, saveMode = "ok"; // "ok" | "fail" | "throw"
+const save = () => { saveCount++; if (saveMode === "throw") throw new Error("save-throw"); return saveMode === "fail" ? { ok: false, reason: "storage-recovery" } : { ok: true }; };
 const API = factory(isPlainObject, state, save);
 
 let pass = 0, fail = 0; const fails = [];
@@ -49,31 +49,24 @@ n = API.normalizeOnboarding({ completed: false, step: 3, level: "beginner" });
 ok(n.status === "in-progress" && n.stage === "welcome" && n.competency === null, "legacy incomplete → in-progress/welcome");
 
 /* 4) normalizeOnboarding — invariant + güvenli düşüş */
-n = API.normalizeOnboarding({ status: "completed", stage: "final", competency: 2, startKey: "kanji-ki" });
-ok(n.startKey === "kanji-ki" && n.stage === "final" && n.completed === true, "completed comp2 → kanji-ki");
-n = API.normalizeOnboarding({ status: "completed", competency: 0, startKey: "atlas-map" });
-ok(n.startKey === "kana-a", "completed uyumsuz startKey → kanonik eşleme (kana-a)");
-n = API.normalizeOnboarding({ status: "completed", competency: null, startKey: "kana-a" });
-ok(n.startKey === null, "completed competency null → startKey null (sahte rota yok)");
-n = API.normalizeOnboarding({ status: "in-progress", stage: "writing-intro", competency: 3 });
-ok(n.stage === "final" && n.startKey === null, "writing-intro+comp3 → final (intro yalnız 0/1), startKey null");
-n = API.normalizeOnboarding({ status: "in-progress", stage: "final", competency: null });
-ok(n.stage === "competency", "final+comp null → competency");
-n = API.normalizeOnboarding({ status: "skipped", competency: 2, startKey: "kanji-ki" });
-ok(n.status === "skipped" && n.competency === null && n.startKey === null && n.completed === true, "skipped → competency/startKey null; legacy completed=true");
-n = API.normalizeOnboarding({ status: "completed", stage: "zzz-bozuk", competency: 1, startKey: "kana-home" });
-ok(n.stage === "final", "bozuk stage completed → final");
-n = API.normalizeOnboarding({ status: "in-progress", stage: "zzz-bozuk", competency: null });
-ok(n.stage === "welcome", "bozuk stage in-progress → welcome güvenli düşüş");
+n = API.normalizeOnboarding({ status: "completed", stage: "final", competency: 2, startKey: "kanji-ki" }); ok(n.startKey === "kanji-ki" && n.stage === "final" && n.completed === true, "completed comp2 → kanji-ki");
+n = API.normalizeOnboarding({ status: "completed", competency: 0, startKey: "atlas-map" }); ok(n.startKey === "kana-a", "completed uyumsuz startKey → kanonik eşleme");
+n = API.normalizeOnboarding({ status: "completed", competency: null, startKey: "kana-a" }); ok(n.startKey === null, "completed competency null → startKey null (sahte rota yok)");
+n = API.normalizeOnboarding({ status: "in-progress", stage: "writing-intro", competency: 3 }); ok(n.stage === "final" && n.startKey === null, "writing-intro+comp3 → final, startKey null");
+n = API.normalizeOnboarding({ status: "in-progress", stage: "final", competency: null }); ok(n.stage === "competency", "final+comp null → competency");
+n = API.normalizeOnboarding({ status: "skipped", competency: 2, startKey: "kanji-ki" }); ok(n.status === "skipped" && n.competency === null && n.startKey === null && n.completed === true, "skipped → competency/startKey null; legacy completed=true");
+n = API.normalizeOnboarding({ status: "completed", stage: "zzz", competency: 1, startKey: "kana-home" }); ok(n.stage === "final", "bozuk stage completed → final");
+n = API.normalizeOnboarding({ status: "in-progress", stage: "zzz", competency: null }); ok(n.stage === "welcome", "bozuk stage in-progress → welcome");
 
 /* 5) completeOnboarding — zaman damgası + rollback aynası + userProfile koruma */
+saveMode = "ok";
 state.userProfile = { name: "Zeynep", createdAt: "2025-01-01T00:00:00.000Z", showAdvanced: true, motivation: "travel" };
 state.onboarding = { status: "in-progress", stage: "final", competency: 2, startKey: null };
 API.completeOnboarding();
-ok(state.onboarding.status === "completed" && state.onboarding.completed === true, "complete → completed + legacy ayna true");
+ok(state.onboarding.status === "completed" && state.onboarding.completed === true, "complete → completed + legacy ayna");
 ok(state.onboarding.startKey === "kanji-ki", "complete → startKey kanji-ki");
 ok(typeof state.onboarding.completedAt === "string" && state.onboarding.skippedAt === null, "complete → completedAt set, skippedAt null");
-ok(state.userProfile.name === "Zeynep", "complete → userProfile.name KORUNUR (ezilmez)");
+ok(state.userProfile.name === "Zeynep", "complete → userProfile.name KORUNUR");
 ok(state.userProfile.level === "hiragana" && state.userProfile.showAdvanced === true, "complete → level/showAdvanced competency'den");
 ok(state.userProfile.createdAt === "2025-01-01T00:00:00.000Z" && state.userProfile.motivation === "travel", "complete → createdAt + metadata korunur");
 
@@ -84,26 +77,54 @@ ok(state.onboarding.status === "skipped" && state.onboarding.completed === true,
 ok(state.onboarding.completedAt === null && typeof state.onboarding.skippedAt === "string", "skip → completedAt YOK, skippedAt set");
 ok(state.onboarding.competency === null && state.onboarding.startKey === null, "skip → competency/startKey temiz");
 
-/* 7) marker idempotent + hasMeaningfulLearning */
+/* 7) markLearn — post-success guard (yanlış cevap / başarısız kayıt marker YAZMAZ) */
+saveMode = "ok";
 state.onboarding = { status: "completed", competency: 0, startKey: "kana-a", firstMeaningfulActionAt: null };
-state.srs = {};
-ok(API.hasMeaningfulLearning() === false, "hasMeaningful false (no correct, no damga)");
-API.markFirstMeaningfulLearningAction("known-kana");
+API.markLearn({ ok: true }, true, "quiz"); ok(typeof state.onboarding.firstMeaningfulActionAt === "string", "markLearn ok+correct → marker yazılır");
+state.onboarding.firstMeaningfulActionAt = null;
+API.markLearn({ ok: true }, false, "quiz"); ok(state.onboarding.firstMeaningfulActionAt === null, "markLearn yanlış cevap (correct=false) → marker YOK");
+API.markLearn({ ok: false }, true, "quiz"); ok(state.onboarding.firstMeaningfulActionAt === null, "markLearn başarısız kayıt (ok=false) → marker YOK");
+
+/* 8) marker idempotent + save-hatası geri-al + sonraki eylemde tekrar */
+state.onboarding = { status: "completed", competency: 0, startKey: "kana-a", firstMeaningfulActionAt: null };
+saveMode = "fail"; API.markFirstMeaningfulLearningAction("known-kana");
+ok(state.onboarding.firstMeaningfulActionAt === null, "save reddedildi → marker GERİ ALINDI (sonraki eylemde tekrar)");
+saveMode = "throw"; API.markFirstMeaningfulLearningAction("known-kana");
+ok(state.onboarding.firstMeaningfulActionAt === null, "save throw → marker GERİ ALINDI");
+saveMode = "ok"; API.markFirstMeaningfulLearningAction("known-kana");
 const t1 = state.onboarding.firstMeaningfulActionAt;
-ok(typeof t1 === "string", "marker → firstMeaningfulActionAt set");
+ok(typeof t1 === "string", "save ok → marker kalıcı yazıldı");
 API.markFirstMeaningfulLearningAction("known-kana");
 ok(state.onboarding.firstMeaningfulActionAt === t1, "marker idempotent (ikinci çağrı değiştirmez)");
-ok(API.hasMeaningfulLearning() === true, "hasMeaningful true (damga sonrası)");
-state.onboarding.firstMeaningfulActionAt = null; state.srs = { "ki": { correct: 0, wrong: 2 } };
-ok(API.hasMeaningfulLearning() === false, "yanlış-only (correct=0) → anlamlı DEĞİL");
-state.srs = { "ki": { correct: 1, wrong: 0 } };
-ok(API.hasMeaningfulLearning() === true, "correct>0 → anlamlı");
 
-/* 8) rollback-compat: yeni state'in legacy `completed` alanı eski runtime için doğru */
-n = API.normalizeOnboarding({ status: "in-progress", stage: "competency", competency: null });
-ok(n.completed === false, "rollback ayna: in-progress → completed=false");
-n = API.normalizeOnboarding({ status: "completed", competency: 3, startKey: "atlas-map" });
-ok(n.completed === true, "rollback ayna: completed → completed=true");
+/* 9) shouldShowInitialRec — KANONİK marker; import/reset semantiği */
+ok(API.shouldShowInitialRec({ status: "completed", startKey: "kana-a", firstMeaningfulActionAt: null }) === true, "completed+startKey+marker yok → şerit GÖSTERİLİR");
+ok(API.shouldShowInitialRec({ status: "completed", startKey: "kana-a", firstMeaningfulActionAt: "2026-01-01T00:00:00.000Z" }) === false, "marker set → şerit gizli");
+ok(API.shouldShowInitialRec({ status: "skipped", startKey: null, firstMeaningfulActionAt: null }) === false, "skipped → şerit yok");
+ok(API.shouldShowInitialRec({ status: "completed", startKey: null, firstMeaningfulActionAt: null }) === false, "legacy completed (startKey yok) → şerit yok");
+
+/* 10) IMPORT: eski progress (correct>0) marker'sız → şerit GÖSTERİLİR (eski progress GİZLEMEZ) */
+state.onboarding = { status: "completed", startKey: "kana-a", firstMeaningfulActionAt: null };
+state.srs = { "ki": { correct: 7, wrong: 0 } };
+ok(API.shouldShowInitialRec(state.onboarding) === true, "IMPORT: eski correct>0 ama marker yok → şerit GÖSTERİLİR (fix)");
+ok(API.hasMeaningfulLearning() === true, "hasMeaningfulLearning fallback: correct>0 → true (yalnız legacy amaçlı)");
+
+/* 11) RESET-persist: srs temizlense de kalıcı marker kalır → şerit yeniden GÖRÜNMEZ */
+state.onboarding = { status: "completed", startKey: "kana-a", firstMeaningfulActionAt: "2026-01-01T00:00:00.000Z" };
+state.srs = {}; // progress reset (srs temizlendi; onboarding.marker temizlenmez)
+ok(API.shouldShowInitialRec(state.onboarding) === false, "RESET sonrası marker kalır → şerit görünmez (SRS-reset'ten bağımsız)");
+
+/* 12) hasMeaningfulLearning yanlış-only */
+state.onboarding = { firstMeaningfulActionAt: null }; state.srs = { "ki": { correct: 0, wrong: 3 } };
+ok(API.hasMeaningfulLearning() === false, "hasMeaningfulLearning: yalnız yanlış (correct=0) → false");
+
+/* 13) restart marker'ı korur (normalize semantiği) */
+const rn = API.normalizeOnboarding({ status: "in-progress", stage: "welcome", competency: null, startKey: null, introShown: false, firstMeaningfulActionAt: "2026-01-01T00:00:00.000Z", startedAt: "x", completedAt: null, skippedAt: null });
+ok(rn.firstMeaningfulActionAt === "2026-01-01T00:00:00.000Z", "restart/normalize → firstMeaningfulActionAt KORUNUR");
+
+/* 14) rollback-compat legacy `completed` aynası */
+ok(API.normalizeOnboarding({ status: "in-progress", stage: "competency", competency: null }).completed === false, "rollback ayna: in-progress → completed=false");
+ok(API.normalizeOnboarding({ status: "completed", competency: 3, startKey: "atlas-map" }).completed === true, "rollback ayna: completed → completed=true");
 
 console.log("GATE 1 · onboarding-b2:  pass=" + pass + "  fail=" + fail);
 if (fail) { console.log("FAILURES:\n - " + fails.join("\n - ")); process.exit(1); }
