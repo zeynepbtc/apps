@@ -2407,23 +2407,36 @@ function skipOnboarding(){
   o.completedAt=null; o.skippedAt=now; if(!o.startedAt) o.startedAt=now;
   save();
 }
-/* Anlamlı öğrenme eylemi — idempotent damga. SRS/mastery/backup DOKUNULMAZ; save hatası öğrenmeyi geri almaz. */
+/* Anlamlı öğrenme eylemi — KANONİK kalıcı damga (firstMeaningfulActionAt). SRS/mastery/backup DOKUNULMAZ.
+   idempotent; save reddedilir/hata verirse damga GERİ ALINIR → öğrenme geri alınmaz, sonraki eylemde YENİDEN denenir. */
 function markFirstMeaningfulLearningAction(kind){
-  try{
-    const o = state.onboarding; if(!isPlainObject(o) || o.firstMeaningfulActionAt) return;
-    o.firstMeaningfulActionAt = new Date().toISOString(); save();
-  }catch(e){}
+  const o = state.onboarding;
+  if(!isPlainObject(o) || o.firstMeaningfulActionAt) return;      // idempotent
+  o.firstMeaningfulActionAt = new Date().toISOString();
+  let okSave = false;
+  try{ const r = save(); okSave = !(r && r.ok === false); }catch(e){ okSave = false; }
+  if(!okSave) o.firstMeaningfulActionAt = null;                   // kalıcı değilse geri al → sonraki eylemde tekrar denenir
 }
-/* Türetilmiş sinyal — Home ilk-öneri şeridi görünürlüğü: damga VEYA gerçek başarılı öğrenme (correct>0).
-   Yanlış cevap (correct=0) ve gezinme sayılmaz. */
+/* Merkezi post-success yardımcı — SRS çekirdeğine DOKUNMADAN, başarılı + gerçek başarı sonrası kanonik marker'ı yazar.
+   r = srsRecord dönüşü (ok gerekli); correct !== false → gerçek başarı (yanlış cevap sayılmaz). Dönüşü aynen geçirir. */
+function markLearn(r, correct, kind){
+  if(r && r.ok && correct !== false) markFirstMeaningfulLearningAction(kind);
+  return r;
+}
+/* Legacy/import KORUYUCU fallback — YALNIZ marker'ı olmayan eski/içe-aktarılmış kullanıcılar için.
+   Yeni kullanıcı davranışının kanonik kaynağı DEĞİLDİR; Home ilk-öneri şeridi doğrudan firstMeaningfulActionAt kullanır. */
 function hasMeaningfulLearning(){
   const o = state.onboarding;
-  if(o && o.firstMeaningfulActionAt) return true;
-  const srs = state.srs;
+  if(o && o.firstMeaningfulActionAt) return true;                 // kanonik damga
+  const srs = state.srs;                                          // fallback: yalnız marker yokken anlamlı (legacy/import)
   if(isPlainObject(srs)){ for(const k in srs){ const r=srs[k]; if(r && Number(r.correct)>0) return true; } }
   return false;
 }
-if(typeof window!=="undefined") window.__ob = { normalizeOnboarding, startDescriptorFor, startKeyForCompetency, competencyToLegacyLevel, competencyShowAdvanced, competencyNeedsIntro, t, I18N, OB_BANDS, VALID_START_KEYS };
+/* Home ilk-öneri şeridi kararı — KANONİK kalıcı marker (eski/import progress GİZLEMEZ). Saf/testlenebilir. */
+function shouldShowInitialRec(ob){
+  return !!(ob && ob.status==="completed" && ob.startKey && !ob.firstMeaningfulActionAt);
+}
+if(typeof window!=="undefined") window.__ob = { normalizeOnboarding, startDescriptorFor, startKeyForCompetency, competencyToLegacyLevel, competencyShowAdvanced, competencyNeedsIntro, markLearn, markFirstMeaningfulLearningAction, hasMeaningfulLearning, shouldShowInitialRec, t, I18N, OB_BANDS, VALID_START_KEYS };
 
 function Onboarding(){
   const o = state.onboarding = normalizeOnboarding(state.onboarding);
@@ -2851,7 +2864,8 @@ function Home(){
   // skipped VEYA competency'siz eski completed → şerit YOK (sahte kişiselleştirme yok). İlk anlamlı eylemde boşluksuz gizlenir.
   const _ob = state.onboarding || {};
   const _startDesc = (_ob.status==="completed" && _ob.startKey) ? startDescriptorFor(_ob.startKey) : null;
-  const showRecHint = !!(_startDesc && !hasMeaningfulLearning());
+  // KANONİK: yalnız kalıcı marker gizler. Eski/import progress şeridi gizlemez (yeni eylem beklenir).
+  const showRecHint = !!(_startDesc && shouldShowInitialRec(_ob));
   const recGo = _startDesc ? _startDesc.route : "kana";
   const recParam = (_startDesc && _startDesc.param!=null) ? _startDesc.param : "";
   const recLabel = _startDesc ? t(_startDesc.labelKey) : "";
@@ -5203,8 +5217,8 @@ function gameChoiceAnswer(idx){
   });
   G.results[G.i]=correct; if(correct)G.correct++; else G.wrong++;
   // record SRS against the involved item (word id for word games, else character)
-  if(R.wkey){ srsRecord(R.wkey, correct); }
-  else { const key=R.speak||R.result; if(key){ const cid=charIdOf(key); srsRecord(cid||key, correct); } }
+  if(R.wkey){ markLearn(srsRecord(R.wkey, correct), correct, "game-word"); }
+  else { const key=R.speak||R.result; if(key){ const cid=charIdOf(key); markLearn(srsRecord(cid||key, correct), correct, "game-char"); } }
   if(R.speak && (state.settings.audioMode!=="off") && correct) playAudio(R.speak, roundAudioCat(R), null, "dynamic");
   // Faz 9-B v2: katakana-cipher için lastSeen + kural keşif + öğrenilen kelime koleksiyonu
   let justUnlocked = false;
@@ -5349,7 +5363,7 @@ function gameMultiCheck(){
     chips[i].classList.remove("on");
   });
   G.answered=true; G.results[G.i]=allRight; if(allRight)G.correct++; else G.wrong++;
-  if(R.speak){ const cid=charIdOf(R.speak); srsRecord(cid||R.speak, allRight); }
+  if(R.speak){ const cid=charIdOf(R.speak); markLearn(srsRecord(cid||R.speak, allRight), allRight, "game-stroke"); }
   const fb=$("#gfb"); const last=G.i>=G.rounds.length-1;
   fb.innerHTML=`<div class="fbx ${allRight?'ok':'no'}"><div class="ft">${allRight?'Doğru':'Tam değil'}</div>
     <div class="lead" style="margin-top:4px">${R.explain}</div>
@@ -5367,7 +5381,7 @@ function memoryFlip(idx){
       G.matched[a.id]=true; G.matched[b.id]=true; G.flipped=[];
       if(state.settings.audioMode!=="off"){ const ma=memoryCardAudio(G,a); if(ma) playAudio(ma.text, ma.cat, null, "dynamic"); }
       // SRS credit
-      const key=G.id==="kana-mahjong"? a.label : a.key; srsRecord(charIdOf(key)||key, true);
+      const key=G.id==="kana-mahjong"? a.label : a.key; markLearn(srsRecord(charIdOf(key)||key, true), true, "game-match");
       render();
     } else {
       G._miss=G.flipped.slice(); G._lock=true; render();
@@ -5562,7 +5576,7 @@ function setupDrill(){
         if(state.screen==="mochi" && state._mochi && !state._mochi.success){
           state._mochi.success = true;
           state.kana[state._mochi.char] = true;
-          srsRecord(state._mochi.char, true);
+          markLearn(srsRecord(state._mochi.char, true), true, "write-mochi");
           save();
           showMochiSuccessActions();
         }
@@ -5673,7 +5687,7 @@ document.addEventListener("click",e=>{
   else if(act==="addreview"){
     if($("#pad") && drillValidated<drillExpected){ toast("Önce tüm vuruşları doğru çizmelisin."); return; }
     const id=el.dataset.param; const fresh=markLearned(id, state.status[id]||"learning");
-    if(!state.srs[id]) srsRecord(id,true);
+    if(!state.srs[id]) markLearn(srsRecord(id,true), true, "learn-first");
     toast(fresh?"Öğrenildi · tekrara eklendi":"Tekrar kuyruğuna eklendi");
     setTimeout(()=>{ if(state.stack.length) back(); else go("map"); },500);
   }
@@ -5700,7 +5714,7 @@ document.addEventListener("click",e=>{
     if($("#pad") && drillValidated<drillExpected){ toast("Önce vuruşları doğru çiz."); return; }
     const G=state._game; if(!G) return;
     const id=el.dataset.param||G.charId;
-    srsRecord(charIdOf(id)||id,true);
+    markLearn(srsRecord(charIdOf(id)||id,true), true, "learn-detail");
     G.correct = (G.correct||0) + 1;
     toast("İşaretlendi ✓");
     rememberStrokeChar(G);
@@ -5944,7 +5958,7 @@ function handleQuizAnswer(i){
   });
   if(correct) Q.correct++;
   else if(q.kind){ Q.wrongKinds=Q.wrongKinds||[]; Q.wrongKinds.push(q.kind); }
-  if(Q.focusId) srsRecord(Q.focusId, correct);
+  if(Q.focusId) markLearn(srsRecord(Q.focusId, correct), correct, "quiz");
   // Smarter feedback for reading questions: acknowledge the other valid reading
   let explainHTML = q.explain;
   if(!correct && q.kind==="reading" && q.otherReading){
