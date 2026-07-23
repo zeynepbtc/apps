@@ -124,15 +124,19 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
 .bar > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-deep))}
 
 /* bottom nav */
-/* P0-1 Dilim 3: floating socket selector (kilitli v23 geometri/animasyon) — nav.tab socket host */
-nav.tab{flex:none;position:relative;z-index:30;height:calc(118px + env(safe-area-inset-bottom));
-  padding:0;background:transparent;border-top:none;user-select:none;-webkit-user-select:none;touch-action:none;overflow:visible}
-.snav-svg{position:absolute;left:0;bottom:env(safe-area-inset-bottom);width:100%;height:118px;overflow:visible;display:block;z-index:1}
-.snav-tabs{position:absolute;left:0;bottom:env(safe-area-inset-bottom);width:100%;height:118px;display:flex;z-index:2;padding:0 10px}
-.snav-tab{flex:1;position:relative;pointer-events:auto;cursor:pointer;background:none;border:0}
-.snav-tab .ic{position:absolute;left:50%;width:22px;height:22px;transform:translateX(-50%);color:var(--faint);transition:opacity .18s ease}
-.snav-tab .ic svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.snav-tab .lb{position:absolute;left:0;width:100%;text-align:center;font-size:11.5px;font-weight:700;color:var(--faint);transition:color .18s ease}
+/* Apple-tarzı yüzen şeffaf blob nav */
+nav.tab{flex:none;position:relative;z-index:30;padding:0 0 env(safe-area-inset-bottom);background:transparent;border-top:none;user-select:none;-webkit-user-select:none}
+.fnav{position:relative;display:flex;margin:6px 16px 10px;background:rgba(250,245,236,.64);-webkit-backdrop-filter:saturate(1.4) blur(16px);backdrop-filter:saturate(1.4) blur(16px);border:1px solid rgba(255,255,255,.5);border-radius:26px;padding:9px 8px;box-shadow:0 8px 26px rgba(58,42,26,.16),0 2px 6px rgba(58,42,26,.07)}
+.fnav-blob{position:absolute;top:7px;bottom:7px;left:0;width:0;border-radius:19px;background:rgba(211,129,58,.18);border:1px solid rgba(211,129,58,.34);opacity:0;transition:left .34s cubic-bezier(.34,1.05,.4,1),width .34s cubic-bezier(.34,1.05,.4,1),opacity .22s ease;z-index:0;pointer-events:none}
+.fnav-tab{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:5px 2px;transition:transform .13s}
+.fnav-tab:active{transform:scale(.9)}
+.fnav-ic{width:25px;height:25px;color:var(--faint);transition:color .2s}
+.fnav-ic svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fnav-lb{font-size:11px;font-weight:700;color:var(--faint);transition:color .2s}
+.fnav-tab.on .fnav-ic{color:#B5502F}
+.fnav-tab.on .fnav-lb{color:#B5502F}
+.fnav-tab.ctx .fnav-ic{color:var(--muted)}
+.fnav-tab.ctx .fnav-lb{color:var(--muted)}
 
 /* kanji svg */
 .kvg{display:block}
@@ -2218,9 +2222,7 @@ function appLogo(px){
 }
 /* P0-1 Dilim 3: kilitli floating socket selector (v23 geometri/animasyon). State-güdümlü: render → SNAV.apply(state._navSel). */
 const SNAV = (function(){
-  /* Üç durum: active (daire socket'te) · sunk (Home: kısa iniş + ikon kaybolur, sakin) · hidden (derin: kısa fade+scale, socket in-place kapanır). */
-  const H=118, INSET=10, BAR_TOP=48, R=28, GAP=5, holeR=R+GAP,
-    PRES_CY=BAR_TOP+10, SINK=20 /* Home: KISA iniş — daire bar altına tam tuck (sızma yok) */, HFALL=3 /* hidden: minik nudge */, ICON_Y=BAR_TOP+16, LABEL_Y=BAR_TOP+47;
+  /* Apple-tarzı yüzen şeffaf blob nav — state-güdümlü */
   const IC=[
     /* 0 Kana */    '<path d="M12 6.7C9.7 5.2 6.7 4.9 4.3 5.6v11.5c2.4-.7 5.4-.4 7.7 1.1 2.3-1.5 5.3-1.8 7.7-1.1V5.6c-2.4-.7-5.4-.4-7.7 1.1z"/><path d="M12 6.7v11.5"/>',
     /* 1 Kanji */   '<rect x="4.6" y="4.6" width="14.8" height="14.8" rx="2.4"/><path d="M12 4.6v14.8M4.6 12h14.8"/>',
@@ -2228,87 +2230,33 @@ const SNAV = (function(){
     /* 3 İlerleme */'<path d="M4.5 19.5h15"/><path d="M7.5 19.5v-4.2"/><path d="M12 19.5v-8.4"/><path d="M16.5 19.5v-12"/>'
   ];
   const LB=['Kana','Kanji','Oyunlar','İlerleme'], SCREENS=['kana','kanji5','games','progress'], N=4;
-  const reduce = (typeof window!=="undefined" && window.matchMedia) ? matchMedia('(prefers-reduced-motion: reduce)').matches : false;
-  let host,svg,bar,ball,aicon,mhole,rim,clipR,tabsEl,tabs=[];
-  let W=0,slot=0,mode='sunk',activeIdx=0,ctxIdx=-1,raf=null,mounted=false,onTap=null;
-  /* eased durum + hedef */
-  let cx=0,by=PRES_CY+SINK,bs=0.92,bo=1,ho=0,svel=0;
-  let cxT=0,byT=PRES_CY+SINK,bsT=0.92,boT=1,hoT=0;
-  const center=i=>INSET+slot*i+slot/2;
-  const lerp=(a,b,t)=>a+(b-a)*t;
-  function setTargets(){
-    if(mode==='active'){ cxT=center(activeIdx); byT=PRES_CY; bsT=1; boT=1; hoT=1; }
-    else if(mode==='sunk'){ byT=PRES_CY+SINK; bsT=0.92; boT=1; hoT=0; }  /* cxT sabit kalır (yatay hareket yok) */
-    else { byT=PRES_CY+HFALL; bsT=0.6; boT=0; hoT=0; }                    /* hidden: fade+scale */
+  let host, blob, tabs=[], mounted=false, onTap=null, curIdx=-1, curStrong=false;
+  function place(){
+    if(!blob) return;
+    const t=tabs[curIdx];
+    if(curIdx<0 || !t || t.offsetWidth===0){ blob.style.opacity='0'; return; }
+    blob.style.left=t.offsetLeft+'px'; blob.style.width=t.offsetWidth+'px';
+    blob.style.opacity=curStrong?'1':'0';
   }
-  function paint(){
-    /* stretch YALNIZ aktif yatay harekette, ≤%3.5; sunk/hidden'da yok */
-    const av=Math.abs(svel), stretch=(mode==='active')?Math.min(0.035,av*0.010):0;
-    const bx=cx - (mode==='active'?svel*0.05:0);
-    const rx=R*bs*(1+stretch), ry=R*bs*(1-stretch*0.5);
-    const hr=Math.max(0,holeR*ho);
-    bar.setAttribute('d','M0,'+BAR_TOP+' L'+W+','+BAR_TOP+' L'+W+','+H+' L0,'+H+' Z');
-    /* socket YERİNDE kapanır (radius→0); hole ile top ZIT YÖNDE uzun hareket YOK */
-    mhole.setAttribute('cx',bx); mhole.setAttribute('cy',PRES_CY); mhole.setAttribute('rx',hr); mhole.setAttribute('ry',hr);
-    ball.setAttribute('cx',bx); ball.setAttribute('cy',by); ball.setAttribute('rx',rx); ball.setAttribute('ry',ry); ball.setAttribute('opacity',bo);
-    aicon.setAttribute('transform','translate('+(bx-12)+','+(by-12)+')');
-    aicon.setAttribute('opacity',ho);                 /* ikon socket ile birlikte solar — crossfade, snap-back yok */
-    rim.setAttribute('cx',bx); rim.setAttribute('cy',PRES_CY); rim.setAttribute('r',hr); rim.setAttribute('opacity',ho);
-    for(let k=0;k<N;k++){ const t=tabs[k]; if(!t)continue;
-      const covered=(mode==='active'&&k===activeIdx)?ho:0;      /* aktif tab satır ikonu daire altında kaybolur */
-      t.querySelector('.ic').style.opacity=1-covered;
-      let strong=(mode==='active'&&k===activeIdx&&ho>0.5), light=(mode==='hidden'&&k===ctxIdx);
-      const lb=t.querySelector('.lb');
-      lb.style.color = strong?'var(--accent)':(light?'var(--muted)':'var(--faint)');
-      lb.style.fontWeight = light?'800':'700';   /* derin: parent tab statik hafif vurgu (topsuz) */
-    }
-  }
-  function loop(){
-    const k=0.2; svel=(cxT-cx)*0.2;
-    cx=lerp(cx,cxT,k); by=lerp(by,byT,k); bs=lerp(bs,bsT,k); bo=lerp(bo,boT,k); ho=lerp(ho,hoT,k);
-    paint();
-    const done=Math.abs(cxT-cx)<0.3&&Math.abs(byT-by)<0.3&&Math.abs(bsT-bs)<0.004&&Math.abs(boT-bo)<0.01&&Math.abs(hoT-ho)<0.01;
-    if(!done) raf=requestAnimationFrame(loop);
-    else { cx=cxT;by=byT;bs=bsT;bo=boT;ho=hoT;svel=0; paint(); raf=null; }
-  }
-  function snap(){ cx=cxT;by=byT;bs=bsT;bo=boT;ho=hoT;svel=0; if(raf){cancelAnimationFrame(raf);raf=null;} paint(); }
-  function kick(){ if(reduce){ snap(); return; } if(!raf) raf=requestAnimationFrame(loop); }  /* reduced-motion: fiziksel hareket/deformasyon YOK, state doğrudan uygulanır */
-  function layout(){ if(!mounted)return; W=host.clientWidth||W||336; slot=(W-2*INSET)/N; svg.setAttribute('viewBox','0 0 '+W+' '+H);
-    clipR.setAttribute('y',BAR_TOP); clipR.setAttribute('height',H-BAR_TOP);
-    if(cx===0){cx=cxT=center(activeIdx);} paint(); }
   function mount(hostEl,tapCb){
     host=hostEl; onTap=tapCb;
-    host.innerHTML =
-      '<svg class="snav-svg" preserveAspectRatio="none"><defs>'+
-      '<filter id="snsh" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#8f5322" flood-opacity="0.26"/></filter>'+
-      '<filter id="snsoft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="0.5"/></filter>'+
-      '<mask id="snsocket"><rect x="0" y="0" width="100%" height="100%" fill="#fff"></rect><ellipse id="snmhole" fill="#000" filter="url(#snsoft)"></ellipse></mask>'+
-      '<clipPath id="snbelow"><rect id="snclip" x="0" y="0" width="100%" height="100%"></rect></clipPath></defs>'+
-      '<g filter="url(#snsh)"><ellipse id="snball" fill="#D3813A"></ellipse></g>'+
-      '<g id="snaicon" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="color:#fff"></g>'+
-      '<path id="snbar" fill="#FCF8F1" stroke="#E6DCCB" stroke-width="1" mask="url(#snsocket)"></path>'+
-      '<circle id="snrim" fill="none" stroke="#DCCFB9" stroke-width="1.2" clip-path="url(#snbelow)"></circle></svg>'+
-      '<div class="snav-tabs">'+LB.map((l,i)=>'<button class="snav-tab" data-si="'+i+'"><span class="ic"><svg viewBox="0 0 24 24">'+IC[i]+'</svg></span><span class="lb">'+l+'</span></button>').join('')+'</div>';
-    svg=host.querySelector('.snav-svg'); bar=host.querySelector('#snbar'); ball=host.querySelector('#snball');
-    aicon=host.querySelector('#snaicon'); mhole=host.querySelector('#snmhole'); rim=host.querySelector('#snrim');
-    clipR=host.querySelector('#snclip'); tabsEl=host.querySelector('.snav-tabs'); tabs=[].slice.call(tabsEl.children);
-    tabs.forEach((t,i)=>{ t.querySelector('.ic').style.top=ICON_Y+'px'; t.querySelector('.lb').style.top=LABEL_Y+'px';
-      t.addEventListener('click',()=>{ if(onTap)onTap(SCREENS[i]); }); });
-    aicon.dataset.i=activeIdx; aicon.innerHTML=IC[activeIdx];
-    mounted=true; setTargets(); layout();
-    window.addEventListener('resize',layout);
+    host.innerHTML='<div class="fnav"><span class="fnav-blob" aria-hidden="true"></span>'+
+      LB.map((l,i)=>'<button class="fnav-tab" data-si="'+i+'" aria-label="'+l+'"><span class="fnav-ic"><svg viewBox="0 0 24 24" aria-hidden="true">'+IC[i]+'</svg></span><span class="fnav-lb">'+l+'</span></button>').join('')+'</div>';
+    tabs=[].slice.call(host.querySelectorAll('.fnav-tab'));
+    blob=host.querySelector('.fnav-blob');
+    tabs.forEach((t,i)=>t.addEventListener('click',()=>{ if(onTap)onTap(SCREENS[i]); }));
+    mounted=true;
+    window.addEventListener('resize',place);
   }
   function apply(sel){
     if(!mounted||!sel) return;
-    mode=sel.kind;
-    if(mode==='active'){ let i=SCREENS.indexOf(sel.tab); if(i<0)i=0; activeIdx=i; ctxIdx=-1;
-      if(aicon.dataset.i!=i){ aicon.dataset.i=i; aicon.innerHTML=IC[i]; }  /* ikon HEDEF tab'a set — slide ortasında ani swap yok */
-    } else {
-      ctxIdx = sel.contextTab ? SCREENS.indexOf(sel.contextTab) : -1;
-    }
-    layout(); setTargets(); kick();
+    if(sel.kind==='active'){ curIdx=SCREENS.indexOf(sel.tab); curStrong=true; }
+    else if(sel.kind==='hidden'){ curIdx=sel.contextTab?SCREENS.indexOf(sel.contextTab):-1; curStrong=false; }
+    else { curIdx=-1; curStrong=false; }
+    tabs.forEach((t,i)=>{ t.classList.toggle('on', i===curIdx && curStrong); t.classList.toggle('ctx', i===curIdx && !curStrong && sel.kind==='hidden'); });
+    place();
   }
-  return { mount, apply, layout };
+  return { mount, apply, layout:place };
 })();
 let SNAV_MOUNTED=false;
 function renderTabs(){

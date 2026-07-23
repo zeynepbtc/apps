@@ -13,7 +13,7 @@ const URL = "http://127.0.0.1:8901/index.html";
   const ce=[]; p.on("console",m=>{ if(m.type()==="error") ce.push(m.text()); });
   const ev=(fn,a)=>p.evaluate(fn,a);
   const clk=async s=>{ await p.click(s,{timeout:6000}); await p.waitForTimeout(90); };
-  const S=()=>ev(()=>({screen:JYA.state.screen,param:JYA.state.param,sk:JYA.state.onboarding.startKey,st:JYA.state.onboarding.status,stage:JYA.state.onboarding.stage,rec:document.querySelectorAll(".rec-hint").length}));
+  const S=()=>ev(()=>({screen:JYA.state.screen,param:JYA.state.param,sk:JYA.state.onboarding.startKey,st:JYA.state.onboarding.status,stage:JYA.state.onboarding.stage,rec:document.querySelectorAll(".tip-pill").length}));
   async function fresh(){ await p.goto(URL,{waitUntil:"domcontentloaded"}); await ev(()=>localStorage.clear()); await p.reload({waitUntil:"domcontentloaded"}); await p.waitForTimeout(250); }
 
   await p.goto(URL,{waitUntil:"domcontentloaded"}); await p.waitForTimeout(300);
@@ -69,7 +69,7 @@ const URL = "http://127.0.0.1:8901/index.html";
   // öneri şeridi — completed sonrası reload → home + şerit görünür
   await fresh(); await clk('[data-act="ob-continue"]'); await clk('[data-act="ob-no"]');
   await p.reload({waitUntil:"domcontentloaded"}); await p.waitForTimeout(250);
-  { const s=await S(); ok(s.screen==="home","completed reload→home"); ok(s.rec===1,"Home öneri şeridi görünür (completed+startKey)"); }
+  { const s=await S(); ok(s.screen==="home","completed reload→home"); ok(s.rec>=1,"Home günün önerisi pili görünür"); }
 
   const appCe=ce.filter(t=>!/Failed to load resource|ERR_|gstatic|googleapis|font/i.test(t));
   ok(appCe.length===0,"app console error YOK"+(appCe.length?": "+appCe.slice(0,3).join("|"):""));
