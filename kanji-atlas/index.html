@@ -693,6 +693,23 @@ body.gridB .pwcard::before{content:"";position:absolute;inset:0;border:1px solid
   background:var(--surface);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
 .catbar button.on{background:var(--accent-soft);color:var(--accent-deep);border-color:var(--accent-soft)}
 .cat-h{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--ink);margin:16px 2px 9px}
+/* KANJİ VİTRİN — kompakt başlık + Atlas hero + kategori rafları */
+.kpage-head{margin:2px 2px 4px}
+.atlas-hero{width:100%;display:flex;align-items:center;gap:12px;text-align:left;margin-top:14px;padding:15px 15px;border-radius:20px;background:linear-gradient(135deg,var(--teal-tint),#FFFDF9);border:1px solid var(--teal-soft);box-shadow:0 6px 16px rgba(60,42,26,.09);cursor:pointer;overflow:hidden}
+.atlas-hero:active{transform:scale(.99)}
+.atlas-hero .ah-body{flex:1;min-width:0}
+.ah-branch{display:flex;align-items:center;gap:8px;line-height:1;font-family:var(--serif)}
+.ah-branch .ah-root{font-size:30px;color:var(--teal-deep)}
+.ah-branch .ah-arrow{font-size:17px;color:var(--teal);opacity:.65}
+.ah-branch .ah-kids{display:flex;gap:8px;font-size:23px;color:var(--teal)}
+.ah-tag{margin-top:9px;font-size:12.5px;color:var(--muted);font-weight:600}
+.atlas-hero .ah-chev{font-size:24px;color:var(--teal);flex:none;font-weight:400}
+.kshelf{margin-top:16px}
+.kshelf-h{width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:10px;background:none;border:none;padding:0 2px 9px;cursor:pointer}
+.kshelf-h .ksh-name{font-family:var(--serif);font-size:15.5px;font-weight:600;color:var(--ink)}
+.kshelf-h .ksh-meta{font-size:12.5px;font-weight:700;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:3px}
+.kshelf-h .ksh-chev{color:var(--faint);font-weight:400}
+.kshelf-all{display:inline-block;margin:11px 2px 0;background:none;border:none;color:var(--accent);font-size:12.5px;font-weight:600;cursor:pointer;padding:2px}
 
 /* search */
 .search{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:12px;
@@ -2298,7 +2315,7 @@ function renderHeader(){
 /* ============================ SCREENS ============================ */
 /* P0-1 Dilim 2: nav görünürlük + selector state hazırlığı (görsel Dilim 3'te). */
 const NAV_HIDDEN = ["onboarding","game","drill","profile","profile-edit","reset-confirm","import-confirm"];
-const NAV_TAB_GROUP={kana:["kana","kanadetail","mochi"],kanji5:["kanji5","detail","map","transform","words","worddetail","atlasnode","quiz","drill"],games:["games","game"]};
+const NAV_TAB_GROUP={kana:["kana","kanadetail","mochi"],kanji5:["kanji5","kanjicat","detail","map","transform","words","worddetail","atlasnode","quiz","drill"],games:["games","game"]};
 function navTabOf(screen){ for(const k in NAV_TAB_GROUP){ if(NAV_TAB_GROUP[k].includes(screen)) return k; } return null; }
 function navSelectorState(screen){
   const roots={kana:1,kanji5:1,games:1,progress:1};
@@ -2316,7 +2333,7 @@ function render(){
   const R={home:Home,learn:Learn,map:MapView,practice:Practice,review:Review,profile:Profile,
     kana:Kana,path:Path,detail:Detail,transform:Transform,quiz:Quiz,drill:Drill,
     games:GamesHub,game:GameScreen,kanadetail:KanaDetail,
-    kanji5:KanjiN5,words:Words,worddetail:WordDetail,progress:Progress,atlasnode:AtlasNode,
+    kanji5:KanjiN5,kanjicat:KanjiCat,words:Words,worddetail:WordDetail,progress:Progress,atlasnode:AtlasNode,
     onboarding:Onboarding, "profile-edit":ProfileEdit, "reset-confirm":ResetConfirm, "import-confirm":ImportConfirm,
     "writing-system":WritingSystem, mochi:Mochi,
     "kana-about":KanaAbout, "kanji-about":KanjiAbout};
@@ -4329,47 +4346,61 @@ function avgMastery(keys){ if(!keys.length) return 0; return Math.round(keys.red
 const WORD_CATS=(()=>{ const seen=[]; (DATA.words||[]).forEach(w=>{ if(!seen.includes(w.category)) seen.push(w.category); }); return seen; })();
 
 /* ---------- N5 KANJI SCREEN ---------- */
+/* KanjiN5 — vitrin: kompakt ustalık + Atlas hero + kategori rafları (kuru liste değil).
+   Kaydırılabilir chip filtresi / seviye çubuğu / genel çizim pratiği KALDIRILDI. */
 function KanjiN5(){
-  const lev=state._level||"N5";
-  const cat=state._kCat||"Hepsi";
   const all=n5Kanji();
   const pct=avgMastery(all.map(c=>c.id));
-  const list = cat==="Hepsi" ? all
-            : cat==="__pictograms" ? all.filter(c=>PICTOGRAM_IDS.includes(c.id))
-            : all.filter(c=>c.category===cat);
-  // group by category when "Hepsi"
-  let body="";
-  if(cat==="Hepsi"){
-    N5_KANJI_CATS.forEach(c=>{
-      const items=all.filter(k=>k.category===c); if(!items.length) return;
-      body+=`<div class="cat-h">${c} <span class="muted" style="font-weight:400;font-size:12px">· ${avgMastery(items.map(x=>x.id))}%</span></div>
-        <div class="inkgrid">${items.map(k=>inkCell(k.character,k.meaning_tr.split(' ')[0],k.id,`data-go="detail" data-param="${k.id}"`)).join("")}</div>`;
-    });
-  } else {
-    const intro = cat==="__pictograms"
-      ? `<div class="lead" style="margin:-2px 2px 10px">Resimden doğan en sade kanjiler. Şekli görsellestir, anlamı ezbersiz tut.</div>`
-      : "";
-    body=intro + `<div class="inkgrid">${list.map(k=>inkCell(k.character,k.meaning_tr.split(' ')[0],k.id,`data-go="detail" data-param="${k.id}"`)).join("")}</div>`;
-  }
+  // Atlas hero — 木 ailesi dallanmayı birebir gösterir (temsili)
+  const hero=`<button class="atlas-hero" data-go="map" aria-label="Atlas görünümü">
+    <div class="ah-body">
+      <div class="ah-branch"><span class="ah-root jp">木</span><span class="ah-arrow">→</span><span class="ah-kids"><span class="jp">本</span><span class="jp">休</span><span class="jp">林</span><span class="jp">森</span></span></div>
+      <div class="ah-tag">Atlas görünümü — köklerin nasıl dallandığını keşfet</div>
+    </div>
+    <span class="ah-chev" aria-hidden="true">›</span>
+  </button>`;
+  // kategori rafları — başlık + ilerleme + ilk 5 kanji + "Tümünü gör"
+  let shelves="";
+  N5_KANJI_CATS.forEach(c=>{
+    const items=all.filter(k=>k.category===c); if(!items.length) return;
+    const done=items.filter(k=>masteryScore(k.id)>=100).length;
+    const preview=items.slice(0,5);
+    shelves+=`<div class="kshelf">
+      <button class="kshelf-h" data-go="kanjicat" data-param="${esc(c)}">
+        <span class="ksh-name">${c}</span>
+        <span class="ksh-meta">${done}/${items.length}<span class="ksh-chev" aria-hidden="true">›</span></span>
+      </button>
+      <div class="inkgrid k5">${preview.map(k=>inkCell(k.character,k.meaning_tr.split(' ')[0],k.id,`data-go="detail" data-param="${k.id}"`)).join("")}</div>
+      ${items.length>5?`<button class="kshelf-all" data-go="kanjicat" data-param="${esc(c)}">Tümünü gör (${items.length}) ›</button>`:''}
+    </div>`;
+  });
   return `<div class="stagger">
-    <div class="levbar">${LEVELS.map(([id,lab])=>`<button class="${id==="N5"?'on':'lock'}" data-level="${id}">${lab}${id==="N5"?"":" · yakında"}</button>`).join("")}</div>
-    <div class="card" style="background:linear-gradient(135deg,#fff,#FBF4EC);display:flex;align-items:center;gap:14px">
-      <div class="ring"><svg width="64" height="64"><circle cx="32" cy="32" r="27" fill="none" stroke="var(--card2)" stroke-width="6"/>
-        <circle cx="32" cy="32" r="27" fill="none" stroke="var(--ink-green)" stroke-width="6" stroke-linecap="round"
-          stroke-dasharray="${2*Math.PI*27}" stroke-dashoffset="${2*Math.PI*27*(1-pct/100)}"/></svg>
-        <div class="val" style="font-size:15px">${pct}%</div></div>
-      <div style="flex:1"><div style="font-weight:700">N5 Kanji ustalığı</div>
-        <div class="lead">${all.length} kanji · ${all.filter(c=>masteryScore(c.id)>=100).length} tamamlandı</div></div>
+    <div class="kpage-head">
+      <div class="h1" style="font-size:22px;margin:0">Kanji Atlası</div>
+      <div class="lead" style="margin-top:2px">N5 · ${all.length} kanji · %${pct} ustalık</div>
+      <div class="bar" style="margin-top:9px"><i style="width:${pct}%"></i></div>
     </div>
-    <div class="catbar" style="margin-top:12px">
-      <button class="${cat==="Hepsi"?'on':''}" data-kcat="Hepsi">Hepsi</button>
-      <button class="${cat==="__pictograms"?'on':''}" data-kcat="__pictograms">Temel</button>
-      ${N5_KANJI_CATS.map(c=>`<button class="${cat===c?'on':''}" data-kcat="${c}">${c}</button>`).join("")}
+    ${hero}
+    <div class="section-t" style="margin-top:20px"><h3>N5 Kanjileri</h3></div>
+    ${shelves}
+  </div>`;
+}
+
+/* KanjiCat — kategori detay ekranı ("Tümünü gör" hedefi). state.param = kategori adı. */
+function KanjiCat(){
+  const cat=state.param;
+  const all=n5Kanji();
+  const items=all.filter(k=>k.category===cat);
+  if(!items.length){ return KanjiN5(); }
+  const done=items.filter(k=>masteryScore(k.id)>=100).length;
+  const pct=avgMastery(items.map(k=>k.id));
+  return `<div class="stagger">
+    <div class="kpage-head">
+      <div class="h1" style="font-size:21px;margin:0">${esc(cat)}</div>
+      <div class="lead" style="margin-top:2px">${items.length} kanji · ${done} tamamlandı · %${pct} ustalık</div>
+      <div class="bar" style="margin-top:9px"><i style="width:${pct}%"></i></div>
     </div>
-    ${body}
-    <div class="divider"></div>
-    <button class="btn ghost full" data-go="map">◴ Atlas görünümü — köklerin dallanışı</button>
-    <button class="btn ghost full" style="margin-top:9px" data-go="practice">✎ Çizim pratiği</button>
+    <div class="inkgrid k5" style="margin-top:14px">${items.map(k=>inkCell(k.character,k.meaning_tr.split(' ')[0],k.id,`data-go="detail" data-param="${k.id}"`)).join("")}</div>
   </div>`;
 }
 
