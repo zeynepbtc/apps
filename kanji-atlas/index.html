@@ -4403,6 +4403,11 @@ function KanaDetail(){
       </div>
     </div>
 
+    <!-- AKSİYONLAR (kanji detay ile aynı düzen: çiz üstte ghost, birincil eylem kırmızı) -->
+    <button class="btn ghost full" style="margin-top:12px" data-act="mochi-start" data-param="${k.character}">✎ Yazmayı dene</button>
+    <small class="note" style="margin:7px 0 0;display:block;text-align:center">Vuruş sırasını izle, kendi çiz, ✓ aldığında sıradakine geç.</small>
+    <button class="btn full" style="margin-top:11px" data-act="kana-known" data-param="${k.character}">${known?'✓ Tanıyorum olarak işaretli':'Tanıyorum olarak işaretle'}</button>
+
     <!-- 2. ÖRNEK KELİME — kompakt kart, aktif karakter vurgulu -->
     ${k.example ? `<div class="kana-ex-card">
       <div class="kex-head">
@@ -4421,13 +4426,6 @@ function KanaDetail(){
     </div>` : ""; })()}
 
     ${userHintBlock(k.character, true)}
-
-    <!-- 3. BİRİNCİL EYLEM -->
-    <button class="btn full" style="margin-top:14px" data-act="mochi-start" data-param="${k.character}">✦ Yazmayı dene</button>
-    <small class="note" style="margin:8px 0 0;display:block;text-align:center">Vuruş sırasını izle, kendi çiz, ✓ aldığında sıradakine geç.</small>
-
-    <!-- 4. İKİNCİL EYLEM -->
-    <button class="btn ghost full" style="margin-top:10px" data-act="kana-known" data-param="${k.character}">${known?'✓ Tanıyorum olarak işaretli':'Tanıyorum olarak işaretle'}</button>
 
     ${nextGroupCta}
 
