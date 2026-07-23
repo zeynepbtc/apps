@@ -20,6 +20,7 @@
   --ink:#272320; --muted:#7C746A; --faint:#A9A095; --line:#E6DCCB;
   --accent:#A4392C; --accent-deep:#83291F; --accent-soft:#F3E1DB; --accent-tint:#FBEFEA;
   --ok:#5C7B57; --ok-soft:#E8EEE2; --gold:#A9803F; --gold-soft:#F0E6D2;
+  --teal:#468A80; --teal-deep:#33635B; --teal-soft:#CFE3DF; --teal-tint:#E9F2EF;
   /* Adım 7 · i18n-readiness — üç KANONİK semantik font token'ı (görsel-nötr, GATE 0 uyumlu).
      Eski --serif/--sans bunlara ALIAS; aynı değer iki yerde tanımlanmaz → drift yok.
      Noto Sans JP subset'i Türkçe (Ş U+015E, Ğ U+011E, İ U+0130) tam destekler. */
@@ -303,22 +304,52 @@ small.note{font-size:11px;color:var(--faint);line-height:1.5;display:block}
 .howto-note .ht .htt{font-size:13.5px;font-weight:600;color:var(--ink)}
 .howto-note .ht .hss{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
 .howto-note .ha{color:var(--faint);font-size:15px;flex:none}
-.rec-hint{display:flex;align-items:center;gap:10px;margin:0 2px 14px;padding:11px 14px;border-radius:14px;background:var(--accent-tint);border:1px solid var(--accent-soft);cursor:pointer;font-size:12.5px;color:var(--accent-deep);line-height:1.4;
+.rec-hint{display:flex;align-items:center;gap:10px;margin:0 2px 14px;padding:11px 14px;border-radius:14px;background:var(--teal-tint);border:1px solid var(--teal-soft);cursor:pointer;font-size:12.5px;color:var(--teal-deep);line-height:1.4;
   transition:transform .2s cubic-bezier(.22,.61,.36,1),background .2s}
 .rec-hint b{font-weight:700}
 .rec-hint:hover{transform:translateY(-1px)}
 .rec-hint:active{transform:translateY(0);transition-duration:.09s}
 @media (hover:none){.rec-hint:hover{transform:none}}
-.rec-hint .ra{margin-left:auto;flex:none;color:var(--accent);font-size:17px}
-.gate-card{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;margin:14px 2px 6px;padding:14px 16px;border-radius:18px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s,border-color .15s}
-.gate-card:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(40,30,20,.10);border-color:var(--accent-soft)}
-.gate-card:active{transform:translateY(0) scale(.99);transition-duration:.09s}
-@media (hover:none){.gate-card:hover{transform:none;box-shadow:var(--shadow);border-color:var(--line)}}
-.gate-card .gc-glyphs{flex:none;display:flex;gap:3px;font-family:var(--serif);font-size:19px;line-height:1;color:var(--accent-deep)}
-.gate-card .gc-body{flex:1;min-width:0}
-.gate-card .gc-title{display:block;font-family:var(--serif);font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.2}
-.gate-card .gc-sub{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4}
-.gate-card .gc-arrow{flex:none;color:var(--accent);font-size:18px}
+.rec-hint .ra{margin-left:auto;flex:none;color:var(--teal);font-size:17px}
+/* Home header: küçük selam + kompakt Genel İlerleme sayacı */
+.home-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:2px 2px 14px}
+.home-head .hh-greet{min-width:0}
+.home-head .hh-name{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--ink);line-height:1.15;margin-top:2px}
+.prog-mini{flex:none;display:flex;align-items:center;gap:9px;padding:6px 12px 6px 7px;border-radius:15px;background:var(--card);border:1px solid var(--line);cursor:pointer;transition:transform .12s}
+.prog-mini:active{transform:scale(.98)}
+.prog-mini .pm-ring{position:relative;width:38px;height:38px;flex:none;display:grid;place-items:center}
+.prog-mini .pm-ring svg{position:absolute;inset:0}
+.prog-mini .pm-pct{font-size:10.5px;font-weight:700;color:var(--accent-deep)}
+.prog-mini .pm-lbl{font-size:11px;line-height:1.15;color:var(--muted);font-weight:600;max-width:58px}
+/* Dojo kapısı — sakin, tek satır, göze batmaz */
+.gate-card{display:flex;align-items:center;gap:11px;width:100%;text-align:left;cursor:pointer;margin:0 2px 14px;padding:10px 14px;border-radius:14px;background:var(--card);border:1px solid var(--line);box-shadow:none;transition:background .15s,border-color .15s}
+.gate-card:hover{background:var(--card2);border-color:var(--accent-soft)}
+.gate-card .gc-glyphs{flex:none;display:flex;gap:3px;font-family:var(--serif);font-size:16px;line-height:1;color:var(--accent-deep)}
+.gate-card .gc-title{flex:1;min-width:0;font-family:var(--serif);font-size:13.5px;font-weight:600;color:var(--ink)}
+.gate-card .gc-arrow{flex:none;color:var(--faint);font-size:16px}
+/* Flick-tarzı geometrik öğrenme kartları */
+.play-cards{display:flex;flex-direction:column;gap:15px;margin:8px 1px 4px}
+.pcard{display:block;width:100%;text-align:left;cursor:pointer;background:none;border:none;padding:0;filter:drop-shadow(0 8px 18px rgba(40,30,20,.15));transition:transform .16s}
+.pcard.c-kana{transform:rotate(-0.5deg)}
+.pcard.c-kanji{transform:rotate(0.4deg)}
+.pcard.c-games{transform:rotate(-0.35deg)}
+.pcard.c-kana:active{transform:rotate(-0.5deg) scale(.986)}
+.pcard.c-kanji:active{transform:rotate(0.4deg) scale(.986)}
+.pcard.c-games:active{transform:rotate(-0.35deg) scale(.986)}
+.pc-fill{display:block;width:100%;position:relative;border-radius:20px;padding:18px 18px 16px;color:#FCF6EC}
+.pcard.c-kana .pc-fill{background:linear-gradient(135deg,#A4392C,#7C2A20);clip-path:polygon(0 0,100% 4%,100% 100%,0 96%)}
+.pcard.c-kanji .pc-fill{background:linear-gradient(135deg,#468A80,#2F5D56);clip-path:polygon(0 4%,100% 0,100% 96%,0 100%)}
+.pcard.c-games .pc-fill{background:linear-gradient(135deg,#C68A3A,#976128);clip-path:polygon(0 0,100% 5%,100% 100%,0 95%)}
+.pc-row{display:flex;align-items:center;gap:15px}
+.pc-glyph{flex:none;width:52px;text-align:center;font-family:var(--serif);font-size:38px;line-height:1}
+.pc-body{flex:1;min-width:0}
+.pc-title{display:block;font-family:var(--serif);font-size:18.5px;font-weight:600;line-height:1.15}
+.pc-sub{display:block;font-size:12.5px;margin-top:3px;opacity:.92;line-height:1.4}
+.pc-prog{display:flex;align-items:center;gap:10px;margin-top:11px}
+.pc-bar{flex:1;height:6px;border-radius:6px;background:rgba(255,255,255,.24);overflow:hidden}
+.pc-bar > i{display:block;height:100%;border-radius:6px;background:rgba(255,255,255,.92)}
+.pc-count{flex:none;font-size:11px;font-weight:700;opacity:.9}
+.pc-arrow{flex:none;font-size:22px;opacity:.85}
 .gapp .gi{width:64px;height:64px;border-radius:19px;display:grid;place-items:center;
   font-family:var(--serif);font-size:33px;background:var(--accent-soft);color:var(--accent-deep);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 5px rgba(40,30,20,.07)}
@@ -2284,10 +2315,7 @@ const I18N = {
     "onboarding.actions.no": "Buradan başlayayım",
     "home.rec.writing.label": "Japonca Yazı Mantığı",
     "home.rec.writing.reason": "Yazının nasıl çalıştığını baştan öğren",
-    "home.gate.title.new": "Japonca üç yazıyla yazılır",
-    "home.gate.sub.new": "Nereden başlayacağını gör",
-    "home.gate.title.seen": "Yazı sistemleri",
-    "home.gate.sub.seen": "Hiragana · Katakana · Kanji",
+    "home.gate.title": "Japonca Yazı Sistemleri Nedir?",
     "onboarding.a11y.back": "Geri",
     "onboarding.a11y.jaGlyph": "Japonca karakter",
     "home.rec.kana.label": "Kana Rehberi",
@@ -2826,22 +2854,26 @@ function Home(){
   const recParam = (_startDesc && _startDesc.param!=null) ? _startDesc.param : "";
   const recLabel = _startDesc ? t(_startDesc.labelKey) : "";
   const recReason = _startDesc ? t(_startDesc.reasonKey) : "";
-  const gateNew = !hasAnyProgress;
   return `
   <div class="stagger">
-  <div style="margin:2px 2px 4px">
-    <div class="eyebrow">こんにちは${uName?` · ${esc(uName)}`:""}</div>
-    <div class="h1">${greet}${uName?'.':''}</div>
-    <div class="lead">${homeSubline}</div>
+  <div class="home-head">
+    <div class="hh-greet">
+      <div class="eyebrow">こんにちは${uName?` · ${esc(uName)}`:""}</div>
+      <div class="hh-name">${greet}${uName?'.':''}</div>
+    </div>
+    <button class="prog-mini" data-go="progress" aria-label="Genel ilerleme: ${pct}%">
+      <span class="pm-ring">
+        <svg viewBox="0 0 44 44" width="38" height="38" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="var(--card2)" stroke-width="4.5"/><circle cx="22" cy="22" r="18" fill="none" stroke="var(--accent)" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-pct/100)}" transform="rotate(-90 22 22)"/></svg>
+        <span class="pm-pct">${pct}%</span>
+      </span>
+      <span class="pm-lbl">Genel İlerleme</span>
+    </button>
   </div>
 
-  <!-- Dojo kapısı girişi — Merhaba'nın altında, kalıcı; dili ilerlemeye göre yumuşar -->
+  <!-- Dojo kapısı — sakin, tek satır; yeni/eski kullanıcıya göze batmadan durur -->
   <button class="gate-card" data-go="writing-system">
     <span class="gc-glyphs" lang="ja" aria-hidden="true"><span>あ</span><span>ア</span><span>木</span></span>
-    <span class="gc-body">
-      <span class="gc-title">${gateNew ? t("home.gate.title.new") : t("home.gate.title.seen")}</span>
-      <span class="gc-sub">${gateNew ? t("home.gate.sub.new") : t("home.gate.sub.seen")}</span>
-    </span>
+    <span class="gc-title">${t("home.gate.title")}</span>
     <span class="gc-arrow">›</span>
   </button>
 
@@ -2860,49 +2892,38 @@ function Home(){
     <span class="ra">›</span>
   </div>`:''}
 
-  <!-- Genel İlerleme: İKİNCİL erişim (öneriden sonra) -->
-  <div class="prog-strip" data-go="progress" role="button">
-    <div class="ring">
-      <svg width="46" height="46"><circle cx="23" cy="23" r="19" fill="none" stroke="var(--card2)" stroke-width="4.5"/>
-      <circle cx="23" cy="23" r="19" fill="none" stroke="var(--accent)" stroke-width="4.5" stroke-linecap="round"
-        stroke-dasharray="${2*Math.PI*19}" stroke-dashoffset="${2*Math.PI*19*(1-pct/100)}"/></svg>
-      <span class="rv">${pct}%</span>
-    </div>
-    <div class="pm">
-      <div class="pl">Genel ilerleme</div>
-      <div class="pv">${learned} / ${total} karakter</div>
-    </div>
-    <span class="pa">›</span>
-  </div>
-
-  <!-- Üç doğrudan öğrenme girişi (Kana/Kanji/Oyunlar) — D1: eşit erişim. Yazı, Kana/Kanji içinde; İlerleme alt navda. -->
-  <div class="sec-head"><div class="eb">Başla</div><div class="ti">Bugün ne öğrenmek istiyorsun?</div></div>
-  <div class="big-cards">
-    <button class="bigcard" data-go="kana">
-      <div class="bg" style="background:none;box-shadow:none;overflow:visible">${iconBadge('あ',IC.terra,IC.amber,64)}</div>
-      <div class="bd">
-        <div class="bt">Kana Rehberi</div>
-        <div class="bs">Hiragana ve katakana — Japoncanın ses alfabesi</div>
-        <div class="bp"><span class="bar"><i style="width:${kanaPct}%"></i></span><span class="pc">${learnedKana}/${allKanaChars.length}</span></div>
-      </div>
-      <span class="ba">›</span>
+  <div class="play-cards">
+    <button class="pcard c-kana" data-go="kana">
+      <span class="pc-fill"><span class="pc-row">
+        <span class="pc-glyph" lang="ja" aria-hidden="true">あ</span>
+        <span class="pc-body">
+          <span class="pc-title">Kana Rehberi</span>
+          <span class="pc-sub">Hiragana ve Katakana, temel heceler</span>
+          <span class="pc-prog"><span class="pc-bar"><i style="width:${kanaPct}%"></i></span><span class="pc-count">${learnedKana}/${allKanaChars.length}</span></span>
+        </span>
+        <span class="pc-arrow">›</span>
+      </span></span>
     </button>
-    <button class="bigcard k2" data-go="kanji5">
-      <div class="bg" style="background:none;box-shadow:none;overflow:visible">${iconBadge('木',IC.amber,IC.teal,64)}</div>
-      <div class="bd">
-        <div class="bt">Kanji Atlası</div>
-        <div class="bs">Anlam taşıyan işaretler — N5'in 83 kanjisi</div>
-        <div class="bp"><span class="bar"><i style="width:${kanjiPct}%"></i></span><span class="pc">${learnedKanji}/${kanjiChars.length}</span></div>
-      </div>
-      <span class="ba">›</span>
+    <button class="pcard c-kanji" data-go="kanji5">
+      <span class="pc-fill"><span class="pc-row">
+        <span class="pc-glyph" lang="ja" aria-hidden="true">木</span>
+        <span class="pc-body">
+          <span class="pc-title">Kanji Atlası</span>
+          <span class="pc-sub">Anlam taşıyan karakterler</span>
+          <span class="pc-prog"><span class="pc-bar"><i style="width:${kanjiPct}%"></i></span><span class="pc-count">${learnedKanji}/${kanjiChars.length}</span></span>
+        </span>
+        <span class="pc-arrow">›</span>
+      </span></span>
     </button>
-    <button class="bigcard" data-go="games">
-      <div class="bg" style="background:none;box-shadow:none;overflow:visible">${iconBadge('遊',IC.gold,IC.terra,64)}</div>
-      <div class="bd">
-        <div class="bt">Oyunlar</div>
-        <div class="bs">Eğlenerek pekiştir — tanı, eşleştir, hatırla</div>
-      </div>
-      <span class="ba">›</span>
+    <button class="pcard c-games" data-go="games">
+      <span class="pc-fill"><span class="pc-row">
+        <span class="pc-glyph" lang="ja" aria-hidden="true">遊</span>
+        <span class="pc-body">
+          <span class="pc-title">Oyunlar</span>
+          <span class="pc-sub">Eğlenerek pekiştir — tanı, eşleştir, hatırla</span>
+        </span>
+        <span class="pc-arrow">›</span>
+      </span></span>
     </button>
   </div>
 
