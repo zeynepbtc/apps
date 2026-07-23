@@ -62,8 +62,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* header */
 header{
   flex:none;z-index:30;flex-direction:column;align-items:stretch;gap:0;
-  padding:calc(11px + env(safe-area-inset-top)) 18px 9px; background:var(--sun);
-  border-bottom:1px solid rgba(70,55,30,.10);
+  padding:max(52px, calc(env(safe-area-inset-top) + 16px)) 18px 12px; background:var(--bg);
+  border-bottom:none;
   display:flex;
 }
 header .tb-row{display:flex;align-items:center;gap:12px}
