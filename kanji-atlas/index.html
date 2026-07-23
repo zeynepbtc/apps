@@ -2267,12 +2267,12 @@ const I18N = {
     "onboarding.actions.goHome.mid": "Ana sayfaya git",
     "onboarding.actions.goHome.final": "Ana sayfaya git",
     "onboarding.recognize.title": "Bunu tanıyor musun?",
-    "onboarding.recognize.kana.reassure": "Tanımıyorsan hiç sorun değil — baştan öğrenebilirsin.",
-    "onboarding.recognize.kana.no.sub": "yazı sistemleri mantığını tanıyarak başla",
-    "onboarding.recognize.kanji.reassure": "Tanımıyorsan hiç sorun değil — ilk kanji ailesinden başlayabilirsin.",
+    "onboarding.recognize.kana.reassure": "İlk kez görüyorsan en doğru başlangıç burası.",
+    "onboarding.recognize.kana.no.sub": "yazının nasıl çalıştığından başla",
+    "onboarding.recognize.kanji.reassure": "Tanıdık gelmiyorsa ilk kanji ailesiyle başlayabiliriz.",
     "onboarding.recognize.kanji.no.sub": "temel bir kanjiden (木) başla",
-    "onboarding.actions.yes": "Evet, tanıyorum",
-    "onboarding.actions.no": "Hayır",
+    "onboarding.actions.yes": "Tanıyorum",
+    "onboarding.actions.no": "Buradan başlayayım",
     "home.rec.writing.label": "Japonca Yazı Mantığı",
     "home.rec.writing.reason": "Yazının nasıl çalıştığını baştan öğren",
     "onboarding.a11y.back": "Geri",
@@ -2422,6 +2422,7 @@ function Onboarding(){
   } else if(stage==="kana-q"){
     body = `<div class="ob-step ob-step-final">
       <div class="ob-final-glyph">${glyph("あ")}</div>
+      <div style="display:flex;justify-content:center;margin-top:2px">${audioBtn("あ","kana")}</div>
       <h1 class="ob-title-sm" tabindex="-1">${t("onboarding.recognize.title")}</h1>
       <div class="ob-lead">${t("onboarding.recognize.kana.reassure")}</div>
       <div class="ob-yesno">
