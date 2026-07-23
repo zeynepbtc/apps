@@ -16,7 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;500;600;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F4EEE3; --surface:#FFFFFF; --card:#FCF8F1; --card2:#F1E8D8;
+  --bg:#DAD5C8; --surface:#FFFFFF; --card:#FCF8F1; --card2:#F1E8D8;
   --ink:#272320; --muted:#7C746A; --faint:#A9A095; --line:#E6DCCB;
   --accent:#A4392C; --accent-deep:#83291F; --accent-soft:#F3E1DB; --accent-tint:#FBEFEA;
   --ok:#5C7B57; --ok-soft:#E8EEE2; --gold:#A9803F; --gold-soft:#F0E6D2;
@@ -337,6 +337,36 @@ small.note{font-size:11px;color:var(--faint);line-height:1.5;display:block}
 .home-hello{margin:10px 4px 20px}
 .home-hello .eyebrow{color:var(--brown)}
 .home-hello .hh-name{font-family:var(--serif);font-size:25px;font-weight:600;color:var(--ink);line-height:1.15;margin-top:3px}
+/* Flick hizalama — başlık, pill'ler, ince kapı, iz-hiragana, zemin dokusu */
+.home-title-wrap{margin:6px 4px 16px}
+.home-title{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:.2px}
+.home-sub{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.4}
+.stat-pill{display:flex;align-items:center;gap:11px;width:100%;text-align:left;cursor:pointer;background:var(--card);border:none;border-radius:16px;padding:10px 16px;margin:0 2px 10px;box-shadow:0 3px 9px rgba(60,42,26,.08)}
+.stat-pill .sp-ring{position:relative;width:34px;height:34px;flex:none;display:grid;place-items:center}
+.stat-pill .sp-ring svg{position:absolute;inset:0}
+.stat-pill .sp-pct{font-size:9.5px;font-weight:700;color:var(--brown)}
+.stat-pill .sp-text{font-size:13.5px;color:var(--ink);font-weight:600}
+.stat-pill .sp-text b{color:var(--accent-deep)}
+.stat-pill .sp-arrow{margin-left:auto;color:var(--faint);font-size:16px}
+.tip-pill{display:flex;align-items:center;gap:9px;width:100%;text-align:left;cursor:pointer;background:var(--teal-soft);border:none;border-radius:16px;padding:11px 16px;margin:0 2px 18px;box-shadow:0 3px 9px rgba(60,42,26,.06)}
+.tip-pill .tp-ico{flex:none;font-size:15px;color:var(--teal-deep)}
+.tip-pill .tp-text{font-size:13px;color:var(--teal-deep);font-weight:600}
+.tip-pill .tp-text b{font-weight:800}
+.tip-pill .tp-arrow{margin-left:auto;color:var(--teal);font-size:16px}
+.gate-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;background:var(--card);border:none;border-radius:16px;padding:13px 15px;margin:0 2px 20px;box-shadow:0 3px 9px rgba(60,42,26,.06)}
+.gate-row .gr-glyphs{flex:none;display:flex;gap:3px;font-family:var(--serif);font-size:17px;line-height:1;color:var(--clay)}
+.gate-row .gr-title{flex:1;min-width:0;font-family:var(--serif);font-size:13.5px;font-weight:700;color:var(--brown)}
+.gate-row .gr-arrow{flex:none;color:var(--faint);font-size:16px}
+.bg-decor{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bg-decor .dot{position:absolute;border-radius:50%}
+.bg-decor .d1{width:210px;height:210px;top:-55px;right:-60px;background:radial-gradient(circle,rgba(211,129,58,.36),transparent 66%)}
+.bg-decor .d2{width:175px;height:175px;top:155px;right:-78px;background:radial-gradient(circle,rgba(70,138,128,.28),transparent 66%)}
+.bg-decor .d3{width:165px;height:165px;bottom:150px;left:-66px;background:radial-gradient(circle,rgba(180,99,75,.22),transparent 66%)}
+.stagger>*{position:relative;z-index:1}
+.stagger>.bg-decor{z-index:0}
+.dcard .dc-fill{overflow:hidden}
+.dc-trace{position:absolute;right:-16px;bottom:-30px;font-family:var(--serif);font-size:128px;line-height:1;color:rgba(255,255,255,.10);z-index:0;pointer-events:none}
+.dc-fill .dc-glyph,.dc-fill .dc-title,.dc-fill .dc-sub,.dc-fill .dc-prog{position:relative;z-index:1}
 .home-band{background:var(--teal-soft);border-radius:24px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:0 2px 18px}
 .mbox .mb-fill{box-shadow:0 4px 11px rgba(60,42,26,.10)}
 .mbox{position:relative;display:block;width:100%;text-align:left;cursor:pointer;background:none;border:none;padding:0;transition:transform .14s}
@@ -2299,9 +2329,9 @@ function renderHeader(){
     mochi:["Aşamalı Yazım","Kana yazım rehberi"]};
   if(state.screen==="game"&&state._game){ ttl=GAMES[state._game.id].title; sub=GAMES[state._game.id].sub; }
   else if(T[state.screen]){ttl=T[state.screen][0];sub=T[state.screen][1];}
-  const menu = `<button class="tb-menu" data-tab="profile" aria-label="Ayarlar ve profil"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="var(--brown)" stroke-width="2" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg></button>`;
+  const menu = `<button class="tb-menu" data-tab="profile" aria-label="Ayarlar ve profil"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="var(--brown)" stroke-width="2.1" stroke-linecap="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg></button>`;
   const backBtn = noBack ? "" : `<div class="tb-backrow"><button class="tb-back" data-act="back" aria-label="Geri"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button></div>`;
-  hdr.innerHTML = `<div class="tb-row"><button class="tb-logo" data-go="home" aria-label="Ana sayfa">${appLogo(36)}</button><div class="tb-spacer"></div>${menu}</div>${backBtn}`;
+  hdr.innerHTML = `<div class="tb-row"><button class="tb-logo" data-go="home" aria-label="Ana sayfa">${appLogo(44)}</button><div class="tb-spacer"></div>${menu}</div>${backBtn}`;
 }
 
 /* ============================ SCREENS ============================ */
@@ -2902,13 +2932,17 @@ function Home(){
   const recParam = (_startDesc && _startDesc.param!=null) ? _startDesc.param : "";
   const recLabel = _startDesc ? t(_startDesc.labelKey) : "";
   const recReason = _startDesc ? t(_startDesc.reasonKey) : "";
+  const dailyGo = hasAnyProgress ? contGo : "kana";
+  const dailyParam = hasAnyProgress ? contParam : "";
+  const dailyText = hasAnyProgress ? "Kaldığın yerden devam et" : "Hiragana ile başla";
   return `
   <div class="stagger">
-  <div class="home-hello">
-    <div class="eyebrow">こんにちは${uName?` · ${esc(uName)}`:""}</div>
-    <div class="hh-name">${greet}${uName?'.':''}</div>
-  </div>
+  <div class="bg-decor" aria-hidden="true"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></div>
 
+  <div class="home-title-wrap">
+    <div class="home-title">Kanji Atlas</div>
+    <div class="home-sub">${uName?`Merhaba ${esc(uName)} · `:""}Japonca yazıyı keşfet</div>
+  </div>
 
   ${resume?`<div class="resume-card" data-go="quiz" data-param="${esc(resume.id)}" role="button" style="cursor:pointer">
     <div class="rc-kicker">Yarım kalan çalışma</div>
@@ -2919,31 +2953,28 @@ function Home(){
     </div>
   </div>`:''}
 
-  <!-- ADIM 7 · İlk öneri: yalnız onboarding-sonrası (completed+startKey); ilk anlamlı eylemde boşluksuz gizlenir -->
-  ${showRecHint?`<div class="rec-hint" data-go="${recGo}"${recParam?` data-param="${esc(recParam)}"`:''} role="button">
-    <span>${t("home.rec.prefix")}: <b>${recLabel}</b> — ${recReason}</span>
-    <span class="ra">›</span>
-  </div>`:''}
+  <button class="stat-pill" data-go="progress" aria-label="Genel ilerleme %${pct}">
+    <span class="sp-ring"><svg viewBox="0 0 44 44" width="34" height="34" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(92,64,48,.16)" stroke-width="5"/><circle cx="22" cy="22" r="18" fill="none" stroke="var(--brown)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-pct/100)}" transform="rotate(-90 22 22)"/></svg><span class="sp-pct">${pct}%</span></span>
+    <span class="sp-text">Genel İlerleme · <b>${learned}/${total}</b> karakter</span>
+    <span class="sp-arrow">›</span>
+  </button>
 
-  <div class="home-band">
-    <button class="mbox gate-mbox" data-go="writing-system">
-      <span class="mb-fill">
-        <span class="mb-glyphs" lang="ja" aria-hidden="true"><span>あ</span><span>ア</span><span>木</span></span>
-        <span class="mb-title">Japonca Yazı Sistemleri Nedir?</span>
-      </span>
-      <span class="mb-arrow">›</span>
-    </button>
-    <button class="mbox prog-mbox" data-go="progress" aria-label="Genel ilerleme: ${pct}%">
-      <span class="mb-fill">
-        <span class="pm-ring"><svg viewBox="0 0 44 44" width="42" height="42" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(92,64,48,.18)" stroke-width="4.5"/><circle cx="22" cy="22" r="18" fill="none" stroke="var(--brown)" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-pct/100)}" transform="rotate(-90 22 22)"/></svg><span class="pm-pct">${pct}%</span></span>
-        <span class="mb-title">Genel İlerleme</span>
-      </span>
-    </button>
-  </div>
+  <button class="tip-pill" data-go="${dailyGo}"${dailyParam?` data-param="${esc(dailyParam)}"`:''}>
+    <span class="tp-ico">◎</span>
+    <span class="tp-text">Bugünün önerisi: <b>${dailyText}</b></span>
+    <span class="tp-arrow">›</span>
+  </button>
+
+  <button class="gate-row" data-go="writing-system">
+    <span class="gr-glyphs" lang="ja" aria-hidden="true"><span>あ</span><span>ア</span><span>木</span></span>
+    <span class="gr-title">Japonca Yazı Sistemleri Nedir?</span>
+    <span class="gr-arrow">›</span>
+  </button>
 
   <div class="home-duo">
     <button class="dcard c-kana" data-go="kana">
       <span class="dc-fill">
+        <span class="dc-trace" lang="ja" aria-hidden="true">あ</span>
         <span class="dc-glyph" lang="ja" aria-hidden="true">あ</span>
         <span class="dc-title">Kana Rehberi</span>
         <span class="dc-sub">Hiragana ve Katakana</span>
