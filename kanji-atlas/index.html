@@ -4896,6 +4896,7 @@ const GAMES = {
   "structure":{title:"Yapı Tamamlama",sub:"亻 + ? = 休",cat:"kanji",glyph:"休",desc:"Eksik parçayı bul, kanjiyi tamamla.",diff:"Orta",time:"~2 dk",engine:"choice",rounds:8},
   "comp-select":{title:"Bileşenleri Seç",sub:"Kanjiyi parçala",cat:"kanji",glyph:"晴",desc:"Bir kanjiyi oluşturan tüm parçaları seç.",diff:"Orta",time:"~3 dk",engine:"multi",rounds:7},
   "family":{title:"Kanji Ailesi",sub:"Kökten türeyenler",cat:"kanji",glyph:"森",desc:"Bir köke ait tüm kanjileri seç.",diff:"Orta",time:"~3 dk",engine:"multi",rounds:5},
+  "kanji-reading":{title:"Kanjiyi Oku",sub:"Kanji → okunuş",cat:"kanji",glyph:"読",desc:"Kanjinin okunuşunu seç; örnek kelimeyle pekiştir.",diff:"Orta",time:"~3 dk",engine:"choice",rounds:8},
   "word-meaning":{title:"Kelime Anlamı",sub:"Kelime → anlam",cat:"kelime",glyph:"本",desc:"Japonca kelimeyi gör, Türkçe anlamını seç.",diff:"Kolay",time:"~2 dk",engine:"choice",rounds:10},
   "word-reading":{title:"Okunuş Eşle",sub:"Okunuş → kelime",cat:"kelime",glyph:"あ",desc:"Kana okunuşunu doğru kelimeyle eşleştir.",diff:"Orta",time:"~2 dk",engine:"choice",rounds:10},
   "word-cloze":{title:"Cümleyi Tamamla",sub:"Boşluğa doğru kelime",cat:"kelime",glyph:"＿",desc:"Basit cümlede eksik kelimeyi seç. (gramer değil, kullanım)",diff:"Orta",time:"~3 dk",engine:"choice",rounds:8},
@@ -4915,7 +4916,7 @@ function GamesHub(){
   const groups=[
     ["Kana Ustalığı","Yazım sistemlerini tanı ve ayırt et",["kana-match","confuse","katakana-cipher"]],
     ["Kanji Dedektifi","Atlasın kalbi: parçadan anlama",["comp-meaning","comp-select","structure","family"]],
-    ["Gerçek Kullanım","Kelimeyi bağlam içinde oku ve tanı",["word-meaning","word-reading","word-cloze"]],
+    ["Gerçek Kullanım","Okuma, anlam ve bağlamda kullanım",["kanji-reading","word-meaning","word-reading","word-cloze"]],
   ];
   const card=(id)=>{
     const g=GAMES[id]; if(!g) return ""; const rec=state.games[id];
@@ -5173,6 +5174,23 @@ function buildRounds(id, opts){
       rounds.push({multi:true,prompt:root.character,promptMean:"kökünden türeyenler",label:`"${root.character}" (${root.meaning_tr}) kökünden türeyen kanjileri seç`,
         palette:palette.map(id=>({c:ch(id).character,correct:members.includes(id),mean:ch(id).meaning_tr,cid:id})),
         explain:`${root.character} → ${members.map(id=>ch(id).character).join(" ")}`, speak:root.character});
+    }
+    else if(id==="kanji-reading"){
+      const pool=kanji.filter(k=>(k.kunyomi&&k.kunyomi!=="-")||(k.onyomi&&k.onyomi!=="-"));
+      const k=pool[Math.floor(Math.random()*pool.length)];
+      const hasKun=k.kunyomi&&k.kunyomi!=="-"; const hasOn=k.onyomi&&k.onyomi!=="-";
+      const askKun=hasKun;                                   // başlangıç için kun (tek başına kullanım) tercih
+      const target=askKun?k.kunyomi:k.onyomi;
+      const other=askKun?(hasOn?k.onyomi:null):(hasKun?k.kunyomi:null);
+      const readPool=[...new Set(kanji.filter(x=>x.id!==k.id)
+        .map(x=>(x.kunyomi&&x.kunyomi!=="-")?x.kunyomi:((x.onyomi&&x.onyomi!=="-")?x.onyomi:null))
+        .filter(rr=>rr&&rr!==target&&rr!==other))];
+      const dist=other?[other,...sampleN(readPool,2)]:sampleN(readPool,3);   // aynı kanjinin öbür okuması pedagojik çeldirici
+      const exWord=(DATA.words||[]).find(w=>w.contains_kanji&&w.contains_kanji.indexOf(k.character)>=0);
+      rounds.push({ptype:"glyph",glyph:k.character,
+        label:askKun?"Bu kanjinin Japonca (kun) okunuşu hangisi?":"Bu kanjinin Çince kökenli (on) okunuşu hangisi?",
+        options:uniqOpts(target,dist).map(rr=>({label:rr,correct:rr===target})),
+        explain:`${k.character} (${k.meaning_tr}) → ${target}${exWord?`. Örn. ${exWord.word_jp} = ${exWord.reading_kana}`:''}`, speak:k.character});
     }
   }
   return rounds;
