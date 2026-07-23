@@ -75,8 +75,9 @@ header .tb-spacer{flex:1}
 /* elevation birliği: logo+ayarlar, alt kapsülle aynı ışık ailesinde (aynı sıcak-kahve hue, yumuşak, algılanan yükseklik eşleşir) — exact değer kopyası değil */
 header .tb-logo{background:none;border:none;padding:0;cursor:pointer;display:flex;flex:none;filter:drop-shadow(0 4px 12px rgba(58,42,26,.20))}
 header .tb-menu{width:40px;height:40px;display:grid;place-items:center;background:none;border:none;cursor:pointer;flex:none;filter:drop-shadow(0 4px 12px rgba(58,42,26,.20))}
-header .tb-backrow{margin-top:9px}
-header .tb-back{width:34px;height:34px;display:grid;place-items:center;background:rgba(255,255,255,.55);border:1.4px solid var(--brown);cursor:pointer}
+/* geri butonu: logo/ayarlarla aynı yüzen malzeme (kenarsız, yumuşak, aynı drop-shadow ışık ailesi) — üst satırda logonun yanında, içerikle çakışmaz */
+header .tb-back{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:rgba(252,248,241,.85);border:none;cursor:pointer;filter:drop-shadow(0 4px 12px rgba(58,42,26,.20))}
+header .tb-back:active{transform:scale(.94)}
 /* legacy header (diğer ekranlar geçişte) */
 header .brand{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
 header .ttl{font-family:var(--serif);font-weight:600;font-size:18px;line-height:1}
@@ -263,8 +264,9 @@ small.note{font-size:11px;color:var(--faint);line-height:1.5;display:block}
 .toggle.on i{left:20px}
 
 /* ============ GAMES ============ */
-.gsec-t{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--accent-deep);margin:20px 2px 10px;display:flex;align-items:center;gap:8px}
-.gsec-t::before{content:"";width:18px;height:1.5px;background:var(--accent-soft)}
+/* bölüm başlığı tek dil: sakin serif-ink (.section-t ile aynı) — kırmızı+çizgi outlier'ı kaldırıldı */
+.gsec-t{font-family:var(--serif);font-size:15.5px;font-weight:600;color:var(--ink);margin:22px 2px 11px}
+.gsec-t::before{display:none}
 /* Faz 11: oyun app-icon ızgarası */
 .gappgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:4px}
 .gapp{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);
@@ -657,7 +659,7 @@ body.gridB .pwcard::before{content:"";position:absolute;inset:0;border:1px solid
   padding:4px 0 10px;margin-bottom:8px;max-width:100%}
 .map-levels button{flex:none;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:700;
   background:var(--card2);color:var(--muted);border:1px solid transparent;white-space:nowrap;line-height:1}
-.map-levels button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.map-levels button.on{background:var(--accent-soft);color:var(--accent-deep);border-color:rgba(164,57,44,.30)}
 .matchwrap{display:flex;gap:12px}
 .mcol{flex:1;display:flex;flex-direction:column;gap:9px}
 .mitem{padding:14px 8px;border-radius:13px;border:1px solid var(--line);background:var(--surface);
@@ -2289,8 +2291,8 @@ function renderHeader(){
   if(state.screen==="game"&&state._game){ ttl=GAMES[state._game.id].title; sub=GAMES[state._game.id].sub; }
   else if(T[state.screen]){ttl=T[state.screen][0];sub=T[state.screen][1];}
   const menu = `<button class="tb-menu" data-tab="profile" aria-label="Ayarlar ve profil"><svg viewBox="0 0 44 44" width="40" height="40" aria-hidden="true"><g transform="rotate(-9 22 22)"><rect x="7.5" y="7.5" width="29" height="29" rx="9.5" fill="#B5502F"/><circle cx="14.5" cy="22" r="2.7" fill="#33251E"/><circle cx="22" cy="22" r="2.7" fill="#33251E"/><circle cx="29.5" cy="22" r="2.7" fill="#33251E"/></g></svg></button>`;
-  const backBtn = noBack ? "" : `<div class="tb-backrow"><button class="tb-back" data-act="back" aria-label="Geri"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button></div>`;
-  hdr.innerHTML = `<div class="tb-row"><button class="tb-logo" data-go="home" aria-label="Ana sayfa">${appLogo(60)}</button><div class="tb-spacer"></div>${menu}</div>${backBtn}`;
+  const backBtn = noBack ? "" : `<button class="tb-back" data-act="back" aria-label="Geri"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>`;
+  hdr.innerHTML = `<div class="tb-row"><button class="tb-logo" data-go="home" aria-label="Ana sayfa">${appLogo(60)}</button>${backBtn}<div class="tb-spacer"></div>${menu}</div>`;
 }
 
 /* ============================ SCREENS ============================ */
