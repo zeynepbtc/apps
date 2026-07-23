@@ -61,11 +61,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* header */
 header{
-  flex:none;z-index:30;flex-direction:column;align-items:stretch;gap:0;
-  padding:max(52px, calc(env(safe-area-inset-top) + 16px)) 18px 12px; background:transparent;
-  border-bottom:none;
+  position:fixed;top:0;left:0;right:0;z-index:40;flex-direction:column;align-items:stretch;gap:0;
+  padding:max(52px, calc(env(safe-area-inset-top) + 16px)) 18px 12px; background:none;
+  border:none;pointer-events:none;
   display:flex;
 }
+header .tb-logo,header .tb-menu,header .tb-back{pointer-events:auto}
 header .tb-row{display:flex;align-items:center;gap:12px}
 header .tb-spacer{flex:1}
 header .tb-logo{background:none;border:none;padding:0;cursor:pointer;display:flex;flex:none}
@@ -81,7 +82,7 @@ header .avatar{width:34px;height:34px;border-radius:50%;background:var(--card2);
 
 /* content */
 main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
-  padding:18px 18px 28px;position:relative;z-index:1}
+  padding:max(110px, calc(env(safe-area-inset-top) + 74px)) 18px calc(env(safe-area-inset-bottom) + 90px);position:relative;z-index:1}
 .screen{animation:fade .32s ease}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
@@ -125,8 +126,8 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
 
 /* bottom nav */
 /* Apple-tarzı yüzen şeffaf blob nav */
-nav.tab{flex:none;position:relative;z-index:30;padding:0 0 env(safe-area-inset-bottom);background:transparent;border-top:none;user-select:none;-webkit-user-select:none}
-.fnav{position:relative;display:flex;margin:6px 20px 10px;background:none;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:7px 8px;box-shadow:0 6px 20px rgba(58,42,26,.12);overflow:hidden}
+nav.tab{position:fixed;bottom:0;left:0;right:0;z-index:40;padding:0 0 env(safe-area-inset-bottom);background:none;border:none;pointer-events:none;user-select:none;-webkit-user-select:none}
+.fnav{position:relative;display:flex;margin:6px 20px 10px;background:none;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:7px 8px;box-shadow:0 6px 20px rgba(58,42,26,.12);overflow:hidden;pointer-events:auto}
 .fnav::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:rgba(250,245,236,.24);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px)}
 .fnav-blob{position:absolute;top:5px;bottom:5px;left:0;width:0;border-radius:999px;background:rgba(211,129,58,.20);border:1px solid rgba(211,129,58,.40);opacity:0;transition:left .34s cubic-bezier(.34,1.05,.4,1),width .34s cubic-bezier(.34,1.05,.4,1),opacity .22s ease;z-index:0;pointer-events:none}
 .fnav-tab{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;padding:4px 2px;transition:transform .13s}
