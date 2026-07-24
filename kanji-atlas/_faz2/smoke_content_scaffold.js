@@ -25,13 +25,24 @@ ok("CONTENT_VERSION tanımlı", typeof api.CV === "string" && api.CV.length > 0)
 // 3) CANONICAL round-trip (lossless): parse(serialize(DATA)) == DATA
 ok("round-trip lossless (serialize/parse)", JSON.stringify(JSON.parse(canonical)) === canonical);
 
-// 4) ACCESSOR regression: v2 verisi YOK → accessor'lar legacy ile BİREBİR (davranış değişmedi)
+// 4) ACCESSOR semantiği: v2 kayıtlar v2 kuralını, legacy kayıtlar legacy'yi yansıtır
 for (const id in chars) {
   const k = chars[id];
-  ok("kokenOf==legacy " + id, api.kokenOf(k) === (k.pictogram_note || ""));
-  ok("mnemonicOf==legacy " + id, api.mnemonicOf(k) === (k.memory_hint_tr || ""));
-  ok("componentsOf==legacy " + id, JSON.stringify(api.componentsOf(k)) === JSON.stringify(k.components || []));
-  ok("componentRole==null " + id, api.componentRole(k, (k.components || [])[0]) === null);
+  const hasEty = !!k.etymology;
+  let expKo;
+  if (hasEty && typeof k.etymology.summaryTr === "string") expKo = k.etymology.summaryTr;
+  else if (hasEty && k.etymology.qaStatus === "pending") expKo = null;        // pending → gizli
+  else expKo = (k.pictogram_note || "");
+  ok("kokenOf " + id, api.kokenOf(k) === expKo);
+  ok("mnemonicOf==legacy " + id, api.mnemonicOf(k) === (k.memory_hint_tr || ""));   // B'de mnemonic v2 yok
+  ok("componentsOf==legacy(türetilmiş) " + id, JSON.stringify(api.componentsOf(k)) === JSON.stringify(k.components || []));
+  const fc = (k.components || [])[0];
+  if (k.structure && Array.isArray(k.structure.components) && fc) {
+    const sc = k.structure.components.find(c => c.glyph === fc);
+    ok("componentRole v2 " + id, api.componentRole(k, fc) === (sc ? (sc.role || null) : null));
+  } else {
+    ok("componentRole==null " + id, api.componentRole(k, fc) === null);
+  }
 }
 
 // 5) CANONICAL-SOURCE (generator lossless): DATA.chars → serialize → parse → derin eşit

@@ -28,17 +28,32 @@ function legacyFilter(k, g) {
   return false;
 }
 
-// (1) LEGACY REGRESSION + (3) POOL SIZE
-console.log("Oyun havuzu (legacy 91 kanji) — eski → yeni:");
+// (1) POOL SIZE (eski → yeni) + çıkanlar + legacy-regression (yalnız v2 OLMAYAN kayıtlar birebir korunur)
+console.log("Oyun havuzu — eski → yeni (çıkan kanji):");
 for (const g of GAMES) {
-  let legacyN = 0, newN = 0, mismatch = 0;
+  let legacyN = 0, newN = 0, left = [], legMismatch = 0;
   for (const k of kanji) {
     const a = legacyFilter(k, g), b = api.eligibleForGame(k, g);
     if (a) legacyN++; if (b) newN++;
-    if (a !== b) mismatch++;
+    if (a && !b) left.push(k.character);
+    if (!api.hasV2Roles(k) && a !== b) legMismatch++;   // v2 olmayanlar A1-öncesiyle birebir
   }
-  console.log(`  ${g.padEnd(13)}: ${legacyN} → ${newN}  (uyumsuz: ${mismatch})`);
-  ok(`legacy regression korundu: ${g}`, mismatch === 0 && legacyN === newN);
+  console.log(`  ${g.padEnd(13)}: ${legacyN} → ${newN}  (çıkan: ${left.join("") || "-"})`);
+  ok(`legacy (v2 olmayan) regression korundu: ${g}`, legMismatch === 0);
+}
+
+// (1b) V2 BEKLENTİSİ — 8 形声 comp-meaning/atolye'den çıkar, structure/comp-select'te kalır; 大/王 tüm havuzlardan çıkar
+const byId = Object.fromEntries(kanji.map(k => [k.id, k]));
+for (const id of ["toki", "gengo", "gakkou", "hareru", "hanasu", "yomu", "kiku", "nani"]) {
+  const k = byId[id];
+  ok(`${id} 形声 → comp-meaning ✗`, api.eligibleForGame(k, "comp-meaning") === false);
+  ok(`${id} 形声 → atolye ✗`, api.eligibleForGame(k, "atolye") === false);
+  ok(`${id} 形声 → structure ✓`, api.eligibleForGame(k, "structure") === true);
+  ok(`${id} 形声 → comp-select ✓`, api.eligibleForGame(k, "comp-select") === true);
+}
+for (const id of ["dai", "ou"]) {
+  const k = byId[id];
+  ok(`${id} 象形 → tüm bileşen oyunlarından çıktı`, GAMES.every(g => api.eligibleForGame(k, g) === false));
 }
 
 // (2) FIXTURE MATRIS — v2 role kayıtları
