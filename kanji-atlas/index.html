@@ -1632,6 +1632,38 @@ function componentRole(k, glyph){
   return null;
 }
 /* ===== /FAZ2-FIX A1 ===== */
+
+/* ===== FAZ2-FIX A2 · Oyun rol-izin politikası (MERKEZİ tek kaynak) =====
+   Matris YALNIZ v2 role verisi olan kayıtlara uygulanır; legacy kayıtlar A1-öncesi havuz
+   davranışını AYNEN korur (fail-safe). Bilinmeyen/uncertain/geçersiz role → fail-closed. */
+const GAME_ROLE_POLICY = {
+  "comp-meaning": { semantic:true, phonetic:false, indicative:false, form:false, uncertain:false },
+  "atolye":       { semantic:true, phonetic:false, indicative:false, form:false, uncertain:false },
+  "structure":    { semantic:true, phonetic:true,  indicative:true,  form:true,  uncertain:false },
+  "comp-select":  { semantic:true, phonetic:true,  indicative:true,  form:true,  uncertain:false },
+};
+function roleAllowedInGame(role, gameId){
+  const p = GAME_ROLE_POLICY[gameId];
+  if (!p || !role) return false;            // bilinmeyen oyun / role yok → fail-closed
+  return p[role] === true;                  // geçersiz role adı → undefined → false
+}
+function hasV2Roles(k){
+  return !!(k && k.structure && Array.isArray(k.structure.components) && k.structure.components.some(c=>c && c.role));
+}
+// Bir kanjinin bir oyun havuzuna girip girmediği. Legacy: A1-öncesi filtre (değişmez). v2: matris.
+function eligibleForGame(k, gameId){
+  const comps = componentsOf(k);
+  const glossed = !!(k && k.component_meanings) && comps.length>0 && comps.every(c=>k.component_meanings[c]);
+  let base;
+  if (gameId==="comp-meaning" || gameId==="atolye") base = comps.length>=2 && glossed;
+  else if (gameId==="structure") base = comps.length>=2;
+  else if (gameId==="comp-select") base = comps.length>=1;
+  else base = false;
+  if (!base) return false;
+  if (!hasV2Roles(k)) return true;          // legacy → A1-öncesi davranış korunur
+  return comps.every(g => roleAllowedInGame(componentRole(k,g), gameId));
+}
+/* ===== /FAZ2-FIX A2 ===== */
 // hydrate
 /* FAZ 2 · Storage — sürümlü + recovery-korumalı (bozuk JSON kana_state'i EZMEZ) */
 /* FAZ 2 · Storage/Migration — SAF mantık (localStorage'a doğrudan bağlı DEĞİL, test edilebilir).
@@ -5173,7 +5205,7 @@ function buildRounds(id, opts){
         explain:`"${k.meaning_tr}" → ${k.character}`, speak:k.character});
     }
     else if(id==="comp-meaning"){
-      const pool=kanji.filter(k=>(k.components||[]).length>=2 && k.component_meanings && k.components.every(c=>k.component_meanings[c]));
+      const pool=kanji.filter(k=>eligibleForGame(k,"comp-meaning"));
       const k=pool[Math.floor(Math.random()*pool.length)];
       rounds.push({ptype:"comps",comps:k.components,
         compMeans:k.components.map(c=>({c, m:(k.component_meanings&&k.component_meanings[c])||""})),
@@ -5183,7 +5215,7 @@ function buildRounds(id, opts){
         explain:`${k.components.join(" + ")} → ${k.character} (${k.meaning_tr}).`, speak:k.character});
     }
     else if(id==="structure"){
-      const pool=kanji.filter(k=>(k.components||[]).length>=2);
+      const pool=kanji.filter(k=>eligibleForGame(k,"structure"));
       const k=pool[Math.floor(Math.random()*pool.length)];
       const comps=k.components.slice();
       const hideIdx=Math.floor(Math.random()*comps.length);
@@ -5195,7 +5227,7 @@ function buildRounds(id, opts){
         explain:`${k.components.join(" + ")} = ${k.character} (${k.meaning_tr})`, speak:k.character});
     }
     else if(id==="comp-select"){
-      const pool=kanji.filter(k=>(k.components||[]).length>=1);
+      const pool=kanji.filter(k=>eligibleForGame(k,"comp-select"));
       const k=pool[Math.floor(Math.random()*pool.length)];
       const correct=[...new Set(k.components)];
       const allComps=[...new Set(kanji.flatMap(x=>x.components||[]).concat(radicalList().map(x=>x.character)))].filter(c=>!correct.includes(c));
@@ -5255,7 +5287,7 @@ function buildRounds(id, opts){
         explain:`${k.character} (${k.meaning_tr}) → ${target}${exWord?`. Örn. ${exWord.word_jp} = ${exWord.reading_kana}`:''}`, speak:k.character});
     }
     else if(id==="atolye"){
-      const pool=kanji.filter(k=>(k.components||[]).length>=2 && k.component_meanings && k.components.every(c=>k.component_meanings[c]));
+      const pool=kanji.filter(k=>eligibleForGame(k,"atolye"));
       const k=pool[Math.floor(Math.random()*pool.length)];
       const share=[...new Set(kanji.filter(x=>x.id!==k.id&&(x.components||[]).some(c=>k.components.includes(c))).map(x=>x.character))];
       const others=[...new Set(kanji.filter(x=>x.id!==k.id).map(x=>x.character))].filter(c=>!share.includes(c)&&c!==k.character);
@@ -5275,7 +5307,7 @@ const FAMILIES=[
   {root:"ki",members:["hayashi","mori","hon","yasumu"]},
   {root:"hi",members:["akarui","toki","hareru"]},
   {root:"ko",members:["manabu","ki2"]},
-  {root:"hito",members:["dai","yasumu","onna"]},
+  {root:"hito",members:["dai","yasumu"]},
   {root:"kuchi",members:["ta"]},
 ];
 
