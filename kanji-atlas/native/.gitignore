@@ -1,0 +1,8 @@
+# Capacitor native wrapper — BUILD çıktıları ve platform klasörleri git'e girmez.
+# Kaynak tek doğru: ../index.html + ../audio (web app). Bunlar Mac'te üretilir.
+node_modules/
+www/
+ios/
+android/
+.DS_Store
+*.log

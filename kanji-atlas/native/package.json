@@ -1,0 +1,22 @@
+{
+  "name": "japonca-yazi-atlasi-native",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Capacitor (WKWebView) native wrapper for Japonca Yazi Atlasi. Web app source lives one level up (../index.html + ../audio). www/ is BUILT, never committed.",
+  "type": "module",
+  "scripts": {
+    "sync-www": "node scripts/build-www.mjs",
+    "cap:add:ios": "npm run sync-www && cap add ios",
+    "cap:sync": "npm run sync-www && cap sync",
+    "cap:open:ios": "cap open ios",
+    "ios": "npm run sync-www && cap sync && cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.1.0",
+    "@capacitor/ios": "^6.1.0",
+    "@capacitor/preferences": "^6.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.0"
+  }
+}

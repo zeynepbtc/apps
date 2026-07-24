@@ -1,0 +1,12 @@
+{
+  "appId": "app.zeynepkaya.japonca",
+  "appName": "Japonca Yazı Atlası",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#F4EEE3"
+  },
+  "server": {
+    "iosScheme": "https"
+  }
+}
