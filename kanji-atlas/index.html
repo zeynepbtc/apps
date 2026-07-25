@@ -318,7 +318,8 @@ small.note{font-size:11px;color:var(--faint);line-height:1.5;display:block}
 .howto-note .ht .htt{font-size:13.5px;font-weight:600;color:var(--ink)}
 .howto-note .ht .hss{font-size:11.5px;color:var(--muted);margin-top:2px;line-height:1.4}
 .howto-note .ha{color:var(--faint);font-size:15px;flex:none}
-.rec-hint{display:flex;align-items:center;gap:10px;margin:0 2px 14px;padding:11px 14px;border-radius:14px;background:var(--teal-tint);border:1px solid var(--teal-soft);cursor:pointer;font-size:12.5px;color:var(--teal-deep);line-height:1.4;
+.rec-hint{display:flex;align-items:center;gap:10px;margin:0 2px 14px;padding:11px 14px;min-height:44px;box-sizing:border-box;border-radius:14px;background:var(--teal-tint);border:1px solid var(--teal-soft);cursor:pointer;font-size:12.5px;color:var(--teal-deep);line-height:1.4;
+  outline-offset:2px;
   transition:transform .2s cubic-bezier(.22,.61,.36,1),background .2s}
 .rec-hint b{font-weight:700}
 .rec-hint:hover{transform:translateY(-1px)}
@@ -3196,15 +3197,22 @@ function Home(){
     </div>
   </div>`:''}
 
+  <!-- ADIM 7 · İlk öneri şeridi: yalnız onboarding-sonrası (completed + startKey + henüz anlamlı eylem yok).
+       İlk anlamlı eylemde boşluksuz gizlenir. Görünürken tip-pill geri çekilir (tek birincil öneri). -->
+  ${showRecHint?`<div class="rec-hint" data-go="${recGo}"${recParam?` data-param="${esc(recParam)}"`:''} role="button" tabindex="0" aria-label="${esc(t("home.rec.prefix")+": "+recLabel+" — "+recReason)}">
+    <span>${t("home.rec.prefix")}: <b>${esc(recLabel)}</b> — ${esc(recReason)}</span>
+    <span class="ra" aria-hidden="true">›</span>
+  </div>`:''}
+
   <div class="home-pills">
     <button class="stat-pill" data-go="progress" aria-label="Genel ilerleme %${pct}">
       <span class="sp-ring"><svg viewBox="0 0 44 44" width="28" height="28" aria-hidden="true"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(92,64,48,.16)" stroke-width="5"/><circle cx="22" cy="22" r="18" fill="none" stroke="var(--brown)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-pct/100)}" transform="rotate(-90 22 22)"/></svg><span class="sp-pct">${pct}%</span></span>
       <span class="sp-text">Genel İlerleme · <b>${learned}/${total}</b></span>
     </button>
-    <button class="tip-pill" data-go="${dailyGo}"${dailyParam?` data-param="${esc(dailyParam)}"`:''}>
+    ${showRecHint?'':`<button class="tip-pill" data-go="${dailyGo}"${dailyParam?` data-param="${esc(dailyParam)}"`:''}>
       <span class="tp-ico">◎</span>
       <span class="tp-text">Bugün: ${dailyText}</span>
-    </button>
+    </button>`}
   </div>
 
   <button class="gate-row" data-go="writing-system">
@@ -6099,6 +6107,20 @@ function playGuide(){
       setTimeout(()=>p.classList.remove("active"),dur*1000);},t*1000);
     t+=dur+.18;});
 }
+
+/* Klavye aktivasyonu — role="button" verilmiş NATIVE OLMAYAN öğeler (div/span) için.
+   Tarayıcı Enter/Space'i yalnız <button>/<a> üzerinde click'e çevirir; role="button" tek
+   başına bunu yapmaz. Delegasyon MANTIĞI TEKRARLANMAZ: el.click() bubbling bir sentetik
+   click üretir ve aşağıdaki tek handler'a düşer — davranış fare ile birebir aynı kalır.
+   Space için preventDefault şart, yoksa sayfa kayar. Native öğeler hariç tutulur (çift tetik olmasın). */
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter" && e.key!==" " && e.key!=="Spacebar") return;
+  const el=e.target && e.target.closest ? e.target.closest('[role="button"]') : null;
+  if(!el) return;
+  if(el.matches("button,a,input,select,textarea")) return;
+  e.preventDefault();
+  el.click();
+});
 
 /* ============================ EVENT DELEGATION ============================ */
 document.addEventListener("click",e=>{

@@ -13,7 +13,9 @@ const URL = "http://127.0.0.1:8901/index.html";
   const ce=[]; p.on("console",m=>{ if(m.type()==="error") ce.push(m.text()); });
   const ev=(fn,a)=>p.evaluate(fn,a);
   const clk=async s=>{ await p.click(s,{timeout:6000}); await p.waitForTimeout(90); };
-  const S=()=>ev(()=>({screen:JYA.state.screen,param:JYA.state.param,sk:JYA.state.onboarding.startKey,st:JYA.state.onboarding.status,stage:JYA.state.onboarding.stage,rec:document.querySelectorAll(".tip-pill").length}));
+  /* DÜZELTME: "rec" eskiden .tip-pill sayıyordu — yanlış bileşen. Gerçek ilk-öneri şeridi .rec-hint'tir;
+     13aeff1 regresyonunun buradan görünmemesinin sebebi buydu. Artık ikisi ayrı sayılır. */
+  const S=()=>ev(()=>({screen:JYA.state.screen,param:JYA.state.param,sk:JYA.state.onboarding.startKey,st:JYA.state.onboarding.status,stage:JYA.state.onboarding.stage,rec:document.querySelectorAll(".rec-hint").length,tip:document.querySelectorAll(".tip-pill").length}));
   /* DİKKAT: uygulamada pagehide/visibilitychange "lifecycle flush" var (save() → localStorage).
      Düz clear()+reload() İŞE YARAMAZ: reload'un pagehide'ı eski state'i geri yazar.
      Çözüm: clear'dan SONRA bu dokümanda setItem'i etkisizleştir → flush yazamaz, yeni doküman temiz açılır. */
@@ -74,7 +76,9 @@ const URL = "http://127.0.0.1:8901/index.html";
   // öneri şeridi — completed sonrası reload → home + şerit görünür
   await fresh(); await clk('[data-act="ob-continue"]'); await clk('[data-act="ob-no"]');
   await p.reload({waitUntil:"domcontentloaded"}); await p.waitForTimeout(250);
-  { const s=await S(); ok(s.screen==="home","completed reload→home"); ok(s.rec>=1,"Home günün önerisi pili görünür"); }
+  { const s=await S(); ok(s.screen==="home","completed reload→home");
+    ok(s.rec===1,"Home ilk-öneri şeridi (.rec-hint) görünür");
+    ok(s.tip===0,"şerit görünürken .tip-pill gizli (tek birincil öneri)"); }
 
   const appCe=ce.filter(t=>!/Failed to load resource|ERR_|gstatic|googleapis|font/i.test(t));
   ok(appCe.length===0,"app console error YOK"+(appCe.length?": "+appCe.slice(0,3).join("|"):""));
