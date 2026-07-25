@@ -14,7 +14,12 @@ const URL = "http://127.0.0.1:8901/index.html";
   const ev=(fn,a)=>p.evaluate(fn,a);
   const clk=async s=>{ await p.click(s,{timeout:6000}); await p.waitForTimeout(90); };
   const S=()=>ev(()=>({screen:JYA.state.screen,param:JYA.state.param,sk:JYA.state.onboarding.startKey,st:JYA.state.onboarding.status,stage:JYA.state.onboarding.stage,rec:document.querySelectorAll(".tip-pill").length}));
-  async function fresh(){ await p.goto(URL,{waitUntil:"domcontentloaded"}); await ev(()=>localStorage.clear()); await p.reload({waitUntil:"domcontentloaded"}); await p.waitForTimeout(250); }
+  /* DİKKAT: uygulamada pagehide/visibilitychange "lifecycle flush" var (save() → localStorage).
+     Düz clear()+reload() İŞE YARAMAZ: reload'un pagehide'ı eski state'i geri yazar.
+     Çözüm: clear'dan SONRA bu dokümanda setItem'i etkisizleştir → flush yazamaz, yeni doküman temiz açılır. */
+  async function fresh(){ await p.goto(URL,{waitUntil:"domcontentloaded"});
+    await ev(()=>{ localStorage.clear(); try{ Storage.prototype.setItem=function(){}; }catch(e){} });
+    await p.reload({waitUntil:"domcontentloaded"}); await p.waitForTimeout(250); }
 
   await p.goto(URL,{waitUntil:"domcontentloaded"}); await p.waitForTimeout(300);
   ok(await ev(()=>typeof window.JYA==="object"), "JYA export parse ok");
