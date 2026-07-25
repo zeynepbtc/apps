@@ -55,9 +55,9 @@ const NEW_NOTES = {
       + "karşılandı — kaynak burada 省略形 DEĞİL 変わった形 diyor, bu yüzden kilitli terim ayrımı gereği "
       + "'sadeleşmiş' değil **'değişmiş'** kullanıldı. (3) SES YAZILDI: kaynak 千(セン)→(ネン) veriyor "
       + "ve 年'nin okunuşu ネン — örtüşüyor (çatı ilke). "
-      + "|| Kanjipedia girdisinin erken yazı (甲骨・金文) katmanı bu kayda dayanak yapılmadı ve görünür "
-      + "metne alınmadı; ayrıntı authoring kaynak notunda (bu bir kaynak anlaşmazlığı değil, ek "
-      + "tarihsel katmandır — bu yüzden burada tartışılmaz)."
+      + "|| Kanjipedia girdisinin erken yazı katmanı bu kayda dayanak yapılmadı ve görünür metne "
+      + "alınmadı; ayrıntı authoring kaynak notunda (bu bir kaynak anlaşmazlığı değil, ek tarihsel "
+      + "katmandır — bu yüzden burada tartışılmaz)."
   },
   "前": {
     expectConf: "B",
