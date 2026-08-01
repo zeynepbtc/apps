@@ -27,6 +27,10 @@
 
 ## Geçmiş
 
+### v1.12.5 — 2026-08-01
+- 📣 **Japanese Flick 1.0.6 duyurusu** (App Store'da 1 Ağustos'ta yayınlandı). Ana sayfa Güncellemeler kartı "ilk sürüm yayında"dan **"1.0.6 yayında"**ya çevrildi: neyin düzeldiği kullanıcı diliyle yazıldı (kelimelerin ilk sesi kesilmiyor · hiç ses çıkmayan kelimeler düzeldi · kaydı olmayan kelimeler cihazın Japonca sesiyle okunuyor · küçük ekranda klavye/buton kırpılmıyor, tuşlar biraz büyüdü · çift dokunuş zoom'u kalktı). Mini zaman çizelgesi, JF tanıtım sayfasının eyebrow'u, durum satırı ve release kartı da aynı bilgiyle güncellendi. TR + EN. **Android dili değişmedi** (Zeynep kararı): Google Play hâlâ "yakında" — kapalı testte ve üretim çıkışı üç koşula bağlı, tarih verilmiyor.
+- ⚠️ **Kayıt boşluğu:** `/atlas/` tanıtım sayfası ve SEO işleri (commit `6af28cd`, `17c0766`) ile oyun/araç kartlarının EN çevirisi (`d61c88b`) bu dosyaya **hiç girmemiş**. Yeni bir sayfa eklendiği için kural gereği bunlar bir **MINOR** (v1.13.0) hak ediyor. Geriye dönük girdi yazılacak.
+
 ### v1.12.4 — 2026-07-17
 - 🎨 **Baito Days logosu Flick görsel diline bağlandı** (Zeynep tercihi: B yönü + Flick benzerliği). Dikey **バイト hanko**, artık Flick app ikonunun tam paletinde: terracotta `#d2604d` (Flick'in ortadaki yuvarlağıyla aynı) + Flick paper `#fbf5ef` + **offset renk-gölgesi** `#eeb9a8` (Flick'in yuvarlağının altındaki yumuşak halo gibi). Önceki 求人 mühür (A) yerine geçti. Ana sayfa duyuru kartındaki `baito-days-logo.png` güncellendi. Alternatif B2 (yuvarlak hanko) hazır — tek kelimeyle değişir.
 
