@@ -1,0 +1,12 @@
+Atlas dizini: /tmp/neg2/kanji-atlas
+✓ 1) tüm id benzersiz — 610 kayıt
+✓ 2) her kayıt şemaya uygun (id·kategori·metin·kaynak·durum)
+✓ 3) yayın kapısı: missing/tts kayıt YOK (hepsi recorded)
+✓ 4a) ses yolu göreli ve izinli klasörde (audio/{kana,kanji,word,sentence}/*.mp3)
+✓ 4b) referanslanan her ses dosyası DİSKTE VAR
+✓ 5) kategori+metin duplicate SIFIR (çözüm anahtarı tekil)
+✗ 6) yetim mp3 YOK (audio/ altındaki her dosya referanslı) — 474 dosya · 1 yetim: audio/kana/__yetim_test.mp3
+✓ 7) flick kaydı yok → kardeş dizin kontrolü atlandı (bağımlılık kurulmadı) — 0 flick kaydı
+✓ 8) _meta.pedagojik_hukum mevcut
+
+❌ 1 başarısız
