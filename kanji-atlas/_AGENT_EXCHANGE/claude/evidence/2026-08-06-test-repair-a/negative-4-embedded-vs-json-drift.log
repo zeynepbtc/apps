@@ -1,0 +1,10 @@
+Atlas dizini: /tmp/neg4/kanji-atlas
+✓ gömülü blok anchor'larla mevcut
+✗ Gate 7) gömülü AUDIO_MANIFEST === audio-manifest.json (semantik)
+✓ Gate 10) runtime manifest fetch YOK
+✓ Gate 10b) 'audio-manifest.json' fetch argümanı değil (yalnız yorum)
+✓ AUDIO_MANIFEST tüketiliyor (buildAudioIndex ile, 6b)
+✓ gömülü entries dizi ve boş değil (sabit sayı YOK) — 610 kayıt (bilgi amaçlı, iddia değil)
+✓ _meta.pedagojik_hukum gömülü
+
+❌ 1 başarısız
