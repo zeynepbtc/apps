@@ -1,0 +1,26 @@
+# Kanji Atlas — test araç sınırı (Batch C)
+# DİKKAT: package.json ve package-lock.json BİLEREK yok sayılmaz — kilitli kurulumun
+# yeniden üretilebilir olması için ikisi de sürümlenir.
+
+# bağımlılıklar
+node_modules/
+
+# Playwright çıktıları
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+playwright/.cache/
+
+# günlükler
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# yerel işletim sistemi artıkları
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini

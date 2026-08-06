@@ -1,0 +1,19 @@
+{
+  "name": "kanji-atlas-gates",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Kanji Atlas yayın kapıları — test araç sınırı (Test Repair Batch C). Uygulama tek dosyalık index.html'dir; bu paket YALNIZ test araçlarını sınırlar ve native/package.json ile ilgisizdir.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.0.0 <25.0.0"
+  },
+  "scripts": {
+    "gates:install-browser": "playwright install chromium",
+    "gates:core": "node _faz2/run-core-gates.mjs",
+    "gates:browser": "node _faz2/run-browser-gates.mjs",
+    "gates": "npm run gates:core && npm run gates:browser"
+  },
+  "devDependencies": {
+    "playwright": "1.56.0"
+  }
+}

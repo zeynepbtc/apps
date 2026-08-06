@@ -1,11 +1,17 @@
+/* Batch C · TAŞINABİLİRLİK: Python sunucu sahipliği KALDIRILDI, sabit port 8921 ve
+   /home/claude yolu KALDIRILDI. URL'yi run-browser-gates.mjs SMOKE_URL ile verir.
+   Assertion'lar ve akış DEĞİŞMEDİ. */
 const { chromium } = require("playwright");
-const { spawn } = require("child_process");
 const fs = require("fs");
-const srv = spawn("python3",["-m","http.server","8921","--bind","127.0.0.1"],{cwd:"/home/claude/apps-deploy/kanji-atlas",stdio:"ignore"});
-const URL="http://127.0.0.1:8921/index.html";
+const URL = process.env.SMOKE_URL;
+if (!URL) {
+  console.error("YAPILANDIRMA HATASI: SMOKE_URL tanımlı değil.");
+  console.error("Bu test tarayıcı kapısı koşucusu üzerinden çalışır:  node _faz2/run-browser-gates.mjs");
+  process.exit(2);
+}
 (async()=>{
-  await new Promise(r=>setTimeout(r,900));
   const b=await chromium.launch();
+  try {
   const ctx=await b.newContext({viewport:{width:390,height:844},deviceScaleFactor:2,acceptDownloads:true});
   const p=await ctx.newPage();
   const pe=[]; p.on("pageerror",e=>pe.push(e.message));
@@ -56,5 +62,8 @@ const URL="http://127.0.0.1:8921/index.html";
   ok(pe.length===0,"pageerror YOK"+(pe.length?": "+pe.join("|"):""));
   console.log("BACKUP TEST · pass="+pass+" fail="+fail);
   if(fail) console.log("FAIL:\n - "+F.join("\n - "));
-  await b.close(); srv.kill(); process.exit(fail?1:0);
-})().catch(e=>{console.error("ERR",e.message);srv.kill();process.exit(2);});
+  process.exitCode = fail?1:0;
+  } finally {
+    await b.close().catch(()=>{});      // tarayıcı BAŞARI ve BAŞARISIZLIK yollarında kapanır
+  }
+})().catch(e=>{console.error("ERR",e && e.message || e);process.exit(2);});

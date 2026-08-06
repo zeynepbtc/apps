@@ -1,10 +1,19 @@
+/* Batch C · TAŞINABİLİRLİK: sunucu sahipliği YOK, sabit yol/port YOK.
+   URL'yi run-browser-gates.mjs SMOKE_URL ile verir. Assertion'lar DEĞİŞMEDİ. */
 const { chromium } = require("playwright");
+const SMOKE_URL = process.env.SMOKE_URL;
+if (!SMOKE_URL) {
+  console.error("YAPILANDIRMA HATASI: SMOKE_URL tanımlı değil.");
+  console.error("Bu test tarayıcı kapısı koşucusu üzerinden çalışır:  node _faz2/run-browser-gates.mjs");
+  process.exit(2);
+}
 (async () => {
   let fail=0; const A=(n,ok,x)=>{console.log((ok?"✓":"✗")+" "+n+(x?" — "+x:"")); if(!ok)fail++;};
   const errs=[]; const b=await chromium.launch({headless:true}); const p=await b.newPage();
+  try {
   p.on("pageerror",e=>errs.push(e.message));
   p.on("console",m=>{if(m.type()==="error"&&!/Failed to load resource|net::ERR/i.test(m.text()))errs.push(m.text());});
-  await p.goto("file://" + require("path").join(__dirname,"..","index.html") + "");
+  await p.goto(SMOKE_URL,{waitUntil:"domcontentloaded"});
   await p.waitForFunction(()=>typeof go==="function",{timeout:15000});
 
   // 1) route kayıtlı ve render ediyor
@@ -39,7 +48,9 @@ const { chromium } = require("playwright");
     try{ go(s, s==="detail"?"ki2":undefined); out[s]=!!document.getElementById("app").innerHTML.length; }catch(e){ out[s]="ERR:"+e.message; } } return out; });
   A("8) render regresyonu yok", Object.values(reg).every(v=>v===true), JSON.stringify(reg));
   A("9) yeni JS exception yok", errs.length===0, errs.join(" | "));
-  await b.close();
   console.log(fail? `\n❌ ${fail} BAŞARISIZ` : "\n✅ SOURCES SMOKE GEÇTİ (0 başarısız)");
-  process.exit(fail?1:0);
-})();
+  process.exitCode = fail?1:0;
+  } finally {
+    await b.close().catch(()=>{});      // tarayıcı BAŞARI ve BAŞARISIZLIK yollarında kapanır
+  }
+})().catch(e=>{ console.error("HARNESS ERR", e && e.message || e); process.exit(2); });
