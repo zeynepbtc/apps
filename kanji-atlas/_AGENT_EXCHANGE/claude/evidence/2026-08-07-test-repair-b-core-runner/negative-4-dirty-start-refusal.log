@@ -1,0 +1,11 @@
+run-core-gates · 10 çekirdek kapı
+Atlas dizini : /tmp/b3/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 60000 ms / test
+Git SHA      : c9bc266320418c829c25d1523197bfa0324c8a35
+
+❌ KIRLI BAŞLANGIÇ — yayın kapısı koşumu TEMİZ ağaçta başlamalıdır.
+   1 değişmiş yol (ilk 10):
+     M kanji-atlas/audio-manifest.json
+   Hiçbir test çalıştırılmadı. Koruma SALT OKUNURDUR: değişiklikleriniz OLDUĞU GİBİ duruyor;
+   koşucu hiçbir şeyi geri almaz/temizlemez. Değişiklikleri kendiniz commit'leyin veya saklayın.

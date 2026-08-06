@@ -1,0 +1,20 @@
+run-core-gates · 10 çekirdek kapı
+Atlas dizini : /tmp/reloc/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 60000 ms / test
+Git koruması : KULLANILAMIYOR — Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)
+  ✅ PASS      smoke_content_scaffold.js      51 ms
+  ✅ PASS      smoke_legacy_derived.js        35 ms
+  ✅ PASS      smoke_durable_backend.js       39 ms
+  ✅ PASS      smoke_game_roles.js            47 ms
+  ✅ PASS      storage_check.js               33 ms
+  ✅ PASS      srs_check.js                   37 ms
+  ✅ PASS      graph_check.js                 37 ms
+  ✅ PASS      list_progress_check.js         44 ms
+  ✅ PASS      manifest_check.js              48 ms
+  ✅ PASS      manifest_build_check.js        47 ms
+
+Toplam: 10/10 PASS · FAIL 0 · TIMEOUT 0 · diğer 0 · 425 ms
+Ağaç koruması: ⚠️ kullanılamıyor (Git çalışma ağacı bulunamadı (bağımsız kopya olabilir))
+
+✅ ÇEKİRDEK KAPILAR GEÇTİ

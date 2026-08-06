@@ -1,0 +1,5 @@
+node       v22.22.2
+git        2.43.0
+os         Ubuntu 24.04.4 LTS / x86_64
+bagimlilik YOK — yalniz Node yerlesikleri (child_process, fs, path, url)
+package.json / lockfile / CI yapilandirmasi: DOKUNULMADI

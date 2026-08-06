@@ -1,0 +1,22 @@
+run-core-gates · 10 çekirdek kapı
+Atlas dizini : /tmp/b3/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 60000 ms / test
+Git SHA      : c9bc266320418c829c25d1523197bfa0324c8a35
+  ✅ PASS      smoke_content_scaffold.js      82 ms
+  ✅ PASS      smoke_legacy_derived.js        43 ms
+  ✅ PASS      smoke_durable_backend.js       42 ms
+  ✅ PASS      smoke_game_roles.js            46 ms
+  ✅ PASS      storage_check.js               41 ms
+  ✅ PASS      srs_check.js                   45 ms
+  ✅ PASS      graph_check.js                 39 ms
+  ✅ PASS      list_progress_check.js         37 ms
+  ✅ PASS      manifest_check.js              95 ms
+  ✅ PASS      manifest_build_check.js        94 ms
+
+Toplam: 10/10 PASS · FAIL 0 · TIMEOUT 0 · diğer 0 · 640 ms
+Ağaç koruması: ❌ KOŞUM SIRASINDA AĞAÇ DEĞİŞTİ — bir test izlenen dosyaya yazmış olabilir
+     M kanji-atlas/audio-manifest.json
+   Değişiklikler OLDUĞU GİBİ bırakıldı (salt okunur koruma); inceleyip kendiniz karar verin.
+
+❌ ÇEKİRDEK KAPILAR GEÇMEDİ
