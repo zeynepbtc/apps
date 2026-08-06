@@ -1,5 +1,0 @@
-node       v22.22.2
-python3    3.11.15
-git        2.43.0
-os         Ubuntu 24.04.4 LTS / x86_64
-ortam      Anthropic Cowork efemer bulut konteyneri (hostname: vm)
