@@ -10,7 +10,13 @@
  *   · Yalnız Node yerleşiği `node:http` — Python veya harici araç YOK.
  *   · Yalnız 127.0.0.1'e bağlanır (loopback), dış arayüz dinlemez.
  *   · Port `0` istenir → işletim sistemi atar. SABİT PORT YOK; çakışma yapısal olarak imkânsız.
- *   · Yalnız Atlas kökü altındaki dosyalar servis edilir (yol kaçışı reddedilir).
+ *   · Yalnız Atlas kökü altındaki dosyalar servis edilir. Kapsama SÖZCÜKSEL DEĞİL FİZİKSELDİR:
+ *     kök ve hedef `realpath` ile kanonikleştirilip karşılaştırılır, dosya kanonik yoldan
+ *     `O_NOFOLLOW` ile açılır ve içerik o fd'den akıtılır. Atlas içindeki bir sembolik bağ
+ *     dışarıyı gösteriyorsa 403 döner (dizin `index.html`'i için de aynı kural işler).
+ *     Artık sınır (dürüst not): bu yerel test sunucusu, doğrulama ile açma arasında Atlas
+ *     ağacını değiştirebilen bir saldırganı varsaymaz — O_NOFOLLOW son bileşen yarışını kapatır,
+ *     ama tam TOCTOU bağışıklığı Node yerleşikleriyle taşınabilir biçimde sağlanamaz.
  *   · Çözülen URL çocuklara `SMOKE_URL` ile geçirilir.
  *   · Sunucu BAŞARI, BAŞARISIZLIK, ZAMAN AŞIMI, SİNYAL ve İÇ HATA yollarının HEPSİNDE kapatılır.
  *
@@ -30,7 +36,7 @@
  */
 import { spawn, spawnSync } from "node:child_process";
 import { createServer } from "node:http";
-import { existsSync, createReadStream, statSync } from "node:fs";
+import { existsSync, createReadStream, realpathSync, openSync, closeSync, fstatSync, constants as FS } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -102,6 +108,21 @@ const MIME = {
   ".webmanifest": "application/manifest+json; charset=utf-8",
 };
 
+/* ── FİZİKSEL KAPSAMA (Batch C düzeltmesi 2026-08-07) ─────────────────────────────────────────
+   Sözcüksel (lexical) kontrol YETMEZ: Atlas içindeki bir SEMBOLİK BAĞ dışarıyı gösterebilir ve
+   `..` içermediği için sözcüksel denetimden geçer. Bu yüzden kök ve hedef KANONİK (realpath)
+   biçimde çözülüp karşılaştırılır; dosya sonra KANONİK yoldan, O_NOFOLLOW ile açılır. */
+const ATLAS_REAL = (() => { try { return realpathSync(ATLAS); } catch { return ATLAS; } })();
+
+/** Kanonik hedef Atlas kökünün İÇİNDE mi? İçindeyse kanonik yolu, değilse false, yoksa null döner. */
+function physicalTarget(abs) {
+  let real;
+  try { real = realpathSync(abs); } catch { return null; }        // yok / kırık bağ → 404
+  const rel = path.relative(ATLAS_REAL, real);
+  if (rel === "" || rel.startsWith("..") || path.isAbsolute(rel)) return false;  // KAÇIŞ
+  return real;
+}
+
 /** İstek yolunu GÜVENLİ biçimde Atlas kökü altındaki mutlak yola çevirir; kaçış varsa null. */
 function safeResolve(rawUrl) {
   let pathname;
@@ -128,22 +149,50 @@ function startServer() {
         return res.end("405 Method Not Allowed");
       }
       const abs = safeResolve(req.url || "/");
-      if (!abs) { res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" }); return res.end("400 Bad Request"); }
+      if (!abs) return plain(res, 400, "400 Bad Request");
+
+      /* 1) Sözcüksel olarak güvenli yol → KANONİK yola çöz ve fiziksel kapsamayı doğrula. */
+      let real = physicalTarget(abs);
+      if (real === null) return plain(res, 404, "404 Not Found");           // yok / kırık bağ
+      if (real === false) return plain(res, 403, "403 Forbidden");          // SEMBOLİK BAĞ KAÇIŞI
+
+      /* 2) Kanonik yoldan aç. O_NOFOLLOW: son bileşen bağ ise açma (yarış payı da kapanır). */
+      let fd;
+      try { fd = openSync(real, FS.O_RDONLY | FS.O_NOFOLLOW); }
+      catch { return plain(res, 404, "404 Not Found"); }
+
       let st;
-      try { st = statSync(abs); } catch { res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" }); return res.end("404 Not Found"); }
+      try { st = fstatSync(fd); } catch { try { closeSync(fd); } catch {} return plain(res, 404, "404 Not Found"); }
+
       if (st.isDirectory()) {
-        const idx = path.join(abs, "index.html");
-        if (!existsSync(idx)) { res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" }); return res.end("404 Not Found"); }
-        return sendFile(idx, req, res);
+        try { closeSync(fd); } catch {}
+        /* 3) Dizin dizini: index.html AYNI fiziksel kapsama kuralından geçer.
+              (Sembolik bağlı dizinin index.html'i dışarıdaysa reddedilir.) */
+        const idxReal = physicalTarget(path.join(real, "index.html"));
+        if (idxReal === null) return plain(res, 404, "404 Not Found");
+        if (idxReal === false) return plain(res, 403, "403 Forbidden");
+        let ifd;
+        try { ifd = openSync(idxReal, FS.O_RDONLY | FS.O_NOFOLLOW); }
+        catch { return plain(res, 404, "404 Not Found"); }
+        let ist;
+        try { ist = fstatSync(ifd); } catch { try { closeSync(ifd); } catch {} return plain(res, 404, "404 Not Found"); }
+        if (!ist.isFile()) { try { closeSync(ifd); } catch {} return plain(res, 404, "404 Not Found"); }
+        return sendFd(ifd, idxReal, ist.size, req, res);
       }
-      sendFile(abs, req, res);
+      if (!st.isFile()) { try { closeSync(fd); } catch {} return plain(res, 404, "404 Not Found"); }
+      sendFd(fd, real, st.size, req, res);
     });
-    function sendFile(file, req, res) {
+    function plain(res, code, msg) {
+      res.writeHead(code, { "Content-Type": "text/plain; charset=utf-8" });
+      return res.end(msg);
+    }
+    /* İçerik, doğrulanan KANONİK yoldan AÇILMIŞ fd üzerinden akıtılır — yolu yeniden açmayız,
+       böylece doğrulama ile okuma arasında ikinci bir ad çözümlemesi olmaz. */
+    function sendFd(fd, file, size, req, res) {
       const type = MIME[path.extname(file).toLowerCase()] || "application/octet-stream";
-      let size = 0; try { size = statSync(file).size; } catch {}
       res.writeHead(200, { "Content-Type": type, "Content-Length": size, "Cache-Control": "no-store" });
-      if (req.method === "HEAD") return res.end();
-      const rs = createReadStream(file);
+      if (req.method === "HEAD") { try { closeSync(fd); } catch {} return res.end(); }
+      const rs = createReadStream(null, { fd, autoClose: true });
       rs.on("error", () => { try { res.destroy(); } catch {} });
       rs.pipe(res);
     }

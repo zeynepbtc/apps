@@ -9,8 +9,11 @@ if (!SMOKE_URL) {
 }
 (async () => {
   let fail=0; const A=(n,ok,x)=>{console.log((ok?"✓":"✗")+" "+n+(x?" — "+x:"")); if(!ok)fail++;};
-  const errs=[]; const b=await chromium.launch({headless:true}); const p=await b.newPage();
+  const errs=[]; const b=await chromium.launch({headless:true});
+  /* Batch C düzeltmesi: temizlik sınırı tarayıcı oluşur oluşmaz başlar — newPage() veya
+     sonrası atarsa da b.close() garanti çalışır. Assertion/selector DEĞİŞMEDİ. */
   try {
+  const p=await b.newPage();
   p.on("pageerror",e=>errs.push(e.message));
   p.on("console",m=>{if(m.type()==="error"&&!/Failed to load resource|net::ERR/i.test(m.text()))errs.push(m.text());});
   await p.goto(SMOKE_URL,{waitUntil:"domcontentloaded"});

@@ -3,7 +3,7 @@ npm                  10.9.7
 git                  2.43.0
 playwright (kilitli) 1.56.0
 playwright-core      1.56.0
-chromium             Chromium 141.0.7390.37 
+chromium             Chromium 141.0.7390.37
 chromium yolu        /opt/pw-browsers/chromium-1194/chrome-linux/chrome
 os                   Ubuntu 24.04.4 LTS / x86_64
 lockfileVersion      3
