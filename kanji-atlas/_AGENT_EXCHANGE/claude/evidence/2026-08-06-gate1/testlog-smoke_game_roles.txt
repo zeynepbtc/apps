@@ -1,0 +1,7 @@
+Oyun havuzu — eski → yeni (çıkan kanji):
+  comp-meaning : 11 → 11  (çıkan: -)
+  atolye       : 11 → 11  (çıkan: -)
+  structure    : 23 → 23  (çıkan: -)
+  comp-select  : 25 → 25  (çıkan: -)
+
+smoke_game_roles: 62/62

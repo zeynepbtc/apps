@@ -1,0 +1,2 @@
+v2 struct kayıt: 17 · v2 readings kayıt: 17
+smoke_legacy_derived: 83/83

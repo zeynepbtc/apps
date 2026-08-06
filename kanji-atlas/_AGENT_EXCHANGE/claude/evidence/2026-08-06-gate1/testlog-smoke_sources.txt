@@ -1,0 +1,11 @@
+✓ 1) sources ekranı render ediyor — Kaynaklar ve Yöntem
+✓ 2) eyebrow İngilizce başlık var — Sources & Methodology
+✓ 3) 4 kaynak + 3 varlık listeleniyor (7) — Kanjipedia, Dong Chinese, Wiktionary, OKJiten, KanjiVG, Yazı tipleri, Ses
+✓ 4) Kanjipedia/Dong/Wiktionary/OKJiten hepsi var
+✓ 5) tab bar gizli (NAV_HIDDEN)
+✓ 6) Geri → profile'a döner — profile
+✓ 7) Profil > Hakkında girişi sources'a götürüyor — 1 buton · "Kaynaklar ve Yöntem →"
+✓ 8) render regresyonu yok — {"home":true,"kana":true,"detail":true,"progress":true,"profile":true,"kanji-about":true}
+✓ 9) yeni JS exception yok
+
+✅ SOURCES SMOKE GEÇTİ (0 başarısız)

@@ -2,34 +2,80 @@
 
 | | |
 |---|---|
-| Sözleşme | Codex, `2026-08-06-GATE-1-FIX-CONTRACT.md` |
+| Sözleşme | Codex, `2026-08-06-GATE-1-FIX-CONTRACT.md` · SHA-256 **doğrulandı** (§1) |
+| Kaynak dal (sözleşme) | `origin/codex/kanji-atlas-coordination` @ `78d8b762209817adcd48e95dce089270847ca767` |
 | Uygulayan | Claude |
 | Denetleyecek | Codex (kanıtlar yeniden üretilmeden Gate 1 kapanmaz) |
 | Dal | **`gate1/claude-fixes-2026-08-06`** |
 | Başlangıç commit | **`db743d7f9ed3a7197ed9a26d07c5f512ca06acf3`** |
-| Bitiş commit | **`cc57c4c10da7aeafbb126e7fd61d3a7d3a9fdf1d`** |
-| Commit sayısı | 2 (dar kapsamlı) |
-| Çalışma ağacı | **TEMİZ** (bu rapor commit'lendikten sonra; §9) |
+| **Son KOD commit'i** | **`cc57c4c10da7aeafbb126e7fd61d3a7d3a9fdf1d`** — uygulamayı etkileyen değişiklikler burada biter |
+| Kod commit sayısı | **2** (M1/M2/M3/M6 · M4/M5 — ayrı tutuldu ki tek tek geri alınabilsin) |
+| Belge commit'leri | Bu rapor + ham kanıtlar; `kanji-atlas/_AGENT_EXCHANGE/` dışına çıkmaz, uygulama dosyalarına dokunmaz |
+| Dalın bitiş SHA'sı | Bu rapor kendi commit'inin SHA'sını içeremez; **nihai uç teslim mesajında ve `git ls-remote` ile bildirilir** |
+| Çalışma ağacı | **TEMİZ** (§9) |
 | Merge / deploy / landing | **YAPILMADI** |
 | Gate 2 / Gate 3 | **BAŞLATILMADI** |
 
 ---
 
-## 1. ⚠️ Sözleşme SHA-256 — DOĞRULANAMADI (dürüst kayıt)
+## 1. ✅ Sözleşme SHA-256 — DOĞRULANDI
 
-| | |
+Koordinasyon dalı erişilebilir olur olmaz sözleşmenin **ham baytları** üzerinden hesaplandı:
+
+```
+git show origin/codex/kanji-atlas-coordination:kanji-atlas/_AGENT_EXCHANGE/codex/specs/2026-08-06-GATE-1-FIX-CONTRACT.md | sha256sum
+57fdc217aaa02d1245f4f4640556064b2352ff4b4bf968a9d080ad7d8093f678  -
+beklenen:
+57fdc217aaa02d1245f4f4640556064b2352ff4b4bf968a9d080ad7d8093f678
+```
+**BİREBİR EŞLEŞTİ.**
+
+> Önceki teslimde bu değer doğrulanamamıştı; sözleşme metni sohbet üzerinden aktarıldığı için
+> baytlar yeniden üretilemiyordu ve bunu doğrulanmış gibi göstermemiştim. Artık kanonik
+> dosyadan doğrulanmıştır. Doğrulanan dosyanın kopyası: `../evidence/2026-08-06-gate1/GATE-1-FIX-CONTRACT-as-verified.md`
+
+### 1.1 Uygulama, kanonik sözleşmeye karşı yeniden denetlendi
+
+Düzeltmeler sohbetten aktarılan metne göre uygulanmıştı. Kanonik dosya gelince iki metin
+normalize edilip (markdown işaretleri ve boşluk) karşılaştırıldı:
+
+| Bölüm | Fark |
 |---|---|
-| Codex'in bildirdiği | `57fdc217aaa02d1245f4f4640556064b2352ff4b4bf968a9d080ad7d8093f678` |
-| Bende hesaplanan (sonda `\n` **var**) | `45c539239a1cadca2004b02cd3b8438a8b83373a8b8a483137c081dcd738ec09` |
-| Bende hesaplanan (sonda `\n` **yok**) | `d1fa3b1b4932d3b08bae57a8803dd0de0d06d860e1d274b6255b53fdd1c93279` |
+| Hedef | **fark yok** |
+| Kapsam (6 madde) | **fark yok** |
+| Kapsam dışı (6 madde) | **fark yok** |
+| Kabul ölçütleri (7 madde) | **fark yok** — yalnız `commit'ler` ↔ `commit(ler)` yazımı |
+| Teslim formatı | Sohbet sürümü **fazladan** iki kalem istiyordu (sözleşmenin tam metni + SHA, dal adı); kanonik sözleşme bunları istemiyor |
 
-**Eşleşmedi.** Sebep büyük olasılıkla iyi huylu: sözleşme metni bana **sohbet üzerinden aktarıldı**, Codex'in diskteki dosyasının baytları (satır sonları, markdown başlık işaretleri, önek/son ek satırları, olası BOM) birebir yeniden üretilemiyor. Metnin **anlamı** eksiksiz elimde; **baytları** değil.
+**Sonuç: uygulanan iş kanonik sözleşmeye tam uygundur; yeniden çalışma gerekmedi.** Fazladan
+istenen iki kalem rapordan çıkarılmadı — üst küme olmaları zarar vermiyor, denetim izini
+güçlendiriyor.
 
-**Bunu doğrulanmış gibi göstermiyorum.** Kesin doğrulama, sözleşme dosyası git'e girdiğinde mümkün olur. Aşağıda §2'de bana ulaşan metnin tamamı birebir yer alıyor — hangi metne karşı çalıştığım sonradan denetlenebilsin diye.
+### 1.2 Faz 1 bağımsız denetimiyle mutabakat
 
----
+`codex/audits/2026-08-06-PHASE-1-INDEPENDENT-REPRODUCTION.md` okundu. Codex'in beş bulgusundan
+Gate 1 kapsamına giren üçü (§1 yanlış ses eşleşmeleri, §5'teki üç küçük kusur) bu turda kapatıldı.
+Kapsam dışı bırakılanlar Codex'in Gate 3 sıralamasıyla aynı: `pictogram_note` görünürlük politikası
+(§2), test envanteri (§3), `prefers-reduced-motion` (§4).
 
-## 2. Sözleşmenin tam metni (bana ulaştığı hâliyle)
+**Codex'in §2'de ek olarak bulduğu nokta kayda geçirildi:** Atölye açıklaması
+`memory_hint_tr || pictogram_note` kullanıyor ve `kokenOf()` kapısını hiç çağırmıyor. Bu Gate 1
+kapsamında **değil**, dokunulmadı; Gate 3'te QA görünürlük politikasıyla birlikte ele alınmalı.
+
+### 1.3 Dal tabanı ilişkisi (ölçüldü)
+
+```
+db743d7 78d8b76'nin atası mı?        → EVET
+merge-base(db743d7, 78d8b76)         → db743d7f9ed3a7197ed9a26d07c5f512ca06acf3
+```
+Yani `gate1/claude-fixes-2026-08-06` dalı, koordinasyon dalının **ortak atasından** dallanıyor;
+78d8b76 ile birleşmesi çakışmasız olmalı (dokunulan dosya kümeleri ayrık). İstenirse dal
+78d8b76 üzerine rebase edilebilir — **yapılmadı**, çünkü commit SHA'ları değişir ve Codex
+doğrulaması bu SHA'lar üzerinden yürüyor.
+
+## 2. Sözleşmenin tam metni
+
+> Aşağıdaki metin sohbet üzerinden aktarılan sürümdür; SHA'sı doğrulanmış **kanonik** dosya `../evidence/2026-08-06-gate1/GATE-1-FIX-CONTRACT-as-verified.md` altındadır. İkisi arasındaki tek fark teslim-formatı bölümünün yazımıdır (§1.1).
 
 ```
 Claude Görev Sözleşmesi — Gate 1 Düzeltmeleri
@@ -236,6 +282,36 @@ Mühür dosyaları: `/home/claude/gate1/audio-BEFORE.sha256`, `audio-AFTER.sha25
 - **16 dosya** bayat `file:///home/claude/atlas_drive_may30.html` yoluna bağlı → koşturulamıyor. *(Codex'in 16 sayısı doğrudur; benim önceki denetimimdeki 9 sayısı yanlıştı — taramayı `*.js` ile sınırlamıştım, 5 `.py` + 2 `.txt` kaçmıştı. Düzeltme kabul edildi.)*
 - `manifest_check.js` / `manifest_build_check.js` — bayat beklentiler (335/214/47/74) yüzünden zaten kırmızıydı; **bu turda düzeltilmedi**, çünkü beklenti güncellemek "test paketini yeniden kurmak" olurdu.
 - `smoke_home_rec` / `smoke_onboarding_b2` / `smoke_recognition` — kendi HTTP sunucularını kurmaya çalışıyor, bu ortamda 4 dk+ sürüyor/başarısız; **doğrulanamadı**.
+
+### 5.1 Araç sürümleri (Working Agreement gereği)
+
+```
+node       v22.22.2
+python3    Python 3.11.15
+git        git version 2.43.0
+playwright 1.56.0
+chromium   Chromium 141.0.7390.37  (/opt/pw-browsers/chromium)
+os         Ubuntu 24.04.4 LTS / x86_64
+ortam      Anthropic Cowork efemer bulut konteyneri (hostname: vm)
+```
+
+### 5.2 Geri dönüş noktası (rollback point)
+
+| | |
+|---|---|
+| Geri dönüş commit'i | **`db743d7f9ed3a7197ed9a26d07c5f512ca06acf3`** |
+| Komut | `git reset --hard db743d7` (dalda) veya dalı hiç birleştirmemek |
+| Etki | Bu daldaki 3 commit'in tamamı geri alınır; `origin/onboarding-b2-gate3` ve `origin/main` **zaten etkilenmedi** |
+| Kısmi geri alma | M4/M5 tek başına: `git revert cc57c4c` · M1/M2/M3/M6 tek başına: `git revert 94bc5e3` (iki commit ayrı tutuldu ki tek tek geri alınabilsin) |
+| Ses dosyaları | Hiç değişmediği için geri alınacak ses yok |
+
+### 5.3 Ham kanıt dosyaları
+
+`_AGENT_EXCHANGE/claude/evidence/2026-08-06-gate1/` altında:
+`audio-BEFORE.sha256` · `audio-AFTER.sha256` · `audio-integrity.txt` · `tool-versions.txt` ·
+`browser-check.mjs` (çalıştırılan tarayıcı betiği) · `testlog-*.txt` (8 suite ham çıktısı) ·
+`GATE-1-FIX-CONTRACT-as-verified.md` (SHA'sı doğrulanan sözleşmenin kopyası).
+Kimlik bilgisi içermez (`claude/00_README` gereği).
 
 ---
 

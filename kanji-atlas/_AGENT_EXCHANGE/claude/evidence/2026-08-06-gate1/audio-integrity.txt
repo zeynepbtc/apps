@@ -1,0 +1,11 @@
+Ses butunlugu muhru — Gate 1 (Codex sozlesmesi 2026-08-06)
+Kabul olcutu: "Mevcut ses dosyalarinin hicbiri sessizce yeniden uretilmez veya uzerine yazilmaz."
+
+Yontem: degisiklikten ONCE ve SONRA 473 .mp3 dosyasinin sha256'si alindi.
+  find audio -type f -name '*.mp3' | sort | xargs sha256sum
+
+audio-BEFORE.sha256  satir: 473
+audio-AFTER.sha256   satir: 473
+diff sonucu         : FARK YOK — 473 dosya BIT-BIREBIR AYNI
+liste muhru (ikisi de): 3b1dc83accaada928f92a032a09a6b8ed33ec97263ee8bbc10c0c250cc548d60
+git status kanji-atlas/audio/ : (bos — hicbir ses dosyasi degismedi)
