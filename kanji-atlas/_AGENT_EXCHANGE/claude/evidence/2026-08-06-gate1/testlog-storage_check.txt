@@ -1,0 +1,31 @@
+# Storage kabul testleri
+
+✓ 1) kana_state yok → fresh v1, recovery false
+✓ 2) sürümsüz → schemaVersion 1
+✓ 2) userHints korundu
+✓ 2) onboarding migrate (userProfile→completed)
+✓ 2) settings.audioMode legacy audio'dan (off)
+✓ 3) v1 state okundu, learned korundu
+✓ 3b) normal save → {ok:true}
+✓ 4) migration idempotent (iki kez = bir kez)
+✓ 5) truncated → recovery true
+✓ 5) orijinal kana_state YERİNDE (silinmedi/ezilmedi)
+✓ 5) recovery kopyası oluştu
+✓ 6) settings:null → default obje
+✓ 6) userHints:[] → {}
+✓ 6) srs:'x' → {}
+✓ 6) yanlış tip recovery gerektirmedi (guard yeter)
+✓ 7) eksik settings anahtarları defaults'tan tamamlandı
+✓ 8) bilinmeyen ekstra alan sebepsiz silinmedi
+[storage] save reddedildi — recovery modu (kana_state korunuyor)
+✓ 9) recovery save → {ok:false, reason:storage-recovery}
+✓ 9) bozuk orijinal payload hâlâ yerinde
+[storage] save başarısız — yazma hatası (eski kayıt yerinde)
+✓ 10) setItem hata → {ok:false, reason:write-error}
+✓ 10) eski payload yerinde
+✓ 11) userHints/cipherLearned/learned/srs/games derin eşit (korundu)
+✓ 12) DEFAULT_STATE oturum alanları mevcut (app load() bootstrap'ta sıfırlar)
+
+> Kritik kural kanıtlandı: bozuk/hatalı durumların HİÇBİRİ kana_state'i sessizce ezmez/silmez.
+
+✅ TÜM KABUL TESTLERİ GEÇTİ (0 başarısız)

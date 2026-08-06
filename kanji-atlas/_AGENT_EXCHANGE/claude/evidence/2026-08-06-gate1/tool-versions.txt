@@ -1,0 +1,7 @@
+node       v22.22.2
+python3    Python 3.11.15
+git        git version 2.43.0
+playwright 1.56.0
+chromium   Chromium 141.0.7390.37  (/opt/pw-browsers/chromium)
+os         Ubuntu 24.04.4 LTS / x86_64
+ortam      Anthropic Cowork efemer bulut konteyneri (hostname: vm)

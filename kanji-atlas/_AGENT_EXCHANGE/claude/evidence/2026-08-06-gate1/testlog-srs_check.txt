@@ -1,0 +1,21 @@
+# SRS selector saf kabul testleri
+
+✓ 1) boş srs → []
+✓ 2) next<=now kanji → kuyrukta
+✓ 3) next gelecekte → due değil
+✓ 4) mastery 4 + next<=now → due
+✓ 5) kana anahtarı 'あ' → elenir
+✓ 6) tanınmayan id kuyruğa girmez
+✓ 6b) diagnostic unknownKeys=[silinmis_id]
+✓ 10) next===now → due
+✓ 11) string/null/NaN/Infinity next → elenir
+✓ 11b) invalidNext = [hayashi,hi,hon,old] (kanji ama bozuk next)
+✓ 11c) now NaN → []
+✓ 11d) now Infinity → []
+✓ 12) iki çağrı byte-eş (deterministik)
+✓ 13) sıra: old, beta, alpha, zebra
+✓ 14) state mutasyonu yok
+✓ 14b) DATA mutasyonu yok
+✓ + radikal 'moku' → elenir
+
+✅ SRS SELECTOR SAF TESTLERİ GEÇTİ (0 başarısız)
