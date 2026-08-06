@@ -1,0 +1,1081 @@
+{
+ "olusturuldu": "2026-08-06",
+ "kaynak": "claude.ai Projesi: PROJECTS - JAPANESE",
+ "toplam_dosya": 176,
+ "toplam_bayt": 2132797,
+ "kova_dagilimi": {
+  "proje-kok": 8,
+  "claude-kok": 12,
+  "_AGENT_EXCHANGE": 1,
+  "baito-days": 14,
+  "japanese-flick": 29,
+  "kanji-atlas": 105,
+  "ortak-standartlar": 6,
+  "tools": 1
+ },
+ "butunluk": "sha256 dogrulandi, tum dosyalar eslesti",
+ "dislanan": [
+  {
+   "path": "claude/erisim-anahtari-github.md",
+   "reason": "GIZLI: GitHub PAT iceriyor"
+  }
+ ],
+ "dosyalar": [
+  {
+   "path": "DEGISIKLIKLER-v60.txt",
+   "bytes": 1663,
+   "sha256": "0dbdcde43c90547dbad605b832c5998b2bd2202ce179e624e71804d1eef8e8b5",
+   "grup": "D"
+  },
+  {
+   "path": "DURUM-raporu.md",
+   "bytes": 2673,
+   "sha256": "56c43b9da57344fd6fa926cf14c5358911eca021ca46f71e84f89528e8a75eab",
+   "grup": "D"
+  },
+  {
+   "path": "IKON-SISTEMI-notlari.md",
+   "bytes": 2840,
+   "sha256": "f05a92a59b8c0233fd368dd5aab65a3b5e309cb2f19c475f7afa64ef152398f8",
+   "grup": "D"
+  },
+  {
+   "path": "SESLENDIRME-eksik-liste.md",
+   "bytes": 31558,
+   "sha256": "8e7d73a3969a78baf6cbb04993f4af7a602c82543da05e297a32ccbda70f8892",
+   "grup": "D"
+  },
+  {
+   "path": "claude/STUDIO-OS.md",
+   "bytes": 17755,
+   "sha256": "397b5d831781c3b666dfd21bfff4040917e4abe2ce9803ea991c1fd36e174b50",
+   "grup": "D"
+  },
+  {
+   "path": "claude/_AGENT_EXCHANGE/claude/2026-08-06-KANON-TESPITI-ve-KANIT.md",
+   "bytes": 8957,
+   "sha256": "de5435d9060eb44f5c1dddf6bd0638356e7a0087a00db83daf9f5e70b626f9ed",
+   "grup": "D"
+  },
+  {
+   "path": "claude/absurd-hikayeler-uretici.md",
+   "bytes": 5536,
+   "sha256": "1ab9f3077204cdb2d3c5ca83102b83b8666adabe9e16b3e0df034cce05e17c89",
+   "grup": "D"
+  },
+  {
+   "path": "claude/aso-japanese-flick.md",
+   "bytes": 2342,
+   "sha256": "e14e5a6b5690bfe2911bdc6ea0183a010a392327da4c6d8a42be0cdb1e7486fb",
+   "grup": "D"
+  },
+  {
+   "path": "claude/baito-days/CHANGELOG.md",
+   "bytes": 12539,
+   "sha256": "d13151dd8db01116afea73d95b3cce750ab97e701ce067a7ee94a088de121597",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/baito-C1-playtest-kit.md",
+   "bytes": 3179,
+   "sha256": "bf13f590cd560532756921086b72c603971ba1636c04d25ec5f76c4d3ac4988b",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/baito-days-LEARNING-DESIGN.md",
+   "bytes": 4104,
+   "sha256": "bcca76c953493b22803a1afdc92d5fbd96a78d1a28c6781c32cb89ffd40f707f",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/baito-days-roadmap-MASTER.md",
+   "bytes": 7047,
+   "sha256": "8a8ac12dc2379c1c40ed90bcfcfe99da0bd9d128486dce9fa2e78dcc0f209c25",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/baito-days-vardiya-mimarisi-ve-dikey-dilim-plani.md",
+   "bytes": 7058,
+   "sha256": "cfe9667872c0fd32b7267374d95fe628c1230d5ff5245b47a0a4a58af7d93204",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/baito-roadmap-pano.html",
+   "bytes": 23895,
+   "sha256": "fc3fde6d0deb93073a25919c26e85b8688d421f4ca07868768f4b15aefb1f4fa",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/100-yen-omurga.md",
+   "bytes": 6582,
+   "sha256": "907620d54c4a7c04901dafba857f48d0b3ee7dfa0e1c94e2f055a517ac2ce5a0",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/baito-A1-engine.html",
+   "bytes": 46116,
+   "sha256": "edb7f9b379ba6ed953f86e272a6a55c133aafb32bea3d4b9f692771d94518049",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/baito-v1-slice.html",
+   "bytes": 21471,
+   "sha256": "ddb8b18fa95e4790c923df0e8288c88b099cbd02d029dbdd9043a7af98ba0e94",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/dukkan-kartlari-v0.1.html",
+   "bytes": 13282,
+   "sha256": "9649dae6960ab80e276eb72a912e5fb1255fd3427077666c71852d9d1d7d1dff",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/konbini-scene-taslak-NOTU.md",
+   "bytes": 1530,
+   "sha256": "96318a5de5c680260454b8c4319d40ec0511772c3e207d46b43b859e55400e02",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/storefront-PROMPT-ve-element-sheet.md",
+   "bytes": 4482,
+   "sha256": "030bce0b3c4c08dcfd904469f78f431e3bbfa2a137e8c2ccf13a4ab6bffb06ad",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/storefront-gorseller-NOTU.md",
+   "bytes": 1818,
+   "sha256": "b42c99ebba48fdc8b94428284d94d574128aa9ec5caa2435e0ab0907789d7f33",
+   "grup": "C"
+  },
+  {
+   "path": "claude/baito-days/taslaklar/storefront-sheet-v0.1.html",
+   "bytes": 14479,
+   "sha256": "09ad6abaa9cb03fe5b50f7a6d6ce518ada41716af78fd047e41619a0a77d8399",
+   "grup": "C"
+  },
+  {
+   "path": "claude/dosya-adlandirma-sistemi.md",
+   "bytes": 3038,
+   "sha256": "8d0b7a36d56f9fcd6c86b733a10726bdb8bf3bb76834e820902723af17403bbb",
+   "grup": "D"
+  },
+  {
+   "path": "claude/icerik-agaci.md",
+   "bytes": 4997,
+   "sha256": "2cdba40f031a6ecd210197f1e253e500a340be2c5f53e16fa3ad60cfd85878be",
+   "grup": "D"
+  },
+  {
+   "path": "claude/japanese-flick-mecra-parite-ve-kararlar.md",
+   "bytes": 1945,
+   "sha256": "7e49ec7635dc448c5b8d703e390bdf714e9ad9999b38a9acde7056dd999734e1",
+   "grup": "D"
+  },
+  {
+   "path": "claude/japanese-flick/1.0.5-YAYIN-PAKETI.md",
+   "bytes": 13238,
+   "sha256": "75522d925b089a102972ca1923e5cdfb2e0fb15aa80f0d6e39dfbaef6cfccb54",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/1.0.6-HAZIRLIK-RAPORU.md",
+   "bytes": 6015,
+   "sha256": "dd461e343dc85dbd1f8e64b51aa843b21d9a9170b5aab8747b5c0c3e96898801",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/1.0.6-SES-KAPANIS-ve-DERLEME.md",
+   "bytes": 4978,
+   "sha256": "4f81042a79c129cc7a4efbacfa8ceceb70ae8123dfe46a587ada62ba5a891f4b",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/28-TEMMUZ-OTURUM-ENGELLENDI-hazirlik.md",
+   "bytes": 5632,
+   "sha256": "f416830e4f44f4baa578b89d40dd102b7c05fb37194e81c250f70cc23603e51a",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/A1-KAPANIS-44px-ve-FAZ2a-nihai.md",
+   "bytes": 7173,
+   "sha256": "afbb61c6a21205981d7b4120be48c2b01b14b0b102ed4f1de0f0e1b13182afec",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/ADAY-SES-DEGERLENDIRME-4-ERKEK.md",
+   "bytes": 9528,
+   "sha256": "09d70f1481ae7ea3e86fc6ed55f7eb0e1c62fd751cbe90887d2653f218461cb5",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/ANDROID-TESTCI-KAGIDI.md",
+   "bytes": 2457,
+   "sha256": "5d6f42474010a4a5fdac2f457b3a3d2c4e1c1e45cc412fcb5d5559cf99140849",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/BULGU-260-sessiz-kelime-dosyasi.md",
+   "bytes": 6837,
+   "sha256": "f69cfa16615a4aad1ab4723332f12fa052ff92cbe57ff2a32662de11869578d3",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/BULGU-267-kelime-cihaz-TTS-bagimli.md",
+   "bytes": 3040,
+   "sha256": "839fc4aa39ae8293352664a44e05b82c80fb43d3cecc7bee6120782e7f878e8b",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/BULGU-Android-TTS-yok-ve-ikon-karari.md",
+   "bytes": 4765,
+   "sha256": "c902e6138afe83b5789aa519c2f6a5cf943aa77316bcd2561cbed1df0764e51b",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/BULGU-android-ikon-kirpiliyor.md",
+   "bytes": 4094,
+   "sha256": "9f3d45568d394ad9f03dfd7c1a747479a9ae1b922afda1ed82fa3a0ed59a0dc2",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/BULGU-cihaz-ilk-90ms-yutuyor.md",
+   "bytes": 7323,
+   "sha256": "e1d15389f7afadd2a4b0e29f4a92aebb96cd1932693cc0e6eb484fe0dcf94b03",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/BULGU-devam-butonu-ilk-dokunus.md",
+   "bytes": 6052,
+   "sha256": "00aae38f10e2e1a2d6c40c2b857ac068b6d402db0d2b4a9602d3f7231bc80e7f",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/BULGU-eksik-unsuz-37-dosya.md",
+   "bytes": 5632,
+   "sha256": "6dcb56b7b8e2efa6c67768d9d78e618643442b3e9efa00da47fd945c6c231456",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/CHANGELOG.md",
+   "bytes": 1041,
+   "sha256": "fd373174baadf65cb4a3fcd56d1873e86c8035fe45eb94b33479eb8eee14726e",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/DEGERLENDIRME-12-ONERI-fizibilite-raporu.md",
+   "bytes": 32188,
+   "sha256": "900b8b726706f4fb2108593881ffde6880ba0224162841222e3cb7f3485d0b8e",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/DEVAM-NOKTASI-guncel.md",
+   "bytes": 8184,
+   "sha256": "441df0fc83b49cb11e87d955d8e0b87c26cb0dd5bd4a2993e1fc6b3ec6ed244c",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/FAZ-2a-RESPONSIVE-KAPANIS-1.0.5.md",
+   "bytes": 6938,
+   "sha256": "57d80667c439fd76ac8e974b96130ea163da05d97a3b50f335ac7cbae6c171dc",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/KIYAS-MEVCUT-vs-HADOU-liste.md",
+   "bytes": 4653,
+   "sha256": "d99992801c133ab70240451e1bc81e4c3bea2110b469fa5254cc8ed92acb5c21",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/NATIVE-TTS-kuruldu-ve-cihaz-test-plani.md",
+   "bytes": 5750,
+   "sha256": "5909e64838c656145518b1d1c73f8271c4d0d4f1a94ca08e46fb2c335e812afb",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/OTANI-37-DUZELTME-PAKETI.md",
+   "bytes": 4094,
+   "sha256": "4ec7bbe8458352010377f26c00834fec7e17b1ab6212836e1510547aa4a62afd",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/OTANI-v3-KIYAS-RAPOR.md",
+   "bytes": 5666,
+   "sha256": "3e5ca2e725d555c10a7cedb7ce7a26eecf6f4d13a172c98b513c58f45fcdbe7a",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/PUANLAMA-KAGIDI-aday-ses.md",
+   "bytes": 3380,
+   "sha256": "3ae5d16222e426e12d244fb2c2ff93634ba217617110df091f79941d4ab05db4",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/RELEASE-ON-KONTROL-KAPISI.md",
+   "bytes": 3199,
+   "sha256": "53a81c49f8407a77c822e35440dbe3ea1f1f27b130de5110e861034b1ff03551",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/SECMELI-LISTE-Kenzo-vs-Hadou.md",
+   "bytes": 6792,
+   "sha256": "ba6aed7f505c5931afbc69d8336b947378a02945fbe40f650c563f53e68608d5",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/SECMELI-PAKET-RAPOR-Kenzo-Hadou.md",
+   "bytes": 5882,
+   "sha256": "3b295d91ec74d39d158526787628257787a0ac866821899b08622a8e92b68cdf",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/SES-GECISI-MUAFIYET-LISTESI.md",
+   "bytes": 4085,
+   "sha256": "124b45086c27824b917016aca10cdf9127ca4a2ff28eb1d4e2e30524a070e421",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/YOL-A-KAPANIS-260-sessiz-kaldirildi.md",
+   "bytes": 5119,
+   "sha256": "71eb14ef41fe825a8c54b7cfa688daf2fd42a0f81101deb9430df0195528fa7b",
+   "grup": "C"
+  },
+  {
+   "path": "claude/japanese-flick/japanese-flick-roadmap-MASTER.md",
+   "bytes": 4825,
+   "sha256": "e1b79dfc3519cfb11c3bd8170fc3e0e4065bd56f272929089fb4bff78eb1a7d4",
+   "grup": "C"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-01-KOKEN-YAZIM-REHBERI.md",
+   "bytes": 9703,
+   "sha256": "704f8c897e55ff8d4d8f8f049ed4deae959304a1db2747a6c5da65169d325604",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-02-MNEMONIC-POLITIKASI.md",
+   "bytes": 5247,
+   "sha256": "c79bbf1ffc262edae013a9fed4528e9bff5175d25a3f3bb49c36f0a4709941b8",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-03-KAYNAK-POLITIKASI.md",
+   "bytes": 11238,
+   "sha256": "9805df7eeaa0e944aca246f9e2bee65ff7dd512825a9a67e9809f5bf90f29a55",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-04-ODUNC-USLUP-KARARI.md",
+   "bytes": 9952,
+   "sha256": "cc62fac49958c159ca4d40b8f3fa99075fc24867b2e02f03cdf7aa8a30ce36e7",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-05-MEKANIZMA-BELIRSIZLIGI.md",
+   "bytes": 4953,
+   "sha256": "747dae3c336a8a3bebcec98b8d1d01dadec6b6ce5c5ab5098258562a5c96673c",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-32-BOS-RISK-TARAMASI.md",
+   "bytes": 7687,
+   "sha256": "45db653efaee633ee224518ededc56a415516bd800ad58d4c27bda9b5d8959f0",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-DURUM-ve-FAZLAR.md",
+   "bytes": 8319,
+   "sha256": "894c6b11c089b88eb73d9882ad8d4b95a4782e886c5ae3edcd6f33cefbd9e1ac",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI10-SOL-SAG-QA-RAPOR.md",
+   "bytes": 10406,
+   "sha256": "e278fec5f4ec4a4c76ef8b96350a80a62908d71bca3932c139e03a28d04013ff",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI11-QA-RAPOR.md",
+   "bytes": 8622,
+   "sha256": "ad9f9ca57353d129aa99e627eb579062936deda1a5bb05910026356431c3dc3a",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI12-ODUNC-QA-RAPOR.md",
+   "bytes": 9800,
+   "sha256": "e3b70e5771365383a1ad7aab7725fe380fd18ca23acb6826b119f66e7db7d77d",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI13-QA-RAPOR.md",
+   "bytes": 10315,
+   "sha256": "af86c804b9e12121d62d5af151ebff8cc74e167ca8ca32b4282d330c96da8861",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI14-QA-RAPOR.md",
+   "bytes": 9805,
+   "sha256": "fdaf9bee51fb70b007525d49436f3935a816f95f92664a3720d6425b86788e38",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI15-CHICHI-QA-RAPOR.md",
+   "bytes": 6163,
+   "sha256": "2437f704930542bfe4081d0a5990139dc357ba9f05b089cc6e4737bf6b1390ea",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI16-MINAMI-ON-TARAMA.md",
+   "bytes": 7879,
+   "sha256": "f6255d2387551aedc58727a9e290def19c6a3122c6f74fc2e26ca3fa3cc8b6fa",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI16-MINAMI-QA-RAPOR.md",
+   "bytes": 7141,
+   "sha256": "aefd469610f6af6caeccb0cbab16d88ee9892b296ca84196aa6031de4fd9c56e",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI5-KUCHI-QA-RAPOR.md",
+   "bytes": 9398,
+   "sha256": "c2e5b03eeb948538cb66a3c86eda81d4a7420cdba7f4050b17aa31ea62c3e942",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI6-MEI-QA-RAPOR.md",
+   "bytes": 10245,
+   "sha256": "61d54f68b8e212e67d68513cb38c81212c9204eaa893a258b47794983c61facd",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI7-BOLME-QA-RAPOR.md",
+   "bytes": 7011,
+   "sha256": "4d5ee51756bee6853f4212532fa7b4a8c338c4bb6fc9adcaee206dbf0c11f8b5",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI8-TEMEL-QA-RAPOR.md",
+   "bytes": 7368,
+   "sha256": "ca9eb5a396daae1b1a0ecb1ef7dcac64bfb5eeb3b7b07342b11ceeccdeb5f3e3",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/AUTHORING-PARTI9-QA-RAPOR.md",
+   "bytes": 11263,
+   "sha256": "dc9e176ba9e05fd88313feac4212e550f756e3892512dda03745033c82cb5c43",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/BACKLOG-IA-icerik-pratik-kararlari.md",
+   "bytes": 8855,
+   "sha256": "3154852f360d27f1e05c813e2c2320ffc4270c4da0ef5f7b3634c383a2645bfe",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/CHANGELOG.md",
+   "bytes": 4475,
+   "sha256": "d39008fc49c88152937c1b6337c1a8bd4a8321201b9ccacb39ad3940de61b2b6",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/CLOUDFLARE-PAGES-kurulum-rehberi.md",
+   "bytes": 5848,
+   "sha256": "4b9c7a98606df7bcd5a33c22651c464e13a5556c7f22e22dfd401245c8493a5c",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/DEVAM-NOKTASI-guncel.md",
+   "bytes": 6590,
+   "sha256": "3de864a103432f28498eb55f9c3843b5bec29ca95b103e81a766bd3c821b0698",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/EDITORYAL-UYUMLAMA-BEKLEYEN.md",
+   "bytes": 5721,
+   "sha256": "61e0bb5a392670be5ed792bd2bfcf0aa5de88291e3cef643170039f11710f995",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/FAZ-O-oyun-revizyon-DURUM.md",
+   "bytes": 2898,
+   "sha256": "2486c187fb6bacb7e54bb155d113a79764e50970727b40dd2e312df89eda54c0",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/GEZINTI-REVIZYON-BIRIKTIRME.md",
+   "bytes": 16361,
+   "sha256": "02b744a5baf18be5ead9797e757f0eb20aabacce3a835113af1a061132d9131c",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/GPT-brifing-faz2-kalem1.md",
+   "bytes": 4587,
+   "sha256": "7809ae25a64be67550dc4e9730242bfd9b9bc72b4b2dbf6300e0b0a785f5a3e4",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/GPT-brifing-faz2-ses-adim6.md",
+   "bytes": 4269,
+   "sha256": "8932f7796c0ff2160f2b28583510afc517971bfeab30a16693250829d60121f1",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/HOME-GRID-EDITOR-PROMPT-referans-hizalama.md",
+   "bytes": 3225,
+   "sha256": "79fd3867f327defe6a1b32eb33d1da90a75f318fd724d3fb166489cd37cb64e5",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/ICERIK-DENETIMI-FAZ-I-bulgular.md",
+   "bytes": 3682,
+   "sha256": "b901dd1c6297ae54618f7cf991e6fb20390a93ee4691576385a82b47c74a4065",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-CONTENT-AUDIT-BATCH1-RAPOR.md",
+   "bytes": 5736,
+   "sha256": "18bad095a7f349a11f0e558aab4edbe4da5fe0b6a49ce803dc6d680ecf1f4109",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-CONTENT-AUDIT-BATCH2-RAPOR.md",
+   "bytes": 4487,
+   "sha256": "84e105a6712374cdc3b5a868e39e5ba05eb070f124f5f4efb4a2e17df74e5cdc",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-CONTENT-AUDIT-BATCH3-RAPOR.md",
+   "bytes": 3639,
+   "sha256": "54c50bdc0119550e6d25844115f5836ef176c6cb0e7752a57e7c9b38b3b74811",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-CONTENT-AUDIT-BATCH4A-RAPOR.md",
+   "bytes": 4402,
+   "sha256": "84c8df48ce65ff4111a6f322396ded31ef9d64b8e8e295f97b7a943d46641935",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-CONTENT-AUDIT-KAPANIS-MASTER.md",
+   "bytes": 4093,
+   "sha256": "db28ddd010ba825c0bc2950c623394f40a2c050ed4a6ecb491808c90c984e06a",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-CONTENT-AUDIT-PILOT-RAPOR.md",
+   "bytes": 6732,
+   "sha256": "9a082e2e1d9dda0110c6de7c19e20f0c101522f796add013d177761fe6460ac9",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-CONTENT-FIX-KAPANIS-BCD.md",
+   "bytes": 3252,
+   "sha256": "3d51fb39f0a0c33100933b857dfca6dd09257b2f50d1470524630908abfa3802",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-DENETIM-YONTEM-KILITLI.md",
+   "bytes": 4898,
+   "sha256": "f5317b4204064ba78f12d628f06c24972f16ff85050c2101cf6538ba2dd905b4",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-FIX-FAZI-UYGULAMA-PLANI-v2.md",
+   "bytes": 7636,
+   "sha256": "9025c4c146315fc54215b1cb3ff222affb25df444fd7579dd5640c583ce1458b",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-FIX-FAZI-UYGULAMA-PLANI.md",
+   "bytes": 11987,
+   "sha256": "33cfd146a95b0d3cf209e4aa869fcc9416bbb4c9223cb2ec0d1966e4867a019d",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-ICERIK-DENETIMI-v2-PLAN-DURUM.md",
+   "bytes": 5899,
+   "sha256": "6ef7407337e444817961364711a2bb313a6f306db1f1134db7022865cbf05fa7",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/KANJI-KART-KOKEN-vs-HATIRLATICI-arastirma.md",
+   "bytes": 6597,
+   "sha256": "33a4354cd6e995fd41e30670e35047aa23156203a4faa152331815c61a62c95c",
+   "grup": "A"
+  },
+  {
+   "path": "claude/kanji-atlas/NATIVE-WRAPPER-FIZIBILITE.md",
+   "bytes": 5635,
+   "sha256": "29478508d33e9266d56f9056a484041d9efcc0317cde515638a48ec78666961d",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/NAV-MATERYAL-TUTARLILIGI-KILITLI.md",
+   "bytes": 4037,
+   "sha256": "01c6e07cf758f7b8ac52381e2a499f42afc0cedc8c6e7a3a78d97b5f4b8b9e2a",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-ADIM7-GATE0-GATE1-durum.md",
+   "bytes": 3245,
+   "sha256": "b037a3574bc2f1fa1291ba3378094c61fa5cb6d017dddff16c65774d501dca50",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-ADIM7-GATE0-font-sonuc.md",
+   "bytes": 1893,
+   "sha256": "4cce167c3c3e2b33fdcf08edb8ff4452d3821e2e6f8bfe5b20a4e99e00875358",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-ADIM7-GATE3-staging-kit.md",
+   "bytes": 9146,
+   "sha256": "17d0ac3be947a16d65dc2a6a377eee48e18060b80126b50e0e5251a6375e3c9a",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-ADIM7-uygulama-plani.md",
+   "bytes": 17519,
+   "sha256": "7c751fbc0fe7f2bd61f4720bf10a81360bdf3fbb7c39802f10c771733877d6b0",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-B2-akis-haritasi.md",
+   "bytes": 12471,
+   "sha256": "dfd7de775030ffd057f61990775b050ddda8270466a6edac857d5c7cfe576f2e",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-EKRAN-CILA-NOTLARI.md",
+   "bytes": 4538,
+   "sha256": "ef28a628e17ccbae5506027ab227c5890ad700148f5b0967ddaef8dcb10885a1",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-R2A-metin-ve-dogruluk.md",
+   "bytes": 6650,
+   "sha256": "5624da8c21354ffe2d1e74b893c6c1ff0a64c0e5510897adee1f9eb6e44fc74a",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-R3-tipografi-hiyerarsi.md",
+   "bytes": 13977,
+   "sha256": "436c66cc1d51a8579591fb71483ac986a9e46a572218c966769d074f66c7921b",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-SADELESTIRME-tanima-merdiveni.md",
+   "bytes": 6291,
+   "sha256": "e836efaad5a575fe486128200e01032fcdf9e18e0bca6dc1b565a7b7dab1a9b2",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-SADELESTIRME-uygulama-plani.md",
+   "bytes": 5516,
+   "sha256": "b143dcc78ed52f52c1607622b511ad11990d2d4c497317d2aa6eea54bd26bf44",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-SADELESTIRME-yonlendirme-haritasi.md",
+   "bytes": 6215,
+   "sha256": "b1cafa1adea90eaf63618550b94600903d379d24b8c590a46d2472e015ccafef",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-akis-secenekleri-adim3.md",
+   "bytes": 8803,
+   "sha256": "0a9ddc53c908d4745b225a7887486cd7067aa75507eadf38c4ed07c35fc7d29e",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-envanter-adim1.md",
+   "bytes": 9723,
+   "sha256": "a15e0c2f4d43c61c5a4e2013776c5987909f8cc8d3343c2820f57fecd0b17e99",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-fazi-calisma-sirasi.md",
+   "bytes": 3626,
+   "sha256": "4c9bfe1b59e8014164921be7887ba074549ef0f16d7d5d99e83050d1976ad96b",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/ONBOARDING-precode-a11y-kisit-kontrolu.md",
+   "bytes": 4988,
+   "sha256": "fd1f3399339434dd4d334634dfc0679c970e2f136a5c56e5f7e3292c2093e136",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/OYUN-REVIZYON-NOTLARI-FazO-referans.md",
+   "bytes": 5569,
+   "sha256": "880cfa1750623874374fddbc409db66e641815bbac58e5db0d8ebe8dc849cb52",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5-MERGE-plani.md",
+   "bytes": 8997,
+   "sha256": "12ce311e5dbf57bc424fe4f4caa79da90a116d93eccca36ff7820e1babf5bae0",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5-RELEASE-durum.md",
+   "bytes": 2034,
+   "sha256": "246934f9af775310b693a84ead28f314d6dfd84559758151439b4ebc6d5e66fd",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5-plan-KILITLI.md",
+   "bytes": 21964,
+   "sha256": "0d91e449d273798ed62c2aa9c08305450ddc9ad4907e7d7253866254c9675556",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5A-DURUM-ve-DEVAM.md",
+   "bytes": 4809,
+   "sha256": "6990c96606b149f2e6867a4ee9669fb828944be9dce3fe55c5f5f1194a93256d",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5A-staging-deploy-ve-telefon-smoke.md",
+   "bytes": 7616,
+   "sha256": "32331b8facdee1ce9cea5adccc0ef06e70283e23139462d50c0c7913489088da",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5B-DURUM-ozet.md",
+   "bytes": 3684,
+   "sha256": "bacc0a7892a454fe160c624f0ec2eaf436f1e620450623d89d9bfcdf316a406c",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5B-kararlar-KILITLI.md",
+   "bytes": 2636,
+   "sha256": "8045051855455931917daaed656ff4220cf74e0b30e20a1a2e70d5fa65a97d36",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/P0-5B-plan.md",
+   "bytes": 5877,
+   "sha256": "03f9e5f8f27b427cef0625ab0f18ae83754453492d794d568d22515f4bf4600b",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/PARKED-content-governance-regression-SSOT.md",
+   "bytes": 2647,
+   "sha256": "04d6c6e8c0fdfdaeb25577a1c20df53b2c315a2cd79e9b89f7a3f4dd2c79de4a",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/PRODUCTION-LINE-REVIEW-GPT-vs-CLAUDE-v2.md",
+   "bytes": 5523,
+   "sha256": "a538f720e90188afb4331321b67f9bd932387ad34f02955e61ea728597337e0d",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/STAGING-mimari-arastirma-ve-oneri.md",
+   "bytes": 6362,
+   "sha256": "fc0a94ff58c1db7b9548366d8f36065de6a772e540775dda4deef6461e8a030d",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/URETIM-YOL-HARITASI-GENIS-TABLO.md",
+   "bytes": 8701,
+   "sha256": "cad1e79b98348825656eb82d55c086622c27596233303d4e2b20621cc635b0db",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/YAYIN-ONCESI-EKSIK-GEDIK-DENETIMI.md",
+   "bytes": 12931,
+   "sha256": "f209a1b5a5bd5b2b1ae2eddb513e4570dbbad447d921e963a42cb3b0bfc9c08e",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/YAZI-MANTIGI-HUB-REVIZYON-tasarim.md",
+   "bytes": 8600,
+   "sha256": "cb6db8f8101bdf88eed6644f013aefbcd4f69d0584f224ef0be8ae3117430514",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/faz2-kalem1-canli-familystrip-sonuc.md",
+   "bytes": 2678,
+   "sha256": "8166536ee44a4d47358ccbc4f6c314f759d4386a0c0dc2d3ec332dca4eb9bd48",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/faz2-kalem1-karsilastirma-raporu.md",
+   "bytes": 4048,
+   "sha256": "ed2dbe8890140a63a5de544cd615d2293eb601b23c7f3ddefc0281721deb66e8",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-FAZ1-denetim-raporu.md",
+   "bytes": 10848,
+   "sha256": "3f228d0d738df8965b6cf46e8f27a82fe27486a6a38d4053e0de1a9f4475d8ef",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-FAZ2-plani.md",
+   "bytes": 6438,
+   "sha256": "a47ea5e0869f70cd397ae5003a388e225512b23de5704c55627e9e54333dd95a",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-IA-ekran-haritasi-Oturum2.md",
+   "bytes": 4372,
+   "sha256": "56ea964c8c399f3a5067d26888d10f94fa97267ac1bb95a2a88190e0c4ed68c2",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-LOCK.md",
+   "bytes": 2993,
+   "sha256": "88b381f39f2690c26e9eeee8d026a2014b0f2a555a4cbe17537f1fb55e911f86",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-URETIM-PUSH-plani.md",
+   "bytes": 11154,
+   "sha256": "0acdd05f833d9f6d338236d9901d93d0c17b2cc0abce2e0df684d315177729e8",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-URETIM-ROADMAP-birlesik.md",
+   "bytes": 10394,
+   "sha256": "6ac4bd34d36150231685155883263e10cb7f6b6eca3c3e9ba47517a358f2b65c",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-cihaz-gerceklik-safe-area.md",
+   "bytes": 1938,
+   "sha256": "1fd946b9479a7a655d589a57886d9cac22223cd2399c33552b8513a414a06edf",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-onboarding-sozlesme.md",
+   "bytes": 5002,
+   "sha256": "409a4cdccd0f85991f240cf58908c02f657199095f23b67b74dafd7340423300",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-ses-adim6-sozlesme.md",
+   "bytes": 3658,
+   "sha256": "800295da9ef1d711edb185229b73ba57ddae263cad0166ca88923b67313f9ab7",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-ses-manifesti-envanteri.md",
+   "bytes": 6615,
+   "sha256": "d689c0685b9eecd43fa67f63197eac1a9fdd0ea4ca4ee23b2536cf1aba6d358d",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-ses-manifesti-sozlesme.md",
+   "bytes": 5431,
+   "sha256": "5c79891e6b5a653424a1c69046eee6f0a4a7ab8692821e569587287fde245632",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-srs-envanteri.md",
+   "bytes": 8967,
+   "sha256": "54fb32ef9bfc8d7a396999f94d8cfabf70fb28eb1403049a5d823cde5326f2e3",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-srs-sozlesme.md",
+   "bytes": 6503,
+   "sha256": "46951dcf0b1aa4b528b78d35ed5f021da75f5b77c5f70b226713b4589b74bfd2",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-storage-envanteri.md",
+   "bytes": 4273,
+   "sha256": "e399a871698a31961d42d180930b0f5ed3b0f9bd17b51da90558211e01b0fe1d",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz2-telefon-smoke-kiti.md",
+   "bytes": 4219,
+   "sha256": "1452056cd98c48004de1c042e940560299cba5b696b1b0690b850b52b8e7780c",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz3-IA-mimarisi.md",
+   "bytes": 7337,
+   "sha256": "f35ff2a19cc2b50001ae00bcdae5d7a5fb773ab96c8167351fde390e2ece28b9",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz3-cizim-denetimi.md",
+   "bytes": 3123,
+   "sha256": "4d688229d86c989af2e439a0ded0368ee6320d79151f04995d17ec7177dfd01a",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz3-ekran-envanteri.md",
+   "bytes": 3805,
+   "sha256": "885b6ac4f6a39783f0e47f401ae60f36e4ea7f3581e3e597906c60aa6b6f9b0f",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-faz3-plan.md",
+   "bytes": 11206,
+   "sha256": "65d3a1237608b509653dd07ce12b902d2730cf91504a5510037b259024fd9d7d",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-jel-nav-sozlesme.md",
+   "bytes": 5665,
+   "sha256": "4dd4ebe9e92b996b6144b1f1debf87b272fb05d3bae8c8a730e3bd1f9b2e972b",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-karar-gunlugu.md",
+   "bytes": 22102,
+   "sha256": "cdde1a2b4ef76db2622d507034b7dbc390c71af027c495af97d1de5a954b0c40",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-ortak-mastery-modeli-spec-KILITLI.md",
+   "bytes": 9251,
+   "sha256": "bbbe45dc8931f45d87db61e362522fa648513546a116152ddd922e42bc4fba7c",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-pazar-arastirmasi-faz-kararlari.md",
+   "bytes": 2800,
+   "sha256": "fb9ba7400275c5c0844b3aefb123867ee800c3c4031263050ae0e4a5a5f1a502",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-roadmap-MASTER.md",
+   "bytes": 6196,
+   "sha256": "3250ab2fd77faf4656114038f038943949f611c1137a54bf8e128625d11c87eb",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-ses-eksik-kayit-listesi.md",
+   "bytes": 5451,
+   "sha256": "fcf9ef67f1d30008e12e78704b9045ee890d7abd36b47872c706fa5344e4a59c",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/kanji-atlas-ses-rerecord-ve-QA-bulgular.md",
+   "bytes": 3919,
+   "sha256": "d7c3f2026e7b002265e8817def920786b76c5c6c94364432e7fb4a62a8df9191",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/pazar-arastirmasi-GPT-dersler-CLAUDE-degerlendirme.md",
+   "bytes": 3816,
+   "sha256": "51c816ca4f896b857643eb5d1d50c44d24f90d18d26b3390f09c41b7b2c763ce",
+   "grup": "B"
+  },
+  {
+   "path": "claude/kanji-atlas/pazar-arastirmasi-GPT-dersler-MASTER.md",
+   "bytes": 8797,
+   "sha256": "8274b6ef3ca83d3ca9562bf4fef5ffa1b202cbacdc521bf3579f2af1372b9e8f",
+   "grup": "B"
+  },
+  {
+   "path": "claude/ortak-standartlar/AILE-IKON-SISTEMI-flick.md",
+   "bytes": 3939,
+   "sha256": "5992e655e2e97230a8d1b2ab5991d05f72657cb5bf3f4da305ed83e9969f06ab",
+   "grup": "D"
+  },
+  {
+   "path": "claude/ortak-standartlar/DENETIM-CHECKLIST-her-uygulama.md",
+   "bytes": 3710,
+   "sha256": "eacc696b2eb1685cab93bb68aba7303e1845600e9edb648f72010cb1ccc09523",
+   "grup": "D"
+  },
+  {
+   "path": "claude/ortak-standartlar/IKON-LOGO-TASARIM-DILI-referanslar.md",
+   "bytes": 3035,
+   "sha256": "494b20d9cf5c7061ece267c71ad194a74143b334d7686697d6ec069ae7c1c792",
+   "grup": "D"
+  },
+  {
+   "path": "claude/ortak-standartlar/KANJI-ATLAS-LOGO.md",
+   "bytes": 2152,
+   "sha256": "ae3ddbd12477414fb2df77f5edab3c98d5e77d93a026ca5852e154151ea6cc7d",
+   "grup": "D"
+  },
+  {
+   "path": "claude/ortak-standartlar/SHARED-STANDARDS.md",
+   "bytes": 9419,
+   "sha256": "4a12f891808c187bbde8f9dcf8ccdbc2781bd1bb0b7f4c41c1de67d5cae8228d",
+   "grup": "D"
+  },
+  {
+   "path": "claude/ortak-standartlar/STUDIO-VISUAL-BIBLE.md",
+   "bytes": 9302,
+   "sha256": "5288cf6528f7c500dfa0e42fe04b6f283343d520d48db6eac9a794a2b6a2e18a",
+   "grup": "D"
+  },
+  {
+   "path": "claude/oyun-tasarim-standardi.md",
+   "bytes": 5630,
+   "sha256": "d740057939e01607a3b7e09f27f15d1cf5605441852c7c152983dae8ef9787b9",
+   "grup": "D"
+  },
+  {
+   "path": "claude/parttime-japan-app-konsept.md",
+   "bytes": 18923,
+   "sha256": "bbaf16c1144df9dc3e233e9a46301c0175fe5212426855287e649a9c9788b940",
+   "grup": "D"
+  },
+  {
+   "path": "claude/proje-gunlugu-sistemi.md",
+   "bytes": 4629,
+   "sha256": "399e772b3d04b6c1367588a3837ff23511172cad115f80671b2a8df3b7ec15c1",
+   "grup": "D"
+  },
+  {
+   "path": "claude/retro-2d-oyun-arastirmasi.md",
+   "bytes": 6858,
+   "sha256": "b30783dfe0f3b1a331579e2d061e9a330a1eb4871da9583a5080e8e14b1168c5",
+   "grup": "D"
+  },
+  {
+   "path": "claude/tools/consistency-check.js",
+   "bytes": 3280,
+   "sha256": "ff5c7e6e98251bdfb4d2814326f39ab3de1e8f7dc16b4ec714984ff1526b9e20",
+   "grup": "D"
+  },
+  {
+   "path": "claude/web-sitesi-2026-07-23-atlas-tanitim-ve-dil.md",
+   "bytes": 4066,
+   "sha256": "11d095cac90aee03768a738e076a50ac40648fedb9ab42d10c89cd65fa1a9e99",
+   "grup": "D"
+  },
+  {
+   "path": "claude/web-sitesi-DEVAM.md",
+   "bytes": 6183,
+   "sha256": "6e00e74a334b790d6dd6b607e34f6cb0012d95543ae4faa5807363f10b7afb80",
+   "grup": "D"
+  },
+  {
+   "path": "index.html",
+   "bytes": 347398,
+   "sha256": "b9654bff15d4b7438c7cd6fb8b376fc7f9af4bde9bdd904110e2c37c3cde3993",
+   "grup": "D"
+  },
+  {
+   "path": "japanese-flick-DEVAM-belgesi.md",
+   "bytes": 10566,
+   "sha256": "6f59ec82dde0e70899a56bc48c79687cfd1d2680d36ee6511d2e4badf985f475",
+   "grup": "D"
+  },
+  {
+   "path": "japonca-yazi-atlasi.html",
+   "bytes": 507606,
+   "sha256": "f13368a85c8fbcf23409b7316a34aa8a53ea9662150deaefe40518a7f209444a",
+   "grup": "D"
+  },
+  {
+   "path": "sw.js",
+   "bytes": 13049,
+   "sha256": "40e767fbd87df5efef449356a7a1ee82fcb8617c2affb09198f08c8a4f3e1b56",
+   "grup": "D"
+  }
+ ]
+}

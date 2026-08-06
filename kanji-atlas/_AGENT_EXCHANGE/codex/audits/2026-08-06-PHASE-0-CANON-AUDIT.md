@@ -1,6 +1,6 @@
 # Phase 0 — Canonical Source Audit
 
-Status: IN PROGRESS
+Status: PASS
 Date: 2026-08-06
 Reviewer: Codex
 
@@ -20,13 +20,17 @@ Recover a locally inspectable canonical branch and establish the coordination sy
 - The branch contains the Capacitor scaffold under `kanji-atlas/native/`.
 - No merge, deploy, store submission, deletion, or application-code edit occurred in this phase.
 
-## Open conditions
+## Export verification
 
-- Export Claude project documents and their manifest into `_AGENT_EXCHANGE/claude/`.
-- Independently reproduce the release-audit findings on the local branch.
-- Record checksums for the exported documents.
-- Recheck both worktrees are clean after documentation setup.
+- Claude exported 176 project documents totaling 2,132,797 bytes.
+- Codex independently recomputed all 176 SHA256 values; mismatches: 0.
+- Codex independently counted 176 source documents and 2,132,797 bytes.
+- Credential-pattern scan returned no `ghp_` or `github_pat_` match in exported documents.
+- The live-PAT file named by Claude was not exported or imported.
+- Import scope was limited to 105 Kanji Atlas documents plus 1 coordination-evidence document.
+- Other products, studio-wide documents, legacy root files, and worker manifests were not imported.
+- Imported documents are isolated under a dated snapshot and are not automatically authoritative.
 
 ## Gate
 
-HOLD until the open conditions above are complete.
+PASS. Phase 0 is complete. Proceed to Phase 1 independent release-audit reproduction. Release remains HOLD and no implementation is authorized by this result.
