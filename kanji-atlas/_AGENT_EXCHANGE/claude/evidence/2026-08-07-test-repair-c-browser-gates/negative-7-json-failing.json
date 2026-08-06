@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0",
+  "runner": "run-browser-gates",
+  "nodeVersion": "v22.22.2",
+  "atlasDir": "/tmp/c2/kanji-atlas",
+  "timeoutMs": 300000,
+  "gitSha": null,
+  "startedAt": "2026-08-06T22:27:37.260Z",
+  "endedAt": "2026-08-06T22:28:06.215Z",
+  "totalDurationMs": 28955,
+  "guard": {
+    "available": false,
+    "startedClean": null,
+    "unchanged": null,
+    "changedPaths": [],
+    "reason": "Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)"
+  },
+  "serverUrl": "http://127.0.0.1:43217/index.html",
+  "port": 43217,
+  "results": [
+    {
+      "name": "smoke_sources.js",
+      "status": "FAIL",
+      "exitCode": 3,
+      "signal": null,
+      "durationMs": 36,
+      "stdout": "FIXTURE: kasitli basarisizlik\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_backup.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 28867,
+      "stdout": "BACKUP TEST · pass=17 fail=0\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_recognition.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 40,
+      "stdout": "FIXTURE stub: hizli gecer\n",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "totals": {
+    "total": 3,
+    "pass": 2,
+    "fail": 1,
+    "timeout": 0,
+    "other": 0,
+    "notRun": 0
+  },
+  "overallPass": false,
+  "decision": "FAIL"
+}
