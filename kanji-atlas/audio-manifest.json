@@ -1087,8 +1087,8 @@
    "kategori": "kanji",
    "kaynak": "yeni",
    "metin": "明",
-   "okunus": "aka",
-   "ses_dosyasi": "audio/word/aka.mp3"
+   "okunus": "akarui",
+   "ses_dosyasi": "audio/word/akarui.mp3"
   },
   {
    "dogrulanmali": false,
@@ -1107,8 +1107,8 @@
    "kategori": "kanji",
    "kaynak": "yeni",
    "metin": "晴",
-   "okunus": "ha",
-   "ses_dosyasi": "audio/kana/ha.mp3"
+   "okunus": "hare",
+   "ses_dosyasi": "audio/word/hare.mp3"
   },
   {
    "dogrulanmali": false,
@@ -4016,16 +4016,6 @@
    "metin": "語",
    "okunus": "go",
    "ses_dosyasi": "audio/kana/go.mp3",
-   "kaynak": "yeni",
-   "durum": "recorded",
-   "dogrulanmali": false
-  },
-  {
-   "id": "word_x_hana",
-   "kategori": "word",
-   "metin": "話",
-   "okunus": "hana",
-   "ses_dosyasi": "audio/word/hana.mp3",
    "kaynak": "yeni",
    "durum": "recorded",
    "dogrulanmali": false
