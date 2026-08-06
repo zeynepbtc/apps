@@ -1,0 +1,14 @@
+Atlas dizini: /tmp/u3/kanji-atlas
+✓ 1) tüm id benzersiz — 610 kayıt
+✓ 2) her kayıt şemaya uygun (id·kategori·metin·kaynak·durum)
+✓ 3) yayın kapısı: missing/tts kayıt YOK (hepsi recorded)
+✓ 4a) ses yolu göreli ve izinli klasörde — ham VE NFC biçim ayrı doğrulandı
+✓ 4b) referanslanan her ses dosyası DİSKTE VAR (NFC/NFD duyarsız)
+✓ 5) kategori+metin duplicate SIFIR (çözüm anahtarı tekil)
+✓ 6a) diskte normalizasyon çakışması YOK (farklı ham ad → aynı NFC anahtarı) — 474 benzersiz NFC anahtarı
+✓ 6b) manifestte normalizasyon çakışması YOK — 473 benzersiz NFC anahtarı
+✗ 6c) yetim mp3 YOK (NFC anahtarlarıyla karşılaştırıldı) — 474 dosya · 1 yetim · NFC-dışı disk adı: 0 → audio/kana/__gercek_yetim.mp3
+✓ 7) flick kaydı yok → kardeş dizin kontrolü atlandı (bağımlılık kurulmadı) — 0 flick kaydı
+✓ 8) _meta.pedagojik_hukum mevcut
+
+❌ 1 başarısız

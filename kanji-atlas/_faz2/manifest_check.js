@@ -17,9 +17,27 @@
    göreli ve dosyası var; kategori+metin tekil; yetim mp3 yok; flick koşullu.
 
    YENİ KORUMA: kanji-atlas/audio/ altındaki HER mp3 en az bir kayıt tarafından referanslanmalı
-   (paylaşımlı referans serbest) — manifestten kayıt düşerse yetim dosya sessizce kalmaz. */
+   (paylaşımlı referans serbest) — manifestten kayıt düşerse yetim dosya sessizce kalmaz.
+
+   ── UNICODE DÜZELTMESİ (Codex sözleşmesi 2026-08-07) ────────────────────────────────────────
+   SORUN: Gerçek harici proje diskinde (macOS/APFS) dosya adları Unicode **NFD** (ayrışmış)
+   biçimde görünürken kanonik manifest yolları **NFC** (birleşmiş). Ham JavaScript dize
+   karşılaştırması aynı mantıksal dosyayı iki farklı yol sanıyor → Codex'in ölçümü: 19 sahte
+   yetim (`chīzu.mp3`, `fōku.mp3`, `gēmu.mp3`, `kōhī.mp3` …). Konteynerde (ext4) 0 sahte yetim
+   çıkıyor çünkü orada adlar zaten NFC — yani hata platforma bağlı ve testin kendisindedir.
+
+   ÇÖZÜM: karşılaştırma ANAHTARLARI NFC'ye normalize edilir. Dosyalar YENİDEN ADLANDIRILMAZ,
+   manifest YENİDEN YAZILMAZ — yalnız mantıksal küme karşılaştırması normalize edilir.
+
+   GÜVENLİK: normalizasyon yasak bir yolu GİZLEYEMEZ. Güvenlik yüklemi (göreli · `..` yok ·
+   izinli klasör) HEM HAM HEM NFC biçime ayrı ayrı uygulanır; ikisinden biri düşerse kayıt
+   reddedilir. Yani normalizasyon yalnız "aynı mı?" sorusunu çözer, "güvenli mi?" sorusunu değil.
+
+   BELİRSİZLİK: farklı iki HAM yol aynı NFC anahtarına düşerse bu SESSİZCE tek üyeye
+   indirgenmez — açık tanılı bir başarısızlık üretir (hem diskte hem manifestte ayrı kontrol). */
 const fs = require("fs");
 const path = require("path");
+const NFC = s => String(s).normalize("NFC");
 
 /* ── Atlas dizini çözümü ── */
 const cliArg = process.argv.slice(2).find(a => a.startsWith("--atlas="));
@@ -60,20 +78,42 @@ console.log("Atlas dizini: " + ATLAS);
   A("3) yayın kapısı: missing/tts kayıt YOK (hepsi recorded)", notReleased.length === 0,
     notReleased.length ? `${notReleased.length} kayıt: ` + notReleased.slice(0, 3).map(x => x.id + ":" + x.durum).join() : ""); }
 
-/* 4) her yayın kaydının yolu GÖRELİ, izinli klasörde ve DOSYASI VAR */
+/* ── Disk indeksi: ham adlar + NFC anahtarları (bir kez okunur, 4 ve 6 birlikte kullanır) ── */
+const SHAPE_RE = new RegExp("^audio/(" + ALLOWED_DIRS.join("|") + ")/[^/]+\\.mp3$");
+/* Güvenlik yüklemi — normalizasyondan BAĞIMSIZ. Hem ham hem NFC biçime uygulanır. */
+const isSafeRel = p => typeof p === "string" && p.length > 0
+  && !path.isAbsolute(p) && !p.includes("..") && !p.startsWith("/") && !/^[A-Za-z]:/.test(p)
+  && SHAPE_RE.test(p);
+
+const diskRaw = [];
+for (const d of ALLOWED_DIRS) {
+  const dir = path.join(ATLAS, "audio", d);
+  if (!fs.existsSync(dir)) continue;
+  for (const f of fs.readdirSync(dir)) if (f.endsWith(".mp3")) diskRaw.push(`audio/${d}/${f}`);
+}
+const diskByNfc = new Map();               // NFC anahtar → farklı HAM yollar
+for (const r of diskRaw) {
+  const k = NFC(r);
+  if (!diskByNfc.has(k)) diskByNfc.set(k, new Set());
+  diskByNfc.get(k).add(r);
+}
+const diskNonNfc = diskRaw.filter(r => r !== NFC(r));
+
+/* 4) her yayın kaydının yolu GÖRELİ, izinli klasörde ve DOSYASI VAR (NFC-duyarsız eşleme) */
 { const badPath = [], missingFile = [];
   for (const e of E) {
     if (e.durum !== "recorded") continue;
-    const p = e.ses_dosyasi;
-    const okShape = typeof p === "string" && p.length > 0
-      && !path.isAbsolute(p) && !p.includes("..") && !p.startsWith("/") && !/^[A-Za-z]:/.test(p)
-      && new RegExp("^audio/(" + ALLOWED_DIRS.join("|") + ")/[^/]+\\.mp3$").test(p);
-    if (!okShape) { badPath.push(e.id + "→" + p); continue; }
-    if (!fs.existsSync(path.join(ATLAS, p))) missingFile.push(e.id + "→" + p);
+    const raw = e.ses_dosyasi;
+    /* Güvenlik: HAM ve NFC biçim AYRI AYRI geçmeli — normalizasyon yasak yolu gizleyemez. */
+    if (!isSafeRel(raw) || !isSafeRel(NFC(raw))) { badPath.push(e.id + "→" + raw); continue; }
+    /* Varlık: önce gerçek dosya sistemi (macOS normalizasyon-duyarsız arar), sonra NFC indeksi
+       (Linux gibi bayt-tam sistemlerde NFD disk adını NFC manifest yoluyla eşler). */
+    const existsOnFs = fs.existsSync(path.join(ATLAS, raw));
+    if (!existsOnFs && !diskByNfc.has(NFC(raw))) missingFile.push(e.id + "→" + raw);
   }
-  A("4a) ses yolu göreli ve izinli klasörde (audio/{kana,kanji,word,sentence}/*.mp3)",
+  A("4a) ses yolu göreli ve izinli klasörde — ham VE NFC biçim ayrı doğrulandı",
     badPath.length === 0, badPath.slice(0, 3).join(" | "));
-  A("4b) referanslanan her ses dosyası DİSKTE VAR", missingFile.length === 0,
+  A("4b) referanslanan her ses dosyası DİSKTE VAR (NFC/NFD duyarsız)", missingFile.length === 0,
     missingFile.slice(0, 3).join(" | ")); }
 
 /* 5) çözüm anahtarı sözleşmesi: kategori+metin TEKİL */
@@ -82,17 +122,38 @@ console.log("Atlas dizini: " + ATLAS);
     if (seen.has(k)) dups.push(`${k} (${seen.get(k)} ↔ ${e.id})`); else seen.set(k, e.id); }
   A("5) kategori+metin duplicate SIFIR (çözüm anahtarı tekil)", dups.length === 0, dups.slice(0, 3).join(" | ")); }
 
-/* 6) YETİM YOK: audio/ altındaki her mp3 en az bir kayıtça referanslanıyor (paylaşım serbest) */
-{ const referenced = new Set(E.filter(e => e.ses_dosyasi).map(e => e.ses_dosyasi));
-  const onDisk = [];
-  for (const d of ALLOWED_DIRS) {
-    const dir = path.join(ATLAS, "audio", d);
-    if (!fs.existsSync(dir)) continue;
-    for (const f of fs.readdirSync(dir)) if (f.endsWith(".mp3")) onDisk.push(`audio/${d}/${f}`);
-  }
-  const orphans = onDisk.filter(f => !referenced.has(f));
-  A("6) yetim mp3 YOK (audio/ altındaki her dosya referanslı)", orphans.length === 0,
-    `${onDisk.length} dosya · ${orphans.length} yetim` + (orphans.length ? ": " + orphans.slice(0, 3).join(", ") : "")); }
+/* 6) NORMALİZASYON BELİRSİZLİĞİ — diskte iki farklı HAM ad aynı NFC anahtarına düşerse
+      sessizce tek üyeye indirgenmez; açık tanıyla başarısız olur. */
+{ const collisions = [...diskByNfc.entries()].filter(([, set]) => set.size > 1);
+  A("6a) diskte normalizasyon çakışması YOK (farklı ham ad → aynı NFC anahtarı)",
+    collisions.length === 0,
+    collisions.length
+      ? collisions.slice(0, 2).map(([k, s]) => `${k} ← ${[...s].map(r => JSON.stringify(r)).join(" ve ")}`).join(" | ")
+      : `${diskByNfc.size} benzersiz NFC anahtarı`); }
+
+/* 6b) Aynı ilke MANİFEST tarafında: farklı ham manifest yolları aynı NFC anahtarına düşemez. */
+{ const manByNfc = new Map();
+  for (const e of E) { if (!e.ses_dosyasi) continue;
+    const k = NFC(e.ses_dosyasi);
+    if (!manByNfc.has(k)) manByNfc.set(k, new Set());
+    manByNfc.get(k).add(e.ses_dosyasi); }
+  const collisions = [...manByNfc.entries()].filter(([, set]) => set.size > 1);
+  A("6b) manifestte normalizasyon çakışması YOK", collisions.length === 0,
+    collisions.length
+      ? collisions.slice(0, 2).map(([k, s]) => `${k} ← ${[...s].map(r => JSON.stringify(r)).join(" ve ")}`).join(" | ")
+      : `${manByNfc.size} benzersiz NFC anahtarı`); }
+
+/* 6c) YETİM YOK: audio/ altındaki her mp3 en az bir kayıtça referanslanıyor (paylaşım serbest).
+       Karşılaştırma NFC anahtarları üzerinden — dosya adları veya manifest DEĞİŞTİRİLMEZ. */
+{ const referencedNfc = new Set(E.filter(e => e.ses_dosyasi).map(e => NFC(e.ses_dosyasi)));
+  const orphans = diskRaw.filter(r => !referencedNfc.has(NFC(r)));
+  /* Tanı amaçlı (iddia DEĞİL): ham karşılaştırma kaç sahte yetim üretirdi? */
+  const referencedRaw = new Set(E.filter(e => e.ses_dosyasi).map(e => e.ses_dosyasi));
+  const rawOnly = diskRaw.filter(r => !referencedRaw.has(r)).length;
+  A("6c) yetim mp3 YOK (NFC anahtarlarıyla karşılaştırıldı)", orphans.length === 0,
+    `${diskRaw.length} dosya · ${orphans.length} yetim · NFC-dışı disk adı: ${diskNonNfc.length}`
+    + (rawOnly !== orphans.length ? ` · (ham karşılaştırma ${rawOnly} sahte yetim verirdi)` : "")
+    + (orphans.length ? " → " + orphans.slice(0, 3).join(", ") : "")); }
 
 /* 7) FLICK KOŞULLU: flick kaydı varsa recorded olmalı ve kaynak dosyası bulunmalı.
       Flick kaydı YOKSA kardeş dizin aranmaz — test eksik komşuya bağımlı hâle gelmez. */

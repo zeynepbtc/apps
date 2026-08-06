@@ -1,0 +1,7 @@
+node       v22.22.2
+git        2.43.0
+os         Ubuntu 24.04.4 LTS / x86_64
+dosya sis. ext4 (bayt-tam; Unicode normalizasyonu YAPMAZ)
+NOT        Konteynerde 473 mp3'un TAMAMI NFC. macOS/APFS'teki NFD gorunumu dogal olarak
+           uretilemez; bu yuzden Kanit 2 acik NFD yeniden adlandirmayla SIMULE edildi.
+           Gercek harici disk dogrulamasi Codex tarafinda yapilacak.
