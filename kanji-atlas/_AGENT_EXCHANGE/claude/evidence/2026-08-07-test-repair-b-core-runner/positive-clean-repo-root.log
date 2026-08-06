@@ -1,0 +1,11 @@
+run-core-gates · 10 çekirdek kapı
+Atlas dizini : /home/claude/apps-deploy/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 60000 ms / test
+Git SHA      : 295aab234e3036c8cadfb63d49e09f816d18cf2d
+
+❌ KIRLI BAŞLANGIÇ — yayın kapısı koşumu TEMİZ ağaçta başlamalıdır.
+   1 değişmiş yol (ilk 10):
+     ?? kanji-atlas/_AGENT_EXCHANGE/claude/evidence/2026-08-07-test-repair-b-core-runner/
+   Hiçbir test çalıştırılmadı. Koruma SALT OKUNURDUR: değişiklikleriniz OLDUĞU GİBİ duruyor;
+   koşucu hiçbir şeyi geri almaz/temizlemez. Değişiklikleri kendiniz commit'leyin veya saklayın.

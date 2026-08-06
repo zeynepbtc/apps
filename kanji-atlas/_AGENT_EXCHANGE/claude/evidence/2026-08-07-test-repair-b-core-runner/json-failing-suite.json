@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0",
+  "runner": "run-core-gates",
+  "nodeVersion": "v22.22.2",
+  "atlasDir": "/tmp/b1/kanji-atlas",
+  "timeoutMs": 60000,
+  "gitSha": null,
+  "startedAt": "2026-08-06T21:47:22.248Z",
+  "endedAt": "2026-08-06T21:47:22.642Z",
+  "totalDurationMs": 394,
+  "guard": {
+    "available": false,
+    "startedClean": null,
+    "unchanged": null,
+    "changedPaths": [],
+    "reason": "Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)"
+  },
+  "results": [
+    {
+      "name": "smoke_content_scaffold.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 53,
+      "stdout": "\nsmoke_content_scaffold: 401/401\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_legacy_derived.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 36,
+      "stdout": "v2 struct kayıt: 17 · v2 readings kayıt: 17\nsmoke_legacy_derived: 83/83\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_durable_backend.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 40,
+      "stdout": "\nsmoke_durable_backend: 9/9\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_game_roles.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 42,
+      "stdout": "Oyun havuzu — eski → yeni (çıkan kanji):\n  comp-meaning : 11 → 11  (çıkan: -)\n  atolye       : 11 → 11  (çıkan: -)\n  structure    : 23 → 23  (çıkan: -)\n  comp-select  : 25 → 25  (çıkan: -)\n\nsmoke_game_roles: 62/62\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "storage_check.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 35,
+      "stdout": "# Storage kabul testleri\n\n✓ 1) kana_state yok → fresh v1, recovery false\n✓ 2) sürümsüz → schemaVersion 1\n✓ 2) userHints korundu\n✓ 2) onboarding migrate (userProfile→completed)\n✓ 2) settings.audioMode legacy audio'dan (off)\n✓ 3) v1 state okundu, learned korundu\n✓ 3b) normal save → {ok:true}\n✓ 4) migration idempotent (iki kez = bir kez)\n✓ 5) truncated → recovery true\n✓ 5) orijinal kana_state YERİNDE (silinmedi/ezilmedi)\n✓ 5) recovery kopyası oluştu\n✓ 6) settings:null → default obje\n✓ 6) userHints:[] → {}\n✓ 6) srs:'x' → {}\n✓ 6) yanlış tip recovery gerektirmedi (guard yeter)\n✓ 7) eksik settings anahtarları defaults'tan tamamlandı\n✓ 8) bilinmeyen ekstra alan sebepsiz silinmedi\n✓ 9) recovery save → {ok:false, reason:storage-recovery}\n✓ 9) bozuk orijinal payload hâlâ yerinde\n✓ 10) setItem hata → {ok:false, reason:write-error}\n✓ 10) eski payload yerinde\n✓ 11) userHints/cipherLearned/learned/srs/games derin eşit (korundu)\n✓ 12) DEFAULT_STATE oturum alanları mevcut (app load() bootstrap'ta sıfırlar)\n\n> Kritik kural kanıtlandı: bozuk/hatalı durumların HİÇBİRİ kana_state'i sessizce ezmez/silmez.\n\n✅ TÜM KABUL TESTLERİ GEÇTİ (0 başarısız)\n",
+      "stderr": "[storage] save reddedildi — recovery modu (kana_state korunuyor)\n[storage] save başarısız — yazma hatası (eski kayıt yerinde)\n",
+      "error": null
+    },
+    {
+      "name": "srs_check.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 39,
+      "stdout": "# SRS selector saf kabul testleri\n\n✓ 1) boş srs → []\n✓ 2) next<=now kanji → kuyrukta\n✓ 3) next gelecekte → due değil\n✓ 4) mastery 4 + next<=now → due\n✓ 5) kana anahtarı 'あ' → elenir\n✓ 6) tanınmayan id kuyruğa girmez\n✓ 6b) diagnostic unknownKeys=[silinmis_id]\n✓ 10) next===now → due\n✓ 11) string/null/NaN/Infinity next → elenir\n✓ 11b) invalidNext = [hayashi,hi,hon,old] (kanji ama bozuk next)\n✓ 11c) now NaN → []\n✓ 11d) now Infinity → []\n✓ 12) iki çağrı byte-eş (deterministik)\n✓ 13) sıra: old, beta, alpha, zebra\n✓ 14) state mutasyonu yok\n✓ 14b) DATA mutasyonu yok\n✓ + radikal 'moku' → elenir\n\n✅ SRS SELECTOR SAF TESTLERİ GEÇTİ (0 başarısız)\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "graph_check.js",
+      "status": "FAIL",
+      "exitCode": 7,
+      "signal": null,
+      "durationMs": 20,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "list_progress_check.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 34,
+      "stdout": "# familyList + familyProgress saf veri doğrulama\n\n✓ familyList deterministik (iki çağrı birebir) — tree,person\n✓ famNodes deterministik\n✓ familyList'te duplicate aile yok\n✓ [tree] famNodes'ta duplicate karakter yok\n✓ [person] famNodes'ta duplicate karakter yok\n✓ familyProgress per-aile doğru (tree 3/5 · person 1/5 — 木,林 person'da değil) — tree 3/5 · person 1/5\n✓ çift-sayım tuzağı görünür: naif toplam(4) ≠ benzersiz(3) — 休 iki ailede; global=benzersiz kullanılmalı — naif=4 benzersiz=3\n✓ familyProgress(bilinmeyen aile) → null (çökme yok)\n✓ kanonik-dışı karakter (校) hiçbir ailede değil → familiesOf boş\n✓ boş FAMILIES + boş learnedSet → çökme yok\n\n> familyList/familyProgress SAF VERİ olarak doğrulandı; UI bağlaması Faz 3'e ait (sahte tüketici üretilmedi).\n\n✅ 0 başarısız\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "manifest_check.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 42,
+      "stdout": "Atlas dizini: /tmp/b1/kanji-atlas\n✓ 1) tüm id benzersiz — 610 kayıt\n✓ 2) her kayıt şemaya uygun (id·kategori·metin·kaynak·durum)\n✓ 3) yayın kapısı: missing/tts kayıt YOK (hepsi recorded)\n✓ 4a) ses yolu göreli ve izinli klasörde — ham VE NFC biçim ayrı doğrulandı\n✓ 4b) referanslanan her ses dosyası DİSKTE VAR (NFC/NFD duyarsız)\n✓ 5) kategori+metin duplicate SIFIR (çözüm anahtarı tekil)\n✓ 6a) diskte normalizasyon çakışması YOK (farklı ham ad → aynı NFC anahtarı) — 473 benzersiz NFC anahtarı\n✓ 6b) manifestte normalizasyon çakışması YOK — 473 benzersiz NFC anahtarı\n✓ 6c) yetim mp3 YOK (NFC anahtarlarıyla karşılaştırıldı) — 473 dosya · 0 yetim · NFC-dışı disk adı: 0\n✓ 7) flick kaydı yok → kardeş dizin kontrolü atlandı (bağımlılık kurulmadı) — 0 flick kaydı\n✓ 8) _meta.pedagojik_hukum mevcut\n\n✅ MANİFEST BÜTÜNLÜK GEÇTİ (0 başarısız)\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "manifest_build_check.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 49,
+      "stdout": "Atlas dizini: /tmp/b1/kanji-atlas\n✓ gömülü blok anchor'larla mevcut\n✓ Gate 7) gömülü AUDIO_MANIFEST === audio-manifest.json (semantik)\n✓ Gate 10) runtime manifest fetch YOK\n✓ Gate 10b) 'audio-manifest.json' fetch argümanı değil (yalnız yorum)\n✓ AUDIO_MANIFEST tüketiliyor (buildAudioIndex ile, 6b)\n✓ gömülü entries dizi ve boş değil (sabit sayı YOK) — 610 kayıt (bilgi amaçlı, iddia değil)\n✓ _meta.pedagojik_hukum gömülü\n\n✅ GÖMME KAPILARI GEÇTİ (Gate 7 & 10)\n",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "totals": {
+    "total": 10,
+    "pass": 9,
+    "fail": 1,
+    "timeout": 0,
+    "other": 0,
+    "notRun": 0
+  },
+  "overallPass": false,
+  "decision": "FAIL"
+}
