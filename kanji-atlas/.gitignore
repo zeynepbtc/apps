@@ -17,6 +17,10 @@ playwright/.cache/
 npm-debug.log*
 yarn-error.log*
 
+# AMA: ajan değişim kanıtları sürümlenir — bunlar geçici günlük değil, denetim kaydıdır.
+# (Bu istisna olmadan `*.log` kuralı kanıt dosyalarını sessizce yutuyor; ölçülerek bulundu.)
+!_AGENT_EXCHANGE/**/*.log
+
 # yerel işletim sistemi artıkları
 .DS_Store
 ._*

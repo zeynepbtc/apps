@@ -1,0 +1,18 @@
+run-browser-gates · 3 tarayıcı kapısı
+Atlas kökü   : /tmp/c45/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 300000 ms / test
+Git SHA      : 21cee597ce19ab622828b3b16813e8986f6e71a6
+Sunucu       : http://127.0.0.1:36837/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ✅ PASS      smoke_sources.js              25 ms
+  ✅ PASS      smoke_backup.js               34 ms
+  ✅ PASS      smoke_recognition.js          24 ms
+
+Sunucu kapatıldı · port 36837
+Toplam: 3/3 PASS · FAIL 0 · TIMEOUT 0 · diğer 0 · 141 ms
+Ağaç koruması: ❌ KOŞUM SIRASINDA AĞAÇ DEĞİŞTİ
+     M kanji-atlas/audio-manifest.json
+   Değişiklikler OLDUĞU GİBİ bırakıldı (salt okunur koruma).
+
+❌ TARAYICI KAPILARI GEÇMEDİ
