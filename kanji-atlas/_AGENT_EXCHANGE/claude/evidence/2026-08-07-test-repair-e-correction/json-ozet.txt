@@ -1,0 +1,5 @@
+timeoutMs=300000
+overallPass=true
+decision=PASS
+sira: 1.smoke_sources.js=PASS(13525ms)  2.smoke_home_rec.js=PASS(22811ms)  3.smoke_backup.js=PASS(28871ms)  4.smoke_recognition.js=PASS(201077ms)
+totals={"total":4,"pass":4,"fail":0,"timeout":0,"other":0,"notRun":0}

@@ -1,0 +1,18 @@
+########## KANIT · BOZUK YEREL SMOKE_URL (§5.10) ##########
+önce chromium:
+0
+-- 1) dinlemeyen yerel port --
+HARNESS ERR page.goto: net::ERR_UNSAFE_PORT at http://127.0.0.1:1/index.html
+Call log:
+[2m  - navigating to "http://127.0.0.1:1/index.html", waiting until "domcontentloaded"[22m
+
+EXIT=2
+süre=1798 ms
+-- 2) yerel sunucu var ama dosya 404 --
+HARNESS ERR page.click: Timeout 6000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-act="ob-continue"]')[22m
+
+EXIT=2  süre=7.0s
+sonra chromium:
+0

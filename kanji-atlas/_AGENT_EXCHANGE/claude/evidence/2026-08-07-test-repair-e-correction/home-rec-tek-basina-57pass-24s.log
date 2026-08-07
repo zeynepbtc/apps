@@ -1,0 +1,9 @@
+=== TEK BASINA KOSUM (hermetik) ===
+Ağ yalıtımı · yerel istek GEÇTİ: 26 · yerel olmayan HTTP(S) ENGELLENDİ: 26
+Ağ yalıtımı · engellenen kaynaklar: https://fonts.googleapis.com
+SMOKE home-rec · pass=57  fail=0
+CHILD EXIT=0  süre=24.8s
+
+real	0m24.883s
+user	0m2.329s
+sys	0m1.299s

@@ -1,0 +1,2 @@
+9844b6971294c1d72e761859f12b6451257b7615de49a26eb220d03e41871160  kanji-atlas/_faz2/smoke_home_rec.js
+9d84fd3c98ba503f2205cb28bca9a1cab0ec66bdc07a5d06c5d3ad0a7ab07bd3  kanji-atlas/index.html
