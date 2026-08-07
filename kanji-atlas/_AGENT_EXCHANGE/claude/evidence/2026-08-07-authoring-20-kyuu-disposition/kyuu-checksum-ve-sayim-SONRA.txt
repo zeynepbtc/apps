@@ -1,0 +1,11 @@
+toplam=98 reviewed=58 drafted=1 (九)
+legacy=30 görünür köken=88
+mnemonic not_required=74 active=2 pending_review=0 alansız=22
+CONTENT_HASH: 475592a4bd20617e
+--- 九 SONRA ---
+qaStatus=drafted confidence=C reviewedAt=undefined mnemonic alanı=false
+kokenOf(九)=null mnemonicOf(九)=""
+九 kaydı JSON uzunluğu : 5307 bayt
+九 kaydı sha256        : b7a619434515efcade18fe2586950801eb689ccdbe9a44afb8ac595b249e69d4
+九 summaryTr sha256    : a387e77d5a3b25cf80cc7d305188ebdcb762ee0ea8bf0766efeba6e1e1d97d4a
+九 disagreementNote sha256: c99fb5e38c50fb594e59cdf2f376f8effbb48c4f05d8115e749608d9baecae18
