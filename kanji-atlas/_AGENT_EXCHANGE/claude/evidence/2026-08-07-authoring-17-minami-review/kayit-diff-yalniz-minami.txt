@@ -1,0 +1,21 @@
+DATA üst anahtarlar aynı: true
+  DATA.hiragana : BAYT AYNI ✅
+  DATA.katakana : BAYT AYNI ✅
+  DATA.confusables : BAYT AYNI ✅
+  DATA.words : BAYT AYNI ✅
+chars anahtar listesi ve sırası aynı: true  (98 kayıt)
+DEĞİŞEN KAYIT SAYISI: 1  → 南(minami)
+
+--- 南 alan alan ---
+  etymology dışı alanların hepsi bayt aynı ✅
+  etymology.formationType : AYNI ✅
+  etymology.formationTypeSource : AYNI ✅
+  etymology.confidence : AYNI ✅
+  etymology.summaryTr : AYNI ✅
+  etymology.sources : AYNI ✅
+  etymology.disagreementNote : değişti
+  etymology.qaStatus : değişti
+  etymology.reviewedAt (yeni): "2026-08-07"
+  mnemonic: {"status":"pending_review"} → {"status":"not_required"}
+  disagreementNote: eski metin başta korunmuş: true
+  summaryTr BAYT AYNI: true

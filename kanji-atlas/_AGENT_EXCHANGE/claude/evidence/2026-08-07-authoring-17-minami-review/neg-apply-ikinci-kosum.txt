@@ -1,0 +1,10 @@
+=== NEGATIF · APPLY 2. KOSUM (tam cikti) ===
+/home/claude/apps-deploy/kanji-atlas/_faz2/apply_authoring_16_minami_reviewed.js:54
+if (e.qaStatus !== "drafted") throw new Error("南: beklenen qaStatus 'drafted', gelen '" + e.qaStatus + "' — betik iki kez koşmaz");
+                              ^
+
+Error: 南: beklenen qaStatus 'drafted', gelen 'reviewed' — betik iki kez koşmaz
+    at Object.<anonymous> (/home/claude/apps-deploy/kanji-atlas/_faz2/apply_authoring_16_minami_reviewed.js:54:37)
+    at Module._compile (node:internal/modules/cjs/loader:1705:14)
+    at Object..js (node:internal/modules/cjs/loader:1838:10)
+EXIT=1

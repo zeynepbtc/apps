@@ -1,0 +1,22 @@
+
+--- 南 ---
+✓ 南 detay ekranı açıldı (id=minami)
+✓ 南 Kökeni kartı TEK (ölçülen 1)
+✓ 南 Kökeni kartı GERÇEKTEN görünür (kutusu var)
+✓ 南 görünür metin kilitli değerle BİREBİR aynı
+✓ 南 Hafıza kartı YOK (mnemonic not_required, boş kart oluşmadı)
+
+--- 今 ---
+✓ 今 boş Kökeni kartı OLUŞMADI (ölçülen 0)
+
+--- 白 ---
+✓ 白 boş Kökeni kartı OLUŞMADI (ölçülen 0)
+
+--- 九 ---
+✓ 九 kullanıcıya KAPALI — Kökeni kartı yok (drafted gizli)
+✓ 九 drafted/confidence C olarak KALDI
+
+✓ pageerror YOK
+
+DOM KANITI · pass=10  fail=0
+CHILD EXIT=0  süre=4.0s

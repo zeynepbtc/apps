@@ -1,0 +1,14 @@
+toplam karakter        : 98
+reviewed               : 57
+drafted                : 2  → 九 南
+pending                : 0
+legacy (görünür, etymology yok): 30
+kullanıcıya görünür köken      : 87
+mnemonic not_required  : 73
+mnemonic active        : 2
+mnemonic pending_review: 1  → 南
+mnemonic alansız       : 22
+今 köken: ""
+白 köken: ""
+九 qaStatus=drafted confidence=C köken=null
+CONTENT_HASH: 6abd13bed1ae525b

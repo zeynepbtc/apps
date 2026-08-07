@@ -1,0 +1,64 @@
+{
+ "id": "minami",
+ "character": "南",
+ "type": "kanji",
+ "meaning_tr": "güney",
+ "meaning_en": "south",
+ "onyomi": "ナン",
+ "kunyomi": "みなみ",
+ "romaji": "minami",
+ "stroke_count": 9,
+ "jlpt_level": "N5",
+ "category": "Yönler",
+ "components": [],
+ "component_meanings": {},
+ "parent_components": [],
+ "related_characters": [],
+ "examples": [
+  [
+   "南",
+   "minami",
+   "güney"
+  ],
+  [
+   "南口",
+   "minamiguchi",
+   "güney çıkışı"
+  ],
+  [
+   "南東",
+   "nantou",
+   "güneydoğu"
+  ]
+ ],
+ "position_variants": [],
+ "pictogram_note": "",
+ "stroke_order_steps": [
+  "M27.38,28.25c1.82,0.38,4.2,0.45,7.22,0.2c11.52-0.95,28.37-3.2,40.58-3.7c3.03-0.12,4.92-0.23,6.82,0",
+  "M52.35,10.75c0.95,0.95,1.55,2.86,1.55,3.96c0,7.3,0,19.47,0,28.54",
+  "M20.25,45.75c1.25,1.25,1.89,2.74,2,5c0.19,4.06,0.83,27.03,1.12,37.99c0.08,3.23,0.13,5.48,0.13,6.01",
+  "M22.78,47.6c16.31-1.76,59.32-6.35,60.97-6.35c5,0,6.25,1.62,6.25,6.75c0,5.25-0.25,37.3-0.25,43.05c0,7.7-3.5,6.45-9.5,0.95",
+  "M38.5,49.38c2.58,1.74,6.66,7.14,7.31,9.84",
+  "M66.25,45.5c0.05,0.89-0.07,1.75-0.37,2.59c-0.8,2.73-2.75,6.92-5.26,9.66",
+  "M34.78,61.67c1.81,0.39,4.55,0.55,6.36,0.39c9.11-0.8,18.63-1.54,27.63-2.39c2.99-0.28,4.83-0.32,6.33-0.12",
+  "M33.13,74.19c1.81,0.49,4.55,0.83,6.38,0.74c10.73-0.56,22.66-1.94,31.04-2.66c3-0.26,4.82-0.02,6.33,0.23",
+  "M53.5,62.5c0.75,0.75,1,2.14,0.99,3.5c-0.04,6.22-0.15,18.46-0.21,25.26c-0.02,2.19-0.03,3.81-0.03,4.49"
+ ],
+ "memory_hint_tr": "",
+ "visual_mnemonic_type": "none",
+ "n5_words": [],
+ "etymology": {
+  "formationType": "象形",
+  "formationTypeSource": "Kanjipedia",
+  "confidence": "A",
+  "summaryTr": "Asılı, çan biçiminde bir çalgının resmidir. Daha sonra 'güney' anlamında kullanılmaya başlanmıştır.",
+  "sources": [
+   "https://www.kanjipedia.jp/kanji/0005406400"
+  ],
+  "disagreementNote": "TASLAK · KIRMIZI KUYRUK TURU 2 · **MEKANİZMA BELİRSİZLİĞİ** (beşinci kilitli ilke, bu kayıtta doğdu — AUTHORING-05). Beş kaynak okundu, hepsi fetch edildi. || ESAS Kanjipedia 0005406400:「象形。鐘状の楽器を木の枝に掛けた形にかたどる。南方の民族が使っていた楽器であったことから、「みなみ」の意を表す。」 → 象形 · çan biçimli çalgı, dala asılı · mekanizma = ANLAM BAĞI (güneyli halkların çalgısıydı). || ÇAPRAZ 1 · 説文解字 卷六 (漢典'den fetch edilerek):「艸木至南方，有枝任也。从𣎵𢆉聲。𡴖，古文。那含切」 → 形声 · NESNE VERMİYOR (mühür biçiminin yapısal analizi) · mekanizma = Han dönemi kozmolojisi (南=任, bitkiler güneyde dal verir). 説文解字注 ek gözlem:「按古南男二字相假借。」 (南 ile 男'in karşılıklı ödüncü — çalgı→güney ödüncü DEĞİLDİR, karıştırılmadı.) || ÇAPRAZ 2 · Dong Chinese (fetch edilerek):「Depicts a bell-shaped musical instrument. The current meaning of 南 is a phonetic loan.」 → NESNEDE ESAS'la AYNI, MEKANİZMADA KARŞIT (ödünç). || ÇAPRAZ 3 · Wiktionary (fetch edilerek): (a)「…a pictogram (象形) of a hanging percussion instrument, originally identical to the left side of 㱿.」 (b)「Sagart (1988) instead proposes that it is a pictogram of the front of a house. Archaeological evidence confirms that in antiquity, at least in some regions, houses were built to face south.」 → (a) ESAS'ı destekler, (b) azınlık görüşü. || ÇAPRAZ 4 · OKJiten kanji150 (fetch edilerek):「会意文字です。「草」の象形と「入り口」の象形(「入る」の意味)と「風をはらむ帆」の象形(「風」の意味)から春、草・木の発芽を促す南からの風の意味を表し…」 → 会意 · rüzgâr/yelken. (OKJiten 九·口·名·父 turlarında da bağımsız/belirleyici sayılmadı — beşinci kez aynı muamele.) || ===== UZLAŞI ÖLÇÜMÜ ===== NESNE (asılı, çan/vurmalı çalgı): **3/5** — Kanjipedia + Dong + Wiktionary-(a). MODERN KÜME OLUŞMUŞ ve ESAS onun içinde → Zeynep: 'nesne kısmı artık çıkarılabilir ayrıntı DEĞİL.' Sıfatlar çapraz destekli: 'asılı' (Kanjipedia 木の枝に掛けた + Wiktionary hanging) · 'çan biçiminde' (Kanjipedia 鐘状 + Dong bell-shaped). MEKANİZMA ('nasıl güney oldu?'): **DÖRT AYRI CEVAP** — anlam bağı (Kanjipedia) / fonetik ödünç (Dong) / kozmoloji (説文) / güney rüzgârı (OKJiten). Bunlar birbirinin yerine KULLANILAMAZ ve AUTHORING-04'ün iki kilitli kalıbının tam çakışmasına düşer → **MEKANİZMA YAYIN DIŞI**. || ===== GÖRÜNÜR METİN KARARLARI ===== (1) Fiil **'kullanılmaya başlanmıştır'** — 'kullanılmıştır' DEĞİL. Zeynep gerekçesi: bu ifade 'ödünç aldı' da demiyor, 'anlamı gelişti' de demiyor; yalnız tarihsel olguyu söylüyor. (2) 'Güneyli halkların çalgısı' ANLAM BAĞI metne ALINMADI — tek kaynaklı VE Dong tarafından aktif olarak reddediliyor (北'un durumundan zayıf: 北'ta çelişen kaynak yoktu). (3) 'ödünç' de yazılmadı — o da tek kaynaklı ve ESAS tarafından reddediliyor. (4) 木の枝 (ağaç dalı) metne alınmadı: bugünkü 南'da böyle bir bileşen görünmüyor, 'asılı' sıfatı zaten aynı bilgiyi taşıyor (görünmeyen bileşen adlandırılmaz ilkesi). (5) Oluşum türü çatalı (象形 3 / 形声 1 / 会意 1) metne girmedi — teknik terim zaten girmez. (6) Sagart'ın 'ev cephesi' önerisi azınlık görüşü olarak burada duruyor, metne alınmadı. || CONFIDENCE **A** (Zeynep): yayımlanan iki iddia sağlam (çalgı 3/5 + ESAS · 'bugün güney' tartışmasız). Araştırmanın kendisi B/C olabilir; confidence YAYIMLANAN metni ölçer (父 emsali).",
+  "qaStatus": "drafted"
+ },
+ "mnemonic": {
+  "status": "pending_review"
+ }
+}

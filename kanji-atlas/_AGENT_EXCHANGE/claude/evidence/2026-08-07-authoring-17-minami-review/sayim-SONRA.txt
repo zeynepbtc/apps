@@ -1,0 +1,14 @@
+toplam karakter        : 98
+reviewed               : 58
+drafted                : 1  → 九
+legacy (görünür)       : 30
+kullanıcıya görünür köken: 88
+mnemonic not_required  : 74
+mnemonic active        : 2
+mnemonic pending_review: 0
+mnemonic alansız       : 22
+南 kokenOf   : "Asılı, çan biçiminde bir çalgının resmidir. Daha sonra 'güney' anlamında kullanılmaya başlanmıştır."
+南 mnemonicOf: ""
+今 kokenOf: "" · 白 kokenOf: ""
+九 qaStatus=drafted confidence=C kokenOf=null
+CONTENT_HASH: 475592a4bd20617e
