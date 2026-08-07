@@ -7,14 +7,14 @@ Updated: 2026-08-07
 - Portfolio state: Development / pre-release
 - Web production source: `apps` monorepo, `kanji-atlas/`
 - Coordination branch: `codex/kanji-atlas-coordination`
-- Batch 19: PASS / B-HOLD; integrated into the coordination history
+- Batch 20: PASS; `九` is CLOSED / HOLD / hidden drafted
 - Gate 1 correctness fixes: PASS
 - Test repair Batches A-E: PASS
 - Release state: HOLD
 
 ## Why release is on hold
 
-- Content authoring is not frozen: `今`, `白`, `九` and editorial harmonization remain open.
+- Content authoring is not frozen: editorial harmonization remains open; `今`, `白`, and `九` have closed HOLD decisions.
 - QA visibility policy and reduced-motion accessibility remain open.
 - Native iOS and Android projects have not been generated and verified on real devices.
 - Phone and mandatory iPad/Android tablet compatibility gates have not passed.
@@ -51,4 +51,4 @@ PASS. The test inventory was classified and cleaned; active core and real-Chromi
 
 ## Next gate
 
-Authoring Batch 19 is PASS with result **B / HOLD**: `白` has no defensible cross-source origin spine, so no product-data write was made and it remains hidden. The next bounded gate is the final disposition of the existing hidden `九` draft. Editorial harmonization, the disputed-origin product pattern, Content Freeze, `main`, deploy, landing, phone experience, tablet compatibility, native, and store remain out of scope until their named gates pass. Store release order is locked by `DECISION-003`: phone PASS, then tablet PASS, then store assets/internal testing, then release.
+Authoring Batch 20 is PASS: `九` is CLOSED / HOLD / hidden drafted and is no longer an open pre-freeze authoring item. `今` and `白` also remain closed and hidden. Two non-reproducible HARNESS ERR observations across Batches 19–20 require a narrow browser-gate observability follow-up before editorial harmonization. Editorial harmonization, the disputed-origin product pattern, Content Freeze, `main`, deploy, landing, phone experience, tablet compatibility, native, and store remain out of scope until their named gates pass. Store release order is locked by `DECISION-003`: phone PASS, then tablet PASS, then store assets/internal testing, then release.
