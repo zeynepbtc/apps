@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0",
+  "runner": "run-browser-gates",
+  "nodeVersion": "v22.22.2",
+  "atlasDir": "/tmp/sym/kanji-atlas",
+  "timeoutMs": 300000,
+  "gitSha": null,
+  "startedAt": "2026-08-06T23:37:34.146Z",
+  "endedAt": "2026-08-06T23:37:34.379Z",
+  "totalDurationMs": 233,
+  "guard": {
+    "available": false,
+    "startedClean": null,
+    "unchanged": null,
+    "changedPaths": [],
+    "reason": "Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)"
+  },
+  "serverUrl": "http://127.0.0.1:41215/index.html",
+  "port": 41215,
+  "results": [
+    {
+      "name": "smoke_sources.js",
+      "status": "FAIL",
+      "exitCode": 1,
+      "signal": null,
+      "durationMs": 168,
+      "stdout": "✓ engellendi  HTTP 404  kodlanmis ../          /../../../../etc/passwd\n✓ engellendi  HTTP 404  kodlanmis %2e%2e       /%2e%2e/%2e%2e/%2e%2e/etc/passwd\n✓ engellendi  HTTP 404  kodlanmis %2f          /..%2f..%2f..%2fetc%2fpasswd\n✓ engellendi  HTTP 400  null bayt              /%00/etc/passwd\n✗ SIZDIRDI   HTTP 200  SEMBOLIK BAG · dosya   /kacak-dosya.html\n✗ SIZDIRDI   HTTP 200  SEMBOLIK BAG · /etc    /passwd.html\n✗ SIZDIRDI   HTTP 200  SEMBOLIK BAG · dizin   /kacak-dizin/\n✗ SIZDIRDI   HTTP 200  SEM.BAG dizin+index    /kacak-dizin/index.html\n✓ POST /index.html -> 405 (405)\n✓ GET  /index.html -> 200 (200)  [mesru istek calismali]\n✓ GET  /audio/kana/a.mp3 -> 200 (200)\n✓ GET  / -> 200 (200)\n\n❌ KAPSAMA BASARISIZ\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_backup.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 26,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_recognition.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 23,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "totals": {
+    "total": 3,
+    "pass": 2,
+    "fail": 1,
+    "timeout": 0,
+    "other": 0,
+    "notRun": 0
+  },
+  "overallPass": false,
+  "decision": "FAIL"
+}

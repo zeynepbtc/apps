@@ -1,0 +1,16 @@
+run-browser-gates · 3 tarayıcı kapısı
+Atlas kökü   : /tmp/c2/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 300000 ms / test
+Git koruması : KULLANILAMIYOR — Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)
+Sunucu       : http://127.0.0.1:34711/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ❌ FAIL      smoke_sources.js              35 ms exit=3
+  ✅ PASS      smoke_backup.js            29320 ms
+  ✅ PASS      smoke_recognition.js          30 ms
+
+Sunucu kapatıldı · port 34711
+Toplam: 2/3 PASS · FAIL 1 · TIMEOUT 0 · diğer 0 · 29400 ms
+Ağaç koruması: ⚠️ kullanılamıyor (Git çalışma ağacı bulunamadı (bağımsız kopya olabilir))
+
+❌ TARAYICI KAPILARI GEÇMEDİ

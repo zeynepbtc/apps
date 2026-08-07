@@ -1,0 +1,19 @@
+sunucu: http://127.0.0.1:41215/index.html
+
+✓ engellendi  HTTP 404  kodlanmis ../          /../../../../etc/passwd
+✓ engellendi  HTTP 404  kodlanmis %2e%2e       /%2e%2e/%2e%2e/%2e%2e/etc/passwd
+✓ engellendi  HTTP 404  kodlanmis %2f          /..%2f..%2f..%2fetc%2fpasswd
+✓ engellendi  HTTP 400  null bayt              /%00/etc/passwd
+✗ SIZDIRDI   HTTP 200  SEMBOLIK BAG · dosya   /kacak-dosya.html
+✗ SIZDIRDI   HTTP 200  SEMBOLIK BAG · /etc    /passwd.html
+✗ SIZDIRDI   HTTP 200  SEMBOLIK BAG · dizin   /kacak-dizin/
+✗ SIZDIRDI   HTTP 200  SEM.BAG dizin+index    /kacak-dizin/index.html
+✓ POST /index.html -> 405 (405)
+✓ GET  /index.html -> 200 (200)  [mesru istek calismali]
+✓ GET  /audio/kana/a.mp3 -> 200 (200)
+✓ GET  / -> 200 (200)
+
+❌ KAPSAMA BASARISIZ
+
+probe exit: 1
+karar: FAIL

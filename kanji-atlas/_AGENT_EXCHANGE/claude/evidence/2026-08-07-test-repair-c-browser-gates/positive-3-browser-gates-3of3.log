@@ -1,0 +1,17 @@
+run-browser-gates · 3 tarayıcı kapısı
+Atlas kökü   : /home/claude/apps-deploy/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 300000 ms / test
+Git SHA      : 3d173ea3f970e90c52d2031b7d3fff441f4af056
+Sunucu       : http://127.0.0.1:44341/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ✅ PASS      smoke_sources.js           13696 ms
+  ✅ PASS      smoke_backup.js            29946 ms
+  ✅ PASS      smoke_recognition.js      191022 ms
+
+Sunucu kapatıldı · port 44341
+Toplam: 3/3 PASS · FAIL 0 · TIMEOUT 0 · diğer 0 · 234729 ms
+Ağaç koruması: ✅ koşum sırasında değişiklik YOK
+
+✅ TARAYICI KAPILARI GEÇTİ
+EXIT=0

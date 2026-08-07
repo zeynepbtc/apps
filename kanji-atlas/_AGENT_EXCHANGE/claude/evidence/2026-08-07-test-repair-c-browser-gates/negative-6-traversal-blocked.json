@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0",
+  "runner": "run-browser-gates",
+  "nodeVersion": "v22.22.2",
+  "atlasDir": "/tmp/c6/kanji-atlas",
+  "timeoutMs": 300000,
+  "gitSha": null,
+  "startedAt": "2026-08-06T22:26:16.021Z",
+  "endedAt": "2026-08-06T22:26:16.236Z",
+  "totalDurationMs": 215,
+  "guard": {
+    "available": false,
+    "startedClean": null,
+    "unchanged": null,
+    "changedPaths": [],
+    "reason": "Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)"
+  },
+  "serverUrl": "http://127.0.0.1:45355/index.html",
+  "port": 45355,
+  "results": [
+    {
+      "name": "smoke_sources.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 162,
+      "stdout": "✓ engellendi  HTTP 404  /../../../../etc/passwd\n✓ engellendi  HTTP 404  /%2e%2e/%2e%2e/%2e%2e/etc/passwd\n✓ engellendi  HTTP 404  /..%2f..%2f..%2fetc%2fpasswd\n✓ engellendi  HTTP 404  /audio/../../../../etc/passwd\n✓ engellendi  HTTP 404  /%2E%2E%2F%2E%2E%2Fetc/passwd\n✓ engellendi  HTTP 404  /index.html/../../../../etc/passwd\n✓ engellendi  HTTP 400  /%00/etc/passwd\n✓ engellendi  HTTP 400  /....//....//etc/passwd\n✓ engellendi  HTTP 400  /%c0%ae%c0%ae/etc/passwd\n✓ POST /index.html -> HTTP 405 (405 bekleniyor)\n✓ GET /index.html -> HTTP 200 (200 bekleniyor)\n✓ GET /audio/kana/a.mp3 -> HTTP 200 (200 bekleniyor)\n\n✅ SUNUCU GUVENLIGI GECTI (9 deneme, 0 sizinti)\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_backup.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 22,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_recognition.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 19,
+      "stdout": "",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "totals": {
+    "total": 3,
+    "pass": 3,
+    "fail": 0,
+    "timeout": 0,
+    "other": 0,
+    "notRun": 0
+  },
+  "overallPass": true,
+  "decision": "PASS"
+}

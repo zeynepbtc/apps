@@ -1,11 +1,17 @@
 /* Tanıma merdiveni — yerel Playwright smoke (non-shipping). Yol matrisi + migration + öneri şeridi. */
+/* Batch C · TAŞINABİLİRLİK: Python sunucu sahipliği KALDIRILDI, sabit port 8901 ve
+   /home/claude yolu KALDIRILDI. URL'yi run-browser-gates.mjs SMOKE_URL ile verir.
+   Assertion'lar, akış ve yukarıdaki düzeltme notları DEĞİŞMEDİ. */
 const { chromium } = require("playwright");
-const { spawn } = require("child_process");
-const srv = spawn("python3", ["-m","http.server","8901","--bind","127.0.0.1"], { cwd:"/home/claude/apps-deploy/kanji-atlas", stdio:"ignore" });
-const URL = "http://127.0.0.1:8901/index.html";
+const URL = process.env.SMOKE_URL;
+if (!URL) {
+  console.error("YAPILANDIRMA HATASI: SMOKE_URL tanımlı değil.");
+  console.error("Bu test tarayıcı kapısı koşucusu üzerinden çalışır:  node _faz2/run-browser-gates.mjs");
+  process.exit(2);
+}
 (async () => {
-  await new Promise(r=>setTimeout(r,900));
   const b = await chromium.launch();
+  try {
   const p = await b.newPage({ viewport:{width:390,height:780} });
   let pass=0, fail=0; const fails=[];
   const ok=(c,m)=>{ if(c)pass++; else { fail++; fails.push(m); } };
@@ -85,5 +91,8 @@ const URL = "http://127.0.0.1:8901/index.html";
 
   console.log("SMOKE recognition · pass="+pass+"  fail="+fail);
   if(fail) console.log("FAILURES:\n - "+fails.join("\n - "));
-  await b.close(); srv.kill(); process.exit(fail?1:0);
-})().catch(e=>{ console.error("HARNESS ERR", e.message); srv.kill(); process.exit(2); });
+  process.exitCode = fail?1:0;
+  } finally {
+    await b.close().catch(()=>{});      // tarayıcı BAŞARI ve BAŞARISIZLIK yollarında kapanır
+  }
+})().catch(e=>{ console.error("HARNESS ERR", e && e.message || e); process.exit(2); });

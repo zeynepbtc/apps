@@ -1,0 +1,11 @@
+run-browser-gates · 3 tarayıcı kapısı
+Atlas kökü   : /tmp/c45/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 300000 ms / test
+Git SHA      : 21cee597ce19ab622828b3b16813e8986f6e71a6
+
+❌ KIRLI BAŞLANGIÇ — yayın kapısı koşumu TEMİZ ağaçta başlamalıdır.
+   1 değişmiş yol (ilk 10):
+     M kanji-atlas/audio-manifest.json
+   Sunucu AÇILMADI, hiçbir test çalıştırılmadı. Koruma SALT OKUNURDUR: değişiklikleriniz
+   OLDUĞU GİBİ duruyor; koşucu hiçbir şeyi geri almaz/temizlemez.
