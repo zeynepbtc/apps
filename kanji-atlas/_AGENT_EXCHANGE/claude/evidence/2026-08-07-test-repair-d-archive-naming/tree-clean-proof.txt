@@ -1,0 +1,6 @@
+GATE KOSUMU ONCESI/SONRASI AGAC
+
+once  : 0 degisiklik (git status --porcelain)
+sonra : 0 degisiklik
+izlenen dosya hash listesi: DEGISMEDI
+arsiv icerik muhru (once=sonra): 26df56b2f2a736d4c01973035403a770
