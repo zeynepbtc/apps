@@ -50,4 +50,4 @@ PASS. The test inventory was classified and cleaned; active core and real-Chromi
 
 ## Next gate
 
-Authoring Batch 18 is PASS with result **B / HOLD**: `今` has no defensible cross-source origin spine, so no product-data write was made and it remains hidden. The next bounded content gate is `白` research + hidden draft only. `九`, editorial harmonization, the disputed-origin product pattern, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
+Authoring Batch 18 is PASS with result **B / HOLD**: `今` has no defensible cross-source origin spine, so no product-data write was made and it remains hidden. Authoring Batch 19 is approved as **research + hidden draft only** for `白`; insufficient evidence again yields HOLD without a product-data write. `九`, editorial harmonization, the disputed-origin product pattern, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
