@@ -1,0 +1,9 @@
+toplam=98 reviewed=58 drafted=1 (九)
+legacy=30 görünür köken=88
+mnemonic not_required=74 active=2 pending_review=0 alansız=22
+CONTENT_HASH: 475592a4bd20617e
+白 etymology=false mnemonic=false pictogram_note="" memory_hint_tr=""
+白 örnekler: [["白","shiro","beyaz"],["白い","shiroi","beyaz (sıfat)"],["面白い","omoshiroi","ilginç, eğlenceli"]] n5_words=["shiroi"]
+百 etymology=true pictogram_note=""
+百 qaStatus=reviewed confidence=B formationType=形声
+百 summaryTr: 一 sayıların başlangıcını gösterir. 白 ise anlamıyla değil, okunuşuyla katkı yapar.
