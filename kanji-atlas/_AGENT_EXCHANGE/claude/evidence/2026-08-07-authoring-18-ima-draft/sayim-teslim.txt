@@ -1,0 +1,5 @@
+toplam=98 reviewed=58 drafted=1 (九)
+legacy=30 görünür köken=88
+mnemonic not_required=74 active=2 pending_review=0 alansız=22
+CONTENT_HASH: 475592a4bd20617e
+今 etymology var mı: false · mnemonic var mı: false
