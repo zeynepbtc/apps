@@ -7,7 +7,7 @@ Updated: 2026-08-07
 - Portfolio state: Development / pre-release
 - Web production source: `apps` monorepo, `kanji-atlas/`
 - Coordination branch: `codex/kanji-atlas-coordination`
-- Batch 17 integrated delivery tip: `1680f95`
+- Batch 17 PASS/coordination tip: `13a62c5`
 - Gate 1 correctness fixes: PASS
 - Test repair Batches A-E: PASS
 - Release state: HOLD
@@ -50,4 +50,4 @@ PASS. The test inventory was classified and cleaned; active core and real-Chromi
 
 ## Next gate
 
-Authoring Batch 17 is PASS: `南` is reviewed and visible with DECISION-002 (`mnemonic: not_required`). The next bounded content gate is `今`; `白`, `九`, editorial harmonization, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
+Authoring Batch 17 is PASS: `南` is reviewed and visible with DECISION-002 (`mnemonic: not_required`). Authoring Batch 18 is approved as **research + hidden draft only** for `今`: defensible source agreement yields a `drafted` record; inadequate evidence yields HOLD without a product-data write. `白`, `九`, editorial harmonization, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
