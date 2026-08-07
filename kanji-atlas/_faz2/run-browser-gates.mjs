@@ -47,7 +47,7 @@ const DEFAULT_TIMEOUT_MS = 300_000;
 const KILL_GRACE_MS = 5_000;
 
 /* ── AÇIK BEYAZ LİSTE — sözleşmedeki sıra. Desen/dizin taraması YOK. ── */
-const WHITELIST = ["smoke_sources.js", "smoke_backup.js", "smoke_recognition.js"];
+const WHITELIST = ["smoke_sources.js", "smoke_home_rec.js", "smoke_backup.js", "smoke_recognition.js"];
 
 const USAGE = `run-browser-gates — Kanji Atlas tarayıcı yayın kapısı (${WHITELIST.length} test)
 

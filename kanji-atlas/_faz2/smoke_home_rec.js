@@ -7,14 +7,31 @@
    DİKKAT: uygulamada pagehide/visibilitychange "lifecycle flush" var (save() → localStorage).
    Düz clear()+reload() İŞE YARAMAZ: reload'un pagehide'ı eski state'i geri yazar.
    Çözüm: clear/seed'den SONRA bu dokümanda setItem'i etkisizleştir. */
+/* Batch E · TAŞINABİLİRLİK: Python sunucu sahipliği, sabit port 8907 ve /home/claude yolu
+   KALDIRILDI. URL'yi run-browser-gates.mjs SMOKE_URL ile verir; sunucunun TEK sahibi odur.
+   Assertion'lar, seçiciler, üç onboarding yolu, 44px ölçütü, mouse/Enter/Space davranışı,
+   tekillik, marker semantiği, 320px taşma ve pageerror kontrolü DEĞİŞMEDİ. */
 const { chromium } = require("playwright");
-const { spawn } = require("child_process");
-const srv = spawn("python3", ["-m","http.server","8907","--bind","127.0.0.1"], { cwd:"/home/claude/apps-deploy/kanji-atlas", stdio:"ignore" });
-const URL = "http://127.0.0.1:8907/index.html";
+const URL = process.env.SMOKE_URL;
+if (!URL) {
+  console.error("YAPILANDIRMA HATASI: SMOKE_URL tanımlı değil.");
+  console.error("Bu test tarayıcı kapısı koşucusu üzerinden çalışır:  node _faz2/run-browser-gates.mjs");
+  process.exit(2);                     // hiçbir tarayıcı AÇILMADAN çıkar
+}
+/* Ekran görüntüsü: normal gate koşumunda DOSYA YAZILMAZ. Yalnız açık debug seçeneğiyle:
+     HOME_REC_SHOT_DIR=<dizin> node _faz2/run-browser-gates.mjs
+   Verilmezse hiçbir görüntü alınmaz (eski zorunlu /tmp/home_rec_*.png yan etkisi kaldırıldı). */
+const SHOT_DIR = process.env.HOME_REC_SHOT_DIR || null;
+const shot = async (p, ad) => {
+  if (!SHOT_DIR) return;                                   // normal koşumda hiç dosya yazılmaz
+  const path = require("path"), fs = require("fs");
+  fs.mkdirSync(SHOT_DIR, { recursive: true });
+  await p.screenshot({ path: path.join(SHOT_DIR, ad) });
+};
 
 (async () => {
-  await new Promise(r=>setTimeout(r,900));
   const b = await chromium.launch();
+  try {
   const p = await b.newPage({ viewport:{width:390,height:780} });
   let pass=0, fail=0; const fails=[];
   const ok=(c,m)=>{ if(c)pass++; else { fail++; fails.push(m); } };
@@ -151,14 +168,17 @@ const URL = "http://127.0.0.1:8907/index.html";
   ok(!ov.miss && ov.right<=ov.docW+0.5, "320px: yatay taşma yok");
   ok(!ov.miss && ov.scrollW<=ov.docW+0.5, "320px: sayfa yatay kaymıyor");
   ok(!ov.miss && ov.h>=44, "320px: dokunma hedefi hâlâ >=44px");
-  await p.screenshot({ path:"/tmp/home_rec_320.png" });
+  await shot(p, "home_rec_320.png");
   await p.setViewportSize({width:390,height:780});
   await completeVia("a-hayir");
-  await p.screenshot({ path:"/tmp/home_rec_390.png" });
+  await shot(p, "home_rec_390.png");
 
   ok(pe.length===0, "pageerror YOK"+(pe.length?": "+pe.slice(0,3).join("|"):""));
 
   console.log("SMOKE home-rec · pass="+pass+"  fail="+fail);
   if(fail) console.log("FAILURES:\n - "+fails.join("\n - "));
-  await b.close(); srv.kill(); process.exit(fail?1:0);
-})().catch(e=>{ console.error("HARNESS ERR", e.message); srv.kill(); process.exit(2); });
+  process.exitCode = fail?1:0;           // sunucuyu KAPATMAZ; sahibi run-browser-gates.mjs
+  } finally {
+    await b.close().catch(()=>{});       // her başarı/hata yolunda tarayıcı kapanır
+  }
+})().catch(e=>{ console.error("HARNESS ERR", e && e.message || e); process.exit(2); });
