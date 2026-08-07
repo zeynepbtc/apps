@@ -1,28 +1,27 @@
 # Kanji Atlas — Product Status
 
-Updated: 2026-08-06
+Updated: 2026-08-07
 
 ## Current state
 
 - Portfolio state: Development / pre-release
 - Web production source: `apps` monorepo, `kanji-atlas/`
-- Local main: `403caabaed188d4e8671f13e85a0e428d98fbb10`
 - Coordination branch: `codex/kanji-atlas-coordination`
-- Gate 1 implementation tip: `b5c0545129da0c19c85b247c60dc2440bcbc4583`
-- Gate 1 code tip: `cc57c4c10da7aeafbb126e7fd61d3a7d3a9fdf1d`
-- Coordination setup commit: `1b7fc7a9547a4dcb234e872d115c95fc525510f1`
+- Coordination tip: `e0abee68d94d55c42f0d79ed7a835215dc5b9afb`
+- Gate 1 correctness fixes: PASS
+- Test repair Batches A-E: PASS
 - Release state: HOLD
 
 ## Why release is on hold
 
-- The Gate 1 correctness fixes are verified, but the regression-test inventory is not yet reliable.
+- Content authoring is not frozen: `南`, `今`, `白`, `九` and editorial harmonization remain open.
 - QA visibility policy and reduced-motion accessibility remain open.
 - Native iOS and Android projects have not been generated and verified on real devices.
 - Store metadata, privacy declarations, signing, screenshots, internal testing, and rollback evidence are incomplete.
 
 ## Current phase
 
-Gate 1 complete. Preparing the bounded test-inventory repair gate before any merge to `main`.
+Regression gate repair is complete. Beginning bounded content closure before Content Freeze v1.0.
 
 ## Phase 0 result
 
@@ -36,6 +35,19 @@ PASS. Codex independently reproduced the critical audit findings and corrected t
 
 PASS. Claude's four-commit bundle was verified, imported without rewriting commit identities, merged into the coordination branch, and independently retested by Codex. The fixes cover the three wrong reading/audio mappings, empty origin card, duplicate `style` attribute, and duplicate `nichiyoubi`. Audio files are byte-identical before and after.
 
+## Regression gate result
+
+PASS. The test inventory was classified and cleaned; active core and real-Chromium gates are portable and deterministic. The canonical default command currently covers 10 core and 4 browser gates. Batch E removed the home-recommendation gate's external-font timeout dependency without weakening its 57 assertions.
+
+## Current content measurement
+
+- 98 total character records
+- 57 reviewed etymology records
+- 2 drafted and hidden records: `九`, `南`
+- 30 visible legacy origin records
+- 87 records with a user-visible origin
+- `今` and `白` remain empty; seven radical records intentionally hide origin
+
 ## Next gate
 
-Codex will define a narrow test-inventory contract. Claude must classify the 16 stale-path files, repair or formally retire active tests, and report raw evidence. `main`, deploy, landing, and native/store work remain out of scope until that gate is independently approved.
+Authoring Batch 17 opens only `南` after applying DECISION-002 (`mnemonic: not_required`). `今`, `白`, `九`, editorial harmonization, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
