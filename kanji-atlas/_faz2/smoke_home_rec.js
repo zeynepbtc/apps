@@ -7,11 +7,20 @@
    DİKKAT: uygulamada pagehide/visibilitychange "lifecycle flush" var (save() → localStorage).
    Düz clear()+reload() İŞE YARAMAZ: reload'un pagehide'ı eski state'i geri yazar.
    Çözüm: clear/seed'den SONRA bu dokümanda setItem'i etkisizleştir. */
-/* Batch E · TAŞINABİLİRLİK: Python sunucu sahipliği, sabit port 8907 ve /home/claude yolu
+/* Batch E · TAŞINABİLİRLİK: testin kendi sunucu süreci, sabit portu ve ortama özel mutlak yolu
    KALDIRILDI. URL'yi run-browser-gates.mjs SMOKE_URL ile verir; sunucunun TEK sahibi odur.
+
+   Batch E düzeltmesi · AĞ YALITIMI: bu kapı home-recommendation DOM davranışını, erişilebilirlik
+   semantiğini, etkileşimi ve taşmayı sınar — dış bir font CDN'inin erişilebilirliğini DEĞİL.
+   Bu yüzden ilk gezinmeden ÖNCE yerel olmayan HTTP(S) istekleri engellenir. Ölçüm yedek sistem
+   fontuyla yapılır; bu bilinçli ve kabul edilmiş bir karardır (görsel yazı tipi sadakati ayrı
+   bir cihaz/görsel tur konusudur). Yerel uygulama kaynakları ENGELLENMEZ: yerel bir kaynak
+   düşerse test kırmızı kalır, filtre hatayı maskelemez.
+
    Assertion'lar, seçiciler, üç onboarding yolu, 44px ölçütü, mouse/Enter/Space davranışı,
    tekillik, marker semantiği, 320px taşma ve pageerror kontrolü DEĞİŞMEDİ. */
 const { chromium } = require("playwright");
+const { URL: WebURL } = require("url");   // dosyada URL adı SMOKE_URL için kullanıldığından ayrı ad
 const URL = process.env.SMOKE_URL;
 if (!URL) {
   console.error("YAPILANDIRMA HATASI: SMOKE_URL tanımlı değil.");
@@ -33,6 +42,27 @@ const shot = async (p, ad) => {
   const b = await chromium.launch();
   try {
   const p = await b.newPage({ viewport:{width:390,height:780} });
+
+  /* ── AĞ YALITIMI — İLK goto/reload'DAN ÖNCE kurulur ──
+     İzin: yalnız 127.0.0.1 / localhost / ::1 üzerinden http(s).
+     Engel: diğer tüm http(s) hedefleri + ayrıştırılamayan istekler (sessizce dışarı çıkmasın).
+     Dokunulmaz: data:, blob: ve tarayıcı-içi şemalar — gereksiz yere engellenmez. */
+  const LOCAL_HOSTS = new Set(["127.0.0.1", "localhost", "::1", "[::1]"]);
+  let blockedCount = 0, allowedLocalCount = 0; const blockedOrigins = new Set();
+  await p.route("**/*", route => {
+    const raw = route.request().url();
+    let u = null;
+    try { u = new WebURL(raw); } catch (e) { u = null; }
+    if (!u) {                                   // ayrıştırılamadı → GÜVENLİ TARAF: engelle
+      blockedCount++; blockedOrigins.add("(ayrıştırılamayan istek)");
+      return route.abort();
+    }
+    if (u.protocol !== "http:" && u.protocol !== "https:") return route.continue();
+    if (LOCAL_HOSTS.has(u.hostname)) { allowedLocalCount++; return route.continue(); }
+    blockedCount++; blockedOrigins.add(u.protocol + "//" + u.host);
+    return route.abort();
+  });
+
   let pass=0, fail=0; const fails=[];
   const ok=(c,m)=>{ if(c)pass++; else { fail++; fails.push(m); } };
   const pe=[]; p.on("pageerror",e=>pe.push(e.message));
@@ -175,6 +205,10 @@ const shot = async (p, ad) => {
 
   ok(pe.length===0, "pageerror YOK"+(pe.length?": "+pe.slice(0,3).join("|"):""));
 
+  console.log("Ağ yalıtımı · yerel istek GEÇTİ: "+allowedLocalCount
+            + " · yerel olmayan HTTP(S) ENGELLENDİ: "+blockedCount);
+  console.log("Ağ yalıtımı · engellenen kaynaklar: "
+            + (blockedOrigins.size ? [...blockedOrigins].sort().join(", ") : "(yok)"));
   console.log("SMOKE home-rec · pass="+pass+"  fail="+fail);
   if(fail) console.log("FAILURES:\n - "+fails.join("\n - "));
   process.exitCode = fail?1:0;           // sunucuyu KAPATMAZ; sahibi run-browser-gates.mjs
