@@ -9,7 +9,7 @@
 | Dal | **`content/authoring-19-shiro-draft-2026-08-07`** |
 | Karar | **B** — savunulabilir ortak omurga **YOK** |
 | `index.html` | **tabana göre BAYT-IDENTİK** |
-| **Gerçek değişen dosya sayısı** | **5** — hepsi `_AGENT_EXCHANGE/` altında (1 plan · 3 kanıt · 1 rapor) + son commit'te 4 koşum logu |
+| **Gerçek değişen dosya sayısı** | **10** — hepsi `_AGENT_EXCHANGE/` altında (§4'te tam liste) · ürün dosyası **0** |
 | Varsayılan `npm run gates` | **14/14 PASS · EXIT=0** |
 | DOM kanıtı | **10/10 PASS** |
 | `今` · `九` · `南` · `百` · `白い` · uyumlama · Content Freeze · sonraki adım | **BAŞLATILMADI** |
@@ -152,8 +152,20 @@ Bugünkü `白` şekli (日'nin üstünde kısa bir çizgi) tarihsel biçimin ç
 
 ```
 git diff --quiet ac7698f HEAD -- kanji-atlas/index.html   → BAYT-IDENTİK ✅
-git diff --name-only ac7698f HEAD  → 4 dosya (rapor commit'i öncesi), hepsi _AGENT_EXCHANGE/
-git diff --check ac7698f HEAD      → 0 bulgu
+git diff --check ac7698f HEAD                             → 0 bulgu
+git diff --name-only ac7698f HEAD                         → 10 dosya, HEPSİ _AGENT_EXCHANGE/ altında:
+  claude/plans/2026-08-07-AUTHORING-BATCH-19-SHIRO-DRAFT-PLAN.md
+  claude/reports/2026-08-07-AUTHORING-BATCH-19-SHIRO-DRAFT.md
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/kaynak-alintilari-HAM.md
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/kaynak-matrisi.md
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/sayim-ve-baslangic-kaydi-taban.txt
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/sayim-teslim.txt
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/gates-14of14-VARSAYILAN.log
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/gates-ILK-KOSUM-smoke-backup-flake.log
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/browser-gates-yeniden-4of4.json
+  claude/evidence/2026-08-07-authoring-19-shiro-draft/dom-kanit-10of10.log
+
+ÜRÜN DOSYASI DEĞİŞİKLİĞİ: 0
 ```
 
 `_faz2/apply_authoring_19_shiro_draft.js` **yazılmadı** (B'de izinli değil).
