@@ -1,0 +1,96 @@
+toplam=98 reviewed=58 drafted=1 (九)
+legacy=30 görünür köken=88
+mnemonic not_required=74 active=2 pending_review=0 alansız=22
+CONTENT_HASH: 475592a4bd20617e
+
+--- 白 kaydı (id=shiro) ---
+{
+ "id": "shiro",
+ "character": "白",
+ "type": "kanji",
+ "meaning_tr": "beyaz",
+ "meaning_en": "white",
+ "onyomi": "ハク",
+ "kunyomi": "しろ",
+ "romaji": "shiro",
+ "stroke_count": 5,
+ "jlpt_level": "N5",
+ "category": "Renkler",
+ "components": [],
+ "component_meanings": {},
+ "parent_components": [],
+ "related_characters": [],
+ "examples": [
+  [
+   "白",
+   "shiro",
+   "beyaz"
+  ],
+  [
+   "白い",
+   "shiroi",
+   "beyaz (sıfat)"
+  ],
+  [
+   "面白い",
+   "omoshiroi",
+   "ilginç, eğlenceli"
+  ]
+ ],
+ "position_variants": [],
+ "pictogram_note": "",
+ "stroke_order_steps": [
+  "M55,13c0.38,1.5,0,3.25-0.57,4.29C51.32,22.93,46,31.12,36.81,40.22",
+  "M25.5,40.47c1.14,1.14,1.63,2.81,1.63,4.63c0,1.55,0.95,32.47,1.32,47.14c0.06,2.58,0.13,4.66,0.18,6",
+  "M28.27,43.98c13.98-1.73,39.08-4.47,49.67-5.48c5.19-0.5,7.37,0.76,7.06,5.38c-0.62,9.12-2.09,30.3-3.29,46.88c-0.17,2.42-0.33,4.65-0.46,6.57",
+  "M29.13,67.44C42.25,66,72.38,63.62,82.57,63.4",
+  "M29.69,94.49C43,93.75,66.62,92,80.19,91.41"
+ ],
+ "memory_hint_tr": "",
+ "visual_mnemonic_type": "none",
+ "n5_words": [
+  "shiroi"
+ ]
+}
+
+--- 百 kaydı (değişmez alan kontrolü) ---
+{
+ "id": "hyaku",
+ "character": "百",
+ "type": "kanji",
+ "meaning_tr": "yüz",
+ "meaning_en": "hundred",
+ "onyomi": "ヒャク",
+ "kunyomi": "-",
+ "romaji": "hyaku",
+ "stroke_count": 6,
+ "jlpt_level": "N5",
+ "category": "Sayılar",
+ "components": [],
+ "component_meanings": {},
+ "parent_components": [],
+ "related_characters": [],
+ "examples": [
+  [
+   "百",
+   "hyaku",
+   "yüz"
+  ],
+  [
+   "三百",
+   "sanbyaku",
+   "üç yüz"
+  ],
+  [
+   "百円",
+   "hyakuen",
+   "yüz yen"
+  ]
+ ],
+ "position_variants": [],
+ "pictogram_note": "",
+ "stroke_order_steps": [
+  "M16.13,20.23c2.22,0.54,6.29,0.75,8.51,0.54c21.49-2.02,41.86-4.39,59.22-4.98c3.7-0.12,5.92,0.26,7.77,0.53",
+  "M52.31,21.75c0.19,1.38,0.19,2.5-0.38,3.93c-1.65,4.19-4.81,9.19-8.66,14.68",
+  "M30.75,42.82c0.96,0.96,1.64,2.45,1.72,4.19c0.41,8.74,0.96,32.92,1.18,43.74c0.05,2.48,0.08,4.12,0.1,4.5",
+  "M33.55,44.8c10.35-1.37,35.73-4.38,38.78-4.59c3.15-0.22,4.9
