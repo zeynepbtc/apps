@@ -7,14 +7,14 @@ Updated: 2026-08-07
 - Portfolio state: Development / pre-release
 - Web production source: `apps` monorepo, `kanji-atlas/`
 - Coordination branch: `codex/kanji-atlas-coordination`
-- Coordination tip: `e0abee68d94d55c42f0d79ed7a835215dc5b9afb`
+- Batch 17 integrated delivery tip: `1680f95`
 - Gate 1 correctness fixes: PASS
 - Test repair Batches A-E: PASS
 - Release state: HOLD
 
 ## Why release is on hold
 
-- Content authoring is not frozen: `南`, `今`, `白`, `九` and editorial harmonization remain open.
+- Content authoring is not frozen: `今`, `白`, `九` and editorial harmonization remain open.
 - QA visibility policy and reduced-motion accessibility remain open.
 - Native iOS and Android projects have not been generated and verified on real devices.
 - Store metadata, privacy declarations, signing, screenshots, internal testing, and rollback evidence are incomplete.
@@ -42,12 +42,12 @@ PASS. The test inventory was classified and cleaned; active core and real-Chromi
 ## Current content measurement
 
 - 98 total character records
-- 57 reviewed etymology records
-- 2 drafted and hidden records: `九`, `南`
+- 58 reviewed etymology records
+- 1 drafted and hidden record: `九`
 - 30 visible legacy origin records
-- 87 records with a user-visible origin
+- 88 records with a user-visible origin
 - `今` and `白` remain empty; seven radical records intentionally hide origin
 
 ## Next gate
 
-Authoring Batch 17 opens only `南` after applying DECISION-002 (`mnemonic: not_required`). `今`, `白`, `九`, editorial harmonization, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
+Authoring Batch 17 is PASS: `南` is reviewed and visible with DECISION-002 (`mnemonic: not_required`). The next bounded content gate is `今`; `白`, `九`, editorial harmonization, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
