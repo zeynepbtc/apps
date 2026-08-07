@@ -7,7 +7,7 @@ Updated: 2026-08-07
 - Portfolio state: Development / pre-release
 - Web production source: `apps` monorepo, `kanji-atlas/`
 - Coordination branch: `codex/kanji-atlas-coordination`
-- Batch 17 PASS/coordination tip: `13a62c5`
+- Batch 19: PASS / B-HOLD; integrated into the coordination history
 - Gate 1 correctness fixes: PASS
 - Test repair Batches A-E: PASS
 - Release state: HOLD
@@ -17,6 +17,7 @@ Updated: 2026-08-07
 - Content authoring is not frozen: `今`, `白`, `九` and editorial harmonization remain open.
 - QA visibility policy and reduced-motion accessibility remain open.
 - Native iOS and Android projects have not been generated and verified on real devices.
+- Phone and mandatory iPad/Android tablet compatibility gates have not passed.
 - Store metadata, privacy declarations, signing, screenshots, internal testing, and rollback evidence are incomplete.
 
 ## Current phase
@@ -46,8 +47,8 @@ PASS. The test inventory was classified and cleaned; active core and real-Chromi
 - 1 drafted and hidden record: `九`
 - 30 visible legacy origin records
 - 88 records with a user-visible origin
-- `今` is source-researched and closed as HOLD without a draft; `白` remains empty; seven radical records intentionally hide origin
+- `今` and `白` are source-researched and closed as HOLD without drafts; seven radical records intentionally hide origin
 
 ## Next gate
 
-Authoring Batch 18 is PASS with result **B / HOLD**: `今` has no defensible cross-source origin spine, so no product-data write was made and it remains hidden. Authoring Batch 19 is approved as **research + hidden draft only** for `白`; insufficient evidence again yields HOLD without a product-data write. `九`, editorial harmonization, the disputed-origin product pattern, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
+Authoring Batch 19 is PASS with result **B / HOLD**: `白` has no defensible cross-source origin spine, so no product-data write was made and it remains hidden. The next bounded gate is the final disposition of the existing hidden `九` draft. Editorial harmonization, the disputed-origin product pattern, Content Freeze, `main`, deploy, landing, phone experience, tablet compatibility, native, and store remain out of scope until their named gates pass. Store release order is locked by `DECISION-003`: phone PASS, then tablet PASS, then store assets/internal testing, then release.
