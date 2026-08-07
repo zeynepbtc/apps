@@ -46,8 +46,8 @@ PASS. The test inventory was classified and cleaned; active core and real-Chromi
 - 1 drafted and hidden record: `九`
 - 30 visible legacy origin records
 - 88 records with a user-visible origin
-- `今` and `白` remain empty; seven radical records intentionally hide origin
+- `今` is source-researched and closed as HOLD without a draft; `白` remains empty; seven radical records intentionally hide origin
 
 ## Next gate
 
-Authoring Batch 17 is PASS: `南` is reviewed and visible with DECISION-002 (`mnemonic: not_required`). Authoring Batch 18 is approved as **research + hidden draft only** for `今`: defensible source agreement yields a `drafted` record; inadequate evidence yields HOLD without a product-data write. `白`, `九`, editorial harmonization, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
+Authoring Batch 18 is PASS with result **B / HOLD**: `今` has no defensible cross-source origin spine, so no product-data write was made and it remains hidden. The next bounded content gate is `白` research + hidden draft only. `九`, editorial harmonization, the disputed-origin product pattern, Content Freeze, `main`, deploy, landing, native, and store remain out of scope until their named gates pass.
