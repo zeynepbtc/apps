@@ -1,3 +1,6 @@
+/* families_report — FAMILIES modeli için KARŞILAŞTIRMA RAPORU üreteci.
+   (Eski ad: harness.js. Genel bir test koşucusu DEĞİLDİR ve hiçbir dosya bunu require
+   etmez; karsilastirma-raporu.md yazar. Batch D'de yeniden adlandırıldı; mantık DEĞİŞMEDİ.) */
 /* FAZ 2 · Kalem 1 (v3) — parite + validator + reverse test. Canlı render'a DOKUNMAZ. */
 const fs = require("fs");
 const { FAMILIES, REL_TYPES, REL_MAX, makeResolver } = require("./families.js");
