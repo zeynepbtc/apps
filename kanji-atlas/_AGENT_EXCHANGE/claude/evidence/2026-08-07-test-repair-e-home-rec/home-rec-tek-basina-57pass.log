@@ -1,0 +1,3 @@
+URL http://127.0.0.1:32957/index.html
+SMOKE home-rec · pass=57  fail=0
+CHILD EXIT 0 after 354.2s

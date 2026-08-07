@@ -1,0 +1,19 @@
+########## NEGATIF KANIT 4 · KASITLI DÜŞÜRÜLEN ASSERTION FIXTURE ##########
+run-browser-gates · 4 tarayıcı kapısı
+Atlas kökü   : /tmp/e-fix/atlas-B
+Node         : v22.22.2
+Zaman aşımı  : 900000 ms / test
+Git koruması : KULLANILAMIYOR — Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)
+Sunucu       : http://127.0.0.1:41803/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ✅ PASS      smoke_sources.js           13592 ms
+  ❌ FAIL      smoke_home_rec.js         368325 ms exit=1
+  ✅ PASS      smoke_backup.js            29171 ms
+  ✅ PASS      smoke_recognition.js      188226 ms
+
+Sunucu kapatıldı · port 41803
+Toplam: 3/4 PASS · FAIL 1 · TIMEOUT 0 · diğer 0 · 599330 ms
+Ağaç koruması: ⚠️ kullanılamıyor (Git çalışma ağacı bulunamadı (bağımsız kopya olabilir))
+
+❌ TARAYICI KAPILARI GEÇMEDİ
+RUNNER EXIT=1

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0",
+  "runner": "run-browser-gates",
+  "nodeVersion": "v22.22.2",
+  "atlasDir": "/home/claude/apps-deploy/kanji-atlas",
+  "timeoutMs": 900000,
+  "gitSha": "df5696c341bf08231e7fbceefc71f098b32121a4",
+  "startedAt": "2026-08-07T05:14:40.403Z",
+  "endedAt": "2026-08-07T05:24:39.344Z",
+  "totalDurationMs": 598941,
+  "guard": {
+    "available": true,
+    "startedClean": true,
+    "unchanged": true,
+    "changedPaths": [],
+    "reason": null
+  },
+  "serverUrl": "http://127.0.0.1:38859/index.html",
+  "port": 38859,
+  "results": [
+    {
+      "name": "smoke_sources.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 13755,
+      "stdout": "✓ 1) sources ekranı render ediyor — Kaynaklar ve Yöntem\n✓ 2) eyebrow İngilizce başlık var — Sources & Methodology\n✓ 3) 4 kaynak + 3 varlık listeleniyor (7) — Kanjipedia, Dong Chinese, Wiktionary, OKJiten, KanjiVG, Yazı tipleri, Ses\n✓ 4) Kanjipedia/Dong/Wiktionary/OKJiten hepsi var\n✓ 5) tab bar gizli (NAV_HIDDEN)\n✓ 6) Geri → profile'a döner — profile\n✓ 7) Profil > Hakkında girişi sources'a götürüyor — 1 buton · \"Kaynaklar ve Yöntem →\"\n✓ 8) render regresyonu yok — {\"home\":true,\"kana\":true,\"detail\":true,\"progress\":true,\"profile\":true,\"kanji-about\":true}\n✓ 9) yeni JS exception yok\n\n✅ SOURCES SMOKE GEÇTİ (0 başarısız)\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_home_rec.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 367496,
+      "stdout": "SMOKE home-rec · pass=57  fail=0\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_backup.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 29059,
+      "stdout": "BACKUP TEST · pass=17 fail=0\n",
+      "stderr": "",
+      "error": null
+    },
+    {
+      "name": "smoke_recognition.js",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "durationMs": 188543,
+      "stdout": "SMOKE recognition · pass=24  fail=0\n",
+      "stderr": "",
+      "error": null
+    }
+  ],
+  "totals": {
+    "total": 4,
+    "pass": 4,
+    "fail": 0,
+    "timeout": 0,
+    "other": 0,
+    "notRun": 0
+  },
+  "overallPass": true,
+  "decision": "PASS"
+}

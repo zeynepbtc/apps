@@ -1,0 +1,17 @@
+
+> kanji-atlas-gates@0.0.0 gates:browser
+> node _faz2/run-browser-gates.mjs
+
+run-browser-gates · 4 tarayıcı kapısı
+Atlas kökü   : /home/claude/apps-deploy/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 300000 ms / test
+Git SHA      : 476374dcdc8dbbe5ac1148cba86faa847e7f2c03
+
+❌ KIRLI BAŞLANGIÇ — yayın kapısı koşumu TEMİZ ağaçta başlamalıdır.
+   2 değişmiş yol (ilk 10):
+     M kanji-atlas/_faz2/run-browser-gates.mjs
+      M kanji-atlas/_faz2/smoke_home_rec.js
+   Sunucu AÇILMADI, hiçbir test çalıştırılmadı. Koruma SALT OKUNURDUR: değişiklikleriniz
+   OLDUĞU GİBİ duruyor; koşucu hiçbir şeyi geri almaz/temizlemez.
+EXIT=1

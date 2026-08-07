@@ -1,0 +1,18 @@
+########## NEGATIF KANIT 1 · SMOKE_URL YOK (temiz taban) ##########
+önce chromium:
+0
+YAPILANDIRMA HATASI: SMOKE_URL tanımlı değil.
+Bu test tarayıcı kapısı koşucusu üzerinden çalışır:  node _faz2/run-browser-gates.mjs
+EXIT=2
+süre=448 ms
+sonra chromium:
+0
+
+########## NEGATIF KANIT 3 · newPage() ÖNCESİ KASITLI HATA ##########
+önce chromium:
+0
+HARNESS ERR FIXTURE-A: newPage() ONCESI kasitli hata
+CHILD EXIT=2  süre=0.7s
+wrapper EXIT=0
+sonra chromium:
+0

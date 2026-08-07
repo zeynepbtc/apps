@@ -1,0 +1,50 @@
+
+> kanji-atlas-gates@0.0.0 gates
+> npm run gates:core && npm run gates:browser
+
+
+> kanji-atlas-gates@0.0.0 gates:core
+> node _faz2/run-core-gates.mjs
+
+run-core-gates · 10 çekirdek kapı
+Atlas dizini : /home/claude/apps-deploy/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 60000 ms / test
+Git SHA      : df5696c341bf08231e7fbceefc71f098b32121a4
+  ✅ PASS      smoke_content_scaffold.js      62 ms
+  ✅ PASS      smoke_legacy_derived.js        39 ms
+  ✅ PASS      smoke_durable_backend.js       42 ms
+  ✅ PASS      smoke_game_roles.js            43 ms
+  ✅ PASS      storage_check.js               35 ms
+  ✅ PASS      srs_check.js                   40 ms
+  ✅ PASS      graph_check.js                 36 ms
+  ✅ PASS      list_progress_check.js         34 ms
+  ✅ PASS      manifest_check.js              48 ms
+  ✅ PASS      manifest_build_check.js        55 ms
+
+Toplam: 10/10 PASS · FAIL 0 · TIMEOUT 0 · diğer 0 · 467 ms
+Ağaç koruması: ✅ koşum sırasında değişiklik YOK
+
+✅ ÇEKİRDEK KAPILAR GEÇTİ
+
+> kanji-atlas-gates@0.0.0 gates:browser
+> node _faz2/run-browser-gates.mjs
+
+run-browser-gates · 4 tarayıcı kapısı
+Atlas kökü   : /home/claude/apps-deploy/kanji-atlas
+Node         : v22.22.2
+Zaman aşımı  : 300000 ms / test
+Git SHA      : df5696c341bf08231e7fbceefc71f098b32121a4
+Sunucu       : http://127.0.0.1:40401/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ✅ PASS      smoke_sources.js           13319 ms
+  ⏱ TIMEOUT   smoke_home_rec.js         300064 ms exit=2
+  ✅ PASS      smoke_backup.js            28978 ms
+  ✅ PASS      smoke_recognition.js      190224 ms
+
+Sunucu kapatıldı · port 40401
+Toplam: 3/4 PASS · FAIL 0 · TIMEOUT 1 · diğer 0 · 532658 ms
+Ağaç koruması: ✅ koşum sırasında değişiklik YOK
+
+❌ TARAYICI KAPILARI GEÇMEDİ
+EXIT=1

@@ -1,0 +1,11 @@
+ilk goto                    12.72s
+clear+patch                 0.03s
+reload                      12.72s
+wait250                     0.25s
+click ob-continue           0.32s
+click ob-no                 0.92s
+go home                     0.03s
+2. goto                     12.65s
+2. reload                   12.61s
+--- 127.0.0.1 disi istekler ---
+4x  FAILED https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;

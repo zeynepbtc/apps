@@ -1,0 +1,24 @@
+########## NEGATIF KANIT 5 · ZAMAN AŞIMI FIXTURE (--timeout-ms=5000) ##########
+önce chromium:
+0
+run-browser-gates · 4 tarayıcı kapısı
+Atlas kökü   : /tmp/e-fix/atlas-C
+Node         : v22.22.2
+Zaman aşımı  : 5000 ms / test
+Git koruması : KULLANILAMIYOR — Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)
+Sunucu       : http://127.0.0.1:35069/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ⏱ TIMEOUT   smoke_sources.js            5045 ms exit=2
+  ⏱ TIMEOUT   smoke_home_rec.js           5037 ms exit=2
+  ⏱ TIMEOUT   smoke_backup.js             5038 ms exit=2
+  ⏱ TIMEOUT   smoke_recognition.js        5044 ms exit=2
+
+Sunucu kapatıldı · port 35069
+Toplam: 0/4 PASS · FAIL 0 · TIMEOUT 4 · diğer 0 · 20181 ms
+Ağaç koruması: ⚠️ kullanılamıyor (Git çalışma ağacı bulunamadı (bağımsız kopya olabilir))
+
+❌ TARAYICI KAPILARI GEÇMEDİ
+RUNNER EXIT=1
+sonra chromium:
+0
+sunucu portu hâlâ dinleniyor mu? (log'daki port kapandı satırına bakılır)
