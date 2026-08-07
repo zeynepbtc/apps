@@ -10,7 +10,7 @@
  * KASITLI SINIRLAR (sözleşme):
  *   · Yalnız Node yerleşikleri — sıfır bağımlılık, package dosyası eklenmez.
  *   · Testler AÇIK BEYAZ LİSTEDEN gelir; dosya adı deseni veya dizin taramasıyla KEŞFEDİLMEZ.
- *     (qa_kyuu_round.js gibi "test adlı ama uygulamaya yazan" betikler bu yüzden asla çalışmaz.)
+ *     (apply_kyuu_qa_round.js gibi "uygulamaya yazan" betikler bu yüzden asla çalışmaz.)
  *   · Sunucu başlatmaz, port bağlamaz, tarayıcı açmaz, ağa çıkmaz, izlenen dosya YAZMAZ.
  *   · Git koruması SALT OKUNURDUR: reset/restore/clean/stash YAPMAZ. Kullanıcının işini asla
  *     otomatik geri almaz — yalnız bildirir.

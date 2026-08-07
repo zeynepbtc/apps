@@ -1,4 +1,6 @@
-/* GATE 1 · Onboarding B2 — SAF mantık fixture'ı (non-shipping).
+/* onboarding_b2_logic_fixture — Onboarding B2 SAF mantık fixture'ı (non-shipping).
+   (Eski ad: gate1_onboarding_b2.js. Buradaki "GATE 1" Codex'in yayın Gate 1'iyle İLGİSİZDİ;
+   karışıklığı önlemek için Batch D'de yeniden adlandırıldı. Test mantığı DEĞİŞMEDİ.)
    ADIM 7 mantığını shipped index.html'den ÇIKARIR (kaynak = gerçek), node'da test eder.
    Kapsam: normalizeOnboarding (migration + invariant) · startDescriptorFor · competency eşleme ·
    t() fallback · zaman damgası · rollback-compat · KANONİK marker (firstMeaningfulActionAt) + markLearn +
@@ -121,6 +123,6 @@ ok(rn.firstMeaningfulActionAt === "2026-01-01T00:00:00.000Z", "restart/normalize
 ok(API.normalizeOnboarding({ status: "in-progress", stage: "competency", competency: null }).completed === false, "rollback ayna: in-progress → completed=false");
 ok(API.normalizeOnboarding({ status: "completed", competency: 3, startKey: "atlas-map" }).completed === true, "rollback ayna: completed → completed=true");
 
-console.log("GATE 1 · onboarding-b2:  pass=" + pass + "  fail=" + fail);
+console.log("onboarding-b2 mantık fixture:  pass=" + pass + "  fail=" + fail);
 if (fail) { console.log("FAILURES:\n - " + fails.join("\n - ")); process.exit(1); }
 console.log("ALL GREEN (" + pass + " assertions)");

@@ -1,3 +1,7 @@
+/* apply_kyuu_qa_round — UYGULAMA ARACI, TEST DEĞİLDİR.
+   (Eski ad: qa_kyuu_round.js. "qa_" öneki bunu bir kontrol sanmaya yol açıyordu; oysa
+   fs.writeFileSync ile index.html üzerindeki 九 authoring verisine YAZAR. Yayın kapısı
+   beyaz listelerinde YER ALMAZ. Batch D'de yeniden adlandırıldı; davranış DEĞİŞMEDİ.) */
 /* 九 · AYRI QA TURU (yazan ≠ onaylayan) — 2026-07-25.
    Metni Zeynep yazdı; QA bağımsız bir tur olarak yürütüldü (Kanjipedia, EN+JA Wiktionary,
    okjiten, 説文解字, 白川 eleştiri kaynağı yeniden getirildi).
