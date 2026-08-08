@@ -1,0 +1,58 @@
+{
+  "character": "後",
+  "onyomi": "ゴ",
+  "kunyomi": "あと・うし(ろ)",
+  "examples": [
+    [
+      "後ろ",
+      "ushiro",
+      "arka"
+    ],
+    [
+      "午後",
+      "gogo",
+      "öğleden sonra"
+    ]
+  ],
+  "readings": {
+    "officialOn": [
+      "ゴ",
+      "コウ"
+    ],
+    "officialKun": [
+      "のち",
+      "うし(ろ)",
+      "あと",
+      "おく(れる)"
+    ],
+    "taughtOn": [
+      "ゴ"
+    ],
+    "taughtKun": [
+      "あと",
+      "うし(ろ)"
+    ],
+    "deferred": [
+      {
+        "reading": "コウ",
+        "kind": "on",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "のち",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "おく(れる)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      }
+    ],
+    "source": "文化庁 常用漢字表 / jitenon",
+    "qaStatus": "reviewed"
+  }
+}

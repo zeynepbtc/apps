@@ -1,0 +1,36 @@
+{
+  "character": "後",
+  "onyomi": "ゴ",
+  "kunyomi": "あと・うし(ろ)",
+  "examples": [
+    [
+      "後ろ",
+      "ushiro",
+      "arka"
+    ],
+    [
+      "午後",
+      "gogo",
+      "öğleden sonra"
+    ]
+  ],
+  "readings": {
+    "officialOn": [
+      "ゴ"
+    ],
+    "officialKun": [
+      "あと",
+      "うし(ろ)"
+    ],
+    "taughtOn": [
+      "ゴ"
+    ],
+    "taughtKun": [
+      "あと",
+      "うし(ろ)"
+    ],
+    "deferred": [],
+    "source": "文化庁 常用漢字表 / jitenon",
+    "qaStatus": "reviewed"
+  }
+}

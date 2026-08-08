@@ -1,0 +1,67 @@
+=== ÜRÜN SHA · ÖNCE ===
+  index.html: 67e8bcbcb50121fc616fcf1b991628f220885aaef3be78feaec393fe5b79bc80 
+  data_chars.json: e84b9e040e6efcb78880a2a84f32a195657c0495bd318fa2652de14808c0f620
+
+=== BASELINE — beklenen exit 0 ===
+BASELINE · enjeksiyon YOK
+smoke_official_readings_ato: 11/11
+exit: 0
+→ GERÇEK exit: 0
+
+=== inj1 — beklenen exit 1 ===
+ENJEKSİYON: inj1 · officialOn içinden コウ çıkarılır
+FAIL: ato: officialOn (değer+sıra)
+smoke_official_readings_ato: 10/11
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj2 — beklenen exit 1 ===
+ENJEKSİYON: inj2 · officialKun sırası değiştirilir
+FAIL: ato: officialKun (değer+sıra)
+smoke_official_readings_ato: 10/11
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj3 — beklenen exit 1 ===
+ENJEKSİYON: inj3 · コウ yanlışlıkla taughtOn'a eklenir (yüzey aynı)
+FAIL: ato: taughtOn
+smoke_official_readings_ato: 10/11
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj4 — beklenen exit 1 ===
+ENJEKSİYON: inj4 · のち deferred girdisinin kind'ı on yapılır
+FAIL: ato: deferred (tam eşleşme, sıra dahil)
+smoke_official_readings_ato: 10/11
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj5 — beklenen exit 1 ===
+ENJEKSİYON: inj5 · おく(れる) deferred reason metni değiştirilir
+FAIL: ato: deferred (tam eşleşme, sıra dahil)
+smoke_official_readings_ato: 10/11
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj6 — beklenen exit 1 ===
+ENJEKSİYON: inj6 · kunyomi sessizce あと・うし(ろ)・のち yapılır
+FAIL: ato: kunyomi yüzeyi
+smoke_official_readings_ato: 10/11
+exit: 1
+→ GERÇEK exit: 1
+
+=== ÜRÜN SHA · SONRA ===
+  index.html: 67e8bcbcb50121fc616fcf1b991628f220885aaef3be78feaec393fe5b79bc80 
+  data_chars.json: e84b9e040e6efcb78880a2a84f32a195657c0495bd318fa2652de14808c0f620
+✅ ÜRÜN DOSYALARI DEĞİŞMEDİ
+
+=== ÖZET ===
+  baseline  beklenen 0 · gerçek 0 · ✅
+  inj1      beklenen 1 · gerçek 1 · ✅
+  inj2      beklenen 1 · gerçek 1 · ✅
+  inj3      beklenen 1 · gerçek 1 · ✅
+  inj4      beklenen 1 · gerçek 1 · ✅
+  inj5      beklenen 1 · gerçek 1 · ✅
+  inj6      beklenen 1 · gerçek 1 · ✅
+
+Baseline PASS + 6 enjeksiyon FAIL + ürün dokunulmadı: ✅ TÜMÜ BEKLENDİĞİ GİBİ
