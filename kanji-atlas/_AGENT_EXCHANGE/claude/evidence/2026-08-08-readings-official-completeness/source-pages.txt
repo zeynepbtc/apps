@@ -1,0 +1,21 @@
+# Resmî kaynak — 文化庁 常用漢字表 (平成22年内閣告示第2号)
+URL: https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/pdf/joyokanjihyo_20101130.pdf
+downloadTimeUTC: 2026-08-08T06:18:22Z
+sizeBytes: 3551021
+sha256: d9f28aeb4ce8250dbde07de20ac66cca71805ba09d94e4942c752dffa84d8d42
+localCopy(scratchpad, git dışı): /private/tmp/claude-501/-Volumes-Zeynep-G-PROJECT-APPS-web-github--worktrees-kanji-atlas-onboarding-b2-gate3/912d61e4-5ce2-457e-8b0b-706b0ca403be/scratchpad/joyokanjihyo_20101130.pdf
+NOT: tam PDF (3.5MB) §6.8 'yalnız §4 yolları' sınırını korumak için git ağacına konmadı;
+     URL+SHA-256 ile Codex birebir yeniden indirip doğrulayabilir. 11 karakter kırpımı bu klasördedir.
+
+# Karakter → PDF sayfa eşlemesi (aşağıda doldurulacak)
+hito    人  PDF sayfa  86  crop=page086-hito-人.png
+dai     大  PDF sayfa 104  crop=page104-dai-大.png
+tsuki   月  PDF sayfa  46  crop=page046-tsuki-月.png
+yon     四  PDF sayfa  64  crop=page064-yon-四.png
+kyuu    九  PDF sayfa  35  crop=page035-kyuu-九.png
+otoko   男  PDF sayfa 106  crop=page106-otoko-男.png
+ashi    足  PDF sayfa 100  crop=page100-ashi-足.png
+ato     後  PDF sayfa  51  crop=page051-ato-後.png
+sei     生  PDF sayfa  89  crop=page089-sei-生.png
+hanasu  話  PDF sayfa 161  crop=page161-hanasu-話.png
+nani    何  PDF sayfa  20  crop=page020-nani-何.png

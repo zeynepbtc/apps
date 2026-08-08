@@ -1,0 +1,229 @@
+{
+  "hito": {
+    "character": "人",
+    "officialOn": [
+      "ジン",
+      "ニン"
+    ],
+    "officialKun": [
+      "ひと"
+    ],
+    "taughtOn": [
+      "ジン",
+      "ニン"
+    ],
+    "taughtKun": [
+      "ひと"
+    ],
+    "deferred": [],
+    "irregularWords": [
+      {
+        "word": "大人",
+        "reading": "おとな",
+        "note": "付表 (jukujikun) — kelimeye özgü düzensiz okuma; kanjinin okuması değil"
+      }
+    ]
+  },
+  "dai": {
+    "character": "大",
+    "officialOn": [
+      "ダイ",
+      "タイ"
+    ],
+    "officialKun": [
+      "おお(きい)"
+    ],
+    "taughtOn": [
+      "ダイ",
+      "タイ"
+    ],
+    "taughtKun": [
+      "おお(きい)"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  },
+  "tsuki": {
+    "character": "月",
+    "officialOn": [
+      "ゲツ",
+      "ガツ"
+    ],
+    "officialKun": [
+      "つき"
+    ],
+    "taughtOn": [
+      "ゲツ",
+      "ガツ"
+    ],
+    "taughtKun": [
+      "つき"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  },
+  "yon": {
+    "character": "四",
+    "officialOn": [
+      "シ"
+    ],
+    "officialKun": [
+      "よん",
+      "よ(つ)"
+    ],
+    "taughtOn": [
+      "シ"
+    ],
+    "taughtKun": [
+      "よん",
+      "よ(つ)"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  },
+  "kyuu": {
+    "character": "九",
+    "officialOn": [
+      "キュウ",
+      "ク"
+    ],
+    "officialKun": [
+      "ここの(つ)"
+    ],
+    "taughtOn": [
+      "キュウ",
+      "ク"
+    ],
+    "taughtKun": [
+      "ここの(つ)"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  },
+  "otoko": {
+    "character": "男",
+    "officialOn": [
+      "ダン",
+      "ナン"
+    ],
+    "officialKun": [
+      "おとこ"
+    ],
+    "taughtOn": [
+      "ダン"
+    ],
+    "taughtKun": [
+      "おとこ"
+    ],
+    "deferred": [
+      {
+        "reading": "ナン",
+        "kind": "on",
+        "reason": "N4 (長男); taught değil",
+        "recommend": "defer"
+      }
+    ],
+    "irregularWords": []
+  },
+  "ashi": {
+    "character": "足",
+    "officialOn": [
+      "ソク"
+    ],
+    "officialKun": [
+      "あし",
+      "た(りる)"
+    ],
+    "taughtOn": [
+      "ソク"
+    ],
+    "taughtKun": [
+      "あし"
+    ],
+    "deferred": [
+      {
+        "reading": "た(りる)",
+        "kind": "kun",
+        "reason": "N4; farklı anlam kümesi (yetmek); örnek 足りる authoring incelemesine",
+        "recommend": "defer"
+      }
+    ],
+    "irregularWords": []
+  },
+  "ato": {
+    "character": "後",
+    "officialOn": [
+      "ゴ"
+    ],
+    "officialKun": [
+      "あと",
+      "うし(ろ)"
+    ],
+    "taughtOn": [
+      "ゴ"
+    ],
+    "taughtKun": [
+      "あと",
+      "うし(ろ)"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  },
+  "sei": {
+    "character": "生",
+    "officialOn": [
+      "セイ"
+    ],
+    "officialKun": [
+      "い(きる)",
+      "う(まれる)"
+    ],
+    "taughtOn": [
+      "セイ"
+    ],
+    "taughtKun": [
+      "い(きる)",
+      "う(まれる)"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  },
+  "hanasu": {
+    "character": "話",
+    "officialOn": [
+      "ワ"
+    ],
+    "officialKun": [
+      "はな(す)",
+      "はなし"
+    ],
+    "taughtOn": [
+      "ワ"
+    ],
+    "taughtKun": [
+      "はな(す)",
+      "はなし"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  },
+  "nani": {
+    "character": "何",
+    "officialOn": [
+      "カ"
+    ],
+    "officialKun": [
+      "なに",
+      "なん"
+    ],
+    "taughtOn": [
+      "カ"
+    ],
+    "taughtKun": [
+      "なに",
+      "なん"
+    ],
+    "deferred": [],
+    "irregularWords": []
+  }
+}

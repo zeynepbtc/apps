@@ -1,0 +1,408 @@
+{
+  "hito": {
+    "kanji": "人",
+    "pdfPage": 86,
+    "officialRawOn": [
+      "ジン",
+      "ニン"
+    ],
+    "officialRawKun": [
+      "ひと"
+    ],
+    "normalizedOn": [
+      "ジン",
+      "ニン"
+    ],
+    "normalizedKun": [
+      "ひと"
+    ],
+    "currentOn": [
+      "ジン",
+      "ニン"
+    ],
+    "currentKun": [
+      "ひと"
+    ],
+    "missingOn": [],
+    "missingKun": [],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "PASS"
+  },
+  "dai": {
+    "kanji": "大",
+    "pdfPage": 104,
+    "officialRawOn": [
+      "ダイ",
+      "タイ"
+    ],
+    "officialRawKun": [
+      "おお",
+      "おおきい",
+      "おおいに"
+    ],
+    "normalizedOn": [
+      "ダイ",
+      "タイ"
+    ],
+    "normalizedKun": [
+      "おお",
+      "おお(きい)",
+      "おお(いに)"
+    ],
+    "currentOn": [
+      "ダイ",
+      "タイ"
+    ],
+    "currentKun": [
+      "おお(きい)"
+    ],
+    "missingOn": [],
+    "missingKun": [
+      "おお",
+      "おお(いに)"
+    ],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "MISSING"
+  },
+  "tsuki": {
+    "kanji": "月",
+    "pdfPage": 46,
+    "officialRawOn": [
+      "ゲツ",
+      "ガツ"
+    ],
+    "officialRawKun": [
+      "つき"
+    ],
+    "normalizedOn": [
+      "ゲツ",
+      "ガツ"
+    ],
+    "normalizedKun": [
+      "つき"
+    ],
+    "currentOn": [
+      "ゲツ",
+      "ガツ"
+    ],
+    "currentKun": [
+      "つき"
+    ],
+    "missingOn": [],
+    "missingKun": [],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "PASS"
+  },
+  "yon": {
+    "kanji": "四",
+    "pdfPage": 64,
+    "officialRawOn": [
+      "シ"
+    ],
+    "officialRawKun": [
+      "よ",
+      "よつ",
+      "よっつ",
+      "よん"
+    ],
+    "normalizedOn": [
+      "シ"
+    ],
+    "normalizedKun": [
+      "よ",
+      "よ(つ)",
+      "よっ(つ)",
+      "よん"
+    ],
+    "currentOn": [
+      "シ"
+    ],
+    "currentKun": [
+      "よん",
+      "よ(つ)"
+    ],
+    "missingOn": [],
+    "missingKun": [
+      "よ",
+      "よっ(つ)"
+    ],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "MISSING"
+  },
+  "kyuu": {
+    "kanji": "九",
+    "pdfPage": 35,
+    "officialRawOn": [
+      "キュウ",
+      "ク"
+    ],
+    "officialRawKun": [
+      "ここの",
+      "ここのつ"
+    ],
+    "normalizedOn": [
+      "キュウ",
+      "ク"
+    ],
+    "normalizedKun": [
+      "ここの",
+      "ここの(つ)"
+    ],
+    "currentOn": [
+      "キュウ",
+      "ク"
+    ],
+    "currentKun": [
+      "ここの(つ)"
+    ],
+    "missingOn": [],
+    "missingKun": [
+      "ここの"
+    ],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "MISSING"
+  },
+  "otoko": {
+    "kanji": "男",
+    "pdfPage": 106,
+    "officialRawOn": [
+      "ダン",
+      "ナン"
+    ],
+    "officialRawKun": [
+      "おとこ"
+    ],
+    "normalizedOn": [
+      "ダン",
+      "ナン"
+    ],
+    "normalizedKun": [
+      "おとこ"
+    ],
+    "currentOn": [
+      "ダン",
+      "ナン"
+    ],
+    "currentKun": [
+      "おとこ"
+    ],
+    "missingOn": [],
+    "missingKun": [],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "PASS"
+  },
+  "ashi": {
+    "kanji": "足",
+    "pdfPage": 100,
+    "officialRawOn": [
+      "ソク"
+    ],
+    "officialRawKun": [
+      "あし",
+      "たりる",
+      "たる",
+      "たす"
+    ],
+    "normalizedOn": [
+      "ソク"
+    ],
+    "normalizedKun": [
+      "あし",
+      "た(りる)",
+      "た(る)",
+      "た(す)"
+    ],
+    "currentOn": [
+      "ソク"
+    ],
+    "currentKun": [
+      "あし",
+      "た(りる)"
+    ],
+    "missingOn": [],
+    "missingKun": [
+      "た(る)",
+      "た(す)"
+    ],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "MISSING"
+  },
+  "ato": {
+    "kanji": "後",
+    "pdfPage": 51,
+    "officialRawOn": [
+      "ゴ",
+      "コウ"
+    ],
+    "officialRawKun": [
+      "のち",
+      "うしろ",
+      "あと",
+      "おくれる"
+    ],
+    "normalizedOn": [
+      "ゴ",
+      "コウ"
+    ],
+    "normalizedKun": [
+      "のち",
+      "うし(ろ)",
+      "あと",
+      "おく(れる)"
+    ],
+    "currentOn": [
+      "ゴ"
+    ],
+    "currentKun": [
+      "あと",
+      "うし(ろ)"
+    ],
+    "missingOn": [
+      "コウ"
+    ],
+    "missingKun": [
+      "のち",
+      "おく(れる)"
+    ],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "MISSING"
+  },
+  "sei": {
+    "kanji": "生",
+    "pdfPage": 89,
+    "officialRawOn": [
+      "セイ",
+      "ショウ"
+    ],
+    "officialRawKun": [
+      "いきる",
+      "いかす",
+      "いける",
+      "うまれる",
+      "うむ",
+      "おう",
+      "はえる",
+      "はやす",
+      "き",
+      "なま"
+    ],
+    "normalizedOn": [
+      "セイ",
+      "ショウ"
+    ],
+    "normalizedKun": [
+      "い(きる)",
+      "い(かす)",
+      "い(ける)",
+      "う(まれる)",
+      "う(む)",
+      "お(う)",
+      "は(える)",
+      "は(やす)",
+      "き",
+      "なま"
+    ],
+    "currentOn": [
+      "セイ"
+    ],
+    "currentKun": [
+      "い(きる)",
+      "う(まれる)"
+    ],
+    "missingOn": [
+      "ショウ"
+    ],
+    "missingKun": [
+      "い(かす)",
+      "い(ける)",
+      "う(む)",
+      "お(う)",
+      "は(える)",
+      "は(やす)",
+      "き",
+      "なま"
+    ],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "MISSING"
+  },
+  "hanasu": {
+    "kanji": "話",
+    "pdfPage": 161,
+    "officialRawOn": [
+      "ワ"
+    ],
+    "officialRawKun": [
+      "はなす",
+      "はなし"
+    ],
+    "normalizedOn": [
+      "ワ"
+    ],
+    "normalizedKun": [
+      "はな(す)",
+      "はなし"
+    ],
+    "currentOn": [
+      "ワ"
+    ],
+    "currentKun": [
+      "はな(す)",
+      "はなし"
+    ],
+    "missingOn": [],
+    "missingKun": [],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "PASS"
+  },
+  "nani": {
+    "kanji": "何",
+    "pdfPage": 20,
+    "officialRawOn": [
+      "カ"
+    ],
+    "officialRawKun": [
+      "なに",
+      "なん"
+    ],
+    "normalizedOn": [
+      "カ"
+    ],
+    "normalizedKun": [
+      "なに",
+      "なん"
+    ],
+    "currentOn": [
+      "カ"
+    ],
+    "currentKun": [
+      "なに",
+      "なん"
+    ],
+    "missingOn": [],
+    "missingKun": [],
+    "extraOn": [],
+    "extraKun": [],
+    "notationOnly": [],
+    "verdict": "PASS"
+  }
+}
