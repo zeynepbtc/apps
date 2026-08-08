@@ -30,14 +30,10 @@ for (const id in chars) {
   rcount++;
   if (k.readings.taughtOn) ok("onyomi == taughtOn: " + id, k.onyomi === k.readings.taughtOn.join("・"));
   if (k.readings.taughtKun) ok("kunyomi == taughtKun: " + id, k.kunyomi === k.readings.taughtKun.join("・"));
-  // deferred okuma taught'ta OLMAMALI (official ama öğretilmiyor)
-  for (const d of (k.readings.deferred || []))
-    ok(`${id}: deferred ${d.reading} taught'ta değil`, !(k.readings.taughtOn || []).includes(d.reading) && !(k.readings.taughtKun || []).includes(d.reading));
-  // jukujikun düzensiz okuma taught'a SIZMAMALI (kanji okuması kazandırmaz)
-  for (const w of (k.readings.irregularWords || [])) {
-    ok(`${id}: irregular ${w.word} taughtOn'a sızmadı`, !(k.readings.taughtOn || []).includes(w.reading));
-    ok(`${id}: irregular ${w.word} taughtKun'a sızmadı`, !(k.readings.taughtKun || []).includes(w.reading));
-  }
+  // NOT: `deferred ∉ taught` (kind-agnostik) ve `irregular ∉ taught` (ham dize) kontrolleri
+  // buradan KALDIRILDI. DECISION-004 v3 I-6'yı köken kuralına çevirdi (ham dize geçersiz) ve
+  // I-3 typed biçime yükseltildi. İkisi de artık _faz2/smoke_readings_sets.js'te yaşıyor
+  // (Uygulama Sözleşmesi §1.2, Q2/Q3). Burada yalnız yüzey türetmesi (I-5) korunur.
 }
 console.log(`v2 struct kayıt: ${v2count} · v2 readings kayıt: ${rcount}`);
 console.log(`smoke_legacy_derived: ${pass}/${pass + fail}`);

@@ -45,6 +45,7 @@ const DEFAULT_TIMEOUT_MS = 60_000;
 const WHITELIST = [
   "smoke_content_scaffold.js",
   "smoke_legacy_derived.js",
+  "smoke_readings_sets.js",
   "smoke_durable_backend.js",
   "smoke_game_roles.js",
   "storage_check.js",
