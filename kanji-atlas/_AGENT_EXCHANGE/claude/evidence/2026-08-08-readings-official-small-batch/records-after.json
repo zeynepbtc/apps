@@ -1,0 +1,140 @@
+{
+  "dai": {
+    "character": "大",
+    "onyomi": "ダイ・タイ",
+    "kunyomi": "おお(きい)",
+    "officialOn": [
+      "ダイ",
+      "タイ"
+    ],
+    "officialKun": [
+      "おお",
+      "おお(きい)",
+      "おお(いに)"
+    ],
+    "taughtOn": [
+      "ダイ",
+      "タイ"
+    ],
+    "taughtKun": [
+      "おお(きい)"
+    ],
+    "deferred": [
+      {
+        "reading": "おお",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "おお(いに)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      }
+    ]
+  },
+  "yon": {
+    "character": "四",
+    "onyomi": "シ",
+    "kunyomi": "よん・よ(つ)",
+    "officialOn": [
+      "シ"
+    ],
+    "officialKun": [
+      "よ",
+      "よ(つ)",
+      "よっ(つ)",
+      "よん"
+    ],
+    "taughtOn": [
+      "シ"
+    ],
+    "taughtKun": [
+      "よん",
+      "よ(つ)"
+    ],
+    "deferred": [
+      {
+        "reading": "よ",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "よっ(つ)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      }
+    ]
+  },
+  "kyuu": {
+    "character": "九",
+    "onyomi": "キュウ・ク",
+    "kunyomi": "ここの(つ)",
+    "officialOn": [
+      "キュウ",
+      "ク"
+    ],
+    "officialKun": [
+      "ここの",
+      "ここの(つ)"
+    ],
+    "taughtOn": [
+      "キュウ",
+      "ク"
+    ],
+    "taughtKun": [
+      "ここの(つ)"
+    ],
+    "deferred": [
+      {
+        "reading": "ここの",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      }
+    ]
+  },
+  "ashi": {
+    "character": "足",
+    "onyomi": "ソク",
+    "kunyomi": "あし",
+    "officialOn": [
+      "ソク"
+    ],
+    "officialKun": [
+      "あし",
+      "た(りる)",
+      "た(る)",
+      "た(す)"
+    ],
+    "taughtOn": [
+      "ソク"
+    ],
+    "taughtKun": [
+      "あし"
+    ],
+    "deferred": [
+      {
+        "reading": "た(りる)",
+        "kind": "kun",
+        "reason": "N4; farklı anlam kümesi (yetmek); örnek 足りる authoring incelemesine",
+        "recommend": "defer"
+      },
+      {
+        "reading": "た(る)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "た(す)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      }
+    ]
+  }
+}

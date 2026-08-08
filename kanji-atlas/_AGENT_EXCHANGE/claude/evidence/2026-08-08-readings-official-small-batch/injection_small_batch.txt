@@ -1,0 +1,67 @@
+=== ÜRÜN SHA · ÖNCE ===
+  index.html: 00ff56e22d88a68990d358eee3b744500cd0e8da026e6c41818e7ab9eea73198 
+  data_chars.json: f4d4e6584d65959f1fafe6b1b6003430c51e227b3a20583db128c9b96b2e2f21
+
+=== BASELINE — beklenen exit 0 ===
+BASELINE · enjeksiyon YOK
+smoke_official_readings_small_batch: 36/36
+exit: 0
+→ GERÇEK exit: 0
+
+=== inj1 — beklenen exit 1 ===
+ENJEKSİYON: inj1 · dai.officialKun içinden おお çıkarılır
+FAIL: dai: officialKun (değer+sıra)
+smoke_official_readings_small_batch: 35/36
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj2 — beklenen exit 1 ===
+ENJEKSİYON: inj2 · yon.officialKun sırası değiştirilir
+FAIL: yon: officialKun (değer+sıra)
+smoke_official_readings_small_batch: 35/36
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj3 — beklenen exit 1 ===
+ENJEKSİYON: inj3 · kyuu için ここの yanlışlıkla taughtKun'a eklenir (yüzey değişmez)
+FAIL: kyuu: taughtKun
+smoke_official_readings_small_batch: 35/36
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj4 — beklenen exit 1 ===
+ENJEKSİYON: inj4 · ashi yeni た(す) girdisinin kind'ı on yapılır
+FAIL: ashi: deferred (tam eşleşme)
+smoke_official_readings_small_batch: 35/36
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj5 — beklenen exit 1 ===
+ENJEKSİYON: inj5 · ashi / た(りる) mevcut reason metni değiştirilir
+FAIL: ashi: deferred (tam eşleşme)
+smoke_official_readings_small_batch: 35/36
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj6 — beklenen exit 1 ===
+ENJEKSİYON: inj6 · yon.kunyomi sessizce よん・よ(つ)・よっ(つ) yapılır
+FAIL: yon: kunyomi yüzeyi
+smoke_official_readings_small_batch: 35/36
+exit: 1
+→ GERÇEK exit: 1
+
+=== ÜRÜN SHA · SONRA ===
+  index.html: 00ff56e22d88a68990d358eee3b744500cd0e8da026e6c41818e7ab9eea73198 
+  data_chars.json: f4d4e6584d65959f1fafe6b1b6003430c51e227b3a20583db128c9b96b2e2f21
+✅ ÜRÜN DOSYALARI DEĞİŞMEDİ
+
+=== ÖZET ===
+  baseline  beklenen 0 · gerçek 0 · ✅
+  inj1      beklenen 1 · gerçek 1 · ✅
+  inj2      beklenen 1 · gerçek 1 · ✅
+  inj3      beklenen 1 · gerçek 1 · ✅
+  inj4      beklenen 1 · gerçek 1 · ✅
+  inj5      beklenen 1 · gerçek 1 · ✅
+  inj6      beklenen 1 · gerçek 1 · ✅
+
+Baseline PASS + 6 enjeksiyon FAIL + ürün dokunulmadı: ✅ TÜMÜ BEKLENDİĞİ GİBİ

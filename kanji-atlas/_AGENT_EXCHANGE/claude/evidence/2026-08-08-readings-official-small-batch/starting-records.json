@@ -1,0 +1,163 @@
+{
+  "dai": {
+    "character": "大",
+    "onyomi": "ダイ・タイ",
+    "kunyomi": "おお(きい)",
+    "readings": {
+      "officialOn": [
+        "ダイ",
+        "タイ"
+      ],
+      "officialKun": [
+        "おお(きい)"
+      ],
+      "taughtOn": [
+        "ダイ",
+        "タイ"
+      ],
+      "taughtKun": [
+        "おお(きい)"
+      ],
+      "deferred": [],
+      "irregularWords": []
+    },
+    "examples": [
+      [
+        "大きい",
+        "ookii",
+        "büyük"
+      ],
+      [
+        "大学",
+        "daigaku",
+        "üniversite"
+      ],
+      [
+        "大人",
+        "otona",
+        "yetişkin"
+      ]
+    ]
+  },
+  "yon": {
+    "character": "四",
+    "onyomi": "シ",
+    "kunyomi": "よん・よ(つ)",
+    "readings": {
+      "officialOn": [
+        "シ"
+      ],
+      "officialKun": [
+        "よん",
+        "よ(つ)"
+      ],
+      "taughtOn": [
+        "シ"
+      ],
+      "taughtKun": [
+        "よん",
+        "よ(つ)"
+      ],
+      "deferred": [],
+      "irregularWords": []
+    },
+    "examples": [
+      [
+        "四月",
+        "shigatsu",
+        "Nisan"
+      ],
+      [
+        "四つ",
+        "yottsu",
+        "dört adet"
+      ],
+      [
+        "四時",
+        "yoji",
+        "saat dört"
+      ]
+    ]
+  },
+  "kyuu": {
+    "character": "九",
+    "onyomi": "キュウ・ク",
+    "kunyomi": "ここの(つ)",
+    "readings": {
+      "officialOn": [
+        "キュウ",
+        "ク"
+      ],
+      "officialKun": [
+        "ここの(つ)"
+      ],
+      "taughtOn": [
+        "キュウ",
+        "ク"
+      ],
+      "taughtKun": [
+        "ここの(つ)"
+      ],
+      "deferred": [],
+      "irregularWords": []
+    },
+    "examples": [
+      [
+        "九月",
+        "kugatsu",
+        "Eylül"
+      ],
+      [
+        "九つ",
+        "kokonotsu",
+        "dokuz adet"
+      ],
+      [
+        "九時",
+        "kuji",
+        "saat dokuz"
+      ]
+    ]
+  },
+  "ashi": {
+    "character": "足",
+    "onyomi": "ソク",
+    "kunyomi": "あし",
+    "readings": {
+      "officialOn": [
+        "ソク"
+      ],
+      "officialKun": [
+        "あし",
+        "た(りる)"
+      ],
+      "taughtOn": [
+        "ソク"
+      ],
+      "taughtKun": [
+        "あし"
+      ],
+      "deferred": [
+        {
+          "reading": "た(りる)",
+          "kind": "kun",
+          "reason": "N4; farklı anlam kümesi (yetmek); örnek 足りる authoring incelemesine",
+          "recommend": "defer"
+        }
+      ],
+      "irregularWords": []
+    },
+    "examples": [
+      [
+        "足",
+        "ashi",
+        "ayak, bacak"
+      ],
+      [
+        "足りる",
+        "tariru",
+        "yetmek"
+      ]
+    ]
+  }
+}
