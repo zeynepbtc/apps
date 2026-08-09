@@ -48,6 +48,7 @@ const WHITELIST = [
   "smoke_readings_sets.js",
   "smoke_official_readings_small_batch.js",
   "smoke_official_readings_ato.js",
+  "smoke_official_readings_sei.js",
   "smoke_durable_backend.js",
   "smoke_game_roles.js",
   "storage_check.js",

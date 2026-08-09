@@ -1,0 +1,105 @@
+{
+  "character": "生",
+  "onyomi": "セイ",
+  "kunyomi": "い(きる)・う(まれる)",
+  "examples": [
+    [
+      "学生",
+      "gakusei",
+      "öğrenci"
+    ],
+    [
+      "先生",
+      "sensei",
+      "öğretmen"
+    ],
+    [
+      "生まれる",
+      "umareru",
+      "doğmak"
+    ]
+  ],
+  "readings": {
+    "officialOn": [
+      "セイ",
+      "ショウ"
+    ],
+    "officialKun": [
+      "い(きる)",
+      "い(かす)",
+      "い(ける)",
+      "う(まれる)",
+      "う(む)",
+      "お(う)",
+      "は(える)",
+      "は(やす)",
+      "き",
+      "なま"
+    ],
+    "taughtOn": [
+      "セイ"
+    ],
+    "taughtKun": [
+      "い(きる)",
+      "う(まれる)"
+    ],
+    "deferred": [
+      {
+        "reading": "ショウ",
+        "kind": "on",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "い(かす)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "い(ける)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "う(む)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "お(う)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "は(える)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "は(やす)",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "き",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      },
+      {
+        "reading": "なま",
+        "kind": "kun",
+        "reason": "Resmî 常用 okuması; N5 başlangıç yüzeyinde bu tur öğretilmiyor",
+        "recommend": "defer"
+      }
+    ],
+    "source": "文化庁 常用漢字表 / jitenon",
+    "qaStatus": "reviewed"
+  }
+}

@@ -1,0 +1,24 @@
+run-core-gates · 14 çekirdek kapı
+Atlas dizini : /private/tmp/claude-501/-Volumes-Zeynep-G-PROJECT-APPS-web-github--worktrees-kanji-atlas-onboarding-b2-gate3/912d61e4-5ce2-457e-8b0b-706b0ca403be/scratchpad/atlas_sei
+Node         : v24.18.0
+Zaman aşımı  : 60000 ms / test
+Git koruması : KULLANILAMIYOR — Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)
+  ✅ PASS      smoke_content_scaffold.js      43 ms
+  ✅ PASS      smoke_legacy_derived.js        34 ms
+  ✅ PASS      smoke_readings_sets.js         34 ms
+  ✅ PASS      smoke_official_readings_small_batch.js     31 ms
+  ✅ PASS      smoke_official_readings_ato.js     31 ms
+  ✅ PASS      smoke_official_readings_sei.js     32 ms
+  ✅ PASS      smoke_durable_backend.js       35 ms
+  ✅ PASS      smoke_game_roles.js            35 ms
+  ✅ PASS      storage_check.js               32 ms
+  ✅ PASS      srs_check.js                   48 ms
+  ✅ PASS      graph_check.js                 33 ms
+  ✅ PASS      list_progress_check.js         31 ms
+  ✅ PASS      manifest_check.js              50 ms
+  ✅ PASS      manifest_build_check.js        37 ms
+
+Toplam: 14/14 PASS · FAIL 0 · TIMEOUT 0 · diğer 0 · 518 ms
+Ağaç koruması: ⚠️ kullanılamıyor (Git çalışma ağacı bulunamadı (bağımsız kopya olabilir))
+
+✅ ÇEKİRDEK KAPILAR GEÇTİ

@@ -1,0 +1,85 @@
+=== ÜRÜN SHA · ÖNCE ===
+  index.html: 51a12c75754fa85c1a0b8beed9e2f932d9d45c7d5903917d7f4d16c94b6f46e7 
+  data_chars.json: 64b7ebfbdc1c7f7b1f8142eaf873602bb36daaef0053d3a3478507b774514f69
+
+=== BASELINE — beklenen exit 0 ===
+BASELINE · enjeksiyon YOK
+smoke_official_readings_sei: 14/14
+exit: 0
+→ GERÇEK exit: 0
+
+=== inj1 — beklenen exit 1 ===
+ENJEKSİYON: inj1 · officialOn içinden ショウ çıkarılır
+FAIL: sei: officialOn (değer+sıra)
+smoke_official_readings_sei: 13/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj2 — beklenen exit 1 ===
+ENJEKSİYON: inj2 · officialKun sırası değiştirilir
+FAIL: sei: officialKun (değer+sıra)
+smoke_official_readings_sei: 13/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj3 — beklenen exit 1 ===
+ENJEKSİYON: inj3 · ショウ yanlışlıkla taughtOn'a eklenir (yüzey aynı)
+FAIL: sei: taughtOn
+smoke_official_readings_sei: 13/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj4 — beklenen exit 1 ===
+ENJEKSİYON: inj4 · い(かす) deferred girdisinin kind'ı on yapılır
+FAIL: sei: deferred (9, tam eşleşme, sıra dahil)
+smoke_official_readings_sei: 13/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj5 — beklenen exit 1 ===
+ENJEKSİYON: inj5 · なま deferred reason metni değiştirilir
+FAIL: sei: deferred (9, tam eşleşme, sıra dahil)
+smoke_official_readings_sei: 13/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj6 — beklenen exit 1 ===
+ENJEKSİYON: inj6 · kunyomi sessizce い(きる)・う(まれる)・なま yapılır
+FAIL: sei: kunyomi yüzeyi
+smoke_official_readings_sei: 13/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj7 — beklenen exit 1 ===
+ENJEKSİYON: inj7 · やよい officialKun ve deferred(kun) içine eklenir
+FAIL: sei: officialKun (değer+sıra)
+FAIL: sei: deferred (9, tam eşleşme, sıra dahil)
+FAIL: sei: 付表 'やよい' hiçbir okuma kümesinde/deferred'da yok
+smoke_official_readings_sei: 11/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== inj8 — beklenen exit 1 ===
+ENJEKSİYON: inj8 · readings.irregularWords sessizce eklenir
+FAIL: sei: irregularWords YOK (付表 sızmadı)
+smoke_official_readings_sei: 13/14
+exit: 1
+→ GERÇEK exit: 1
+
+=== ÜRÜN SHA · SONRA ===
+  index.html: 51a12c75754fa85c1a0b8beed9e2f932d9d45c7d5903917d7f4d16c94b6f46e7 
+  data_chars.json: 64b7ebfbdc1c7f7b1f8142eaf873602bb36daaef0053d3a3478507b774514f69
+✅ ÜRÜN DOSYALARI DEĞİŞMEDİ
+
+=== ÖZET ===
+  baseline  beklenen 0 · gerçek 0 · ✅
+  inj1      beklenen 1 · gerçek 1 · ✅
+  inj2      beklenen 1 · gerçek 1 · ✅
+  inj3      beklenen 1 · gerçek 1 · ✅
+  inj4      beklenen 1 · gerçek 1 · ✅
+  inj5      beklenen 1 · gerçek 1 · ✅
+  inj6      beklenen 1 · gerçek 1 · ✅
+  inj7      beklenen 1 · gerçek 1 · ✅
+  inj8      beklenen 1 · gerçek 1 · ✅
+
+Baseline PASS + 8 enjeksiyon FAIL + ürün dokunulmadı: ✅ TÜMÜ BEKLENDİĞİ GİBİ
