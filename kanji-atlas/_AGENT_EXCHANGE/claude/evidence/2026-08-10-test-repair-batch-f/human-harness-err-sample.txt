@@ -1,0 +1,26 @@
+run-browser-gates · 4 tarayıcı kapısı
+Atlas kökü   : /private/tmp/claude-501/-Volumes-Zeynep-G-PROJECT-APPS-web-github--worktrees-kanji-atlas-onboarding-b2-gate3/912d61e4-5ce2-457e-8b0b-706b0ca403be/scratchpad/atlas_harness_err
+Node         : v24.18.0
+Zaman aşımı  : 300000 ms / test
+Git koruması : KULLANILAMIYOR — Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)
+Sunucu       : http://127.0.0.1:57498/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ❌ FAIL      smoke_sources.js              34 ms exit=2
+     ── stdout ──
+     [51 karakter · 53 bayt]
+     | smoke_sources: sayfa yüklendi, 3/5 assertion geçti
+     | 
+     ── stderr ──
+     [118 karakter · 118 bayt]
+     | HARNESS ERR: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:PORT/index.html
+     |     at smoke_sources.js:42:17
+     | 
+  ✅ PASS      smoke_home_rec.js             29 ms
+  ✅ PASS      smoke_backup.js               30 ms
+  ✅ PASS      smoke_recognition.js          31 ms
+
+Sunucu kapatıldı · port 57498
+Toplam: 3/4 PASS · FAIL 1 · TIMEOUT 0 · diğer 0 · 145 ms
+Ağaç koruması: ⚠️ kullanılamıyor (Git çalışma ağacı bulunamadı (bağımsız kopya olabilir))
+
+❌ TARAYICI KAPILARI GEÇMEDİ

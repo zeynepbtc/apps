@@ -1,0 +1,21 @@
+
+> kanji-atlas-gates@0.0.0 gates:browser
+> node _faz2/run-browser-gates.mjs
+
+run-browser-gates · 4 tarayıcı kapısı
+Atlas kökü   : /private/tmp/claude-501/-Volumes-Zeynep-G-PROJECT-APPS-web-github--worktrees-kanji-atlas-onboarding-b2-gate3/912d61e4-5ce2-457e-8b0b-706b0ca403be/scratchpad/atlas_gates_f2
+Node         : v24.18.0
+Zaman aşımı  : 300000 ms / test
+Git koruması : KULLANILAMIYOR — Git çalışma ağacı bulunamadı (bağımsız kopya olabilir)
+Sunucu       : http://127.0.0.1:58046/index.html  (127.0.0.1, port OS tarafından atandı)
+
+  ✅ PASS      smoke_sources.js            2574 ms
+  ✅ PASS      smoke_home_rec.js          21029 ms
+  ✅ PASS      smoke_backup.js             5037 ms
+  ✅ PASS      smoke_recognition.js       12491 ms
+
+Sunucu kapatıldı · port 58046
+Toplam: 4/4 PASS · FAIL 0 · TIMEOUT 0 · diğer 0 · 41151 ms
+Ağaç koruması: ⚠️ kullanılamıyor (Git çalışma ağacı bulunamadı (bağımsız kopya olabilir))
+
+✅ TARAYICI KAPILARI GEÇTİ

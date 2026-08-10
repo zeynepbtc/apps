@@ -45,6 +45,9 @@ const RUNNER_NAME = "run-browser-gates";
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_TIMEOUT_MS = 300_000;
 const KILL_GRACE_MS = 5_000;
+/* Batch F (2026-08-10): insan-okur modda başarısız çocuk başına, AKIŞ BAŞINA sabit üst sınır.
+   Aşılırsa en tanılayıcı SON bölüm korunur; kesilme işaretlenir; orijinal uzunluk raporlanır. */
+const MAX_EVIDENCE_CHARS = 4_000;
 
 /* ── AÇIK BEYAZ LİSTE — sözleşmedeki sıra. Desen/dizin taraması YOK. ── */
 const WHITELIST = ["smoke_sources.js", "smoke_home_rec.js", "smoke_backup.js", "smoke_recognition.js"];
@@ -77,6 +80,36 @@ for (const a of process.argv.slice(2)) {
   } else { process.stderr.write(`HATA: bilinmeyen argüman: ${a}\n\n${USAGE}\n`); process.exit(1); }
 }
 const out = s => (jsonMode ? process.stderr : process.stdout).write(s + "\n");
+
+/* ── Batch F (2026-08-10): başarısız çocuğun YAKALANMIŞ çıktısını insan-okur logda göster ──
+   Neden: insan-okur mod, PASS olmayan çocuğun stdout/stderr'ini sonuç nesnesinde topluyordu ama
+   göstermiyordu; ilk HARNESS/Chromium hatasının asıl mesajı kayboluyordu. Bu yardımcı yalnız
+   insan-okur modda çağrılır (--json modunda sonuç nesnelerindeki stdout/stderr alanları zaten
+   tam taşır). PASS çocukların çıktısı BASILMAZ. Sabit üst sınır (MAX_EVIDENCE_CHARS) aşılırsa
+   en tanılayıcı SON bölüm (tail) korunur, kesilme açıkça işaretlenir, orijinal karakter/bayt
+   uzunluğu raporlanır. Yeni dosya YAZILMAZ; içerik olduğu gibi (UTF-8) gösterilir; hiçbir
+   "hassas veri ayıklandı" iddiası yapılmaz. */
+function printFailureEvidence(r) {
+  const stream = (label, s) => {
+    s = s == null ? "" : String(s);
+    out(`     ── ${label} ──`);
+    if (s.length === 0) { out(`     (boş)`); return; }
+    /* UNICODE GÜVENLİ: karakter sayımı ve kesme, UTF-16 code-unit'te DEĞİL code point'te yapılır.
+       Array.from string yineleyicisi surrogate çiftlerini bütün tutar; slice+join asla bir çifti
+       ortadan bölmez (U+FFFD üretmez). Bayt uzunluğu gerçek UTF-8 (Buffer.byteLength). */
+    const cp = Array.from(s);
+    const chars = cp.length, bytes = Buffer.byteLength(s, "utf8");
+    let shown = s, note = `[${chars} karakter · ${bytes} bayt]`;
+    if (chars > MAX_EVIDENCE_CHARS) {
+      shown = cp.slice(chars - MAX_EVIDENCE_CHARS).join("");   // SON bölüm, code point sınırında kesilir
+      note = `[KESİLDİ · son ${MAX_EVIDENCE_CHARS} karakter gösteriliyor · orijinal ${chars} karakter · ${bytes} bayt]`;
+    }
+    out(`     ${note}`);
+    for (const line of shown.split("\n")) out(`     | ${line}`);
+  };
+  stream("stdout", r.stdout);
+  stream("stderr", r.stderr);
+}
 
 const ATLAS = path.resolve(atlasArg || path.join(HERE, ".."));
 const FAZ2 = atlasArg ? path.join(ATLAS, "_faz2") : HERE;
@@ -306,6 +339,7 @@ try {
     const detail = r.status === "PASS" ? "" :
       (r.signal ? ` signal=${r.signal}` : (r.exitCode !== null ? ` exit=${r.exitCode}` : ` ${r.error || ""}`));
     out(`  ${tag.padEnd(11)} ${r.name.padEnd(24)} ${String(r.durationMs).padStart(7)} ms${detail}`);
+    if (r.status !== "PASS" && !jsonMode) printFailureEvidence(r);   // Batch F: yalnız insan-okur mod
   }
 } catch (e) {
   out(`\n❌ KOŞUCU İÇ HATASI: ${e && e.message || e}`);

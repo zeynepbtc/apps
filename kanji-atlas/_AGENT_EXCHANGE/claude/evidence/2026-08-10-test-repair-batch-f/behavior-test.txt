@@ -1,0 +1,61 @@
+=== test_browser_gate_runner: 8 senaryo ===
+
+S1 · non-zero çocuk, iki akış dolu (yapay HARNESS ERR)
+  ✅ S1 runner exit 1
+  ✅ S1 stdout etiketi görünür
+  ✅ S1 stderr etiketi görünür
+  ✅ S1 çocuk stdout içeriği görünür
+  ✅ S1 asıl HARNESS ERR stderr insan logunda görünür
+S2 · non-zero çocuk, stdout boş
+  ✅ S2 runner exit 1
+  ✅ S2 boş stdout '(boş)' olarak işaretli
+  ✅ S2 stderr içeriği görünür
+S3 · çok uzun çıktı, kesilme + tail
+  ✅ S3 runner exit 1
+  ✅ S3 [KESİLDİ] etiketi var
+  ✅ S3 orijinal uzunluk raporlanıyor (karakter+bayt)
+  ✅ S3 son bölüm (tail) korunuyor
+  ✅ S3 baş bölüm kesildi (head görünmüyor)
+S4 · timeout / kill yolu
+  ✅ S4 runner exit 1
+  ✅ S4 TIMEOUT durumu görünür
+  ✅ S4 timeout öncesi yakalanan çıktı korunmuş
+  ✅ S4 sunucu kapatıldı
+  ✅ S4 artık çocuk süreç kalmadı (pgrep boş)
+S5 · --json başarısızlık
+  ✅ S5 runner exit 1
+  ✅ S5 stdout TEK parse edilebilir JSON
+  ✅ S5 sonuç nesnesi mevcut
+  ✅ S5 sonuç.stdout tam
+  ✅ S5 sonuç.stderr tam
+  ✅ S5 overallPass false / decision FAIL
+  ✅ S5 insan kanıt bloğu stdout'a sızmadı (JSON temiz)
+S6 · başarı yolu
+  ✅ S6 runner exit 0
+  ✅ S6 4/4 PASS özeti
+  ✅ S6 PASS çocuk çıktısı basılmadı
+  ✅ S6 kanıt bloğu yok
+S7a · kirli başlangıç koruması
+  ✅ S7a runner exit 1
+  ✅ S7a KIRLI BAŞLANGIÇ mesajı
+  ✅ S7a sunucu açılmadı
+S7b · koşum sırasında ağaç değişimi koruması
+  ✅ S7b runner exit 1
+  ✅ S7b KOŞUM SIRASINDA AĞAÇ DEĞİŞTİ mesajı
+S8 · Unicode kesme sınırı güvenliği (BULGU 1)
+  ✅ S8a exit 1
+  ✅ S8a [KESİLDİ] var
+  ✅ S8a U+FFFD (�) OLUŞMADI
+  ✅ S8a sınırdaki emoji bütün korundu
+  ✅ S8b exit 1
+  ✅ S8b U+FFFD (�) OLUŞMADI
+  ✅ S8b düşen emoji yarım surrogate bırakmadı (emoji yok)
+  ✅ S8c exit 1
+  ✅ S8c U+FFFD (�) OLUŞMADI (hasReplacement=false)
+  ✅ S8c emoji korundu (hasEmoji=true)
+  ✅ S8c orijinal 4000 karakter (code point) raporlandı
+  ✅ S8d exit 1
+  ✅ S8d U+FFFD (�) OLUŞMADI
+  ✅ S8d sınırdaki 𠮷 bütün korundu
+
+test_browser_gate_runner: 48/48 kontrol
