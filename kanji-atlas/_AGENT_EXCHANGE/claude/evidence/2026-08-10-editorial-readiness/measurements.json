@@ -1,0 +1,217 @@
+{
+  "_meta": {
+    "generator": "checkpoints/2026-08-10-EDITORIAL-ALIGNMENT-READINESS-INVENTORY.md §Yeniden Üretim",
+    "sourceFile": "kanji-atlas/index.html",
+    "sourceFileSha256": "51a12c75754fa85c1a0b8beed9e2f932d9d45c7d5903917d7f4d16c94b6f46e7",
+    "deterministic": true,
+    "note": "Salt-okunur; Date/rastgelelik yok. Aynı sourceFileSha256 → byte-identical çıktı."
+  },
+  "context": {
+    "totalRecords": 98,
+    "reviewed": 58,
+    "drafted": 1
+  },
+  "item1": {
+    "records": {
+      "四": {
+        "qaStatus": "reviewed",
+        "matchCount": 1,
+        "distinctPhrases": 1,
+        "hits": [
+          {
+            "field": "summaryTr",
+            "phrase": "sesi uygun düştüğü"
+          }
+        ]
+      },
+      "六": {
+        "qaStatus": "reviewed",
+        "matchCount": 0,
+        "distinctPhrases": 0,
+        "hits": []
+      },
+      "七": {
+        "qaStatus": "reviewed",
+        "matchCount": 0,
+        "distinctPhrases": 0,
+        "hits": []
+      },
+      "八": {
+        "qaStatus": "reviewed",
+        "matchCount": 0,
+        "distinctPhrases": 0,
+        "hits": []
+      },
+      "東": {
+        "qaStatus": "reviewed",
+        "matchCount": 1,
+        "distinctPhrases": 1,
+        "hits": [
+          {
+            "field": "summaryTr",
+            "phrase": "sesi uygun düştüğü"
+          }
+        ]
+      },
+      "九": {
+        "qaStatus": "drafted",
+        "matchCount": 4,
+        "distinctPhrases": 3,
+        "hits": [
+          {
+            "field": "summaryTr",
+            "phrase": "sesi nedeniyle"
+          },
+          {
+            "field": "disagreementNote",
+            "phrase": "sesi uygun düştüğü"
+          },
+          {
+            "field": "disagreementNote",
+            "phrase": "sesi için"
+          },
+          {
+            "field": "disagreementNote",
+            "phrase": "sesi nedeniyle"
+          }
+        ]
+      }
+    },
+    "clean": [
+      "六",
+      "七",
+      "八"
+    ],
+    "dirty": [
+      "四",
+      "東",
+      "九"
+    ]
+  },
+  "item2": {
+    "formationTypeDistribution": {
+      "象形": 22,
+      "指事": 6,
+      "形声": 15,
+      "会意形声": 5,
+      "会意": 11
+    },
+    "reviewedCount": 58,
+    "note": "~103 reviewed toplu standardizasyon; item1(借りて) buraya birleşik"
+  },
+  "item3": {
+    "memory_hint_tr": "Ağacın ardından doğan güneş: doğu.",
+    "mnemonicStatus": "not_required",
+    "qaStatus": "reviewed",
+    "renderedNow": false
+  },
+  "item4_右": {
+    "component_meanings": {},
+    "summaryTr": "Alttaki 口 sözü, üstteki parça ise yardım eden bir eli gösterir ve イウ sesine katkı yapar. Önce 'sözle yardım etmek' anlamı doğmuş; 'sağ' anlamı ise sonradan gelişmiştir."
+  },
+  "item4_名": {
+    "component_meanings": {
+      "夕": "akşam",
+      "口": "ağız"
+    },
+    "summaryTr": "口 ağız, 夕 ise akşam karanlığını gösterir. Karanlıkta birbirini göremeyen insanların adlarını ağızlarıyla söylemesinden 'isim' anlamı gelişmiştir."
+  },
+  "item5": {
+    "北": "Yönler",
+    "南": "Yönler",
+    "西": "Yönler",
+    "東": "Yönler",
+    "左": "Yön ve konum",
+    "右": "Yön ve konum",
+    "前": "Yön ve konum",
+    "後": "Yön ve konum",
+    "上": "Yön ve konum",
+    "下": "Yön ve konum",
+    "中": "Yön ve konum",
+    "外": "Günlük yaşam"
+  },
+  "item5_distinct": [
+    "Yönler",
+    "Yön ve konum",
+    "Günlük yaşam"
+  ],
+  "item6": {
+    "recordsWithPictogramNote": 47,
+    "byQa": {
+      "none": 30,
+      "reviewed": 17
+    }
+  },
+  "item7": {
+    "大": {
+      "qaStatus": "reviewed",
+      "hasSummaryTr": false,
+      "hasPictogramNote": true
+    },
+    "天": {
+      "qaStatus": "reviewed",
+      "hasSummaryTr": false,
+      "hasPictogramNote": true
+    },
+    "夫": {
+      "qaStatus": "reviewed",
+      "hasSummaryTr": false,
+      "hasPictogramNote": true
+    },
+    "本": {
+      "qaStatus": "reviewed",
+      "hasSummaryTr": false,
+      "hasPictogramNote": true
+    },
+    "国": {
+      "qaStatus": "reviewed",
+      "hasSummaryTr": false,
+      "hasPictogramNote": true
+    }
+  },
+  "item8": {
+    "summaryTr": "口 ağız, 夕 ise akşam karanlığını gösterir. Karanlıkta birbirini göremeyen insanların adlarını ağızlarıyla söylemesinden 'isim' anlamı gelişmiştir.",
+    "qaStatus": "reviewed"
+  },
+  "item9": {
+    "onyomi": "メイ",
+    "kunyomi": "な",
+    "hasReadingsSkeleton": false,
+    "kanjipediaClaim": "メイ・ミョウ (belge; PDF denetimi gerekli)"
+  },
+  "item10": {
+    "hasPictogramNote": true,
+    "qaStatus": "reviewed",
+    "hasSummaryTr": true
+  },
+  "item11": {
+    "hasMnemonic": false,
+    "qaStatus": "drafted"
+  },
+  "item12": {
+    "scanVerdict": "notMeasured",
+    "notMeasuredReason": "Çıkarılabilir-ayrıntı taraması creative editoryal iştir; Zeynep 2026-07-25 'ŞİMDİ YAPILMAZ' (kalan kırmızı turlar 南/白 testi gerçek vakada sınar, şimdi kapsam büyütür). Sayısal tarama sonucu üretilmez.",
+    "candidatePoolReviewedConfidenceDist": {
+      "A": 43,
+      "B": 15
+    },
+    "candidatePoolBConfidenceReviewedCount": 15,
+    "candidatePoolBConfidenceReviewed": [
+      "季",
+      "百",
+      "千",
+      "土",
+      "右",
+      "前",
+      "後",
+      "東",
+      "北",
+      "赤",
+      "青",
+      "名",
+      "行",
+      "来",
+      "食"
+    ]
+  }
+}

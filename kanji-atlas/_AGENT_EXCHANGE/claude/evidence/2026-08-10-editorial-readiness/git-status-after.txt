@@ -1,0 +1,5 @@
+?? kanji-atlas/_AGENT_EXCHANGE/claude/checkpoints/2026-08-10-EDITORIAL-ALIGNMENT-READINESS-INVENTORY.md
+?? kanji-atlas/_AGENT_EXCHANGE/claude/evidence/2026-08-10-editorial-readiness/git-status-after.txt
+?? kanji-atlas/_AGENT_EXCHANGE/claude/evidence/2026-08-10-editorial-readiness/git-status-before.txt
+?? kanji-atlas/_AGENT_EXCHANGE/claude/evidence/2026-08-10-editorial-readiness/measurements.json
+?? kanji-atlas/_AGENT_EXCHANGE/claude/evidence/2026-08-10-editorial-readiness/product-sha-before-after.txt
